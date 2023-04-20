@@ -1,0 +1,45 @@
+*
+{
+	text-decoration: none;
+}
+html, body
+{
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
+}
+
+
+
+.pf
+{
+	height: 100%;
+	width: 50%;
+}
+.pf_header
+{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	height: 158px;
+	width: 100%;
+}
+.pf_header img
+{
+	height: 128px;
+	width: 128px;
+	border-radius: 5px;
+}
+.pf_header_text
+{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin-left: 15px;
+}
+.pf_header_text_name
+{
+	font-size: 34px;
+	margin-bottom: 15px;
+}

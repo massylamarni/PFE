@@ -1,0 +1,42 @@
+*
+{
+	text-decoration: none;
+}
+html, body
+{
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
+}
+
+
+
+.bookform_container
+{
+	height: 100%;
+	width: 50%;
+}
+.bookform
+{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	height: 100%;
+	width: 100%;
+}
+.bookform_title
+{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+.bookform_body
+{
+	display: flex;
+	flex-direction: column;
+}
+.hidden
+{
+	display: none;
+}
