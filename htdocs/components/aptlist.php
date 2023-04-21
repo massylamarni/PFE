@@ -6,8 +6,8 @@ $pf_location = "COlorado, USA";
 $pf_speciality = '<a href="#">Psychologue, </a><a href="#">Dermatologue</a>';
 $brief_date = "Lundi, 31 mars";
 $brief_time = "a 15:30";
-$brief_date_remaining = "Il reste 2j, ";
-$brief_time_remaining = "12h et 9min";
+$brief_date_rem = "Il reste 2j, ";
+$brief_time_rem = "12h et 9min";
 ?>
 <div class="list_el">
 	<div class="pfp" id="<?php echo $pfid?>">
@@ -24,8 +24,8 @@ $brief_time_remaining = "12h et 9min";
 			<div class="brief_time"><?php echo $brief_time ?></div>
 		</div>
 		<div class="brief_datetime">
-			<div class="brief_date"><?php echo $brief_date_remaining ?></div>
-			<div class="brief_time"><?php echo $brief_time_remaining ?></div>
+			<div class="brief_date"><?php echo $brief_date_rem ?></div>
+			<div class="brief_time"><?php echo $brief_time_rem ?></div>
 		</div>
 		<div class="brief_motif"><p>Motif de consultation</p></div>
 		<div class="brief_cancel"><p>Annuler RDV</p></div>

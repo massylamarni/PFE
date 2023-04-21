@@ -10,7 +10,7 @@ $brief_date = "Lundi, 31 mars";
 $brief_time = "a 15:30";
 ?>
 <div class="list_el">
-	<div class="pfp" id="<?php echo $pfid?>">
+	<div class="pfp" id="<?php echo $pf_id?>">
 		<img src="<?php echo $pf_image ?>">
 		<div class="pfp_text">
 			<div class="pfp_text_name"><?php echo $pf_name ?></div>
