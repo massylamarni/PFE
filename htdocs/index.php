@@ -8,7 +8,7 @@
 	<title>Visuals</title>
 </head>
 <body>
-
+<!--testing-->
 <?php include("components/navbar.php"); ?>
 <div class="std_containerI">
 	<div class="main">
