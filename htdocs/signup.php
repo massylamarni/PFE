@@ -8,6 +8,7 @@
 	<title>Visuals</title>
 </head>
 <body>
+<!--save-->
 
 <?php include("components/navbar.php");
 
