@@ -8,8 +8,43 @@
 	<title>Visuals</title>
 </head>
 <body>
+<!--save-->
 
-<?php include("components/navbar.php"); ?>
+<?php include("components/navbar.php");
+
+define("DB_NAME","USERDB");
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+	$email=$_POST['email'];
+	$mdp=$_POST['mdp'];
+	$nom=$_POST["nom"];
+	$prenom=$_POST[prenom];
+	$date_de_naissance=$_POST["date_de_naissance"];
+	$tel=$_POST["tel"];
+	$genre=$_POST["genre"];
+	if ($email && $mdp && $nom && $prenom && $date_de_naissance && $tel && $genre ){
+        
+		$conn = mysqli_connect('localhost', 'root', '', DB_NAME);
+
+		if($conn->connect_error){
+			echo "$conn->connect_error";
+			die("Connection Failed : ". $conn->connect_error);
+		} else {
+			$stmt = $conn->prepare("insert into DB_NAME (email, mdp, nom, prenom, date_de_naissance, tel, genre) values(?, ?, ?, ?, ?, ?, ?)");
+			$stmt->bind_param("sssssis", $email, $mdp, $nom, $prenom, $date_de_naissance, $tel, $genre);
+			$execval = $stmt->execute();
+			$stmt->close();
+			$conn->close();
+		}
+	header("Location:login.php");
+    exit();
+	}
+	}
+
+	
+?>
+
+		<!--save-->
 <div class="std_container">
 	<div class="auth">
 		<a href="#" class="auth_api">
@@ -20,7 +55,7 @@
 			<img src="assets/outlook_logo.svg">
 			Sign up with Outlook
 		</a>
-		<form id="auth_form">
+		<form id="auth_form" action="" method="POST">
 			<div class="auth_form_field">
 				<label>Nom complet</label>
 				<input type="text">
