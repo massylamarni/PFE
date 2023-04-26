@@ -12,17 +12,17 @@
 
 <?php include("components/navbar.php");
 
-define("DB_NAME","USERDB");
+define("DB_NAME","Client");
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+	$name=$_POST["name"];
 	$email=$_POST['email'];
-	$mdp=$_POST['mdp'];
-	$nom=$_POST["nom"];
-	$prenom=$_POST[prenom];
-	$date_de_naissance=$_POST["date_de_naissance"];
-	$tel=$_POST["tel"];
-	$genre=$_POST["genre"];
-	if ($email && $mdp && $nom && $prenom && $date_de_naissance && $tel && $genre ){
+	$password=$_POST['password'];
+	$phone=$_POST["phone"];
+	$bday=$_POST["bday"];
+	$gender=$_POST["gender"];
+
+	if ($name && $password && $email&& $bday && $phone && $gender ){
         
 		$conn = mysqli_connect('localhost', 'root', '', DB_NAME);
 
@@ -30,12 +30,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 			echo "$conn->connect_error";
 			die("Connection Failed : ". $conn->connect_error);
 		} else {
-			$stmt = $conn->prepare("insert into DB_NAME (email, mdp, nom, prenom, date_de_naissance, tel, genre) values(?, ?, ?, ?, ?, ?, ?)");
-			$stmt->bind_param("sssssis", $email, $mdp, $nom, $prenom, $date_de_naissance, $tel, $genre);
-			$execval = $stmt->execute();
+			$stmt = $conn->prepare("insert into patient (name, email, password, phone,  bday,  gender) values(?, ?, ?, ?, ?, ?)");
+			$stmt->bind_param("ssssss", $name, $email, $password, $phone, $bday, $gender);
+			$stmt->execute();
+		
+
 			$stmt->close();
 			$conn->close();
 		}
+
 	header("Location:login.php");
     exit();
 	}
