@@ -14,6 +14,7 @@
 
 define("DB_NAME","Client");
 
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 	$name=$_POST["name"];
 	$email=$_POST['email'];
@@ -44,7 +45,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 	}
 	}
 
-	
+/* etapes a faire : 
+  1- verification si lemail existe deja dans la base de donnee
+  2- ajout des APIs 
+*/
+
 ?>
 
 		<!--save-->
