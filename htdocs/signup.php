@@ -31,23 +31,34 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 			echo "$conn->connect_error";
 			die("Connection Failed : ". $conn->connect_error);
 		} else {
+			$stmt = $conn->prepare("SELECT * FROM patient WHERE email = ? ");
+             $stmt->bind_param("s", $email);
+             $stmt->execute();
+             $result = $stmt->get_result();
+
+            if ($result->num_rows >= 1) {
+				echo "email already exists";
+			}else{
 			$stmt = $conn->prepare("insert into patient (name, email, password, phone,  bday,  gender) values(?, ?, ?, ?, ?, ?)");
 			$stmt->bind_param("ssssss", $name, $email, $password, $phone, $bday, $gender);
 			$stmt->execute();
 		
-
 			$stmt->close();
 			$conn->close();
+			header("Location: login.php");
+			exit();
+		  }
 		}
 
-	header("Location: login.php");
-    exit();
+		$stmt->close();
+		$conn->close();
+
 	}
 	}
 
 /* etapes a faire : 
-  1- verification si lemail existe deja dans la base de donnee
-  2- ajout des APIs 
+
+  ajout des APIs 
 */
 
 ?>
