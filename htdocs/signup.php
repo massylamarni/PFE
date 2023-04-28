@@ -52,7 +52,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 ?>
 
-		<!--save-->
 <div class="std_container">
 	<div class="auth">
 		<a href="#" class="auth_api">
@@ -66,20 +65,34 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 		<form id="auth_form" action="" method="POST">
 			<div class="auth_form_field">
 				<label>Nom complet</label>
-				<input type="text">
+				<input type="text" name="name">
 			</div>
 			<div class="auth_form_field">
 				<label>Email</label>
-				<input type="text">
+				<input type="text" name="email">
 			</div>
 			<div class="auth_form_field">
 				<label>Mot passe</label>
-				<input type="text">
+				<input type="password" name="password">
 			</div>
 			<div class="auth_form_field">
 				<label>Numero telephone</label>
-				<input type="text">
+				<input type="text" name="phone">
 			</div>
+			<div class="ep_form_field">
+				<label>Birthdate</label>
+				<input class="in_text" type="date" name="bday" >
+			</div>
+			<div class="in_radio">
+					<div>
+						<input type="radio" id="r_male" name="gender" value="M">
+						<label for="r_male">Male</label>
+					</div>
+					<div>
+						<input type="radio" id="r_female" name="gender" value="F">
+						<label for="r_female">Female</label>
+					</div>
+				</div>
 			<div class="auth_form_captcha"></div>
 			<input class="auth_form_submit" type="submit" value="Sign up">
 			<div class="auth_form_tos">By clicking “Sign up”, you agree to our <a href="#">terms of service</a>, <a href="#">privacy policy</a> and <a href="#">cookie policy</a></div>
