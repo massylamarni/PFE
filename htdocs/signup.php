@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 	$password=$_POST['password'];
 	$phone=$_POST["phone"];
 	$bday=$_POST["bday"];
-	$gender=$_POST["gender"];
+	@$gender=$_POST["gender"];
 
 	if ($name && $password && $email&& $bday && $phone && $gender ){
         
