@@ -10,7 +10,7 @@
 <body>
 <!--save-->
 
-<?php include("components/navbar.php");
+<?php //include("components/navbar.php");
 
 define("DB_NAME","Client");
 
