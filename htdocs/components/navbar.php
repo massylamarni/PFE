@@ -21,8 +21,9 @@ if(isset($_SESSION["usertype"]))
 	?>
 	
 	<div class="navbar_auth">
-<a href="editprofile.php" class="navbar_loggedin"><img src="<?php echo $user_image ?>"></a>
+<a href="editprofile.php" class="navbar_loggedin"><img src="<?php echo $user_image ?>"/></a>
 <a href="editprofile.php" ><span><?php echo $name ?></span></a>
+<a href="logout.php" ><span>Logout</span></a>
    </div>
 
 </div>
