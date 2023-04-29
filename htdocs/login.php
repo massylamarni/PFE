@@ -40,13 +40,14 @@ if ($result->num_rows == 1) {
 	$phone=$row["phone"];
 	$gender=$row["gender"];
 
-	session_name("PATIENT_SESSION");
+	
 	session_start();
 	$_SESSION["email"]=$email;
 	$_SESSION["name"]=$name;
 	$_SESSION["bday"]=$bday;
 	$_SESSION["phone"]=$phone;
 	$_SESSION["gender"]=$gender;
+	$_SESSION["usertype"]="patient";
 
 	header('Location: index.php');
     $stmt->close();
@@ -73,7 +74,7 @@ if ($result->num_rows == 1) {
 	$speciality=$row["speciality"];
     $location=$row["location"];
 
-	session_name("DOCTOR_SESSION");
+	
 	session_start();
 	$_SESSION["email"]=$email;
 	$_SESSION["name"]=$name;
@@ -82,6 +83,7 @@ if ($result->num_rows == 1) {
 	$_SESSION["gender"]=$gender;
 	$_SESSION["speciality"]=$speciality;
 	$_SESSION["location"]=$location;
+	$_SESSION["usertype"]="doctor";
 
 	header('Location: index.php');
 	$stmt->close();
