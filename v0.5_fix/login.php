@@ -85,7 +85,7 @@ if ($result->num_rows == 1) {
 	$_SESSION["location"]=$location;
 	$_SESSION["usertype"]="doctor";
 
-	header('Location: index.php');
+	header('Location: PS_index.php');
 	$stmt->close();
     $conn->close();
 	exit();
