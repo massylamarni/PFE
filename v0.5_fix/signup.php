@@ -33,12 +33,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 			echo "$conn->connect_error";
 			die("Connection Failed : ". $conn->connect_error);
 		} else {
-			$stmt = $conn->prepare("SELECT * FROM patient WHERE email = ? ");
-             $stmt->bind_param("s", $email);
-             $stmt->execute();
-             $result = $stmt->get_result();
+			$stmt = $conn->prepare("SELECT email FROM patient WHERE email = ? UNION SELECT email FROM doctor WHERE email = ?");
+			$stmt->bind_param("ss", $email , $email);
+            $stmt->execute();
+            $result = $stmt->get_result();
 
-            if ($result->num_rows >= 1) {
+            if ($result->num_rows > 0 ) {
 				echo "email already exists";
 			}else{
 			$stmt = $conn->prepare("insert into patient (name, email, password, phone,  bday,  gender) values(?, ?, ?, ?, ?, ?)");
