@@ -77,3 +77,20 @@ function setdatetime()
 	datetime.day_num = datetime_in_obj.getDate();
 	datetime.time = datetime_in_obj.getHours() +  ':' + datetime_in_obj.getMinutes();
 }
+
+//funtion for the size of texts area
+function sizeArea(){
+	let el=document.getElementsByTagName('textarea');
+	for (i=0; i<el.length; i++){
+		let line = el[i].value.split('\n');
+		let row = line.length;
+		let col = line.reduce(function(max, line){
+			return Math.max(max, line.length);
+		}, 0);
+		el[i].rows=row;
+		el[i].cols=col;
+	}
+
+
+
+}
