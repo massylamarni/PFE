@@ -35,18 +35,16 @@ $result = $stmt->get_result();
 if ($result->num_rows == 1) {
     // User is found in the users table
     $row = $result->fetch_assoc();
-    $name= $row["name"];
-	$bday=$row["bday"];
-	$phone=$row["phone"];
-	$gender=$row["gender"];
-
-	
+    
 	session_start();
+
+	$_SESSION["id"]=$row["id"];
 	$_SESSION["email"]=$email;
-	$_SESSION["name"]=$name;
-	$_SESSION["bday"]=$bday;
-	$_SESSION["phone"]=$phone;
-	$_SESSION["gender"]=$gender;
+	$_SESSION["password"]=$row["password"];
+	$_SESSION["name"]=$row["name"];
+	$_SESSION["bday"]=$row["bday"];
+	$_SESSION["phone"]=$row["phone"];
+	$_SESSION["gender"]=$row["gender"];
 	$_SESSION["usertype"]="patient";
 
 	header('Location: index.php');
@@ -67,23 +65,21 @@ if ($result->num_rows == 1) {
         // User is found in the doctor table
 
     $row = $result->fetch_assoc();
-    $name= $row["name"];
-	$bday=$row["bday"];
-	$phone=$row["phone"];
-	$gender=$row["gender"];
-	$speciality=$row["speciality"];
-    $location=$row["location"];
-
-	
+    
 	session_start();
+
+
+	$_SESSION["id"]=$row["id"];
 	$_SESSION["email"]=$email;
-	$_SESSION["name"]=$name;
-	$_SESSION["bday"]=$bday;
-	$_SESSION["phone"]=$phone;
-	$_SESSION["gender"]=$gender;
-	$_SESSION["speciality"]=$speciality;
-	$_SESSION["location"]=$location;
+	$_SESSION["password"]=$row["password"];
+	$_SESSION["name"]=$row["name"];
+	$_SESSION["bday"]=$row["bday"];
+	$_SESSION["phone"]=$row["phone"];
+	$_SESSION["gender"]=$row["gender"];
+	$_SESSION["speciality"]=$row["speciality"];
+	$_SESSION["location"]=$row["location"];
 	$_SESSION["usertype"]="doctor";
+
 
 	header('Location: PS_index.php');
 	$stmt->close();
