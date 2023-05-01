@@ -26,7 +26,9 @@ for (i = 0; i < list_els.length; i++)
 
 /* BOOKFORM */
 const lastform = 2;
+temp_id = 0;
 formnum = 0;
+aptlist = [];
 description = "Motif inconnu.";
 datetime = {
 	month_name: "0",
@@ -34,14 +36,14 @@ datetime = {
 	day_num: 0,
 	time: "0",
 }
-
-function bookform(op)
+function bookform(op, el)
 {
 	bfc = document.getElementsByClassName("bookform_container")[0];
 	bf = document.getElementsByClassName("bookform_container")[0].children;
 	if (op == 0)
 	{
 		bfc.classList.remove("hidden");
+		temp_id = el;
 	}
 	else
 	{
@@ -56,10 +58,13 @@ function bookform(op)
 			bf[++formnum].classList.remove("hidden");
 			setTimeout(() => {
 				bfc.classList.add("hidden");
+				if (sessionStorage.getItem('aptlist') !== null) aptlist = sessionStorage.getItem('aptlist');
+				aptlist.push(temp_id.parentElement.parentElement.getElementsByClassName("pfp")[0].id);
+				sessionStorage.setItem('aptlist', aptlist);
 				resetbookform();
 			}, 1000);
 		}
-		savebookform()
+		savebookformstate()
 	}
 }
 function resetbookform()
@@ -69,7 +74,7 @@ function resetbookform()
 	formnum = 0;
 	bf[formnum].classList.remove("hidden");
 }
-function savebookform()
+function savebookformstate()
 {
 	bfb_textarea = document.getElementsByClassName("bfb_textarea")[0];
 	setdatetime()
@@ -90,6 +95,45 @@ function setdatetime()
 	datetime.day_num = datetime_in_obj.getDate();
 	datetime.time = datetime_in_obj.getHours() +  ':' + datetime_in_obj.getMinutes();
 }
+
+/* RESULTLIST */
+resultlist = ["£00000", "£00001", "£00002", "£00003", "£00004"];
+function updateresultlist()
+{
+	if (resultlist.length != 0)
+	{
+		list_null = document.getElementsByClassName("list_null")[0];
+		list_null.innerHTML = "";
+		for (i=0; i<resultlist.length; i++)
+		{
+			fetch(`components/resultlist.php?id=${resultlist[i]}`)
+  			.then(response => response.text())
+  			.then(data => {
+ 				list_null.innerHTML += data;
+  			});
+		}
+	}
+}
+
+/* INDEX */
+if (sessionStorage.getItem('aptlist') !== null) aptlist = sessionStorage.getItem('aptlist');
+function updateaptlist()
+{
+	if (aptlist.length != 0)
+	{
+		list_null = document.getElementsByClassName("list_null")[0];
+		list_null.innerHTML = "";
+		for (i=0; i<aptlist.length; i++)
+		{
+			fetch(`components/aptlist.php?id=${aptlist[i]}`)
+  			.then(response => response.text())
+  			.then(data => {
+ 				list_null.innerHTML += data;
+  			});
+		}
+	}
+}
+
 //funtion for the size of texts area
 function sizeArea(){
 	let el=document.getElementsByTagName('textarea');
@@ -102,7 +146,5 @@ function sizeArea(){
 		el[i].rows=row;
 		el[i].cols=col;
 	}
-
-
-
 }
+
