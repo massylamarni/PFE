@@ -15,8 +15,9 @@
 		<div class="list">
 			<div class="list_title"><h3>Resultats de recherche</h3></div>
 			<div class="list_map"></div>
-			<?php include("components/resultlist.php"); ?>
+			<div class="list_null">Aucun resultat trouvé</div>
 		</div>
+		<?php include("components/bookform.php"); ?>
 	</div>
 	<div class="secondary">
 		<?php include("components/PS_profile.php"); ?>
