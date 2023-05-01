@@ -27,70 +27,69 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 	} else {
 
 // Check if user exists in the patient table
-$stmt = $conn->prepare("SELECT * FROM patient WHERE email = ? AND password = ?");
-$stmt->bind_param("ss", $email, $password);
+$stmt = $conn->prepare("SELECT * FROM patient WHERE email = ? ");
+$stmt->bind_param("s", $email);
 $stmt->execute();
 $result = $stmt->get_result();
 
 if ($result->num_rows == 1) {
-    // User is found in the users table
-    $row = $result->fetch_assoc();
-    $name= $row["name"];
-	$bday=$row["bday"];
-	$phone=$row["phone"];
-	$gender=$row["gender"];
 
-	
+	$row = $result->fetch_assoc();
+	if(password_verify($password,$row["password"])) {
+
+    // User is found 
 	session_start();
+
+	$_SESSION["id"]=$row["id"];
 	$_SESSION["email"]=$email;
-	$_SESSION["name"]=$name;
-	$_SESSION["bday"]=$bday;
-	$_SESSION["phone"]=$phone;
-	$_SESSION["gender"]=$gender;
+	$_SESSION["password"]=$row["password"];
+	$_SESSION["name"]=$row["name"];
+	$_SESSION["bday"]=$row["bday"];
+	$_SESSION["phone"]=$row["phone"];
+	$_SESSION["gender"]=$row["gender"];
 	$_SESSION["usertype"]="patient";
 
 	header('Location: index.php');
     $stmt->close();
     $conn->close();
     exit();
-
+}
 } else {
 
     // User is not found in the patient table
 
-    $stmt = $conn->prepare("SELECT * FROM doctor WHERE email = ? AND password = ?");
-    $stmt->bind_param("ss", $email, $password);
+    $stmt = $conn->prepare("SELECT * FROM doctor WHERE email = ?");
+    $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
 
     if ($result->num_rows == 1) {
+
+		$row = $result->fetch_assoc();
+		if(password_verify($password,$row["password"])) {
+
+
         // User is found in the doctor table
+	    session_start();
 
-    $row = $result->fetch_assoc();
-    $name= $row["name"];
-	$bday=$row["bday"];
-	$phone=$row["phone"];
-	$gender=$row["gender"];
-	$speciality=$row["speciality"];
-    $location=$row["location"];
-
-	
-	session_start();
+	$_SESSION["id"]=$row["id"];
 	$_SESSION["email"]=$email;
-	$_SESSION["name"]=$name;
-	$_SESSION["bday"]=$bday;
-	$_SESSION["phone"]=$phone;
-	$_SESSION["gender"]=$gender;
-	$_SESSION["speciality"]=$speciality;
-	$_SESSION["location"]=$location;
+	$_SESSION["password"]=$row["password"];
+	$_SESSION["name"]=$row["name"];
+	$_SESSION["bday"]=$row["bday"];
+	$_SESSION["phone"]=$row["phone"];
+	$_SESSION["gender"]=$row["gender"];
+	$_SESSION["speciality"]=$row["speciality"];
+	$_SESSION["location"]=$row["location"];
 	$_SESSION["usertype"]="doctor";
+
 
 	header('Location: PS_index.php');
 	$stmt->close();
     $conn->close();
 	exit();
-
-    } else {
+}
+} else {
         // User is not found in either table
         echo "Invalid email or password";
 	
