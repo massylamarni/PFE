@@ -1,10 +1,3 @@
-/* LOGIN PHP DEMO */
-function loginswitch()
-{
-	document.getElementsByClassName("navbar_auth")[0].style.display = "none";
-	document.getElementsByClassName("navbar_loggedin")[0].style.display = "flex";
-}
-
 /* APTLIST & RESULTLIST */
 list_el_id_active = 0;
 list_els = document.getElementsByClassName("list_el");
@@ -32,6 +25,7 @@ for (i = 0; i < list_els.length; i++)
 }
 
 /* BOOKFORM */
+const lastform = 2;
 formnum = 0;
 description = "Motif inconnu.";
 datetime = {
@@ -40,29 +34,48 @@ datetime = {
 	day_num: 0,
 	time: "0",
 }
-function nextform(opt)
+
+function bookform(op)
 {
-	el = document.getElementsByClassName("bookform_container")[0].children;
-	if (opt == 1)
+	bfc = document.getElementsByClassName("bookform_container")[0];
+	bf = document.getElementsByClassName("bookform_container")[0].children;
+	if (op == 0)
 	{
-		el[formnum].classList.add("hidden");
-		formnum = 0;
-		el[formnum].classList.remove("hidden");
+		bfc.classList.remove("hidden");
 	}
 	else
 	{
-		el[formnum].classList.add("hidden");
-		el[++formnum].classList.remove("hidden");
+		if (formnum < lastform)
+		{
+			bf[formnum].classList.add("hidden");
+			bf[++formnum].classList.remove("hidden");
+		}
+		else if (formnum == lastform)
+		{
+			bf[formnum].classList.add("hidden");
+			bf[++formnum].classList.remove("hidden");
+			setTimeout(() => {
+				bfc.classList.add("hidden");
+				resetbookform();
+			}, 1000);
+		}
+		savebookform()
 	}
-	saveform()
 }
-function saveform()
+function resetbookform()
 {
-	bookform_body_ta = document.getElementsByClassName("bookform_body_ta")[0];
+	bf = document.getElementsByClassName("bookform_container")[0].children;
+	bf[formnum].classList.add("hidden");
+	formnum = 0;
+	bf[formnum].classList.remove("hidden");
+}
+function savebookform()
+{
+	bfb_textarea = document.getElementsByClassName("bfb_textarea")[0];
 	setdatetime()
-	if (bookform_body_ta.value != "")
+	if (bfb_textarea.value != "")
 	{
-		description = document.getElementsByClassName("bookform_body_ta")[0].value;
+		description = document.getElementsByClassName("bfb_textarea")[0].value;
 	}
 	document.getElementsByClassName("bookform_result")[0].innerHTML = "RDV pour le " + datetime.day_name + " " + datetime.day_num + " " + datetime.month_name + " a " + datetime.time + "\nMotif: " + description;
 }
@@ -77,7 +90,6 @@ function setdatetime()
 	datetime.day_num = datetime_in_obj.getDate();
 	datetime.time = datetime_in_obj.getHours() +  ':' + datetime_in_obj.getMinutes();
 }
-
 //funtion for the size of texts area
 function sizeArea(){
 	let el=document.getElementsByTagName('textarea');

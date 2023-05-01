@@ -25,6 +25,6 @@ $brief_time = "a 15:30";
 			<div class="brief_time"><?php echo $brief_time ?></div>
 		</div>
 		<div class="brief_phone"><?php echo $pf_phone ?></div>
-		<div class="brief_book"><p>Prendre RDV</p></div>
+		<div class="brief_book" onclick="bookform(0)"><p>Prendre RDV</p></div>
 	</div>
 </div>

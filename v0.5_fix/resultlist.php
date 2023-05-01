@@ -17,6 +17,7 @@
 			<div class="list_map"></div>
 			<?php include("components/resultlist.php"); ?>
 		</div>
+		<?php include("components/bookform.php"); ?>
 	</div>
 	<div class="secondary">
 		<?php include("components/PS_profile.php"); ?>
