@@ -27,15 +27,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 	} else {
 
 // Check if user exists in the patient table
-$stmt = $conn->prepare("SELECT * FROM patient WHERE email = ? AND password = ?");
-$stmt->bind_param("ss", $email, $password);
+$stmt = $conn->prepare("SELECT * FROM patient WHERE email = ? ");
+$stmt->bind_param("s", $email);
 $stmt->execute();
 $result = $stmt->get_result();
 
 if ($result->num_rows == 1) {
-    // User is found in the users table
-    $row = $result->fetch_assoc();
-    
+
+	$row = $result->fetch_assoc();
+	if(password_verify($password,$row["password"])) {
+
+    // User is found 
 	session_start();
 
 	$_SESSION["id"]=$row["id"];
@@ -51,23 +53,24 @@ if ($result->num_rows == 1) {
     $stmt->close();
     $conn->close();
     exit();
-
+}
 } else {
 
     // User is not found in the patient table
 
-    $stmt = $conn->prepare("SELECT * FROM doctor WHERE email = ? AND password = ?");
-    $stmt->bind_param("ss", $email, $password);
+    $stmt = $conn->prepare("SELECT * FROM doctor WHERE email = ?");
+    $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
 
     if ($result->num_rows == 1) {
+
+		$row = $result->fetch_assoc();
+		if(password_verify($password,$row["password"])) {
+
+
         // User is found in the doctor table
-
-    $row = $result->fetch_assoc();
-    
-	session_start();
-
+	    session_start();
 
 	$_SESSION["id"]=$row["id"];
 	$_SESSION["email"]=$email;
@@ -85,8 +88,8 @@ if ($result->num_rows == 1) {
 	$stmt->close();
     $conn->close();
 	exit();
-
-    } else {
+}
+} else {
         // User is not found in either table
         echo "Invalid email or password";
 	
