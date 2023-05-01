@@ -27,6 +27,6 @@ $brief_time_rem = "12h et 9min";
 			<div class="brief_time"><?php echo $brief_time_rem ?></div>
 		</div>
 		<div class="brief_motif"><p>Motif de consultation</p></div>
-		<div class="brief_cancel"><p>Annuler RDV</p></div>
+		<div class="brief_cancel" id="<?php echo $id?>" onclick="updateaptlist(1, this)"><p>Annuler RDV</p></div>
 	</div>
 </div>

@@ -15,7 +15,7 @@
 		<div class="list">
 			<div class="list_title"><h3>Resultats de recherche</h3></div>
 			<div class="list_map"></div>
-			<div class="list_null">Aucun resultat trouvé</div>
+			<div class="resultlist_null">Aucun resultat trouvé</div>
 		</div>
 		<?php include("components/bookform.php"); ?>
 	</div>

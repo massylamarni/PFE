@@ -14,7 +14,7 @@
 	<div class="main">
 		<div class="list">
 			<div class="list_title"><h3>Rendez-vous en cours</h3></div>
-			<div class="list_null">Pas de rendez-vous en cours !<div>
+			<div class="aptlist_null">Pas de rendez-vous en cours !<div>
 		</div>
 	</div>
 	<div class="secondary">

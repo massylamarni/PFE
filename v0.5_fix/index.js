@@ -26,7 +26,6 @@ for (i = 0; i < list_els.length; i++)
 
 /* BOOKFORM */
 const lastform = 2;
-temp_id = 0;
 formnum = 0;
 aptlist = [];
 description = "Motif inconnu.";
@@ -43,7 +42,7 @@ function bookform(op, el)
 	if (op == 0)
 	{
 		bfc.classList.remove("hidden");
-		temp_id = el;
+		sessionStorage.setItem('current_el_id', el.id);
 	}
 	else
 	{
@@ -58,9 +57,10 @@ function bookform(op, el)
 			bf[++formnum].classList.remove("hidden");
 			setTimeout(() => {
 				bfc.classList.add("hidden");
-				if (sessionStorage.getItem('aptlist') !== null) aptlist = sessionStorage.getItem('aptlist');
-				aptlist.push(temp_id.parentElement.parentElement.getElementsByClassName("pfp")[0].id);
-				sessionStorage.setItem('aptlist', aptlist);
+				if (sessionStorage.getItem('aptlist') !== null) aptlist = JSON.parse(sessionStorage.getItem('aptlist'));
+				aptlist.push(sessionStorage.getItem('current_el_id'));
+				console.log(sessionStorage.getItem('current_el_id'));
+				sessionStorage.setItem('aptlist', JSON.stringify(aptlist));
 				resetbookform();
 			}, 1000);
 		}
@@ -102,7 +102,7 @@ function updateresultlist()
 {
 	if (resultlist.length != 0)
 	{
-		list_null = document.getElementsByClassName("list_null")[0];
+		list_null = document.getElementsByClassName("resultlist_null")[0];
 		list_null.innerHTML = "";
 		for (i=0; i<resultlist.length; i++)
 		{
@@ -116,21 +116,36 @@ function updateresultlist()
 }
 
 /* INDEX */
-if (sessionStorage.getItem('aptlist') !== null) aptlist = sessionStorage.getItem('aptlist');
-function updateaptlist()
+if (sessionStorage.getItem('aptlist') !== null) aptlist = JSON.parse(sessionStorage.getItem('aptlist'));
+function updateaptlist(op, el)
 {
-	if (aptlist.length != 0)
+	if (op == 0)
 	{
-		list_null = document.getElementsByClassName("list_null")[0];
-		list_null.innerHTML = "";
+		if (aptlist.length != 0)
+		{
+			list_null = document.getElementsByClassName("aptlist_null")[0];
+			list_null.innerHTML = "";
+			for (i=0; i<aptlist.length; i++)
+			{
+				fetch(`components/aptlist.php?id=${aptlist[i]}`)
+  				.then(response => response.text())
+  				.then(data => {
+ 					list_null.innerHTML += data;
+  				});
+			}
+		}
+	}
+	else if (op == 1)
+	{
 		for (i=0; i<aptlist.length; i++)
 		{
-			fetch(`components/aptlist.php?id=${aptlist[i]}`)
-  			.then(response => response.text())
-  			.then(data => {
- 				list_null.innerHTML += data;
-  			});
+			if (aptlist[i] == el.id)
+			{
+				aptlist.splice(i, 1);
+			}
 		}
+		sessionStorage.setItem('aptlist', JSON.stringify(aptlist));
+		updateaptlist(0);
 	}
 }
 
@@ -147,4 +162,3 @@ function sizeArea(){
 		el[i].cols=col;
 	}
 }
-
