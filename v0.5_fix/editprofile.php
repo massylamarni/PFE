@@ -31,7 +31,13 @@ if(isset($_SESSION["usertype"])) {
       $old_password=$_SESSION["password"];
 	    $old_bday=$_SESSION["bday"];
       $old_phone=$_SESSION["phone"];
-      @$old_location=$_SESSION["location"];
+      if (isset($_SESSION["location"])){
+      $old_location=$_SESSION["location"];
+      }
+      /*if (isset($_SESSION["pf_img"])){
+      $old_pf_img = $_SESSION["pf_img"];
+      }*/
+
 		  $old_pf_img = "assets/pfp2.png";
 
       if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -126,7 +132,7 @@ if(isset($_SESSION["usertype"])) {
 	</div>
 	<div>
   <div class="pf_body_field"><h3>Numero telephone</h3><input type="text" placeholder="<?php echo $old_phone ?>" name="phone"  autocomplete="off"/></div>
-  <div class="pf_body_field"><h3>Location</h3><input type="text" placeholder="<?php  @$old_location ?>" name="location" autocomplete="off" /></div>
+  <div class="pf_body_field"><h3>Location</h3><input type="text" placeholder="<?php echo @$old_location ?>" name="location" autocomplete="off" /></div>
 		<div class="pf_body_field"><h3>Password</h3><input class="in_text" type="password" placeholder="enter old password" name="old_password" autocomplete="off">
     <input class="in_text" type="password" placeholder="enter new password" name="new_password" autocomplete="off" ></div>
 	</div>
