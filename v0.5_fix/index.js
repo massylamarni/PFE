@@ -154,7 +154,7 @@ function updateaptlist(op, el)
 }
 
 //funtion for the size of texts area
-function sizeArea(){
+function sizeArea(){let maxTextArea=[50,15,15,500,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15];
 	let el=document.getElementsByTagName('textarea');
 	for (i=0; i<el.length; i++){
 		let line = el[i].value.split('\n');
@@ -165,4 +165,17 @@ function sizeArea(){
 		el[i].rows=row;
 		el[i].cols=col;
 	}
+};
+
+var el=document.getElementsByTagName('textarea');
+for (let k=0;el.length;k++){
+el[k].addEventListener('keydown',function(event){
+		if(el[k].value.length<=maxTextArea[k]){
+			sizeArea();
+		}else{
+			event.preventDefault();
+			el[k].value = el[k].value.slice(0,-1);
+		}
+	}
+)
 }
