@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 	} else {
 
 // Check if user exists in the patient table
-$stmt = $conn->prepare("SELECT * FROM patient WHERE email = ? ");
+$stmt = $conn->prepare("SELECT * FROM patient WHERE email = ?");
 $stmt->bind_param("s", $email);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -47,6 +47,12 @@ if ($result->num_rows == 1) {
 	$_SESSION["bday"]=$row["bday"];
 	$_SESSION["phone"]=$row["phone"];
 	$_SESSION["gender"]=$row["gender"];
+	if (isset($row["location"])) {
+		$_SESSION["location"] = $row["location"];
+	}
+	if (isset($row["pf_img"])) {
+		$_SESSION["pf_img"] = $row["pf_img"];
+	}
 	$_SESSION["usertype"]="patient";
 
 	header('Location: index.php');
@@ -80,7 +86,27 @@ if ($result->num_rows == 1) {
 	$_SESSION["phone"]=$row["phone"];
 	$_SESSION["gender"]=$row["gender"];
 	$_SESSION["speciality"]=$row["speciality"];
-	$_SESSION["location"]=$row["location"];
+	if (isset($row["location"])) {
+		$_SESSION["location"] = $row["location"];
+	}
+	if (isset($row["pf_img"])) {
+		$_SESSION["pf_img"] = $row["pf_img"];
+	}
+	if (isset($row["description"])) {
+		$_SESSION["description"] = $row["description"];
+	}
+	if (isset($row["worktime"])) {
+		$_SESSION["worktime"] = $row["worktime"];
+	}
+	if (isset($row["pricing"])) {
+		$_SESSION["pricing"] = $row["pricing"];
+	}
+	if (isset($row["dq"])) {
+		$_SESSION["dq"] = $row["dq"];
+	}
+	if (isset($row["language"])) {
+		$_SESSION["language"] = $row["language"];
+	}
 	$_SESSION["usertype"]="doctor";
 
 
