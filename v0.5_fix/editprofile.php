@@ -39,7 +39,7 @@ if(isset($_SESSION["usertype"])) {
         $new_name=$_POST["name"];
         $new_email=$_POST['email'];
         $confirm_password=$_POST['old_password'];
-        $new_password = password_hash($_POST['new_password'], PASSWORD_DEFAULT);
+        $new_password=$_POST['new_password'];
         $new_phone=$_POST["phone"];
         $new_bday=$_POST["bday"];
         $new_location=$_POST["location"];
@@ -84,12 +84,13 @@ if(isset($_SESSION["usertype"])) {
           $stmt->execute();
           $_SESSION["location"]=$new_location;
          }
-         if ($new_password && $confirm_password){
+         if ($new_password && $confirm_password && !password_verify($new_password ,$old_password)) {
              if(password_verify($confirm_password,$old_password)) {
+                $password_hashed = password_hash($new_password, PASSWORD_DEFAULT);
                 $stmt = $conn->prepare("UPDATE patient SET password = ? WHERE id = ?");
-                $stmt->bind_param("si",$new_password , $_SESSION["id"]);
+                $stmt->bind_param("si",$password_hashed , $_SESSION["id"]);
                 $stmt->execute();
-                $_SESSION["password"]=$new_password;
+                $_SESSION["password"]=$password_hashed;
         } 
       
       }
@@ -99,8 +100,7 @@ if(isset($_SESSION["usertype"])) {
          
          header("Location: index.php");
          exit();
-        }   
-      
+        }        
 }
 
  

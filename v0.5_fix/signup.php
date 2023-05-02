@@ -20,7 +20,7 @@ define("DB_NAME","Client");
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 	$name=$_POST["name"];
 	$email=$_POST['email'];
-	$password = password_hash($_POST["password"], PASSWORD_DEFAULT);
+	$password=$_POST['password'];
 	$phone=$_POST["phone"];
 	$bday=$_POST["bday"];
 	@$gender=$_POST["gender"];
@@ -41,8 +41,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             if ($result->num_rows > 0 ) {
 				echo "email already exists";
 			}else{
+			$password_hashed = password_hash($password, PASSWORD_DEFAULT);
 			$stmt = $conn->prepare("insert into patient (name, email, password, phone,  bday,  gender) values(?, ?, ?, ?, ?, ?)");
-			$stmt->bind_param("ssssss", $name, $email, $password, $phone, $bday, $gender);
+			$stmt->bind_param("ssssss", $name, $email, $password_hashed, $phone, $bday, $gender);
 			$stmt->execute();
 		
 			$stmt->close();
