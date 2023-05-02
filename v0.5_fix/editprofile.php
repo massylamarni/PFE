@@ -10,7 +10,7 @@
 <body>
 
 <?php include("components/navbar.php");
-//hello
+//hello darkness my freiend
 define("DB_NAME","Client");
 
 if(!isset($_SESSION))
