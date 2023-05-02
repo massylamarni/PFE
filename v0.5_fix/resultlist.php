@@ -25,5 +25,8 @@
 </div>
 
 <script src="index.js"></script>
+<script type="text/javascript">
+	updateresultlist(0);
+</script>
 </body>
 </html>

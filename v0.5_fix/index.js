@@ -121,9 +121,9 @@ function updateaptlist(op, el)
 {
 	if (op == 0)
 	{
+		list_null = document.getElementsByClassName("aptlist_null")[0];
 		if (aptlist.length != 0)
 		{
-			list_null = document.getElementsByClassName("aptlist_null")[0];
 			list_null.innerHTML = "";
 			for (i=0; i<aptlist.length; i++)
 			{
@@ -133,6 +133,10 @@ function updateaptlist(op, el)
  					list_null.innerHTML += data;
   				});
 			}
+		}
+		else
+		{
+			list_null.innerHTML = "Pas de rendez-vous en cours !";
 		}
 	}
 	else if (op == 1)

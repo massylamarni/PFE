@@ -412,6 +412,14 @@ html, body
 	margin: 15px 0px 0px 0px;
 	font-size: 12px;
 }
+.in_radio
+{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+}
 
 /* PS_PROFILE STYLE */
 .pf

@@ -23,5 +23,8 @@
 </div>
 
 <script src="index.js"></script>
+<script type="text/javascript">
+	updateaptlist(0);
+</script>
 </body>
 </html>
