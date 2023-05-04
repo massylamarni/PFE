@@ -186,7 +186,7 @@ el[k].addEventListener('keydown',function(event){
 );
 };
 
-
+//pour ajouter une langue
 var ajouter=document.getElementById('ajouter');
 var langue=document.getElementsByClassName('pf_body_field')[7];
 
