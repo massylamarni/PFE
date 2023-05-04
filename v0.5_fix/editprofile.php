@@ -17,7 +17,7 @@ if(!isset($_SESSION))
 {
 session_start();
 }
-if(isset($_SESSION["usertype"])) {
+if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='patient') {
 
 	$conn = mysqli_connect('localhost', 'root', '', DB_NAME);
 
@@ -123,16 +123,16 @@ if(isset($_SESSION["usertype"])) {
 	<div class="pf_header">
 		<img src="<?php echo $old_pf_img ?>"/>
 		<div class="pf_header_text">
-    <div class="pf_body_field"><h3>Nom</h3><input type="text" placeholder="<?php echo $old_name ?>" name="name" autocomplete="off"/></div>
+    <div class="pf_body_field"><h3>Nom</h3><input type="text" value="<?php echo $old_name ?>" name="name" autocomplete="off"/></div>
 		</div>
 	</div>
 	<div class="pf_body">
-  <div class="pf_body_field"><h3>Email</h3><input class="in_text" type="text"placeholder="<?php echo $old_email ?>" name="email" autocomplete="off"/></div>
+  <div class="pf_body_field"><h3>Email</h3><input class="in_text" type="text"value="<?php echo $old_email ?>" name="email" autocomplete="off"/></div>
 		<div class="pf_body_field"><h3>Date Naissance</h3><input type="date" name="bday"></div>
 	</div>
 	<div>
-  <div class="pf_body_field"><h3>Numero telephone</h3><input type="text" placeholder="<?php echo $old_phone ?>" name="phone"  autocomplete="off"/></div>
-  <div class="pf_body_field"><h3>Location</h3><input type="text" placeholder="<?php echo @$old_location ?>" name="location" autocomplete="off" /></div>
+  <div class="pf_body_field"><h3>Numero telephone</h3><input type="text" value="<?php echo $old_phone ?>" name="phone"  autocomplete="off"/></div>
+  <div class="pf_body_field"><h3>Location</h3><input type="text" value="<?php echo $old_location ?>" name="location" autocomplete="off" /></div>
 		<div class="pf_body_field"><h3>Password</h3><input class="in_text" type="password" placeholder="enter old password" name="old_password" autocomplete="off">
     <input class="in_text" type="password" placeholder="enter new password" name="new_password" autocomplete="off" ></div>
 	</div>
@@ -146,7 +146,12 @@ if(isset($_SESSION["usertype"])) {
 </body>
 </html> 
 
-<?php   }else{
+<?php   }elseif(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='doctor'){
+
+header("Location: PS_index.php");
+exit();
+
+}else{
 
   header("Location: index.php");
   exit();
