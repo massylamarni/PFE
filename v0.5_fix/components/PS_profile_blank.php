@@ -66,6 +66,7 @@ $language = array("Anglais", "Francais", "Espagnol");
 			<textarea rows="1" cols="15"><?php echo $language[2] ?></textarea>,
 			<input type="submit" id="ajouter">
 			
+			
 		</div>
 		<div class="pf_body_field">
 			<h3>Genre</h3>
