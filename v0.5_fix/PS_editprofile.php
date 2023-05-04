@@ -10,17 +10,9 @@
 <body>
 
 <?php
-$id = "£00000";
-$name = "User Name";
-$email = "dummy@email.com";
-$password = "**********";
-$phone = "+213-123456789";
-$bday = date("d-m-y");
-$gender = "M";
+//hello
+
 $pf_img = "assets/pfp2.png";
-$location = "75017 Colorado, USA";
-$speciality = array("Cardiologue", "Dermatologue");
-$description = "Spécialisé dans le traitement des maladies de la peau, des ongles et des cheveux,\nnotamment les éruptions cutanées, les infections de la peau, l'acné, les taches de\nvieillesse, les cancers de la peau, les allergies cutanées et les affections auto-immunes.";
 $worktime = array(array("09h30", "19h30"), array("09h30", "19h30"), array("09h30", "19h30"), array("09h30", "19h30"), array("09h30", "19h30"), array("", ""), array("09h30", "19h30"));
 $pricing = array(array("Consultation simple", "100 £"), array("Consultation avec acte", "200 £"));
 $dq = array(array("1977", "Diplôme d'État de docteur en médecine - Université Paris 11 - Paris-Saclay"), array("1977", "D.E.S. Dermatologie et vénéréologie - UFR de médecine Lariboisière-Saint-Louis"));
@@ -38,33 +30,149 @@ if(!isset($_SESSION))
 session_start();
 }
 if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='doctor') {
-	
+
+
+	$old_email= $_SESSION["email"];
+	    $old_name=$_SESSION["name"];
+      $old_password=$_SESSION["password"];
+	    $old_bday=$_SESSION["bday"];
+      $old_phone=$_SESSION["phone"];
+	  $old_speciality=$_SESSION["speciality"];
+      if (isset($_SESSION["location"])){
+      $old_location=$_SESSION["location"];
+      }
+	/*if (isset($_SESSION["pf_img"])) {
+		$old_pf_img=$_SESSION["pf_img"] ;
+	}*/
+	if (isset($_SESSION["description"])) {
+		$old_description=$_SESSION["description"] ;
+	}
+	if (isset($_SESSION["worktime"])) {
+		$old_worktime=$_SESSION["worktime"] ;
+	}
+	if (isset($_SESSION["pricing"])) {
+		$old_pricing=$_SESSION["pricing"] ;
+	}
+	if (isset($_SESSION["dq"])) {
+		$old_dq=$_SESSION["dq"] ;
+	}
+	if (isset($_SESSION["language"])) {
+		$old_language=$_SESSION["language"] ;
+	}
+	if ($_SERVER["REQUEST_METHOD"] === "POST") {
+        
+        $new_name=$_POST["name"];
+        $new_email=$_POST['email'];
+        $confirm_password=$_POST['old_password'];
+        $new_password=$_POST['new_password'];
+        $new_phone=$_POST["phone"];
+        $new_bday=$_POST["bday"];
+        $new_location=$_POST["location"];
+		$new_speciality=$_POST["speciality"];
+		$new_description=$_POST["description"];
+		//$new_worktime=$_POST["worktime"];
+		//$new_pricing=$_POST["pricing"];
+		//$new_dq=$_POST["dq"];
+		//$new_language=$_POST["language"];
+
+		$conn = mysqli_connect('localhost', 'root', '', DB_NAME);
+
+	    if($conn->connect_error){
+		echo "$conn->connect_error";
+       die("Connection Failed : ". $conn->connect_error);
+	    }else { 
+
+		   if ($new_email){
+			$stmt = $conn->prepare("SELECT email FROM patient WHERE email = ? UNION SELECT email FROM doctor WHERE email = ?");
+			$stmt->bind_param("ss", $new_email , $new_email);
+			$stmt->execute();
+			$result = $stmt->get_result();
+			if ( $new_email != $old_email  &&  $result->num_rows > 0) {
+			  echo "email already exists";
+  
+		  }else{
+			$stmt = $conn->prepare("UPDATE doctor SET  email = ? WHERE id = ?");
+			$stmt->bind_param("si", $new_email, $_SESSION["id"]);
+			$stmt->execute(); 
+			$_SESSION["email"]= $new_email;
+		  }       
+			  }
+		   if( $new_name  && $new_name!=$old_name ){
+			$stmt = $conn->prepare("UPDATE doctor SET name = ? WHERE id = ?");
+			$stmt->bind_param("si", $new_name, $_SESSION["id"]);
+			$stmt->execute();
+			$_SESSION["name"]=$new_name;
+		   }
+  
+		   if($new_phone && $new_phone!=$old_phone ){
+			$stmt = $conn->prepare("UPDATE doctor SET phone = ? WHERE id = ?");
+			$stmt->bind_param("si", $new_phone, $_SESSION["id"]);
+			$stmt->execute();
+			$_SESSION["phone"]=$new_phone;
+		   }
+			if($new_bday  && $new_bday!=$old_bday ){
+			$stmt = $conn->prepare("UPDATE doctor SET bday = ? WHERE id = ?");
+			$stmt->bind_param("si", $new_bday, $_SESSION["id"]);
+			$stmt->execute();
+			$_SESSION["bday"]=$new_bday;
+		   }
+		   if($new_location && $new_location!=$old_location ){
+			$stmt = $conn->prepare("UPDATE doctor SET location = ? WHERE id = ?");
+			$stmt->bind_param("si", $new_location, $_SESSION["id"]);
+			$stmt->execute();
+			$_SESSION["location"]=$new_location;
+		   }
+		   if($new_speciality && $new_speciality!=$old_speciality ){
+			$stmt = $conn->prepare("UPDATE doctor SET speciality = ? WHERE id = ?");
+			$stmt->bind_param("si", $new_speciality, $_SESSION["id"]);
+			$stmt->execute();
+			$_SESSION["speciality"]=$new_speciality;
+		   }
+		   if($new_description && $new_description!=$old_description ){
+			$stmt = $conn->prepare("UPDATE doctor SET description = ? WHERE id = ?");
+			$stmt->bind_param("si", $new_description, $_SESSION["id"]);
+			$stmt->execute();
+			$_SESSION["description"]=$new_description;
+		   }
+		   if ($new_password && $confirm_password && !password_verify($new_password ,$old_password)) {
+			   if(password_verify($confirm_password,$old_password)) {
+				  $password_hashed = password_hash($new_password, PASSWORD_DEFAULT);
+				  $stmt = $conn->prepare("UPDATE doctor SET password = ? WHERE id = ?");
+				  $stmt->bind_param("si",$password_hashed , $_SESSION["id"]);
+				  $stmt->execute();
+				  $_SESSION["password"]=$password_hashed;
+		  } 
+		
+		}
+
+		} 
+	} 
+
 	?>
+
 <div class="std_container">
 	<div class="ep_container">
 
 	<h3>Gerer Compte</h3>
 
 <form class="ep_form" action="" method="POST">
-<div class="pf" id="<?php echo $id ?>">
+<div class="pf" >
 	<div class="pf_header">
 		<img src="<?php echo $pf_img ?>">
 		<div class="pf_header_text">
-			<div class="pf_header_text_name"><textarea rows="1" cols="50"><?php echo $name ?></textarea></div>
-			<div class="pf_header_text_id"><?php echo $id ?></div>
+		<div class="pf_header_text_name"><input type="text" value="<?php echo $old_name ?>" name="name" autocomplete="off"/></div>
 			<div class="pf_header_text_speciality">
-				<textarea rows="1" cols="15"><?php echo $speciality[0] ?></textarea>, 
-				<textarea rows="1" cols="15"><?php echo $speciality[1] ?></textarea>
+				<input type="text" value="<?php echo $old_speciality ?>" name="speciality" autocomplete="off"/>
 			</div>
 		</div>
 	</div>
 	<div class="pf_body">
 		<div class="pf_body_field"><h3>Description</h3>
-			<pre><textarea rows="5" cols="100"><?php echo $description ?></textarea></pre>
+			<pre><textarea rows="5" cols="100" name="description"><?php echo $old_description ?></textarea></pre>
 		</div>
-		<div class="pf_body_field"><h3>Numero telephone</h3><textarea rows="1" cols="15"><?php echo $phone ?></textarea></div>
-		<div class="pf_body_field"><h3>Adresse</h3><textarea rows="1" cols="50"><?php echo $location ?></textarea></div>
-		<div class="pf_body_field"><h3>Date Naissance</h3><input type="date"></div>
+		<div class="pf_body_field"><h3>Numero telephone</h3><input type="text" value="<?php echo $old_phone ?>" name="phone"  autocomplete="off"/></div>
+		<div class="pf_body_field"><h3>Adresse</h3><textarea rows="1" cols="50" name="location"><?php echo $old_location ?></textarea></div>
+		<div class="pf_body_field"><h3>Date Naissance</h3><input type="date" name="bday"></div>
 		<div class="pf_body_field"><h3>Horaires de travail</h3>
 			<pre>
 				Dim:<textarea rows="1" cols="5"><?php echo $worktime[0][0] ?></textarea> - <textarea rows="1" cols="5"><?php echo $worktime[0][1] ?></textarea>
@@ -114,4 +222,8 @@ if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='doctor') {
 header("Location: index.php");
 exit();
 
-}  ?>
+}  
+
+?>
+
+
