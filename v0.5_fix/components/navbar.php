@@ -1,16 +1,8 @@
 <div class="navbar">
 	<div class="prenav"></div>
 	<div class="navbar_el_container">
-	<?php /*
-	$current_file_name= basename($_SERVER["PHP_SELF"]);
-	if ($current_file_name == "login.php" || $current_file_name == "signup.php" || $current_file_name == "PS_signup.php") {
+	<?php 
 
-?>
-		<a href="index.php" class="navbar_logo"><img src="assets/logo.png"></a>
-<?php 
-}else{*/
-
-	
 if(!isset($_SESSION))
 {
 session_start();
@@ -25,9 +17,9 @@ if(isset($_SESSION["usertype"])) {
 		?>
 
 		<a href=<?php echo $logo_url  ?> class="navbar_logo"><img src="assets/logo.png"></a>
-		<form id="navbar_search" action="resultlist.php">
-			<input type="text" class="navbar_search_location" placeholder="Emplacement...">
-			<input type="text" class="navbar_search_speciality" placeholder="Specialité...">
+		<form id="navbar_search" action="resultlist.php" method="POST">
+			<input type="text" class="navbar_search_location" placeholder="Emplacement..."name="location">
+			<input type="text" class="navbar_search_speciality" placeholder="Specialité..."name="speciality">
 			<input type="submit" class="navbar_search_submit" value="Rechercher">
 		</form>	
 		<div class="navbar_auth">
@@ -42,9 +34,9 @@ else
 { 
 ?>
          <a href="index.php" class="navbar_logo"><img src="assets/logo.png"></a>
-        <form id="navbar_search" action="resultlist.php">
-			<input type="text" class="navbar_search_location" placeholder="Emplacement...">
-			<input type="text" class="navbar_search_speciality" placeholder="Specialité...">
+        <form id="navbar_search" action="resultlist.php" method="POST">
+			<input type="text" class="navbar_search_location" placeholder="Emplacement..." name="location">
+			<input type="text" class="navbar_search_speciality" placeholder="Specialité..." name="speciality">
 			<input type="submit" class="navbar_search_submit" value="Rechercher">
 		</form>	
 <div class="navbar_auth">
