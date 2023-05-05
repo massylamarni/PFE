@@ -1,5 +1,6 @@
 <?php
-$id = $_GET["id"];
+$apt_id = $_GET["aptid"];
+$id = "£00000";
 $pf_img = "assets/pfp2.png";
 $name = "User Name";
 $speciality = '<a href="#">Psychologue, </a><a href="#">Dermatologue</a>';
