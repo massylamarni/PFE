@@ -220,7 +220,7 @@ el[k].addEventListener('keydown',function(event){
 	}
 )
 }
-//le bouton ajouter une langue
+//pour ajouter un chaux de saisi avec le bouton
 var ajouter=document.getElementById('ajouter');
 var langue=document.getElementsByClassName('pf_body_field')[7];
 
