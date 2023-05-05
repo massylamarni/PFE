@@ -10,7 +10,7 @@
 <body>
 <!--save-->
 
-<?php //include("components/navbar.php");
+<?php
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 	$bday=$_POST["bday"];
 	@$gender=$_POST["gender"];
 
-	if ($name && $password && $email&& $bday && $phone && $gender ){
+	if ($name && $password && $email && $bday && $phone && $gender ){
         
 		$conn = mysqli_connect('localhost', 'root', '', DB_NAME);
 
@@ -33,16 +33,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 			echo "$conn->connect_error";
 			die("Connection Failed : ". $conn->connect_error);
 		} else {
-			$stmt = $conn->prepare("SELECT * FROM patient WHERE email = ? ");
-             $stmt->bind_param("s", $email);
-             $stmt->execute();
-             $result = $stmt->get_result();
+			$stmt = $conn->prepare("SELECT email FROM patient WHERE email = ? UNION SELECT email FROM doctor WHERE email = ?");
+			$stmt->bind_param("ss", $email , $email);
+            $stmt->execute();
+            $result = $stmt->get_result();
 
-            if ($result->num_rows >= 1) {
+            if ($result->num_rows > 0 ) {
 				echo "email already exists";
 			}else{
+			$password_hashed = password_hash($password, PASSWORD_DEFAULT);
 			$stmt = $conn->prepare("insert into patient (name, email, password, phone,  bday,  gender) values(?, ?, ?, ?, ?, ?)");
-			$stmt->bind_param("ssssss", $name, $email, $password, $phone, $bday, $gender);
+			$stmt->bind_param("ssssss", $name, $email, $password_hashed, $phone, $bday, $gender);
 			$stmt->execute();
 		
 			$stmt->close();
@@ -51,7 +52,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 			exit();
 		  }
 		}
-
 		$stmt->close();
 		$conn->close();
 
@@ -92,7 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 				<label>Numero telephone</label>
 				<input type="text" name="phone">
 			</div>
-			<div class="ep_form_field">
+			<div class="auth_form_field">
 				<label>Birthdate</label>
 				<input class="in_text" type="date" name="bday" >
 			</div>

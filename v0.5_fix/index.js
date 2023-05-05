@@ -153,10 +153,8 @@ function updateaptlist(op, el)
 	}
 }
 
-//funtion for the size of texts 
-var maxTextArea=[50,15,15,500,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15];
-
-function sizeArea(){
+//funtion for the size of texts area
+function sizeArea(){let maxTextArea=[50,15,15,500,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15];
 	let el=document.getElementsByTagName('textarea');
 	for (i=0; i<el.length; i++){
 		let line = el[i].value.split('\n');
@@ -170,23 +168,17 @@ function sizeArea(){
 };
 
 var el=document.getElementsByTagName('textarea');
-for (let k=0;k<el.length;k++){
+for (let k=0;el.length;k++){
 el[k].addEventListener('keydown',function(event){
-		if(el[k].value.length <= maxTextArea[k]	){
-			
+		if(el[k].value.length<=maxTextArea[k]){
 			sizeArea();
-			
-		}
-		if(el[k].value.length == maxTextArea[k]){
+		}else{
 			event.preventDefault();
 			el[k].value = el[k].value.slice(0,-1);
 		}
-		
 	}
-);
-};
-
-//pour ajouter une langue
+)
+}
 var ajouter=document.getElementById('ajouter');
 var langue=document.getElementsByClassName('pf_body_field')[7];
 

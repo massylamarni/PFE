@@ -412,6 +412,14 @@ html, body
 	margin: 15px 0px 0px 0px;
 	font-size: 12px;
 }
+.in_radio
+{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+}
 
 /* PS_PROFILE STYLE */
 .pf
@@ -571,16 +579,23 @@ html, body
 /* BOOKFORM STYLE */
 .bookform_container
 {
-	height: 100%;
-	width: 50%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	position: absolute;
+	top: calc(50% - 158px);
+	height: 256px;
+	width: 512px;
+	background-color: #F9F9F9;
+	padding: 30px 30px 30px 30px;
+	border-radius: 5px;
 }
 .bookform
 {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	height: 100%;
-	width: 100%;
 }
 .bookform_title
 {
