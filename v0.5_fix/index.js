@@ -29,7 +29,12 @@ var aptlist = [];			//updateaptlist
 var apthistory = [];			//updateapthistory
 var apthistory_state = [];
 
-
+function sessionstorage(v, k, n)
+{
+	if (sessionStorage.getItem(k) !== null) v = JSON.parse(sessionStorage.getItem(k));
+	v.push(n);
+	sessionStorage.setItem(k, JSON.stringify(v));
+}
 
 /* APTLIST & RESULTLIST */
 function showprofile()
@@ -43,14 +48,14 @@ function showprofile()
 			{
 				if ((event.target.tagName != 'P') && (event.target.tagName != 'A'))
 				{
-					if ((list_el.getElementsByClassName("list_el")[0].id == list_el_id_active) && (document.getElementsByClassName("secondary")[0].style.display == "flex"))
+					if ((list_el.id == list_el_id_active) && (document.getElementsByClassName("secondary")[0].style.display == "flex"))
 					{
 						document.getElementsByClassName("secondary")[0].style.display = "none";
 					}
 					else
 					{
 						document.getElementsByClassName("secondary")[0].style.display = "flex";
-						list_el_id_active = list_el.getElementsByClassName("list_el")[0].id;
+						list_el_id_active = list_el.id;
 					}
 					console.log(list_el_id_active);
 				}
@@ -141,6 +146,7 @@ function updateresultlist()
 function updateaptlist(op, el)
 {
 	if (sessionStorage.getItem('aptlist') !== null) aptlist = JSON.parse(sessionStorage.getItem('aptlist'));
+	if (sessionStorage.getItem('apts') !== null) apts = JSON.parse(sessionStorage.getItem('apts'));
 	if (op == 0)
 	{
 		var aptlist_null = document.getElementsByClassName("aptlist_null")[0];
@@ -169,18 +175,21 @@ function updateaptlist(op, el)
 			{
 				aptlist.splice(i, 1);
 			}
+			if (apts[i] == el.id)
+			{
+				apts.splice(i, 1);
+			}
 		}
 		sessionStorage.setItem('aptlist', JSON.stringify(aptlist));
+		sessionStorage.setItem('apts', JSON.stringify(aptlist));
 		updateaptlist(0);
 		updateapthistory(2, el.id, 'RDV Annulé');
 	}
 	else
 	{
 		apt.id = "£" + apt_inc++;
-		if (sessionStorage.getItem('aptlist') !== null) aptlist = JSON.parse(sessionStorage.getItem('aptlist'));
-		aptlist.push(apt.id);
-		sessionStorage.setItem('aptlist', JSON.stringify(aptlist));
-		apts.push({...apt});		//DB_SAVE
+		sessionstorage(aptlist, 'aptlist', apt.id);
+		sessionstorage(apts, 'apts', apt);
 	}
 }
 function updateapthistory(op, id, state)
@@ -210,12 +219,8 @@ function updateapthistory(op, id, state)
 	}
 	else
 	{
-		if (sessionStorage.getItem('apthistory') !== null) apthistory = JSON.parse(sessionStorage.getItem('apthistory'));
-		apthistory.push(id);
-		sessionStorage.setItem('apthistory', JSON.stringify(apthistory));
-		if (sessionStorage.getItem('apthistory_state') !== null) apthistory_state = JSON.parse(sessionStorage.getItem('apthistory_state'));
-		apthistory_state.push(state);
-		sessionStorage.setItem('apthistory_state', JSON.stringify(apthistory_state));
+		sessionstorage(apthistory, 'apthistory', id);
+		sessionstorage(apthistory_state, 'apthistory_state', state);
 		updateapthistory(0);
 	}
 }

@@ -30,6 +30,9 @@
 <script type="text/javascript">
 	updateaptlist(0);
 	updateapthistory(0);
+	setTimeout(() => {
+		showprofile();
+	}, 1000);
 </script>
 </body>
 </html>
