@@ -251,22 +251,4 @@ el[k].addEventListener('keydown',function(event){
 	}
 )
 }
-//le bouton ajouter une langue .
-var ajouter=document.getElementById('ajouter');
-var langue=document.getElementsByClassName('pf_body_field')[7];
 
-ajouter.addEventListener('click',function(event){
-	event.preventDefault();
-	let nouvel=document.createElement('textarea');
-	nouvel.after(ajouter)
-	nouvel.rows=1;
-	nouvel.cols=15;
-	nouvel.addEventListener('keydown',function(event){
-		if(nouvel.value.length <= 15){
-			sizeArea();
-		}else{event.preventDefault();
-			nouvel.value = nouvel.value.slice(0,-1);}
-	})
-	langue.appendChild(nouvel);
-});
-*/
