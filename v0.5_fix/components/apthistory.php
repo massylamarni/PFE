@@ -5,8 +5,9 @@ $name = "User Name";
 $speciality = '<a href="#">Psychologue, </a><a href="#">Dermatologue</a>';
 $apt_date = "Lundi, 31 mars";
 $apt_time = "a 15:30";
-$apt_date_rem = "Il reste 2j, ";
-$apt_time_rem = "12h et 9min";
+$date = "Mardi, 1 Avril";
+$time = "a 12:30";
+$state = $_GET["state"];
 ?>
 <div class="list_el">
 	<div class="pfp" id="<?php echo $id?>">
@@ -23,10 +24,10 @@ $apt_time_rem = "12h et 9min";
 			<div class="brief_time"><?php echo $apt_time ?></div>
 		</div>
 		<div class="brief_datetime">
-			<div class="brief_date"><?php echo $apt_date_rem ?></div>
-			<div class="brief_time"><?php echo $apt_time_rem ?></div>
+			<div class="brief_date"><?php echo $date ?></div>
+			<div class="brief_time"><?php echo $time ?></div>
 		</div>
 		<div class="brief_motif"><p>Motif de consultation</p></div>
-		<div class="brief_cancel" id="<?php echo $id?>" onclick="updateaptlist(1, this)"><p>Annuler RDV</p></div>
+		<div class="brief_state"><p><?php echo $state ?></p></div>
 	</div>
 </div>
