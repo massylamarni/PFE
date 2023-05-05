@@ -14,6 +14,7 @@ IDIR:
 
 YASSIN:
 -Faire fonctionner le systeme de recherche de medecins.
+-Enregistrer les informations saisie sur "bookform.php" dans la BD.
 
 RYADH:
 -Faire fonctionner le systeme de recherche sur google map.
