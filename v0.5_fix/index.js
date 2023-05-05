@@ -85,12 +85,6 @@ function bookform(op, el)
 				updateaptlist(2);
 				resetbookform();
 			}, 1000);
-			apt.id = apt_inc++;
-			if (sessionStorage.getItem('aptlist') !== null) aptlist = JSON.parse(sessionStorage.getItem('aptlist'));
-			aptlist.push(apt.id);
-			sessionStorage.setItem('aptlist', JSON.stringify(aptlist));
-			apts.push({...apt});		//DB_SAVE
-			console.log(apts);
 		}
 		savebookformstate()
 	}
@@ -182,9 +176,11 @@ function updateaptlist(op, el)
 	}
 	else
 	{
+		apt.id = "£" + apt_inc++;
 		if (sessionStorage.getItem('aptlist') !== null) aptlist = JSON.parse(sessionStorage.getItem('aptlist'));
-		aptlist.push(sessionStorage.getItem('last_apt_id'));
+		aptlist.push(apt.id);
 		sessionStorage.setItem('aptlist', JSON.stringify(aptlist));
+		apts.push({...apt});		//DB_SAVE
 	}
 }
 function updateapthistory(op, id, state)
