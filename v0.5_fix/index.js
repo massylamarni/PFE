@@ -253,3 +253,106 @@ el[k].addEventListener('keydown',function(event){
 )
 }
 */
+
+// ajouter une langue
+var ajouter=document.getElementById('ajouter');
+
+let langue=document.getElementById('prelangue')
+
+ajouter.addEventListener('click',function(event){
+	event.preventDefault();
+	let nouvel=document.createElement('textarea');
+	nouvel.after(ajouter)
+	nouvel.rows=1;
+	nouvel.cols=15;
+	/*nouvel.addEventListener('keydown',function(event){
+		if(nouvel.value.length <= 15){
+			sizeArea();
+		}else{event.preventDefault();
+			nouvel.value = nouvel.value.slice(0,-1);}
+	})*/
+	nouvel.classList.add('tarifdiv');
+	langue.appendChild(nouvel);
+});
+
+
+//ajouter diplome et classification
+var ajouterdiplome=document.getElementById('diplome');
+
+let diplome=document.getElementById('prediplome')
+
+ajouterdiplome.addEventListener('click',function(event){
+	event.preventDefault();
+	let nouvel=document.createElement('textarea');
+	let annee=document.createElement('textarea');
+	nouvel.after(ajouterdiplome);
+	annee.after(diplome);
+	nouvel.rows=1;
+	nouvel.cols=50;
+	annee.rows=1;
+	annee.cols=10;
+	annee.classList.add('pf_body_field');
+	nouvel.classList.add('pf_body_field');
+/*	nouvel.addEventListener('keydown',function(event){
+		if(nouvel.value.length <= 15){
+			sizeArea();
+		}else{event.preventDefault();
+			nouvel.value = nouvel.value.slice(0,-1);}
+	})
+	annee.addEventListener('keydown',function(event){
+		if(annee.value.length <= 15){
+			sizeArea();
+		}else{event.preventDefault();
+			annee.value = nouvel.value.slice(0,-1);}
+	})*/
+
+	let container=document.createElement('div');
+	  container.appendChild(annee);
+	  container.appendChild(nouvel);
+	  container.classList.add('tarifdiv');
+	diplome.appendChild(container);
+	
+
+});
+
+//ajouter tarifs
+let ajoutertarifs=document.getElementById('tarif');
+
+let tarifs=document.getElementById('pretarif');
+
+ajoutertarifs.addEventListener('click',function(event){
+	event.preventDefault();
+	let nouvel=document.createElement('textarea');
+	let prix=document.createElement('textarea');
+	nouvel.after(ajoutertarifs);
+	prix.after(ajoutertarifs);
+	nouvel.rows=1;
+	nouvel.cols=50;
+	prix.rows=1;
+	prix.cols=10;
+	prix.classList.add('pf_body_field');
+	nouvel.classList.add('pf_body_field');
+	prix.before(ajoutertarifs);
+	nouvel.after(ajoutertarifs);
+/*	nouvel.addEventListener('keydown',function(event){
+		if(nouvel.value.length <= 15){
+			sizeArea();
+		}else{event.preventDefault();
+			nouvel.value = nouvel.value.slice(0,-1);}
+	})
+	prix.addEventListener('keydown',function(event){
+		if(prix.value.length <= 15){
+			sizeArea();
+		}else{event.preventDefault();
+			prix.value = nouvel.value.slice(0,-1);}
+	})*/
+	let container=document.createElement('div');
+	  container.appendChild(nouvel);
+	  container.appendChild(prix);
+	  container.classList.add('tarifdiv');
+	tarifs.appendChild(container);
+	
+
+});
+
+
