@@ -185,21 +185,26 @@ if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='doctor') {
 			</pre>
 		</div>
 		<div class="pf_body_field"><h3>Tarifs</h3>
-			<pre>
+			<pre id="pretarif" >
 				<textarea rows="1" cols="50"><?php echo $pricing[0][0] ?></textarea><textarea rows="1" cols="10"><?php echo $pricing[0][1] ?></textarea>
 				<textarea rows="1" cols="50"><?php echo $pricing[1][0] ?></textarea><textarea rows="1" cols="10"><?php echo $pricing[1][1] ?></textarea>
 			</pre>
+			<input type="submit" id="tarif" value="ajouter un tarifs">
 		</div>
 		<div class="pf_body_field"><h3>Diplomes & Qualifications</h3>
-			<pre>
+			<pre id="prediplome" >
 				<textarea rows="1" cols="10"><?php echo $dq[0][0] ?></textarea><textarea rows="1" cols="50"><?php echo $dq[0][1] ?></textarea>
 				<textarea rows="1" cols="10"><?php echo $dq[1][0] ?></textarea><textarea rows="1" cols="50"><?php echo $dq[1][1] ?></textarea>
 			</pre>
+			<input type="submit" id="diplome" value="ajouter un diplome">
 		</div>
 		<div class="pf_body_field"><h3>Langues parlées</h3>
+		<pre id="prelangue" >
 			<textarea rows="1" cols="15"><?php echo $language[0] ?></textarea>,
 			<textarea rows="1" cols="15"><?php echo $language[1] ?></textarea>,
 			<textarea rows="1" cols="15"><?php echo $language[2] ?></textarea>
+		</pre>
+		<input type="submit" id="ajouter" value="ajouter une langue">
 		</div>
 		<div class="pf_body_images"><h3>∮ Images</h3></div>
 	</div>
