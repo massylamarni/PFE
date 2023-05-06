@@ -1,19 +1,20 @@
 /* GLOBAL */
-var apt_inc = 0;			//!simulation
+var appt_inc = 0;			//!simulation
 
-var list_el_id_active = 0;			//showprofile
+var last_pfp_id = 0;			//showprofile
 
 const lastform = 2;			//bookform
 var formnum = 0;
-var apts = [];
-var apt = {
+
+var appts_data = [];			//appt
+var appt_data = {
 	id: null,
 	id_client: null,
 	id_doctor: null,
 	date: null,
 	time: null,
-	apt_date: null,
-	apt_time: null,
+	appt_date: null,
+	appt_time: null,
 	motif: "Motif Inconnus."
 }
 var date_display = {
@@ -24,10 +25,10 @@ var date_display = {
 
 var resultlist = ["£00000", "£00001", "£00002", "£00003", "£00004"];			//updateresultlist
 
-var aptlist = [];			//updateaptlist
+var apptlist = [];			//updateapptlist
 
-var apthistory = [];			//updateapthistory
-var apthistory_state = [];
+var appthistory = [];			//updateappthistory
+var appthistory_state = [];
 
 function sessionstorage(v, k, n)
 {
@@ -48,16 +49,16 @@ function showprofile()
 			{
 				if ((event.target.tagName != 'P') && (event.target.tagName != 'A'))
 				{
-					if ((list_el.id == list_el_id_active) && (document.getElementsByClassName("secondary")[0].style.display == "flex"))
+					if ((list_el.id == last_pfp_id) && (document.getElementsByClassName("secondary")[0].style.display == "flex"))
 					{
 						document.getElementsByClassName("secondary")[0].style.display = "none";
 					}
 					else
 					{
 						document.getElementsByClassName("secondary")[0].style.display = "flex";
-						list_el_id_active = list_el.id;
+						last_pfp_id = list_el.id;
 					}
-					console.log(list_el_id_active);
+					console.log(last_pfp_id);
 				}
 			}
 		);
@@ -87,7 +88,7 @@ function bookform(op, el)
 			bf[++formnum].classList.remove("hidden");
 			setTimeout(() => {
 				bfc.classList.add("hidden");
-				updateaptlist(2);
+				updateapptlist(2);
 				resetbookform();
 			}, 1000);
 		}
@@ -109,19 +110,19 @@ function savebookformstate()
 	var datetime_in = document.getElementById("datetime_in").value;
 	var _datetime_in = new Date(datetime_in);
 	var _date = new Date();
-	apt.id = "0";
-	apt.id_client = "0";
-	apt.id_doctor = sessionStorage.getItem('last_profile_id');
-	apt.date = _date.getDate() + '-' + _date.getMonth() + '-' +_date.getFullYear();
-	apt.time = _date.getHours() + ':' + _date.getMinutes();
-	apt.apt_date = _datetime_in.getDate() + '-' + _datetime_in.getMonth() + '-' +_datetime_in.getFullYear();
-	apt.apt_time = _datetime_in.getHours() +  ':' + _datetime_in.getMinutes();
-	if (bfb_textarea.value != "") apt.motif = document.getElementsByClassName("bfb_textarea")[0].value;
+	appt_data.id = "0";
+	appt_data.id_client = "0";
+	appt_data.id_doctor = sessionStorage.getItem('last_profile_id');
+	appt_data.date = _date.getDate() + '-' + _date.getMonth() + '-' +_date.getFullYear();
+	appt_data.time = _date.getHours() + ':' + _date.getMinutes();
+	appt_data.appt_date = _datetime_in.getDate() + '-' + _datetime_in.getMonth() + '-' +_datetime_in.getFullYear();
+	appt_data.appt_time = _datetime_in.getHours() +  ':' + _datetime_in.getMinutes();
+	if (bfb_textarea.value != "") appt_data.motif = document.getElementsByClassName("bfb_textarea")[0].value;
 
 	date_display.day = DAYS[_datetime_in.getDay()];
 	date_display.date = _datetime_in.getDate();
 	date_display.month = MONTHS[_datetime_in.getMonth()];
-	document.getElementsByClassName("bookform_result")[0].innerHTML = "RDV pour le " + date_display.day + " " + date_display.date + " " + date_display.month + " a " + apt.apt_time + "\nMotif: " + apt.motif;
+	document.getElementsByClassName("bookform_result")[0].innerHTML = "RDV pour le " + date_display.day + " " + date_display.date + " " + date_display.month + " a " + appt_data.appt_time + "\nMotif: " + appt_data.motif;
 }
 
 /* RESULTLIST */
@@ -143,85 +144,85 @@ function updateresultlist()
 }
 
 /* INDEX */
-function updateaptlist(op, el)
+function updateapptlist(op, el)
 {
-	if (sessionStorage.getItem('aptlist') !== null) aptlist = JSON.parse(sessionStorage.getItem('aptlist'));
-	if (sessionStorage.getItem('apts') !== null) apts = JSON.parse(sessionStorage.getItem('apts'));
+	if (sessionStorage.getItem('apptlist') !== null) apptlist = JSON.parse(sessionStorage.getItem('apptlist'));
+	if (sessionStorage.getItem('appts_data') !== null) appts_data = JSON.parse(sessionStorage.getItem('appts_data'));
 	if (op == 0)
 	{
-		var aptlist_null = document.getElementsByClassName("aptlist_null")[0];
-		if (aptlist.length != 0)
+		var apptlist_null = document.getElementsByClassName("apptlist_null")[0];
+		if (apptlist.length != 0)
 		{
-			aptlist_null.innerHTML = "";
-			for (i=0; i<aptlist.length; i++)
+			apptlist_null.innerHTML = "";
+			for (i=0; i<apptlist.length; i++)
 			{
-				fetch(`components/aptlist.php?apt_id=${aptlist[i]}`)
+				fetch(`components/apptlist.php?appt_id=${apptlist[i]}`)
   				.then(response => response.text())
   				.then(data => {
- 					aptlist_null.innerHTML += data;
+ 					apptlist_null.innerHTML += data;
   				});
 			}
 		}
 		else
 		{
-			aptlist_null.innerHTML = "Pas de rendez-vous en cours !";
+			apptlist_null.innerHTML = "Pas de rendez-vous en cours !";
 		}
 	}
 	else if (op == 1)
 	{
-		for (i=0; i<aptlist.length; i++)
+		for (i=0; i<apptlist.length; i++)
 		{
-			if (aptlist[i] == el.id)
+			if (apptlist[i] == el.id)
 			{
-				aptlist.splice(i, 1);
+				apptlist.splice(i, 1);
 			}
-			if (apts[i] == el.id)
+			if (appts_data[i] == el.id)
 			{
-				apts.splice(i, 1);
+				appts_data.splice(i, 1);
 			}
 		}
-		sessionStorage.setItem('aptlist', JSON.stringify(aptlist));
-		sessionStorage.setItem('apts', JSON.stringify(aptlist));
-		updateaptlist(0);
-		updateapthistory(2, el.id, 'RDV Annulé');
+		sessionStorage.setItem('apptlist', JSON.stringify(apptlist));
+		sessionStorage.setItem('appts_data', JSON.stringify(apptlist));
+		updateapptlist(0);
+		updateappthistory(2, el.id, 'RDV Annulé');
 	}
 	else
 	{
-		apt.id = "£" + apt_inc++;
-		sessionstorage(aptlist, 'aptlist', apt.id);
-		sessionstorage(apts, 'apts', apt);
+		appt_data.id = "£" + appt_inc++;
+		sessionstorage(apptlist, 'apptlist', appt_data.id);
+		sessionstorage(appts_data, 'appts_data', appt_data);
 	}
 }
-function updateapthistory(op, id, state)
+function updateappthistory(op, id, state)
 {
-	if (sessionStorage.getItem('apthistory') !== null) apthistory = JSON.parse(sessionStorage.getItem('apthistory'));
-	if (sessionStorage.getItem('apthistory_state') !== null) apthistory_state = JSON.parse(sessionStorage.getItem('apthistory_state'));
+	if (sessionStorage.getItem('appthistory') !== null) appthistory = JSON.parse(sessionStorage.getItem('appthistory'));
+	if (sessionStorage.getItem('appthistory_state') !== null) appthistory_state = JSON.parse(sessionStorage.getItem('appthistory_state'));
 	if (op == 0)
 	{
-		var apthistory_null = document.getElementsByClassName("apthistory_null")[0];
+		var appthistory_null = document.getElementsByClassName("appthistory_null")[0];
 		var brief_state = document.getElementsByClassName("brief_state")[0];	
-		if (apthistory.length != 0)
+		if (appthistory.length != 0)
 		{
-			apthistory_null.innerHTML = "";
-			for (i=0; i<apthistory.length; i++)
+			appthistory_null.innerHTML = "";
+			for (i=0; i<appthistory.length; i++)
 			{
-				fetch(`components/apthistory.php?apt_id=${apthistory[i]}&state=${apthistory_state[i]}`)
+				fetch(`components/appthistory.php?appt_id=${appthistory[i]}&state=${appthistory_state[i]}`)
   				.then(response => response.text())
   				.then(data => {
- 					apthistory_null.innerHTML += data;
+ 					appthistory_null.innerHTML += data;
   				});
 			}
 		}
 		else
 		{
-			apthistory_null.innerHTML = "Vous n'avez pris aucun rendez-vous";
+			appthistory_null.innerHTML = "Vous n'avez pris aucun rendez-vous";
 		}
 	}
 	else
 	{
-		sessionstorage(apthistory, 'apthistory', id);
-		sessionstorage(apthistory_state, 'apthistory_state', state);
-		updateapthistory(0);
+		sessionstorage(appthistory, 'appthistory', id);
+		sessionstorage(appthistory_state, 'appthistory_state', state);
+		updateappthistory(0);
 	}
 }
 
