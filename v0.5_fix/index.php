@@ -14,11 +14,11 @@
 	<div class="main">
 		<div class="list">
 			<div class="list_title"><h3>Rendez-vous en cours</h3></div>
-			<div class="aptlist_null">Pas de rendez-vous en cours !</div>
+			<div class="apptlist_null">Pas de rendez-vous en cours !</div>
 		</div>
 		<div class="history">
 			<div class="list_title"><h3>Historique des Rendez-vouss</h3></div>
-			<div class="apthistory_null">Vous n'avez pris aucun rendez-vous</div>
+			<div class="appthistory_null">Vous n'avez pris aucun rendez-vous</div>
 		</div>
 	</div>
 	<div class="secondary">
@@ -28,8 +28,8 @@
 
 <script src="index.js"></script>
 <script type="text/javascript">
-	updateaptlist(0);
-	updateapthistory(0);
+	updateapptlist(0);
+	updateappthistory(0);
 	setTimeout(() => {
 		showprofile();
 	}, 1000);
