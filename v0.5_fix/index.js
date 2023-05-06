@@ -1,12 +1,18 @@
 /* GLOBAL */
 var appt_inc = 0;			//!simulation
 
+var date_display = {			//generic
+	month: null,
+	day: null,
+	date: null,
+}
+
 var last_pfp_id = 0;			//showprofile
 
 const lastform = 2;			//bookform
 var formnum = 0;
 
-var appts_data = [];			//appt
+var appts_data = [];			//DB
 var appt_data = {
 	id: null,
 	id_client: null,
@@ -17,11 +23,6 @@ var appt_data = {
 	appt_time: null,
 	motif: "Motif Inconnus."
 }
-var date_display = {
-	month: null,
-	day: null,
-	date: null,
-}
 
 var resultlist = ["£00000", "£00001", "£00002", "£00003", "£00004"];			//updateresultlist
 
@@ -30,6 +31,7 @@ var apptlist = [];			//updateapptlist
 var appthistory = [];			//updateappthistory
 var appthistory_state = [];
 
+/* GENERIC */
 function sessionstorage(v, k, n)
 {
 	if (sessionStorage.getItem(k) !== null) v = JSON.parse(sessionStorage.getItem(k));
@@ -58,7 +60,7 @@ function showprofile()
 						document.getElementsByClassName("secondary")[0].style.display = "flex";
 						last_pfp_id = list_el.id;
 					}
-					console.log(last_pfp_id);
+					console.log("last_pfp_id: " + last_pfp_id);
 				}
 			}
 		);
@@ -66,45 +68,39 @@ function showprofile()
 }
 
 /* BOOKFORM */
-function bookform(op, el)
+function bookform(op, brief_book)
 {
 	var bfc = document.getElementsByClassName("bookform_container")[0];
-	var bf = document.getElementsByClassName("bookform_container")[0].children;
-	if (op == 0)
+	var bf = bfc.children;
+	if (op == 0)	//display
 	{
+		bookform(3);
 		bfc.classList.remove("hidden");
-		sessionStorage.setItem('last_profile_id', el.id);
+		sessionStorage.setItem('last_profile_id', brief_book.id);
 	}
-	else
+	else if (op == 1)	//boookform next
 	{
-		if (formnum < lastform)
-		{
-			bf[formnum].classList.add("hidden");
-			bf[++formnum].classList.remove("hidden");
-		}
-		else if (formnum == lastform)
-		{
-			bf[formnum].classList.add("hidden");
-			bf[++formnum].classList.remove("hidden");
-			setTimeout(() => {
-				bfc.classList.add("hidden");
-				updateapptlist(2);
-				resetbookform();
-			}, 1000);
-		}
-		savebookformstate()
+		bf[formnum].classList.add("hidden");
+		bf[++formnum].classList.remove("hidden");
 	}
-}
-function resetbookform()
-{
-	var bf = document.getElementsByClassName("bookform_container")[0].children;
-	bf[formnum].classList.add("hidden");
-	formnum = 0;
-	bf[formnum].classList.remove("hidden");
-}
-function savebookformstate()
-{
-	bfb_textarea = document.getElementsByClassName("bfb_textarea")[0];
+	else if (op == 2)	//endscreen & save_data
+	{
+		bf[formnum].classList.add("hidden");
+		bf[++formnum].classList.remove("hidden");
+		setTimeout(() => {
+			bfc.classList.add("hidden");
+			updateapptlist(2);
+			bookform(3);
+		}, 1000);
+	}
+	else if (op == 3)	//reset
+	{
+		var bf = document.getElementsByClassName("bookform_container")[0].children;
+		bf[formnum].classList.add("hidden");
+		formnum = 0;
+		bf[formnum].classList.remove("hidden");
+	}
+	//save_state
 	const MONTHS = ["Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre"];
 	const DAYS = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
 	var datetime_in = document.getElementById("datetime_in").value;
@@ -117,12 +113,15 @@ function savebookformstate()
 	appt_data.time = _date.getHours() + ':' + _date.getMinutes();
 	appt_data.appt_date = _datetime_in.getDate() + '-' + _datetime_in.getMonth() + '-' +_datetime_in.getFullYear();
 	appt_data.appt_time = _datetime_in.getHours() +  ':' + _datetime_in.getMinutes();
+	let bfb_textarea = document.getElementsByClassName("bfb_textarea")[0];
 	if (bfb_textarea.value != "") appt_data.motif = document.getElementsByClassName("bfb_textarea")[0].value;
 
 	date_display.day = DAYS[_datetime_in.getDay()];
 	date_display.date = _datetime_in.getDate();
 	date_display.month = MONTHS[_datetime_in.getMonth()];
-	document.getElementsByClassName("bookform_result")[0].innerHTML = "RDV pour le " + date_display.day + " " + date_display.date + " " + date_display.month + " a " + appt_data.appt_time + "\nMotif: " + appt_data.motif;
+
+	document.getElementsByClassName("bookform_result")[0].innerHTML = "RDV pour le " + date_display.day + " " 
+	+ date_display.date + " " + date_display.month + " a " + appt_data.appt_time + "\nMotif: " + appt_data.motif;
 }
 
 /* RESULTLIST */
