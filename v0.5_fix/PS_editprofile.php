@@ -32,12 +32,6 @@ session_start();
 if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='doctor') {
 
 
-	$old_email= $_SESSION["email"];
-	    $old_name=$_SESSION["name"];
-      $old_password=$_SESSION["password"];
-	    $old_bday=$_SESSION["bday"];
-      $old_phone=$_SESSION["phone"];
-	  $old_speciality=$_SESSION["speciality"];
       if (isset($_SESSION["location"])){
       $old_location=$_SESSION["location"];
       }
@@ -87,7 +81,7 @@ if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='doctor') {
 			$stmt->bind_param("ss", $new_email , $new_email);
 			$stmt->execute();
 			$result = $stmt->get_result();
-			if ( $new_email != $old_email  &&  $result->num_rows > 0) {
+			if ( $new_email != $_SESSION["email"]  &&  $result->num_rows > 0) {
 			  echo "email already exists";
   
 		  }else{
@@ -97,20 +91,20 @@ if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='doctor') {
 			$_SESSION["email"]= $new_email;
 		  }       
 			  }
-		   if( $new_name  && $new_name!=$old_name ){
+		   if( $new_name  && $new_name!=$_SESSION["name"] ){
 			$stmt = $conn->prepare("UPDATE doctor SET name = ? WHERE id = ?");
 			$stmt->bind_param("si", $new_name, $_SESSION["id"]);
 			$stmt->execute();
 			$_SESSION["name"]=$new_name;
 		   }
   
-		   if($new_phone && $new_phone!=$old_phone ){
+		   if($new_phone && $new_phone!=$_SESSION["phone"] ){
 			$stmt = $conn->prepare("UPDATE doctor SET phone = ? WHERE id = ?");
 			$stmt->bind_param("si", $new_phone, $_SESSION["id"]);
 			$stmt->execute();
 			$_SESSION["phone"]=$new_phone;
 		   }
-			if($new_bday  && $new_bday!=$old_bday ){
+			if($new_bday  && $new_bday!=$_SESSION["bday"]){
 			$stmt = $conn->prepare("UPDATE doctor SET bday = ? WHERE id = ?");
 			$stmt->bind_param("si", $new_bday, $_SESSION["id"]);
 			$stmt->execute();
@@ -122,7 +116,7 @@ if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='doctor') {
 			$stmt->execute();
 			$_SESSION["location"]=$new_location;
 		   }
-		   if($new_speciality && $new_speciality!=$old_speciality ){
+		   if($new_speciality && $new_speciality!=$_SESSION["speciality"] ){
 			$stmt = $conn->prepare("UPDATE doctor SET speciality = ? WHERE id = ?");
 			$stmt->bind_param("si", $new_speciality, $_SESSION["id"]);
 			$stmt->execute();
@@ -134,8 +128,8 @@ if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='doctor') {
 			$stmt->execute();
 			$_SESSION["description"]=$new_description;
 		   }
-		   if ($new_password && $confirm_password && !password_verify($new_password ,$old_password)) {
-			   if(password_verify($confirm_password,$old_password)) {
+		   if ($new_password && $confirm_password && !password_verify($new_password ,$_SESSION["password"])) {
+			   if(password_verify($confirm_password,$_SESSION["password"])) {
 				  $password_hashed = password_hash($new_password, PASSWORD_DEFAULT);
 				  $stmt = $conn->prepare("UPDATE doctor SET password = ? WHERE id = ?");
 				  $stmt->bind_param("si",$password_hashed , $_SESSION["id"]);
@@ -160,9 +154,9 @@ if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='doctor') {
 	<div class="pf_header">
 		<img src="<?php echo $pf_img ?>">
 		<div class="pf_header_text">
-		<div class="pf_header_text_name"><input type="text" value="<?php echo $old_name ?>" name="name" autocomplete="off"/></div>
+		<div class="pf_header_text_name"><input type="text" value="<?php echo $_SESSION["name"] ?>" name="name" autocomplete="off"/></div>
 			<div class="pf_header_text_speciality">
-				<input type="text" value="<?php echo $old_speciality ?>" name="speciality" autocomplete="off"/>
+				<input type="text" value="<?php echo $_SESSION["speciality"] ?>" name="speciality" autocomplete="off"/>
 			</div>
 		</div>
 	</div>
@@ -170,7 +164,7 @@ if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='doctor') {
 		<div class="pf_body_field"><h3>Description</h3>
 			<pre><textarea rows="5" cols="100" name="description"><?php echo $old_description ?></textarea></pre>
 		</div>
-		<div class="pf_body_field"><h3>Numero telephone</h3><input type="text" value="<?php echo $old_phone ?>" name="phone"  autocomplete="off"/></div>
+		<div class="pf_body_field"><h3>Numero telephone</h3><input type="text" value="<?php echo $_SESSION["phone"] ?>" name="phone"  autocomplete="off"/></div>
 		<div class="pf_body_field"><h3>Adresse</h3><textarea rows="1" cols="50" name="location"><?php echo $old_location ?></textarea></div>
 		<div class="pf_body_field"><h3>Date Naissance</h3><input type="date" name="bday"></div>
 		<div class="pf_body_field"><h3>Horaires de travail</h3>
@@ -185,26 +179,31 @@ if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='doctor') {
 			</pre>
 		</div>
 		<div class="pf_body_field"><h3>Tarifs</h3>
-			<pre>
+			<pre id="pretarif" >
 				<textarea rows="1" cols="50"><?php echo $pricing[0][0] ?></textarea><textarea rows="1" cols="10"><?php echo $pricing[0][1] ?></textarea>
 				<textarea rows="1" cols="50"><?php echo $pricing[1][0] ?></textarea><textarea rows="1" cols="10"><?php echo $pricing[1][1] ?></textarea>
 			</pre>
+			<input type="submit" id="tarif" value="ajouter un tarifs">
 		</div>
 		<div class="pf_body_field"><h3>Diplomes & Qualifications</h3>
-			<pre>
+			<pre id="prediplome" >
 				<textarea rows="1" cols="10"><?php echo $dq[0][0] ?></textarea><textarea rows="1" cols="50"><?php echo $dq[0][1] ?></textarea>
 				<textarea rows="1" cols="10"><?php echo $dq[1][0] ?></textarea><textarea rows="1" cols="50"><?php echo $dq[1][1] ?></textarea>
 			</pre>
+			<input type="submit" id="diplome" value="ajouter un diplome">
 		</div>
 		<div class="pf_body_field"><h3>Langues parlées</h3>
+		<pre id="prelangue" >
 			<textarea rows="1" cols="15"><?php echo $language[0] ?></textarea>,
 			<textarea rows="1" cols="15"><?php echo $language[1] ?></textarea>,
 			<textarea rows="1" cols="15"><?php echo $language[2] ?></textarea>
+		</pre>
+		<input type="submit" id="ajouter" value="ajouter une langue">
 		</div>
 		<div class="pf_body_images"><h3>∮ Images</h3></div>
 	</div>
 	<div>
-	<div class="pf_body_field"><h3>Email</h3><input class="in_text" type="text"value="<?php echo $old_email ?>" name="email" autocomplete="off"/></div>
+	<div class="pf_body_field"><h3>Email</h3><input class="in_text" type="text"value="<?php echo $_SESSION["email"] ?>" name="email" autocomplete="off"/></div>
 	<div class="pf_body_field"><h3>Password</h3><input class="in_text" type="password" placeholder="enter old password" name="old_password" autocomplete="off">
     <input class="in_text" type="password" placeholder="enter new password" name="new_password" autocomplete="off" ></div>
 	</div>
