@@ -10,11 +10,16 @@
 <body>		
 		
 <?php include("components/navbar.php");
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 define("DB_NAME","Client");
 
 $location=$_POST["location"];
 $speciality=$_POST["speciality"];
 
+$location= trim($location);
+$speciality=trim($speciality);
 
 $conn = mysqli_connect('localhost', 'root', '', DB_NAME);
 
@@ -22,18 +27,22 @@ $conn = mysqli_connect('localhost', 'root', '', DB_NAME);
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
+
+$searchLocation = "%" . $location . "%";
+$searchSpeciality = "%" . $speciality . "%";
+
 if($location && $speciality){
 
-	$stmt = $conn->prepare("SELECT * FROM doctor WHERE location = ? AND speciality = ? ");
-	$stmt->bind_param("ss", $location , $speciality);
+	$stmt = $conn->prepare("SELECT * FROM doctor WHERE location LIKE ? AND speciality LIKE ? ");
+	$stmt->bind_param("ss", $searchLocation , $searchSpeciality);
 }elseif($location){   
 
-	$stmt = $conn->prepare("SELECT * FROM doctor WHERE location = ? ");
-	$stmt->bind_param("s", $location );
+	$stmt = $conn->prepare("SELECT * FROM doctor WHERE location LIKE ? ");
+	$stmt->bind_param("s", $searchLocation );
 }else{
 
-	$stmt = $conn->prepare("SELECT * FROM doctor WHERE speciality = ? ");
-	$stmt->bind_param("s", $speciality );
+	$stmt = $conn->prepare("SELECT * FROM doctor WHERE speciality LIKE ? ");
+	$stmt->bind_param("s", $searchSpeciality );
 }
 
 	$stmt->execute();
