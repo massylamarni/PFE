@@ -9,7 +9,13 @@
 </head>
 <body>		
 		
-<?php include("components/navbar.php");
+<?php 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+include("components/navbar.php");
+
 define("DB_NAME","Client");
 
 $location=$_POST["location"];
@@ -53,6 +59,7 @@ if($location && $speciality){
 ?>
 
 <div class="std_containerI">
+	<div class="fetchto"></div>
 	<div class="main">
 		<div class="list">
 			<div class="list_title"><h3>Resultats de recherche</h3></div>

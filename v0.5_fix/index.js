@@ -1,35 +1,28 @@
 /* GLOBAL */
-var appt_inc = 0;			//!simulation
 
 var date_display = {			//generic
 	month: null,
 	day: null,
 	date: null,
+	time: null
 }
+
+var appt = {
+	appt_doctor_id: null,
+	appt_date: null,
+	appt_keep_date: null,
+	appt_motif: "Motif Inconnus."
+};
 
 var last_pfp_id = 0;			//showprofile
 
 const lastform = 2;			//bookform
 var formnum = 0;
 
-var appts_data = [];			//DB
-var appt_data = {
-	id: null,
-	id_client: null,
-	id_doctor: null,
-	date: null,
-	time: null,
-	appt_date: null,
-	appt_time: null,
-	motif: "Motif Inconnus."
-}
-
-var resultlist = ["£00000", "£00001", "£00002", "£00003", "£00004"];			//updateresultlist
+var resultlist = [0, 1, 2, 3, 4];			//updateresultlist
 
 var apptlist = [];			//updateapptlist
-
-var appthistory = [];			//updateappthistory
-var appthistory_state = [];
+var appt_ids = 0;
 
 /* GENERIC */
 function sessionstorage(v, k, n)
@@ -62,6 +55,10 @@ function showprofile()
 					}
 					console.log("last_pfp_id: " + last_pfp_id);
 				}
+				else if ((event.target.tagName == 'P'))
+				{
+					console.log("motif: " + list_el.getElementsByClassName("motif")[0].innerHTML);
+				}
 			}
 		);
 	}
@@ -89,7 +86,12 @@ function bookform(op, brief_book)
 		bf[++formnum].classList.remove("hidden");
 		setTimeout(() => {
 			bfc.classList.add("hidden");
-			updateapptlist(2);
+			fetch(`components/appt.php?op=0&appt_doctor_id=${appt.appt_doctor_id}
+			&appt_date=${appt.appt_date.toUTCString()}&appt_keep_date=${appt.appt_keep_date.toUTCString()}&appt_motif=${appt.appt_motif}`)
+			.then(response => response.text())
+			.then(data => {
+				document.getElementsByClassName("fetchto")[0].innerHTML += data;
+			});
 			bookform(3);
 		}, 1000);
 	}
@@ -101,27 +103,23 @@ function bookform(op, brief_book)
 		bf[formnum].classList.remove("hidden");
 	}
 	//save_state
+	var datetime_in = document.getElementById("datetime_in").value;
+	var datetime_in_obj = new Date(datetime_in);
+	appt.appt_doctor_id = sessionStorage.getItem('last_profile_id');
+	appt.appt_date = datetime_in_obj;
+	appt.appt_keep_date = new Date();
+	let bfb_textarea = document.getElementsByClassName("bfb_textarea")[0];
+	if (bfb_textarea.value != "") appt.appt_motif = document.getElementsByClassName("bfb_textarea")[0].value;
+	
 	const MONTHS = ["Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre"];
 	const DAYS = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
-	var datetime_in = document.getElementById("datetime_in").value;
-	var _datetime_in = new Date(datetime_in);
-	var _date = new Date();
-	appt_data.id = "0";
-	appt_data.id_client = "0";
-	appt_data.id_doctor = sessionStorage.getItem('last_profile_id');
-	appt_data.date = _date.getDate() + '-' + _date.getMonth() + '-' +_date.getFullYear();
-	appt_data.time = _date.getHours() + ':' + _date.getMinutes();
-	appt_data.appt_date = _datetime_in.getDate() + '-' + _datetime_in.getMonth() + '-' +_datetime_in.getFullYear();
-	appt_data.appt_time = _datetime_in.getHours() +  ':' + _datetime_in.getMinutes();
-	let bfb_textarea = document.getElementsByClassName("bfb_textarea")[0];
-	if (bfb_textarea.value != "") appt_data.motif = document.getElementsByClassName("bfb_textarea")[0].value;
-
-	date_display.day = DAYS[_datetime_in.getDay()];
-	date_display.date = _datetime_in.getDate();
-	date_display.month = MONTHS[_datetime_in.getMonth()];
+	date_display.month = MONTHS[datetime_in_obj.getMonth()];
+	date_display.day = DAYS[datetime_in_obj.getDay()];
+	date_display.date = datetime_in_obj.getDate();
+	date_display.time = datetime_in_obj.getHours() + ':' + datetime_in_obj.getMinutes();
 
 	document.getElementsByClassName("bookform_result")[0].innerHTML = "RDV pour le " + date_display.day + " " 
-	+ date_display.date + " " + date_display.month + " a " + appt_data.appt_time + "\nMotif: " + appt_data.motif;
+	+ date_display.date + " " + date_display.month + " a " + date_display.time + "\nMotif: " + appt.appt_motif;
 }
 
 /* RESULTLIST */
@@ -145,83 +143,19 @@ function updateresultlist()
 /* INDEX */
 function updateapptlist(op, el)
 {
-	if (sessionStorage.getItem('apptlist') !== null) apptlist = JSON.parse(sessionStorage.getItem('apptlist'));
-	if (sessionStorage.getItem('appts_data') !== null) appts_data = JSON.parse(sessionStorage.getItem('appts_data'));
-	if (op == 0)
+	if (op == 1)	//remove
 	{
-		var apptlist_null = document.getElementsByClassName("apptlist_null")[0];
-		if (apptlist.length != 0)
-		{
-			apptlist_null.innerHTML = "";
-			for (i=0; i<apptlist.length; i++)
-			{
-				fetch(`components/apptlist.php?appt_id=${apptlist[i]}`)
-  				.then(response => response.text())
-  				.then(data => {
- 					apptlist_null.innerHTML += data;
-  				});
-			}
-		}
-		else
-		{
-			apptlist_null.innerHTML = "Pas de rendez-vous en cours !";
-		}
-	}
-	else if (op == 1)
-	{
-		for (i=0; i<apptlist.length; i++)
-		{
-			if (apptlist[i] == el.id)
-			{
-				apptlist.splice(i, 1);
-			}
-			if (appts_data[i] == el.id)
-			{
-				appts_data.splice(i, 1);
-			}
-		}
-		sessionStorage.setItem('apptlist', JSON.stringify(apptlist));
-		sessionStorage.setItem('appts_data', JSON.stringify(apptlist));
-		updateapptlist(0);
-		updateappthistory(2, el.id, 'RDV Annulé');
-	}
-	else
-	{
-		appt_data.id = "£" + appt_inc++;
-		sessionstorage(apptlist, 'apptlist', appt_data.id);
-		sessionstorage(appts_data, 'appts_data', appt_data);
-	}
-}
-function updateappthistory(op, id, state)
-{
-	if (sessionStorage.getItem('appthistory') !== null) appthistory = JSON.parse(sessionStorage.getItem('appthistory'));
-	if (sessionStorage.getItem('appthistory_state') !== null) appthistory_state = JSON.parse(sessionStorage.getItem('appthistory_state'));
-	if (op == 0)
-	{
-		var appthistory_null = document.getElementsByClassName("appthistory_null")[0];
-		var brief_state = document.getElementsByClassName("brief_state")[0];	
-		if (appthistory.length != 0)
-		{
-			appthistory_null.innerHTML = "";
-			for (i=0; i<appthistory.length; i++)
-			{
-				fetch(`components/appthistory.php?appt_id=${appthistory[i]}&state=${appthistory_state[i]}`)
-  				.then(response => response.text())
-  				.then(data => {
- 					appthistory_null.innerHTML += data;
-  				});
-			}
-		}
-		else
-		{
-			appthistory_null.innerHTML = "Vous n'avez pris aucun rendez-vous";
-		}
-	}
-	else
-	{
-		sessionstorage(appthistory, 'appthistory', id);
-		sessionstorage(appthistory_state, 'appthistory_state', state);
-		updateappthistory(0);
+		fetch(`components/appt.php?op=3&appt_id=${el.id}`)
+  		.then(response => response.text())
+  		.then(data => {
+			document.getElementsByClassName("fetchto")[0].innerHTML += data;
+		});
+		fetch(`components/appt.php?op=1&patient_appthistory=${el.id}&appthistory_state=RDV Annule`)
+  		.then(response => response.text())
+  		.then(data => {
+			document.getElementsByClassName("fetchto")[0].innerHTML += data;
+			updateapptlist(0);
+  		});
 	}
 }
 

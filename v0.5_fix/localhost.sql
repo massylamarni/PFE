@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 30, 2023 at 11:58 AM
+-- Generation Time: May 08, 2023 at 11:29 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -26,17 +26,25 @@ USE `Client`;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `apt`
+-- Table structure for table `appt`
 --
 
-CREATE TABLE `apt` (
-  `id` int(9) NOT NULL,
-  `id_client` varchar(9) DEFAULT NULL,
-  `id_doctor` varchar(9) DEFAULT NULL,
-  `date` date DEFAULT NULL,
-  `apt_date` date DEFAULT NULL,
-  `motif` varchar(500) DEFAULT NULL
+CREATE TABLE `appt` (
+  `appt_id` int(9) NOT NULL,
+  `appt_patient_id` varchar(9) DEFAULT NULL,
+  `appt_doctor_id` varchar(9) DEFAULT NULL,
+  `appt_date` varchar(100) DEFAULT NULL,
+  `appt_keep_date` varchar(100) DEFAULT NULL,
+  `appt_motif` varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `appt`
+--
+
+INSERT INTO `appt` (`appt_id`, `appt_patient_id`, `appt_doctor_id`, `appt_date`, `appt_keep_date`, `appt_motif`) VALUES
+(29, '0', '3', 'Thu, 25 May 2023 11:58:00 GMT', 'Mon, 08 May 2023 19:54:01 GMT', 'Motif Inconnus.'),
+(30, '0', '3', 'Thu, 25 May 2023 11:13:00 GMT', 'Mon, 08 May 2023 20:15:36 GMT', 'Motif Inconnus.');
 
 -- --------------------------------------------------------
 
@@ -45,15 +53,16 @@ CREATE TABLE `apt` (
 --
 
 CREATE TABLE `doctor` (
-  `id` int(9) NOT NULL,
-  `name` varchar(50) DEFAULT NULL,
-  `email` varchar(50) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
-  `phone` varchar(15) DEFAULT NULL,
-  `bday` date DEFAULT NULL,
-  `gender` varchar(1) DEFAULT NULL,
-  `pf_img` varchar(50) DEFAULT NULL,
-  `location` varchar(50) DEFAULT NULL,
+  `doctor_id` int(9) NOT NULL,
+  `doctor_name` varchar(50) DEFAULT NULL,
+  `doctor_email` varchar(50) DEFAULT NULL,
+  `doctor_password` varchar(300) DEFAULT NULL,
+  `doctor_phone` varchar(15) DEFAULT NULL,
+  `doctor_bday` date DEFAULT NULL,
+  `doctor_gender` varchar(1) DEFAULT NULL,
+  `doctor_pf_img` varchar(50) DEFAULT NULL,
+  `doctor_location` varchar(50) DEFAULT NULL,
+  `licence` varchar(50) DEFAULT NULL,
   `speciality` varchar(50) DEFAULT NULL,
   `description` varchar(500) DEFAULT NULL,
   `worktime` varchar(300) DEFAULT NULL,
@@ -66,8 +75,8 @@ CREATE TABLE `doctor` (
 -- Dumping data for table `doctor`
 --
 
-INSERT INTO `doctor` (`id`, `name`, `email`, `password`, `phone`, `bday`, `gender`, `pf_img`, `location`, `speciality`, `description`, `worktime`, `pricing`, `dq`, `language`) VALUES
-(6, 'littleJ', 'little@J.star', '0794891034', '0794891034', '2029-04-23', 'M', 'assets/pfp2.png', '75017 Colorado, USA', '[\"Cardiologue\",\"Dermatologue\"]', 'Spécialisé dans le traitement des maladies de la peau, des ongles et des cheveux,\nnotamment les éruptions cutanées, les infections de la peau, l\'acné, les taches de\nvieillesse, les cancers de la peau, les allergies cutanées et les affections auto-immunes.', '[[\"09h30\",\"19h30\"],[\"09h30\",\"19h30\"],[\"09h30\",\"19h30\"],[\"09h30\",\"19h30\"],[\"09h30\",\"19h30\"],[\"\",\"\"],[\"09h30\",\"19h30\"]]', '[[\"Consultation simple\",\"100 \\u00a3\"],[\"Consultation avec acte\",\"200 \\u00a3\"]]', '[[\"1977\",\"Dipl\\u00f4me d\'\\u00c9tat de docteur en m\\u00e9decine - Universit\\u00e9 Paris 11 - Paris-Saclay\"],[\"1977\",\"D.E.S. Dermatologie et v\\u00e9n\\u00e9r\\u00e9ologie - UFR de m\\u00e9decine Lariboisi\\u00e8re-Saint-Louis\"]]', '[\"Anglais\",\"Francais\",\"Espagnol\"]');
+INSERT INTO `doctor` (`doctor_id`, `doctor_name`, `doctor_email`, `doctor_password`, `doctor_phone`, `doctor_bday`, `doctor_gender`, `doctor_pf_img`, `doctor_location`, `licence`, `speciality`, `description`, `worktime`, `pricing`, `dq`, `language`) VALUES
+(3, 'Little Jackob', 'little@star.com', '$2y$10$Pw1LEA58/dYvQ68tTut3w.fNMi9KgHHH9kpB4o80ADCF5tcPE/VdC', '0794891034', '2023-05-25', 'M', NULL, NULL, NULL, 'star', NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -76,68 +85,69 @@ INSERT INTO `doctor` (`id`, `name`, `email`, `password`, `phone`, `bday`, `gende
 --
 
 CREATE TABLE `patient` (
-  `id` int(9) NOT NULL,
-  `name` varchar(50) DEFAULT NULL,
-  `email` varchar(50) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
-  `phone` varchar(15) DEFAULT NULL,
-  `bday` date DEFAULT NULL,
-  `gender` varchar(1) DEFAULT NULL,
-  `pf_img` varchar(50) DEFAULT NULL,
-  `location` varchar(50) DEFAULT NULL
+  `patient_id` int(9) NOT NULL,
+  `patient_name` varchar(50) DEFAULT NULL,
+  `patient_email` varchar(50) DEFAULT NULL,
+  `patient_password` varchar(300) DEFAULT NULL,
+  `patient_phone` varchar(15) DEFAULT NULL,
+  `patient_bday` date DEFAULT NULL,
+  `patient_gender` varchar(1) DEFAULT NULL,
+  `patient_pf_img` varchar(50) DEFAULT NULL,
+  `patient_location` varchar(50) DEFAULT NULL,
+  `patient_apptlist` varchar(500) DEFAULT NULL,
+  `patient_appthistory` varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `patient`
 --
 
-INSERT INTO `patient` (`id`, `name`, `email`, `password`, `phone`, `bday`, `gender`, `pf_img`, `location`) VALUES
-(3, 'LittleJackob', 'little@star.com', '0794891034', '0794891034', '2028-04-23', 'M', 'assets/pfp2.png', '75017 Colorado, USA'),
-(5, 'littlejackob', 'smoll@star.com', '0794891034', '0794891034', '2029-04-23', 'M', 'assets/pfp2.png', '75017 Colorado, USA');
+INSERT INTO `patient` (`patient_id`, `patient_name`, `patient_email`, `patient_password`, `patient_phone`, `patient_bday`, `patient_gender`, `patient_pf_img`, `patient_location`, `patient_apptlist`, `patient_appthistory`) VALUES
+(15, 'SimpleUser64', 's@u.com', '$2y$10$gWT2e3aax4SG3xs74pZTA.VePq80lkr7BvgmzTKXIoAZBlsrbjxRi', '0794891034', '2023-05-20', 'M', NULL, NULL, '[]', '[[\"30\",\"RDV Annul\\u00e9\"],[\"30\",\"RDV Annule}\"]]');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `apt`
+-- Indexes for table `appt`
 --
-ALTER TABLE `apt`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `appt`
+  ADD PRIMARY KEY (`appt_id`);
 
 --
 -- Indexes for table `doctor`
 --
 ALTER TABLE `doctor`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`doctor_id`);
 
 --
 -- Indexes for table `patient`
 --
 ALTER TABLE `patient`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`patient_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `apt`
+-- AUTO_INCREMENT for table `appt`
 --
-ALTER TABLE `apt`
-  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `appt`
+  MODIFY `appt_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `doctor`
 --
 ALTER TABLE `doctor`
-  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `doctor_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `patient`
 --
 ALTER TABLE `patient`
-  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `patient_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- Database: `phpmyadmin`
 --
@@ -308,7 +318,7 @@ CREATE TABLE `pma__recent` (
 --
 
 INSERT INTO `pma__recent` (`username`, `tables`) VALUES
-('root', '[{\"db\":\"Client\",\"table\":\"patient\"},{\"db\":\"Client\",\"table\":\"apt\"},{\"db\":\"Client\",\"table\":\"doctor\"},{\"db\":\"test\",\"table\":\"user\"},{\"db\":\"phpmyadmin\",\"table\":\"pma__bookmark\"}]');
+('root', '[{\"db\":\"Client\",\"table\":\"patient\"},{\"db\":\"Client\",\"table\":\"appt\"},{\"db\":\"Client\",\"table\":\"doctor\"},{\"db\":\"Client\",\"table\":\"apt\"},{\"db\":\"test\",\"table\":\"user\"},{\"db\":\"phpmyadmin\",\"table\":\"pma__bookmark\"}]');
 
 -- --------------------------------------------------------
 
@@ -415,7 +425,7 @@ CREATE TABLE `pma__userconfig` (
 --
 
 INSERT INTO `pma__userconfig` (`username`, `timevalue`, `config_data`) VALUES
-('root', '2023-04-30 09:55:37', '{\"Console\\/Mode\":\"collapse\",\"Console\\/Height\":477.00200000000000954969436861574649810791015625}');
+('root', '2023-05-08 19:11:57', '{\"Console\\/Mode\":\"collapse\",\"Console\\/Height\":477.00200000000000954969436861574649810791015625}');
 
 -- --------------------------------------------------------
 

@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 			echo "$conn->connect_error";
 			die("Connection Failed : ". $conn->connect_error);
 		} else {
-			$stmt = $conn->prepare("SELECT email FROM patient WHERE email = ? UNION SELECT email FROM doctor WHERE email = ?");
+			$stmt = $conn->prepare("SELECT patient_email FROM patient WHERE patient_email = ? UNION SELECT doctor_email FROM doctor WHERE doctor_email = ?");
 			$stmt->bind_param("ss", $email , $email);
             $stmt->execute();
             $result = $stmt->get_result();
@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 				echo "email already exists";
 			}else{
 			$password_hashed = password_hash($password, PASSWORD_DEFAULT);
-			$stmt = $conn->prepare("insert into patient (name, email, password, phone,  bday,  gender) values(?, ?, ?, ?, ?, ?)");
+			$stmt = $conn->prepare("insert into patient (patient_name, patient_email, patient_password, patient_phone,  patient_bday,  patient_gender) values(?, ?, ?, ?, ?, ?)");
 			$stmt->bind_param("ssssss", $name, $email, $password_hashed, $phone, $bday, $gender);
 			$stmt->execute();
 		

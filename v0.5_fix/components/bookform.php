@@ -1,14 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="bookform.css">
-	<title>Visuals</title>
-</head>
-<body>
-
 <div class="bookform_container hidden">
 	<div class="bookform">
 		<div class="bookform_title"><h3>Horaire</h3></div>
@@ -37,7 +26,3 @@
 		</div>
 	</div>
 </div>
-
-<script src="bookform.js"></script>
-</body>
-</html>

@@ -10,9 +10,9 @@
 <body>
 
 <?php //include("components/navbar.php"); 
-
-
-define("DB_NAME","Client");
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
@@ -26,13 +26,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 	if ($name && $password && $email && $bday && $phone && $gender && $speciality ){
 
-		$conn = mysqli_connect('localhost', 'root', '', DB_NAME);
+		$conn = mysqli_connect('localhost', 'root', '', 'Client');
 
 		if($conn->connect_error){
 			echo "$conn->connect_error";
 			die("Connection Failed : ". $conn->connect_error);
 		} else {
-			$stmt = $conn->prepare("SELECT email FROM patient WHERE email = ? UNION SELECT email FROM doctor WHERE email = ?");
+			$stmt = $conn->prepare("SELECT patient_email FROM patient WHERE patient_email = ? UNION SELECT doctor_email FROM doctor WHERE doctor_email = ?");
 			$stmt->bind_param("ss", $email , $email);
             $stmt->execute();
             $result = $stmt->get_result();
@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 				echo "email already exists";
 			}else{
 			$password_hashed = password_hash($password, PASSWORD_DEFAULT);
-			$stmt = $conn->prepare("insert into doctor (name, email, password, phone,  bday,  gender, speciality) values(?, ?, ?, ?, ?, ?, ?)");
+			$stmt = $conn->prepare("insert into doctor (doctor_name, doctor_email, doctor_password, doctor_phone, doctor_bday, doctor_gender, speciality) values(?, ?, ?, ?, ?, ?, ?)");
 			$stmt->bind_param("sssssss", $name, $email, $password_hashed, $phone, $bday, $gender, $speciality);
 			$stmt->execute();
 		
