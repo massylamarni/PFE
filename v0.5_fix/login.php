@@ -10,7 +10,9 @@
 <body>
 
 <?php //include("components/navbar.php");
-
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 define('DB_NAME','Client');
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -27,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 	} else {
 
 // Check if user exists in the patient table
-$stmt = $conn->prepare("SELECT * FROM patient WHERE email = ?");
+$stmt = $conn->prepare("SELECT * FROM patient WHERE patient_email = ?");
 $stmt->bind_param("s", $email);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -35,23 +37,23 @@ $result = $stmt->get_result();
 if ($result->num_rows == 1) {
 
 	$row = $result->fetch_assoc();
-	if(password_verify($password,$row["password"])) {
+	if(password_verify($password,$row["patient_password"])) {
 
     // User is found 
 	session_start();
 
-	$_SESSION["id"]=$row["id"];
+	$_SESSION["id"]=$row["patient_id"];
 	$_SESSION["email"]=$email;
-	$_SESSION["password"]=$row["password"];
-	$_SESSION["name"]=$row["name"];
-	$_SESSION["bday"]=$row["bday"];
-	$_SESSION["phone"]=$row["phone"];
-	$_SESSION["gender"]=$row["gender"];
-	if (isset($row["location"])) {
-		$_SESSION["location"] = $row["location"];
+	$_SESSION["password"]=$row["patient_password"];
+	$_SESSION["name"]=$row["patient_name"];
+	$_SESSION["bday"]=$row["patient_bday"];
+	$_SESSION["phone"]=$row["patient_phone"];
+	$_SESSION["gender"]=$row["patient_gender"];
+	if (isset($row["patient_location"])) {
+		$_SESSION["location"] = $row["patient_location"];
 	}
-	if (isset($row["pf_img"])) {
-		$_SESSION["pf_img"] = $row["pf_img"];
+	if (isset($row["patient_pf_img"])) {
+		$_SESSION["pf_img"] = $row["patient_pf_img"];
 	}
 	$_SESSION["usertype"]="patient";
 
@@ -64,7 +66,7 @@ if ($result->num_rows == 1) {
 
     // User is not found in the patient table
 
-    $stmt = $conn->prepare("SELECT * FROM doctor WHERE email = ?");
+    $stmt = $conn->prepare("SELECT * FROM doctor WHERE doctor_email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -72,40 +74,40 @@ if ($result->num_rows == 1) {
     if ($result->num_rows == 1) {
 
 		$row = $result->fetch_assoc();
-		if(password_verify($password,$row["password"])) {
+		if(password_verify($password,$row["doctor_password"])) {
 
 
         // User is found in the doctor table
 	    session_start();
 
-	$_SESSION["id"]=$row["id"];
+	$_SESSION["id"]=$row["doctor_id"];
 	$_SESSION["email"]=$email;
-	$_SESSION["password"]=$row["password"];
-	$_SESSION["name"]=$row["name"];
-	$_SESSION["bday"]=$row["bday"];
-	$_SESSION["phone"]=$row["phone"];
-	$_SESSION["gender"]=$row["gender"];
-	$_SESSION["speciality"]=$row["speciality"];
-	if (isset($row["location"])) {
-		$_SESSION["location"] = $row["location"];
+	$_SESSION["password"]=$row["doctor_password"];
+	$_SESSION["name"]=$row["doctor_name"];
+	$_SESSION["bday"]=$row["doctor_bday"];
+	$_SESSION["phone"]=$row["doctor_phone"];
+	$_SESSION["gender"]=$row["doctor_gender"];
+	$_SESSION["speciality"]=$row["doctor_speciality"];
+	if (isset($row["doctor_location"])) {
+		$_SESSION["location"] = $row["doctor_location"];
 	}
-	if (isset($row["pf_img"])) {
-		$_SESSION["pf_img"] = $row["pf_img"];
+	if (isset($row["doctor_pf_img"])) {
+		$_SESSION["pf_img"] = $row["doctor_pf_img"];
 	}
-	if (isset($row["description"])) {
-		$_SESSION["description"] = $row["description"];
+	if (isset($row["doctor_description"])) {
+		$_SESSION["description"] = $row["doctor_description"];
 	}
-	if (isset($row["worktime"])) {
-		$_SESSION["worktime"] = $row["worktime"];
+	if (isset($row["doctor_worktime"])) {
+		$_SESSION["worktime"] = $row["doctor_worktime"];
 	}
-	if (isset($row["pricing"])) {
-		$_SESSION["pricing"] = $row["pricing"];
+	if (isset($row["doctor_pricing"])) {
+		$_SESSION["pricing"] = $row["doctor_pricing"];
 	}
-	if (isset($row["dq"])) {
-		$_SESSION["dq"] = $row["dq"];
+	if (isset($row["doctor_dq"])) {
+		$_SESSION["dq"] = $row["doctor_dq"];
 	}
-	if (isset($row["language"])) {
-		$_SESSION["language"] = $row["language"];
+	if (isset($row["doctor_language"])) {
+		$_SESSION["language"] = $row["doctor_language"];
 	}
 	$_SESSION["usertype"]="doctor";
 

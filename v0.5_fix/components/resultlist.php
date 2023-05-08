@@ -1,29 +1,38 @@
 <?php
-$id = $_GET["id"];
-$pf_img = "assets/pfp2.png";
-$name = "User Name";
-$speciality = '<a href="#">Psychologue, </a><a href="#">Dermatologue</a>';
-$location = "75017 Colorado, USA";
-$phone = "0752692364";
-$brief_date = "Lundi, 31 mars";
-$brief_time = "a 15:30";
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+$doctor_id = $_GET['doctor_id'];
+
+//doctor
+$query_doctor = "SELECT * FROM doctor WHERE doctor_id = $doctor_id";
+$result_doctor = mysqli_query($conn, $query_doctor);
+$doctor_data = array();
+while ($row = mysqli_fetch_assoc($result_doctor)) {
+    $doctor_data[] = $row;
+}
+$doctor_pf_img = $doctor_data[0]['doctor_pf_img'];
+$doctor_name = $doctor_data[0]['doctor_name'];
+$speciality = $doctor_data[0]['speciality'];
+$doctor_location = $doctor_data[0]['doctor_location'];
+$doctor_phone = $doctor_data[0]['doctor_phone'];
+$worktime = $doctor_data[0]['worktime'];
 ?>
+
 <div class="list_el">
-	<div class="pfp" id="<?php echo $id?>">
-		<img src="<?php echo $pf_img ?>">
+	<div class="pfp" id="<?php echo $doctor_id?>">
+		<img src="<?php echo $doctor_pf_img ?>">
 		<div class="pfp_text">
-			<div class="pfp_text_name"><?php echo $name ?></div>
-			<div class="pfp_text_id"><?php echo $id ?></div>
+			<div class="pfp_text_name"><?php echo $doctor_name ?></div>
+			<div class="pfp_text_id"><?php echo $doctor_id ?></div>
 			<div class="pfp_text_speciality"><?php echo $speciality ?></div>
 		</div>
 	</div>
 	<div class="list_el_brief">
-		<div class="brief_adress"><?php echo $location ?></div>
-		<div class="brief_datetime">
-			<div class="brief_date"><?php echo $brief_date ?></div>
-			<div class="brief_time"><?php echo $brief_time ?></div>
-		</div>
-		<div class="brief_phone"><?php echo $phone ?></div>
-		<div class="brief_book" id="<?php echo $id?>" onclick="bookform(0, this)"><p>Prendre RDV</p></div>
+		<div class="brief_adress"><?php echo $doctor_location ?></div>
+		<div class="brief_datetime"></div>
+		<div class="brief_phone"><?php echo $doctor_phone ?></div>
+		<div class="brief_book" id="<?php echo $doctor_id?>" onclick="bookform(0, this)"><p>Prendre RDV</p></div>
 	</div>
 </div>
