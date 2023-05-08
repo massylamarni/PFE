@@ -13,8 +13,8 @@
 <div class="std_containerI">
 	<div class="list">
 		<div class="list_title"><h3>Rendez-vous en cours</h3></div>
-		<?php include("components/PS_apptlist_blank.php"); ?>
 		<?php include("components/PS_apptlist.php"); ?>
+		<?php include("components/PS_apptlist_blank.php"); ?>
 	</div>
 </div>
 
