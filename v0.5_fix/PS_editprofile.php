@@ -211,7 +211,7 @@ $dq = array(array("1977", "Diplôme d'État de docteur en médecine - Universit�
 		</div>
 		<div class="pf_body_field"><h3>Langues parlées</h3>
 		<pre id="prelangue" ><?php if (!empty($languages)) { foreach ($languages as $language) {  ?>
-			<textarea rows="1" cols="15"><?php echo $language; ?></textarea>,
+<textarea class="langue" rows="1" cols="15"><?php echo $language; ?></textarea>,
 		</pre>
 		<?php   } } ?>
 		<input type="submit" id="ajouter" value="ajouter une langue">
@@ -224,12 +224,14 @@ $dq = array(array("1977", "Diplôme d'État de docteur en médecine - Universit�
     <input class="in_text" type="password" placeholder="enter new password" name="new_password" autocomplete="off" ></div>
 	</div>
 </div>
-<input type="submit" value="modifier">
+<input type="submit" value="modifier" id="modifie" >
 </form>
 	</div>
 </div>
 
 <script src="index.js"></script>
+<script type="text/javascript">ajouterunelangue();ajouterundiplome ();ajoutertarifs();modifie() </script>
+</html>
 </body>
 </html>
 <?php   }else{
