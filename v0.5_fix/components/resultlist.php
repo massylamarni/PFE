@@ -1,23 +1,19 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-$doctor_id = $_GET['doctor_id'];
+//ini_set('display_errors', 1);
 
 //doctor
-$query_doctor = "SELECT * FROM doctor WHERE doctor_id = $doctor_id";
-$result_doctor = mysqli_query($conn, $query_doctor);
-$doctor_data = array();
-while ($row = mysqli_fetch_assoc($result_doctor)) {
-    $doctor_data[] = $row;
+$query = "SELECT * FROM doctor WHERE doctor_id = $doctor_id";
+$result = mysqli_query($conn, $query);
+$data = array();
+while ($row = mysqli_fetch_assoc($result)) {
+	$data[] = $row;
 }
-$doctor_pf_img = $doctor_data[0]['doctor_pf_img'];
-$doctor_name = $doctor_data[0]['doctor_name'];
-$speciality = $doctor_data[0]['speciality'];
-$doctor_location = $doctor_data[0]['doctor_location'];
-$doctor_phone = $doctor_data[0]['doctor_phone'];
-$worktime = $doctor_data[0]['worktime'];
+$doctor_pf_img = $data[0]['doctor_pf_img'];
+$doctor_name = $data[0]['doctor_name'];
+$speciality = $data[0]['speciality'];
+$doctor_location = $data[0]['doctor_location'];
+$doctor_phone = $data[0]['doctor_phone'];
+$worktime = $data[0]['worktime'];
 ?>
 
 <div class="list_el">
@@ -33,6 +29,7 @@ $worktime = $doctor_data[0]['worktime'];
 		<div class="brief_adress"><?php echo $doctor_location ?></div>
 		<div class="brief_datetime"></div>
 		<div class="brief_phone"><?php echo $doctor_phone ?></div>
-		<div class="brief_book" id="<?php echo $doctor_id?>" onclick="bookform(0, this)"><p>Prendre RDV</p></div>
+		<div class="brief_book" onclick="bookform(0, <?php echo $doctor_id?>)"><p>Prendre RDV</p></div>
 	</div>
+	<?php include("components/bookform.php"); ?>
 </div>
