@@ -1,32 +1,30 @@
 <?php
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+//ini_set('display_errors', 1);
 
-//appt
-$query_appt = "SELECT * FROM appt WHERE appt_id = $appt_id";
-$result_appt = mysqli_query($conn, $query_appt);
-$appt_data = array();
-while ($row = mysqli_fetch_assoc($result_appt)) {
-    $appt_data[] = $row;
+//get appt data for appt
+$query = "SELECT * FROM appt WHERE appt_id = $appt_id";
+$result = mysqli_query($conn, $query);
+$data = array();
+while ($row = mysqli_fetch_assoc($result)) {
+	$data[] = $row;
 }
-$appt_doctor_id = $appt_data[0]['appt_doctor_id'];
-$appt_date = $appt_data[0]['appt_date'];
-$appt_motif = $appt_data[0]['appt_motif'];
-//doctor
-$query_doctor = "SELECT * FROM doctor WHERE doctor_id = '$appt_doctor_id'";
-$result_doctor = mysqli_query($conn, $query_doctor);
-$doctor_data = array();
-while ($row = mysqli_fetch_assoc($result_doctor)) {
-    $doctor_data[] = $row;
+$appt_doctor_id = $data[0]['appt_doctor_id'];
+$appt_date = $data[0]['appt_date'];
+$appt_motif = $data[0]['appt_motif'];
+//get doctor data for appt
+$query = "SELECT * FROM doctor WHERE doctor_id = '$appt_doctor_id'";
+$result = mysqli_query($conn, $query);
+$data = array();
+while ($row = mysqli_fetch_assoc($result)) {
+	$data[] = $row;
 }
-$doctor_id = $doctor_data[0]['doctor_id'];
-$doctor_pf_img = $doctor_data[0]['doctor_pf_img'];
-$doctor_name = $doctor_data[0]['doctor_name'];
-$speciality = $doctor_data[0]['speciality'];
+$doctor_id = $data[0]['doctor_id'];
+$doctor_pf_img = $data[0]['doctor_pf_img'];
+$doctor_name = $data[0]['doctor_name'];
+$speciality = $data[0]['speciality'];
 
-//appt_date_rem
+//set appt_date remaining display
 $appt_date_obj = new DateTime($appt_date);
 $date_obj = new DateTime();
 $ms_rem = abs($appt_date_obj->format('U') * 1000 + $appt_date_obj->format('u') - abs($date_obj->format('U') * 1000 + $date_obj->format('u')));
@@ -36,6 +34,7 @@ $minutes_rem = floor(($ms_rem % (1000 * 60 * 60)) / (1000 * 60));
 $MONTHS = array("Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre");
 $DAYS = array("Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam");
 ?>
+
 <div class="list_el" id="<?php echo $appt_id ?>">
 	<div class="pfp">
 		<img src="<?php echo $doctor_pf_img ?>">
@@ -50,6 +49,10 @@ $DAYS = array("Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam");
 		<div class="brief_datetime"><div class="brief_date">Il reste <?php echo $days_rem ?>j, </div><div class="brief_time"><?php echo $hours_rem ?>h et <?php echo $minutes_rem ?>min</div></div>
 		<div class="brief_motif"><p>Motif de consultation</p></div>
 		<div class="motif hidden"><?php echo $appt_motif ?></div>
-		<div class="brief_cancel" id="<?php echo $appt_id?>" onclick="updateapptlist(1, this)"><p>Annuler RDV</p></div>
+		<form class="brief_cancel" name="cancel_<?php echo $appt_id?>" method="post" action="index.php">
+			<input type="hidden" name="appt_id" value="<?php echo $appt_id?>">
+			<input type="hidden" name="appt_id_state" value="Annulé">
+			<input type="submit" value="Annuler RDV">
+		</form>
 	</div>
 </div>

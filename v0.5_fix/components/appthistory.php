@@ -4,35 +4,36 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-//appt
-$query_appt = "SELECT * FROM appt WHERE appt_id = $appt_id";
-$result_appt = mysqli_query($conn, $query_appt);
-$appt_data = array();
-while ($row = mysqli_fetch_assoc($result_appt)) {
-    $appt_data[] = $row;
+//get appt data for appt
+$query = "SELECT * FROM appt WHERE appt_id = $appt_id";
+$result = mysqli_query($conn, $query);
+$data = array();
+while ($row = mysqli_fetch_assoc($result)) {
+    $data[] = $row;
 }
-$appt_doctor_id = $appt_data[0]['appt_doctor_id'];
-$appt_date = $appt_data[0]['appt_date'];
-$appt_keep_date = $appt_data[0]['appt_keep_date'];
-$appt_motif = $appt_data[0]['appt_motif'];
-//doctor
-$query_doctor = "SELECT * FROM doctor WHERE doctor_id = '$appt_doctor_id'";
-$result_doctor = mysqli_query($conn, $query_doctor);
-$doctor_data = array();
-while ($row = mysqli_fetch_assoc($result_doctor)) {
-    $doctor_data[] = $row;
+$appt_doctor_id = $data[0]['appt_doctor_id'];
+$appt_date = $data[0]['appt_date'];
+$appt_keep_date = $data[0]['appt_keep_date'];
+$appt_motif = $data[0]['appt_motif'];
+//get doctor data for appt
+$query = "SELECT * FROM doctor WHERE doctor_id = '$appt_doctor_id'";
+$result = mysqli_query($conn, $query);
+$data = array();
+while ($row = mysqli_fetch_assoc($result)) {
+    $data[] = $row;
 }
-$doctor_id = $doctor_data[0]['doctor_id'];
-$doctor_pf_img = $doctor_data[0]['doctor_pf_img'];
-$doctor_name = $doctor_data[0]['doctor_name'];
-$speciality = $doctor_data[0]['speciality'];
+$doctor_id = $data[0]['doctor_id'];
+$doctor_pf_img = $data[0]['doctor_pf_img'];
+$doctor_name = $data[0]['doctor_name'];
+$speciality = $data[0]['speciality'];
 
-//appt_date
+//set appt_date display
 $appt_date_obj = new DateTime($appt_date);
 $appt_keep_date_obj = new DateTime($appt_keep_date);
 $MONTHS = array("Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre");
 $DAYS = array("Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam");
 ?>
+
 <div class="list_el" id="<?php echo $appt_id ?>">
 	<div class="pfp">
 		<img src="<?php echo $doctor_pf_img ?>">
