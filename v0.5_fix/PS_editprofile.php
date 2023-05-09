@@ -28,7 +28,7 @@ $conn = mysqli_connect('localhost', 'root', '', DB_NAME);
 		echo "$conn->connect_error";
        die("Connection Failed : ". $conn->connect_error); }
 
-//getting the language array from db and sending it to js
+//retreiving the language array from db and sending it to js
 	$stmt = $conn->prepare("SELECT language FROM doctor WHERE doctor_id = ?");
 	$stmt->bind_param("s", $_SESSION["id"]);
 	$stmt->execute();
@@ -38,13 +38,32 @@ $conn = mysqli_connect('localhost', 'root', '', DB_NAME);
 	$languages=json_decode($languages);
 	echo '<script> var languagesData = ' . json_encode($languages) . ';</script>';
 	
-//getting the dq array from db and sending it to js
+//retreiving the dq array from db and sending it to js
+    $stmt = $conn->prepare("SELECT dq FROM doctor WHERE doctor_id = ?");
+	$stmt->bind_param("s", $_SESSION["id"]);
+	$stmt->execute();
+	$result = $stmt->get_result();
+	$row = $result->fetch_assoc();
+	$dqs=$row["dq"];
+	$dqs=json_decode($dqs);
+	echo '<script> var dqData = ' . json_encode($dqs) . ';</script>';
+	
+//retreiving the pricing array from db and sending it to js
+   $stmt = $conn->prepare("SELECT pricing FROM doctor WHERE doctor_id = ?");
+   $stmt->bind_param("s", $_SESSION["id"]);
+   $stmt->execute();
+   $result = $stmt->get_result();
+   $row = $result->fetch_assoc();
+   $pricings=$row["pricing"];
+   $pricings=json_decode($pricings);
+   echo '<script> var pricingData = ' . json_encode($pricings) . ';</script>';
 
+	
 
 $pf_img = "assets/pfp2.png";
 $worktime = array(array("09h30", "19h30"), array("09h30", "19h30"), array("09h30", "19h30"), array("09h30", "19h30"), array("09h30", "19h30"), array("", ""), array("09h30", "19h30"));
-$pricing = array(array("Consultation simple", "100 £"), array("Consultation avec acte", "200 £"));
-$dq = array(array("1977", "Diplôme d'État de docteur en médecine - Université Paris 11 - Paris-Saclay"), array("1977", "D.E.S. Dermatologie et vénéréologie - UFR de médecine Lariboisière-Saint-Louis"));
+
+
 
 
 
@@ -156,6 +175,19 @@ $dq = array(array("1977", "Diplôme d'État de docteur en médecine - Universit�
 	    	$stmt->execute();
 	    	$_SESSION["language"]=$languages;
 
+
+			$db_dq=json_encode($dqs);
+		    $stmt = $conn->prepare("UPDATE doctor SET dq = ? WHERE doctor_id = ?");
+	    	$stmt->bind_param("si", $db_dq, $_SESSION["id"]);
+	    	$stmt->execute();
+	    	$_SESSION["dq"]=$dqs;
+
+			$db_pricing=json_encode($pricings);
+		    $stmt = $conn->prepare("UPDATE doctor SET pricing = ? WHERE doctor_id = ?");
+	    	$stmt->bind_param("si", $db_pricing, $_SESSION["id"]);
+	    	$stmt->execute();
+	    	$_SESSION["pricing"]=$pricings;
+
 		
 	} 
 
@@ -205,7 +237,6 @@ $dq = array(array("1977", "Diplôme d'État de docteur en médecine - Universit�
 		<div class="pf_body_field"><h3>Diplomes & Qualifications</h3>
 			<pre id="prediplome" >
 				<textarea rows="1" cols="10"><?php echo $dq[0][0] ?></textarea><textarea rows="1" cols="50"><?php echo $dq[0][1] ?></textarea>
-				<textarea rows="1" cols="10"><?php echo $dq[1][0] ?></textarea><textarea rows="1" cols="50"><?php echo $dq[1][1] ?></textarea>
 			</pre>
 			<input type="submit" id="diplome" value="ajouter un diplome">
 		</div>
