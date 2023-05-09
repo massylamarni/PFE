@@ -101,11 +101,7 @@ $worktime = array(array("09h30", "19h30"), array("09h30", "19h30"), array("09h30
         $new_location=$_POST["location"];
 		$new_speciality=$_POST["speciality"];
 		$new_description=$_POST["description"];
-		//$new_worktime=$_POST["worktime"];
-		//$new_pricing=$_POST["pricing"];
-		//$new_dq=$_POST["dq"];
-		//$new_language=$_POST["language"];
-
+		
 //updating database		
 		   if ($new_email){
 			$stmt = $conn->prepare("SELECT patient_email FROM patient WHERE patient_email = ? UNION SELECT doctor_email FROM doctor WHERE doctor_email = ?");
@@ -169,26 +165,30 @@ $worktime = array(array("09h30", "19h30"), array("09h30", "19h30"), array("09h30
 		  } 
 		
 		}
+		if (isset($_POST["language"])){    
 	     	$db_languages=json_encode($languages);
 		    $stmt = $conn->prepare("UPDATE doctor SET language = ? WHERE doctor_id = ?");
 	    	$stmt->bind_param("si", $db_languages, $_SESSION["id"]);
 	    	$stmt->execute();
 	    	$_SESSION["language"]=$languages;
+		}
 
-
+		if (isset($_POST["dq"])){    
 			$db_dq=json_encode($dqs);
 		    $stmt = $conn->prepare("UPDATE doctor SET dq = ? WHERE doctor_id = ?");
 	    	$stmt->bind_param("si", $db_dq, $_SESSION["id"]);
 	    	$stmt->execute();
 	    	$_SESSION["dq"]=$dqs;
+		} 
 
+		if (isset($_POST["pricing"])){    
 			$db_pricing=json_encode($pricings);
 		    $stmt = $conn->prepare("UPDATE doctor SET pricing = ? WHERE doctor_id = ?");
 	    	$stmt->bind_param("si", $db_pricing, $_SESSION["id"]);
 	    	$stmt->execute();
 	    	$_SESSION["pricing"]=$pricings;
 
-		
+		} 	
 	} 
 
 	?>
@@ -242,7 +242,7 @@ $worktime = array(array("09h30", "19h30"), array("09h30", "19h30"), array("09h30
 		</div>
 		<div class="pf_body_field"><h3>Langues parlées</h3>
 		<pre id="prelangue" ><?php if (!empty($languages)) { foreach ($languages as $language) {  ?>
-<textarea class="langue" rows="1" cols="15"><?php echo $language; ?></textarea>,
+             <textarea class="langue" rows="1" cols="15"><?php echo $language; ?></textarea>,
 		</pre>
 		<?php   } } ?>
 		<input type="submit" id="ajouter" value="ajouter une langue">
