@@ -165,7 +165,7 @@ $worktime = array(array("09h30", "19h30"), array("09h30", "19h30"), array("09h30
 		  } 
 		
 		}
-		if (isset($_POST["language"])){    
+		if (isset($_POST["languages"])){    
 	     	$db_languages=json_encode($languages);
 		    $stmt = $conn->prepare("UPDATE doctor SET language = ? WHERE doctor_id = ?");
 	    	$stmt->bind_param("si", $db_languages, $_SESSION["id"]);
@@ -228,19 +228,21 @@ $worktime = array(array("09h30", "19h30"), array("09h30", "19h30"), array("09h30
 			</pre>
 		</div>
 		<div class="pf_body_field"><h3>Tarifs</h3>
+		<input type="hidden" id="pricing_input" name="pricing" value="">
 			<pre id="pretarif" >
-				<textarea rows="1" cols="50"><?php echo $pricing[0][0] ?></textarea><textarea rows="1" cols="10"><?php echo $pricing[0][1] ?></textarea>
-				<textarea rows="1" cols="50"><?php echo $pricing[1][0] ?></textarea><textarea rows="1" cols="10"><?php echo $pricing[1][1] ?></textarea>
+				<textarea rows="1" cols="50"><?php  ?></textarea>
 			</pre>
 			<input type="submit" id="tarif" value="ajouter un tarifs">
 		</div>
 		<div class="pf_body_field"><h3>Diplomes & Qualifications</h3>
+		<input type="hidden" id="dq_input" name="dq" value="">
 			<pre id="prediplome" >
-				<textarea rows="1" cols="10"><?php echo $dq[0][0] ?></textarea><textarea rows="1" cols="50"><?php echo $dq[0][1] ?></textarea>
+				<textarea rows="1" cols="10"><?php  ?></textarea>
 			</pre>
 			<input type="submit" id="diplome" value="ajouter un diplome">
 		</div>
 		<div class="pf_body_field"><h3>Langues parlées</h3>
+		<input type="hidden" id="languages_input" name="languages" value="">
 		<pre id="prelangue" ><?php if (!empty($languages)) { foreach ($languages as $language) {  ?>
              <textarea class="langue" rows="1" cols="15"><?php echo $language; ?></textarea>,
 		</pre>
