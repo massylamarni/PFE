@@ -87,3 +87,6 @@ function bookform(op, doctor_id)
 	+ date_display.date + " " + date_display.month + " a " + date_display.time + "\nMotif: " + motif_in;
 }
 
+	
+	
+
