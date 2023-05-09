@@ -61,11 +61,12 @@ $conn = mysqli_connect('localhost', 'root', '', DB_NAME);
 	
 
 $pf_img = "assets/pfp2.png";
-$worktime = array(array("09h30", "19h30"), array("09h30", "19h30"), array("09h30", "19h30"), array("09h30", "19h30"), array("09h30", "19h30"), array("", ""), array("09h30", "19h30"));
+$worktime = array("Dimmatin"=>"09h30","Dimsoir"=> "19h30", "Lunmatin"=>"09h30","Lunsoir"=> "19h30", 
+             "Marmatin"=>"09h30","Marsoir"=> "19h30","Mermatin"=>"09h30","Mersoir"=> "19h30", 
+			"Jeumatin"=>"09h30","Jeusoir"=>"19h30","Venmatin"=>"","Vensoir"=> "", 
+			"Sammatin"=>"09h30","Samsoir"=> "19h30");
 
-
-
-
+			
 
 //checking for session variables
 
@@ -218,13 +219,13 @@ $worktime = array(array("09h30", "19h30"), array("09h30", "19h30"), array("09h30
 		<div class="pf_body_field"><h3>Date Naissance</h3><input type="date" name="bday"></div>
 		<div class="pf_body_field"><h3>Horaires de travail</h3>
 			<pre>
-				Dim:<textarea rows="1" cols="5"><?php echo $worktime[0][0] ?></textarea> - <textarea rows="1" cols="5"><?php echo $worktime[0][1] ?></textarea>
-				Lun:<textarea rows="1" cols="5"><?php echo $worktime[1][0] ?></textarea> - <textarea rows="1" cols="5"><?php echo $worktime[1][1] ?></textarea>
-				Mar:<textarea rows="1" cols="5"><?php echo $worktime[2][0] ?></textarea> - <textarea rows="1" cols="5"><?php echo $worktime[2][1] ?></textarea>
-				Mer:<textarea rows="1" cols="5"><?php echo $worktime[3][0] ?></textarea> - <textarea rows="1" cols="5"><?php echo $worktime[3][1] ?></textarea>
-				Jeu:<textarea rows="1" cols="5"><?php echo $worktime[4][0] ?></textarea> - <textarea rows="1" cols="5"><?php echo $worktime[4][1] ?></textarea>
-				Ven:<textarea rows="1" cols="5"><?php echo $worktime[5][0] ?></textarea> - <textarea rows="1" cols="5"><?php echo $worktime[5][1] ?></textarea>
-				Sam:<textarea rows="1" cols="5"><?php echo $worktime[6][0] ?></textarea> - <textarea rows="1" cols="5"><?php echo $worktime[6][1] ?></textarea>
+				Dim:<textarea rows="1" cols="5"name="Dimmatin"><?php echo$worktime["Dimmatin"] ?></textarea> - <textarea rows="1" cols="5" name="Dimsoir"><?php echo $worktime["Dimsoir"] ?></textarea>
+				Lun:<textarea rows="1" cols="5"name="Lunmatin"><?php echo $worktime["Lunmatin"] ?></textarea> - <textarea rows="1" cols="5"name="Lunsoir"><?php echo $worktime["Lunsoir"] ?></textarea>
+				Mar:<textarea rows="1" cols="5"name="Marmatin"><?php echo $worktime["Marmatin"] ?></textarea> - <textarea rows="1" cols="5"name="Marsoir"><?php echo $worktime["Marsoir"] ?></textarea>
+				Mer:<textarea rows="1" cols="5"name="Mermatin"><?php echo $worktime["Mermatin"] ?></textarea> - <textarea rows="1" cols="5"name="Mersoir"><?php echo $worktime["Mersoir"] ?></textarea>
+				Jeu:<textarea rows="1" cols="5"name="Jeumatin"><?php echo $worktime["Jeumatin"] ?></textarea> - <textarea rows="1" cols="5"name="Jeusoir"><?php echo $worktime["Jeusoir"] ?></textarea>
+				Ven:<textarea rows="1" cols="5"name="Venmatin"><?php echo $worktime["Venmatin"] ?></textarea> - <textarea rows="1" cols="5"name="Vensoir"><?php echo $worktime["Vensoir"] ?></textarea>
+				Sam:<textarea rows="1" cols="5"name="Sammatin"><?php echo $worktime["Sammatin"] ?></textarea> - <textarea rows="1" cols="5"name="Samsoir"><?php echo $worktime["Samsoir"] ?></textarea>
 			</pre>
 		</div>
 		<div class="pf_body_field"><h3>Tarifs</h3>
@@ -263,7 +264,7 @@ $worktime = array(array("09h30", "19h30"), array("09h30", "19h30"), array("09h30
 </div>
 
 <script src="index.js"></script>
-<script type="text/javascript">ajouterunelangue();ajouterundiplome ();ajoutertarifs();modifie() </script>
+<script type="text/javascript">ajouterunelangue();ajouterundiplome ();ajoutertarifs();//modifie() </script>
 </html>
 </body>
 </html>

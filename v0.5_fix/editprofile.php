@@ -24,7 +24,7 @@ if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='patient') {
 	if($conn->connect_error){
 		echo "$conn->connect_error";
      die("Connection Failed : ". $conn->connect_error);
-	 }else { 
+	 } 
 
       if (isset($_SESSION["location"])){
       $old_location=$_SESSION["location"];
@@ -101,7 +101,7 @@ if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='patient') {
          
          header("Location: index.php");
          exit();
-        }        
+              
 }
 
  
