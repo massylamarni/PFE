@@ -9,21 +9,10 @@
 </head>
 <body>
 
-<?php
-//hello
-
-$pf_img = "assets/pfp2.png";
-$worktime = array(array("09h30", "19h30"), array("09h30", "19h30"), array("09h30", "19h30"), array("09h30", "19h30"), array("09h30", "19h30"), array("", ""), array("09h30", "19h30"));
-$pricing = array(array("Consultation simple", "100 £"), array("Consultation avec acte", "200 £"));
-$dq = array(array("1977", "Diplôme d'État de docteur en médecine - Université Paris 11 - Paris-Saclay"), array("1977", "D.E.S. Dermatologie et vénéréologie - UFR de médecine Lariboisière-Saint-Louis"));
-$language = array("Anglais", "Francais", "Espagnol");
-?>
-
-
-<?php include("components/navbar.php"); 
-
+<?php  include("components/navbar.php"); 
 
 define("DB_NAME","Client");
+
 
 if(!isset($_SESSION))
 {
@@ -31,6 +20,35 @@ session_start();
 }
 if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='doctor') {
 
+
+
+$conn = mysqli_connect('localhost', 'root', '', DB_NAME);
+
+	    if($conn->connect_error){
+		echo "$conn->connect_error";
+       die("Connection Failed : ". $conn->connect_error); }
+
+//getting the language array from db and sending it to js
+	$stmt = $conn->prepare("SELECT language FROM doctor WHERE doctor_id = ?");
+	$stmt->bind_param("s", $_SESSION["id"]);
+	$stmt->execute();
+	$result = $stmt->get_result();
+	$row = $result->fetch_assoc();
+    $languages=$row["language"];
+	$languages=json_decode($languages);
+	echo '<script> var languagesData = ' . json_encode($languages) . ';</script>';
+	
+//getting the dq array from db and sending it to js
+
+
+$pf_img = "assets/pfp2.png";
+$worktime = array(array("09h30", "19h30"), array("09h30", "19h30"), array("09h30", "19h30"), array("09h30", "19h30"), array("09h30", "19h30"), array("", ""), array("09h30", "19h30"));
+$pricing = array(array("Consultation simple", "100 £"), array("Consultation avec acte", "200 £"));
+$dq = array(array("1977", "Diplôme d'État de docteur en médecine - Université Paris 11 - Paris-Saclay"), array("1977", "D.E.S. Dermatologie et vénéréologie - UFR de médecine Lariboisière-Saint-Louis"));
+
+
+
+//checking for session variables
 
       if (isset($_SESSION["location"])){
       $old_location=$_SESSION["location"];
@@ -69,13 +87,7 @@ if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='doctor') {
 		//$new_dq=$_POST["dq"];
 		//$new_language=$_POST["language"];
 
-		$conn = mysqli_connect('localhost', 'root', '', DB_NAME);
-
-	    if($conn->connect_error){
-		echo "$conn->connect_error";
-       die("Connection Failed : ". $conn->connect_error);
-	    }else { 
-
+//updating database		
 		   if ($new_email){
 			$stmt = $conn->prepare("SELECT patient_email FROM patient WHERE patient_email = ? UNION SELECT doctor_email FROM doctor WHERE doctor_email = ?");
 			$stmt->bind_param("ss", $new_email , $new_email);
@@ -138,8 +150,13 @@ if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='doctor') {
 		  } 
 		
 		}
+	     	$db_languages=json_encode($languages);
+		    $stmt = $conn->prepare("UPDATE doctor SET language = ? WHERE doctor_id = ?");
+	    	$stmt->bind_param("si", $db_languages, $_SESSION["id"]);
+	    	$stmt->execute();
+	    	$_SESSION["language"]=$languages;
 
-		} 
+		
 	} 
 
 	?>
@@ -193,11 +210,10 @@ if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='doctor') {
 			<input type="submit" id="diplome" value="ajouter un diplome">
 		</div>
 		<div class="pf_body_field"><h3>Langues parlées</h3>
-		<pre id="prelangue" >
-			<textarea rows="1" cols="15"><?php echo $language[0] ?></textarea>,
-			<textarea rows="1" cols="15"><?php echo $language[1] ?></textarea>,
-			<textarea rows="1" cols="15"><?php echo $language[2] ?></textarea>
+		<pre id="prelangue" ><?php if (!empty($languages)) { foreach ($languages as $language) {  ?>
+			<textarea rows="1" cols="15"><?php echo $language; ?></textarea>,
 		</pre>
+		<?php   } } ?>
 		<input type="submit" id="ajouter" value="ajouter une langue">
 		</div>
 		<div class="pf_body_images"><h3>∮ Images</h3></div>
