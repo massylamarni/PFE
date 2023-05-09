@@ -242,7 +242,7 @@ $worktime = array(array("09h30", "19h30"), array("09h30", "19h30"), array("09h30
 		</div>
 		<div class="pf_body_field"><h3>Langues parlées</h3>
 		<pre id="prelangue" ><?php if (!empty($languages)) { foreach ($languages as $language) {  ?>
-			<textarea rows="1" cols="15"><?php echo $language; ?></textarea>,
+<textarea class="langue" rows="1" cols="15"><?php echo $language; ?></textarea>,
 		</pre>
 		<?php   } } ?>
 		<input type="submit" id="ajouter" value="ajouter une langue">
@@ -255,12 +255,14 @@ $worktime = array(array("09h30", "19h30"), array("09h30", "19h30"), array("09h30
     <input class="in_text" type="password" placeholder="enter new password" name="new_password" autocomplete="off" ></div>
 	</div>
 </div>
-<input type="submit" value="modifier">
+<input type="submit" value="modifier" id="modifie" >
 </form>
 	</div>
 </div>
 
 <script src="index.js"></script>
+<script type="text/javascript">ajouterunelangue();ajouterundiplome ();ajoutertarifs();modifie() </script>
+</html>
 </body>
 </html>
 <?php   }else{
