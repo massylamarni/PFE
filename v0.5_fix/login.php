@@ -87,27 +87,27 @@ if ($result->num_rows == 1) {
 	$_SESSION["bday"]=$row["doctor_bday"];
 	$_SESSION["phone"]=$row["doctor_phone"];
 	$_SESSION["gender"]=$row["doctor_gender"];
-	$_SESSION["speciality"]=$row["doctor_speciality"];
+	$_SESSION["speciality"]=$row["speciality"];
 	if (isset($row["doctor_location"])) {
 		$_SESSION["location"] = $row["doctor_location"];
 	}
 	if (isset($row["doctor_pf_img"])) {
 		$_SESSION["pf_img"] = $row["doctor_pf_img"];
 	}
-	if (isset($row["doctor_description"])) {
-		$_SESSION["description"] = $row["doctor_description"];
+	if (isset($row["description"])) {
+		$_SESSION["description"] = $row["description"];
 	}
-	if (isset($row["doctor_worktime"])) {
-		$_SESSION["worktime"] = $row["doctor_worktime"];
+	if (isset($row["worktime"])) {
+		$_SESSION["worktime"] = $row["worktime"];
 	}
-	if (isset($row["doctor_pricing"])) {
-		$_SESSION["pricing"] = $row["doctor_pricing"];
+	if (isset($row["pricing"])) {
+		$_SESSION["pricing"] = $row["pricing"];
 	}
-	if (isset($row["doctor_dq"])) {
-		$_SESSION["dq"] = $row["doctor_dq"];
+	if (isset($row["dq"])) {
+		$_SESSION["dq"] = $row["dq"];
 	}
-	if (isset($row["doctor_language"])) {
-		$_SESSION["language"] = $row["doctor_language"];
+	if (isset($row["language"])) {
+		$_SESSION["language"] = $row["language"];
 	}
 	$_SESSION["usertype"]="doctor";
 

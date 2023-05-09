@@ -77,7 +77,7 @@ if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='doctor') {
 	    }else { 
 
 		   if ($new_email){
-			$stmt = $conn->prepare("SELECT email FROM patient WHERE email = ? UNION SELECT email FROM doctor WHERE email = ?");
+			$stmt = $conn->prepare("SELECT patient_email FROM patient WHERE patient_email = ? UNION SELECT doctor_email FROM doctor WHERE doctor_email = ?");
 			$stmt->bind_param("ss", $new_email , $new_email);
 			$stmt->execute();
 			$result = $stmt->get_result();
@@ -85,45 +85,45 @@ if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='doctor') {
 			  echo "email already exists";
   
 		  }else{
-			$stmt = $conn->prepare("UPDATE doctor SET  email = ? WHERE id = ?");
+			$stmt = $conn->prepare("UPDATE doctor SET  doctor_email = ? WHERE doctor_id = ?");
 			$stmt->bind_param("si", $new_email, $_SESSION["id"]);
 			$stmt->execute(); 
 			$_SESSION["email"]= $new_email;
 		  }       
 			  }
 		   if( $new_name  && $new_name!=$_SESSION["name"] ){
-			$stmt = $conn->prepare("UPDATE doctor SET name = ? WHERE id = ?");
+			$stmt = $conn->prepare("UPDATE doctor SET doctor_name = ? WHERE doctor_id = ?");
 			$stmt->bind_param("si", $new_name, $_SESSION["id"]);
 			$stmt->execute();
 			$_SESSION["name"]=$new_name;
 		   }
   
 		   if($new_phone && $new_phone!=$_SESSION["phone"] ){
-			$stmt = $conn->prepare("UPDATE doctor SET phone = ? WHERE id = ?");
+			$stmt = $conn->prepare("UPDATE doctor SET doctor_phone = ? WHERE doctor_id = ?");
 			$stmt->bind_param("si", $new_phone, $_SESSION["id"]);
 			$stmt->execute();
 			$_SESSION["phone"]=$new_phone;
 		   }
 			if($new_bday  && $new_bday!=$_SESSION["bday"]){
-			$stmt = $conn->prepare("UPDATE doctor SET bday = ? WHERE id = ?");
+			$stmt = $conn->prepare("UPDATE doctor SET doctor_bday = ? WHERE doctor_id = ?");
 			$stmt->bind_param("si", $new_bday, $_SESSION["id"]);
 			$stmt->execute();
 			$_SESSION["bday"]=$new_bday;
 		   }
 		   if($new_location && $new_location!=$old_location ){
-			$stmt = $conn->prepare("UPDATE doctor SET location = ? WHERE id = ?");
+			$stmt = $conn->prepare("UPDATE doctor SET doctor_location = ? WHERE doctor_id = ?");
 			$stmt->bind_param("si", $new_location, $_SESSION["id"]);
 			$stmt->execute();
 			$_SESSION["location"]=$new_location;
 		   }
 		   if($new_speciality && $new_speciality!=$_SESSION["speciality"] ){
-			$stmt = $conn->prepare("UPDATE doctor SET speciality = ? WHERE id = ?");
+			$stmt = $conn->prepare("UPDATE doctor SET speciality = ? WHERE doctor_id = ?");
 			$stmt->bind_param("si", $new_speciality, $_SESSION["id"]);
 			$stmt->execute();
 			$_SESSION["speciality"]=$new_speciality;
 		   }
 		   if($new_description && $new_description!=$old_description ){
-			$stmt = $conn->prepare("UPDATE doctor SET description = ? WHERE id = ?");
+			$stmt = $conn->prepare("UPDATE doctor SET description = ? WHERE doctor_id = ?");
 			$stmt->bind_param("si", $new_description, $_SESSION["id"]);
 			$stmt->execute();
 			$_SESSION["description"]=$new_description;
@@ -131,7 +131,7 @@ if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='doctor') {
 		   if ($new_password && $confirm_password && !password_verify($new_password ,$_SESSION["password"])) {
 			   if(password_verify($confirm_password,$_SESSION["password"])) {
 				  $password_hashed = password_hash($new_password, PASSWORD_DEFAULT);
-				  $stmt = $conn->prepare("UPDATE doctor SET password = ? WHERE id = ?");
+				  $stmt = $conn->prepare("UPDATE doctor SET doctor_password = ? WHERE doctor_id = ?");
 				  $stmt->bind_param("si",$password_hashed , $_SESSION["id"]);
 				  $stmt->execute();
 				  $_SESSION["password"]=$password_hashed;
@@ -162,10 +162,10 @@ if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='doctor') {
 	</div>
 	<div class="pf_body">
 		<div class="pf_body_field"><h3>Description</h3>
-			<pre><textarea rows="5" cols="100" name="description"><?php echo $old_description ?></textarea></pre>
+			<pre><textarea rows="5" cols="100" name="description"><?php if(isset($_SESSION["description"])) { echo $old_description;  } ?></textarea></pre>
 		</div>
 		<div class="pf_body_field"><h3>Numero telephone</h3><input type="text" value="<?php echo $_SESSION["phone"] ?>" name="phone"  autocomplete="off"/></div>
-		<div class="pf_body_field"><h3>Adresse</h3><textarea rows="1" cols="50" name="location"><?php echo $old_location ?></textarea></div>
+		<div class="pf_body_field"><h3>Adresse</h3><textarea rows="1" cols="50" name="location"><?php if (isset($_SESSION["location"])){ echo $old_location; } ?></textarea></div>
 		<div class="pf_body_field"><h3>Date Naissance</h3><input type="date" name="bday"></div>
 		<div class="pf_body_field"><h3>Horaires de travail</h3>
 			<pre>

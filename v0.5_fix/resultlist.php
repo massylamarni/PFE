@@ -35,11 +35,11 @@ $searchSpeciality = "%" . $speciality . "%";
 
 if($location && $speciality){
 
-	$stmt = $conn->prepare("SELECT * FROM doctor WHERE location LIKE ? AND speciality LIKE ? ");
+	$stmt = $conn->prepare("SELECT * FROM doctor WHERE doctor_location LIKE ? AND speciality LIKE ? ");
 	$stmt->bind_param("ss", $searchLocation , $searchSpeciality);
 }elseif($location){   
 
-	$stmt = $conn->prepare("SELECT * FROM doctor WHERE location LIKE ? ");
+	$stmt = $conn->prepare("SELECT * FROM doctor WHERE doctor_location LIKE ? ");
 	$stmt->bind_param("s", $searchLocation );
 }else{
 
@@ -53,7 +53,7 @@ if($location && $speciality){
  
 		while($row = $result->fetch_assoc()){
 			echo "<br>";echo "<br>";echo "<br>";echo "<br>";echo "<br>";
-			echo "ID: " . $row["id"]. " - Name: " . $row["name"]. " - tel: " . $row["phone"]. "<br>";
+			echo "ID: " . $row["doctor_id"]. " - Name: " . $row["doctor_name"]. " - tel: " . $row["doctor_phone"]. "<br>";
 		}	
 
 	}else {
