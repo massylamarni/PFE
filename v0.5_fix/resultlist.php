@@ -9,19 +9,6 @@
 </head>
 <body>		
 		
-<?php 
-//ini_set('display_errors', 1);
-
-$conn = mysqli_connect('localhost', 'root', '', 'Client');
-
-include("components/navbar.php");
-?>
-
-<div class="std_containerI">
-	<div class="main">
-		<div class="list">
-			<div class="list_title"><h3>Resultats de recherche</h3></div>
-			<div class="list_map"></div>
 
 <?php
 //resultsearch function
@@ -30,8 +17,9 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 define("DB_NAME","Client");
 
-include("components/navbar.php");
+//include("components/navbar.php");
 
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
 $location=$_POST["location"];
 $speciality=$_POST["speciality"];
 
@@ -50,11 +38,11 @@ $searchSpeciality = "%" . $speciality . "%";
 
 if($location && $speciality){
 
-	$stmt = $conn->prepare("SELECT * FROM doctor WHERE location LIKE ? AND speciality LIKE ? ");
+	$stmt = $conn->prepare("SELECT * FROM doctor WHERE doctor_location LIKE ? AND speciality LIKE ? ");
 	$stmt->bind_param("ss", $searchLocation , $searchSpeciality);
 }elseif($location){   
 
-	$stmt = $conn->prepare("SELECT * FROM doctor WHERE location LIKE ? ");
+	$stmt = $conn->prepare("SELECT * FROM doctor WHERE doctor_location LIKE ? ");
 	$stmt->bind_param("s", $searchLocation );
 }else{
 
@@ -65,19 +53,20 @@ if($location && $speciality){
 	$stmt->execute();
 	$result = $stmt->get_result();
 	if ($result->num_rows >0 ) {
- 
+		$appt_searchresult = [];
 		while($row = $result->fetch_assoc()){
-			echo "<br>";echo "<br>";echo "<br>";echo "<br>";echo "<br>";
-			echo "ID: " . $row["id"]. " - Name: " . $row["name"]. " - tel: " . $row["phone"]. "<br>";
+			
+			$appt_searchresult[] = $row["doctor_id"];
 		}	
 
 	}else {
-		echo "<br>";echo "<br>";echo "<br>";echo "<br>";echo "<br>";
+		
 		echo "0 results";
 	}
-	$conn->close();
+	
+}
 	//display searchresults
-	$appt_searchresult = array(1, 2, 3, 4);
+	
 	if ($appt_searchresult == null) $null_appt_searchresult = true; else $null_appt_searchresult = false;
 	if (!$null_appt_searchresult)
 	{
@@ -134,6 +123,7 @@ if($location && $speciality){
 
 		//close & exit
 		$stmt->close();
+		$conn->close();
 	}
 ?>
 		</div>
@@ -143,9 +133,7 @@ if($location && $speciality){
 	</div>
 </div>
 
-<?php
-$conn->close();
-?>
+
 
 <script src="index.js"></script>
 </body>
