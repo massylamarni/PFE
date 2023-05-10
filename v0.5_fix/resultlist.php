@@ -11,7 +11,7 @@
 		
 <?php 
 //ini_set('display_errors', 1);
-
+//op
 $conn = mysqli_connect('localhost', 'root', '', 'Client');
 
 include("components/navbar.php");
