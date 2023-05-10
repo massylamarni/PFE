@@ -2,18 +2,19 @@
 //ini_set('display_errors', 1);
 
 //doctor
-$query = "SELECT * FROM doctor WHERE doctor_id = $doctor_id";
-$result = mysqli_query($conn, $query);
-$data = array();
-while ($row = mysqli_fetch_assoc($result)) {
-	$data[] = $row;
-}
-$doctor_pf_img = $data[0]['doctor_pf_img'];
-$doctor_name = $data[0]['doctor_name'];
-$speciality = $data[0]['speciality'];
-$doctor_location = $data[0]['doctor_location'];
-$doctor_phone = $data[0]['doctor_phone'];
-$worktime = $data[0]['worktime'];
+
+    $stmt = $conn->prepare( "SELECT * FROM doctor WHERE doctor_id = ?");
+	$stmt->bind_param("i",$doctor_id);
+	$stmt->execute();
+	$result = $stmt->get_result();
+	$row = $result->fetch_assoc() ;
+			
+$doctor_pf_img = $row['doctor_pf_img'];
+$doctor_name = $row['doctor_name'];
+$speciality = $row['speciality'];
+$doctor_location = $row['doctor_location'];
+$doctor_phone = $row['doctor_phone'];
+$worktime = $row['worktime'];
 ?>
 
 <div class="list_el">
