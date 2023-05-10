@@ -9,6 +9,19 @@
 </head>
 <body>		
 		
+<?php 
+//ini_set('display_errors', 1);
+
+$conn = mysqli_connect('localhost', 'root', '', 'Client');
+
+include("components/navbar.php");
+?>
+
+<div class="std_containerI">
+	<div class="main">
+		<div class="list">
+			<div class="list_title"><h3>Resultats de recherche</h3></div>
+			<div class="list_map"></div>
 
 <?php
 //resultsearch function
@@ -26,7 +39,6 @@ $speciality=$_POST["speciality"];
 $location= trim($location);
 $speciality=trim($speciality);
 
-$conn = mysqli_connect('localhost', 'root', '', DB_NAME);
 
 
 if (!$conn) {

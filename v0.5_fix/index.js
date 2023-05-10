@@ -89,7 +89,8 @@ function bookform(op, doctor_id)
 
 
 //funtion for the size of texts area
-function sizeArea(){let maxTextArea=[50,15,15,500,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15];
+function sizeArea(){
+	let maxTextArea=[50,15,15,500,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15];
 	let el=document.getElementsByTagName('textarea');
 	for (i=0; i<el.length; i++){
 		let line = el[i].value.split('\n');
@@ -114,11 +115,12 @@ el[k].addEventListener('keydown',function(event){
 	}
 )
 }
-/*
 // ajouter une langue
-var ajouter=document.getElementById('ajouter');
+let langue=document.getElementById('prelangue');
+function ajouterunelangue(){
+	var ajouter=document.getElementById('ajouter');
 
-let langue=document.getElementById('prelangue')
+
 
 ajouter.addEventListener('click',function(event){
 	event.preventDefault();
@@ -126,18 +128,22 @@ ajouter.addEventListener('click',function(event){
 	nouvel.after(ajouter)
 	nouvel.rows=1;
 	nouvel.cols=15;
+    nouvel.style.display='block';
+	nouvel.style.marginTop='3px';
+	
 	/*nouvel.addEventListener('keydown',function(event){
 		if(nouvel.value.length <= 15){
 			sizeArea();
 		}else{event.preventDefault();
 			nouvel.value = nouvel.value.slice(0,-1);}
-	})
-	nouvel.classList.add('tarifdiv');
+	})*/
+	nouvel.classList.add('langue');
 	langue.appendChild(nouvel);
-});
-*/
+});}
+
 
 //ajouter diplome et classification
+function ajouterundiplome(){
 var ajouterdiplome=document.getElementById('diplome');
 
 let diplome=document.getElementById('prediplome')
@@ -174,9 +180,10 @@ ajouterdiplome.addEventListener('click',function(event){
 	diplome.appendChild(container);
 	
 
-});
+});}
 
 //ajouter tarifs
+function ajoutertarifs(){
 let ajoutertarifs=document.getElementById('tarif');
 
 let tarifs=document.getElementById('pretarif');
@@ -214,7 +221,7 @@ ajoutertarifs.addEventListener('click',function(event){
 	tarifs.appendChild(container);
 	
 
-});
+});}
 
 //ajouter un rendez-vous
 function ajouterunrendez(){
@@ -302,6 +309,28 @@ ajouterrendez.addEventListener('click',function(event){
 
 	let generale=document.getElementsByClassName('std_containerI')[0];
 	generale.appendChild(list);
+})};
+
+//modifie
+function modifie(){
+let modifie=document.getElementById('modifie');
+let langage=document.getElementsByClassName('langue');
+modifie.addEventListener('click',function(event){
+	event.preventDefault();
+    let tablangue=[];
+	let m=0;
+for(let g=0;g<langage.length;g++){
+	if(langage[g].value.trim().length!=0) {
+	tablangue[m]=langage[g].value;
+	m++;
+	}
+	if(langage[g].value.trim().length==0) langue.removeChild(langage[g]);
+
+}
+console.log(tablangue);
+
+
+
 })};
 
 
