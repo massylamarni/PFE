@@ -87,7 +87,7 @@ function bookform(op, doctor_id)
 	+ date_display.date + " " + date_display.month + " a " + date_display.time + "\nMotif: " + motif_in;
 }
 
-
+/*
 //funtion for the size of texts area
 function sizeArea(){
 	let maxTextArea=[50,15,15,500,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15];
@@ -104,7 +104,7 @@ function sizeArea(){
 };
 
 var el=document.getElementsByTagName('textarea');
-for (let k=0;el.length;k++){
+for (let k=0;k<el.length;k++){
 el[k].addEventListener('keydown',function(event){
 		if(el[k].value.length<=maxTextArea[k]){
 			sizeArea();
@@ -114,7 +114,7 @@ el[k].addEventListener('keydown',function(event){
 		}
 	}
 )
-}
+}*/
 // ajouter une langue
 let langue=document.getElementById('prelangue');
 function ajouterunelangue(){
