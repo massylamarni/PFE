@@ -24,8 +24,10 @@ include("components/navbar.php");
 			<div class="list_title"><h3>Rendez-vous en cours</h3></div>
 
 				<?php
+				$patient_id = $_SESSION["id"];
+
 				//get patient_apptlist
-				$query = "SELECT patient_apptlist FROM patient";
+				$query = "SELECT patient_apptlist FROM patient WHERE patient_id = $patient_id";
 				$result = mysqli_query($conn, $query);
 				$data = array();
 				while ($row = mysqli_fetch_assoc($result)) {
@@ -40,7 +42,6 @@ include("components/navbar.php");
 					$appt_id_state = $_POST['appt_id_state'];
 
 					//get patient_appthistory
-					$patient_id = $_SESSION["id"];
 					$query = "SELECT patient_appthistory FROM patient where patient_id = $patient_id";
 					$result = mysqli_query($conn, $query);
 					$data = array();
@@ -89,7 +90,7 @@ include("components/navbar.php");
 				}
 				
 				//get patient_apptlist
-				$query = "SELECT patient_apptlist FROM patient";
+				$query = "SELECT patient_apptlist FROM patient WHERE patient_id = $patient_id";
 				$result = mysqli_query($conn, $query);
 				$data = array();
 				while ($row = mysqli_fetch_assoc($result)) {
@@ -117,7 +118,7 @@ include("components/navbar.php");
 
 				<?php
 				//get patient_appthistory
-				$query = "SELECT patient_appthistory FROM patient";
+				$query = "SELECT patient_appthistory FROM patient WHERE patient_id = $patient_id";
 				$result = mysqli_query($conn, $query);
 				$data = array();
 				while ($row = mysqli_fetch_assoc($result)) {
