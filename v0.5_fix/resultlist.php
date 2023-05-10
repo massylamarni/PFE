@@ -25,35 +25,57 @@ include("components/navbar.php");
 
 <?php
 //resultsearch function
-if ($_POST["location"] & $_POST["speciality"])
-{
-	$location=$_POST["location"];
-	$speciality=$_POST["speciality"];
-	if (!$conn) {
-		die("Connection failed: " . mysqli_connect_error());
-	}
-	if($location && $speciality){
-		$stmt = $conn->prepare("SELECT * FROM doctor WHERE location = ? AND speciality = ? ");
-		$stmt->bind_param("ss", $location , $speciality);
-	}elseif($location){   
-		$stmt = $conn->prepare("SELECT * FROM doctor WHERE location = ? ");
-		$stmt->bind_param("s", $location );
-	}else{
-		$stmt = $conn->prepare("SELECT * FROM doctor WHERE speciality = ? ");
-		$stmt->bind_param("s", $speciality );
-	}
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+define("DB_NAME","Client");
+
+include("components/navbar.php");
+
+$location=$_POST["location"];
+$speciality=$_POST["speciality"];
+
+$location= trim($location);
+$speciality=trim($speciality);
+
+$conn = mysqli_connect('localhost', 'root', '', DB_NAME);
+
+
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+$searchLocation = "%" . $location . "%";
+$searchSpeciality = "%" . $speciality . "%";
+
+if($location && $speciality){
+
+	$stmt = $conn->prepare("SELECT * FROM doctor WHERE location LIKE ? AND speciality LIKE ? ");
+	$stmt->bind_param("ss", $searchLocation , $searchSpeciality);
+}elseif($location){   
+
+	$stmt = $conn->prepare("SELECT * FROM doctor WHERE location LIKE ? ");
+	$stmt->bind_param("s", $searchLocation );
+}else{
+
+	$stmt = $conn->prepare("SELECT * FROM doctor WHERE speciality LIKE ? ");
+	$stmt->bind_param("s", $searchSpeciality );
+}
+
 	$stmt->execute();
 	$result = $stmt->get_result();
 	if ($result->num_rows >0 ) {
+ 
 		while($row = $result->fetch_assoc()){
 			echo "<br>";echo "<br>";echo "<br>";echo "<br>";echo "<br>";
 			echo "ID: " . $row["id"]. " - Name: " . $row["name"]. " - tel: " . $row["phone"]. "<br>";
-		}
+		}	
+
 	}else {
 		echo "<br>";echo "<br>";echo "<br>";echo "<br>";echo "<br>";
 		echo "0 results";
 	}
-}
+	$conn->close();
 	//display searchresults
 	$appt_searchresult = array(1, 2, 3, 4);
 	if ($appt_searchresult == null) $null_appt_searchresult = true; else $null_appt_searchresult = false;
