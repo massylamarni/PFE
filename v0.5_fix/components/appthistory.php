@@ -1,30 +1,31 @@
 <?php
 
 ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
-               
+              
 //get appt data for appt
 $stmt = $conn->prepare( "SELECT * FROM appt WHERE appt_id  = ?");
 $stmt->bind_param("i",$appt_id);
 $stmt->execute();
 $result = $stmt->get_result();
-$row = $result->fetch_assoc() ;
 
+
+if ($result && $result->num_rows > 0) {
+$row = $result->fetch_assoc() ;
 $appt_doctor_id = $row['appt_doctor_id'];
 $appt_date = $row['appt_date'];
 $appt_keep_date = $row['appt_keep_date'];
 $appt_motif = $row['appt_motif'];
 
-
+   
 //get doctor data for appt
 $stmt = $conn->prepare( "SELECT * FROM doctor WHERE doctor_id  = ?");
 $stmt->bind_param("i",$appt_doctor_id);
 $stmt->execute();
 $result = $stmt->get_result();
-$row = $result->fetch_assoc() ;
 
+if ($result && $result->num_rows > 0) {
+$row = $result->fetch_assoc() ;
 $doctor_id = $row['doctor_id'];
 $doctor_pf_img = $row['doctor_pf_img'];
 $doctor_name = $row['doctor_name'];
@@ -54,3 +55,5 @@ $DAYS = array("Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam");
 		<div class="brief_state"><p><?php echo $state ?></p></div>
 	</div>
 </div>
+
+<?php }  } ?>
