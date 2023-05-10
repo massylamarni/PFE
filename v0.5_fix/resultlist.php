@@ -61,7 +61,7 @@ if($location && $speciality){
 	$stmt = $conn->prepare("SELECT * FROM doctor WHERE speciality LIKE ? ");
 	$stmt->bind_param("s", $searchSpeciality );
 }
-
+//hello
 	$stmt->execute();
 	$result = $stmt->get_result();
 	if ($result->num_rows >0 ) {
