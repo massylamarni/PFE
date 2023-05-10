@@ -13,7 +13,7 @@
 <div class="std_containerI">
 	<div class="list">
 		<div class="list_title"><h3>Rendez-vous en cours</h3></div>
-		<input type='submit' value="ajouter une rendez-vous" id="ajouterrendez">
+		<button type='button' onclick="addto_apptlist()">Ajouter un RDV</button>
 		<?php include("components/PS_apptlist.php"); ?>
 		<?php include("components/PS_apptlist_blank.php"); ?>
 	</div>

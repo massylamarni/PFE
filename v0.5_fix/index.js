@@ -216,92 +216,14 @@ function ajoutertarifs(){
 }
 
 //ajouter un rendez-vous
-function ajouterunrendez(){
-let ajouterrendez=document.getElementById('ajouterrendez');
-
-ajouterrendez.addEventListener('click',function(event){
-	event.preventDefault();
-    let photo=document.createElement('img');
-	photo.src='assets/pfp2.png';
-	
-
-	let nom=document.createElement('input');
-	nom.type='text';
-    nom.classList.add('pfp_text_name');
-	nom.style.width='128px';
-
-    let pfp_text=document.createElement('div');
-	pfp_text.classList.add('pfp_text');
-    pfp_text.appendChild(nom);
-
-	let pfp =document.createElement('div');
-	pfp.appendChild(photo);
-	pfp.appendChild(pfp_text);
-    pfp.classList.add('pfp');
-
-	let calend=document.createElement('input');
-	calend.type='datetime-local';
-	calend.classList.add('brief_datetime');
-	calend.style.width='100px';
-	calend.style.height='20px';
-	calend.style.marginTop='37px';
-	calend.style.padding='20px;'
-
-	let divtime=document.createElement('div');
-	divtime.classList.add('brief_datetime');
-
-	let motif=document.createElement('p');
-	let motif2=document.createTextNode('Motife de consultation');
-	motif.appendChild(motif2);
-	motif.classList.add('brief_motif');
-	motif.addEventListener('mouseover',function(event){
-		event.preventDefault();
-		motif.style.cursor='pointer';
-		motif.style.textDecoration='underline';
+function addto_apptlist()
+{
+	fetch('components/PS_apptlist_blank.php')
+	.then(response => response.text())
+	.then(data => {
+		document.getElementsByClassName('list')[0].insertAdjacentHTML('beforeend', data);
 	});
-	motif.addEventListener('mouseout',function(event){
-		event.preventDefault();
-		motif.style.textDecoration='none';
-	})
-
-	let ajouter=document.createElement('p');
-	let ajouter2=document.createTextNode('ajouter');
-	ajouter.appendChild(ajouter2);
-	ajouter.classList.add('brief_cancel');
-	ajouter.addEventListener('mouseover',function(event){
-		event.preventDefault();
-		ajouter.style.cursor='pointer';
-		ajouter.style.textDecoration='underline';
-
-	});
-	ajouter.addEventListener('mouseout',function(event){
-		event.preventDefault();
-		ajouter.style.textDecoration='none';
-	})
-
-	let list_el_brief=document.createElement('div');
-	list_el_brief.appendChild(calend);
-	list_el_brief.appendChild(divtime);
-	list_el_brief.appendChild(motif);
-	list_el_brief.appendChild(ajouter);
-	list_el_brief.classList.add('list_el_brief');
-	
-
-	let tout=document.createElement('div');
-	tout.appendChild(pfp);
-	tout.appendChild(list_el_brief);
-    tout.classList.add('list_el');
-	
-	
-
-	
-
-	let list=document.getElementsByClassName('list')[0];
-	list.appendChild(tout);
-
-	let generale=document.getElementsByClassName('std_containerI')[0];
-	generale.appendChild(list);
-})};
+}
 
 //modifie
 function modifie(){
