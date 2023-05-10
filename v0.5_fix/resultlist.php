@@ -26,7 +26,7 @@ include("components/navbar.php");
 <?php
 //resultsearch function
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
+if (isset($_POST["location"]) && isset($_POST["speciality"])) {
 $location=$_POST["location"];
 $speciality=$_POST["speciality"];
 

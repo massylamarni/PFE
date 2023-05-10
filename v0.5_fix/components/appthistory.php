@@ -4,28 +4,31 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+               
 //get appt data for appt
-$query = "SELECT * FROM appt WHERE appt_id = $appt_id";
-$result = mysqli_query($conn, $query);
-$data = array();
-while ($row = mysqli_fetch_assoc($result)) {
-    $data[] = $row;
-}
-$appt_doctor_id = $data[0]['appt_doctor_id'];
-$appt_date = $data[0]['appt_date'];
-$appt_keep_date = $data[0]['appt_keep_date'];
-$appt_motif = $data[0]['appt_motif'];
+$stmt = $conn->prepare( "SELECT * FROM appt WHERE appt_id  = ?");
+$stmt->bind_param("i",$appt_id);
+$stmt->execute();
+$result = $stmt->get_result();
+$row = $result->fetch_assoc() ;
+
+$appt_doctor_id = $row['appt_doctor_id'];
+$appt_date = $row['appt_date'];
+$appt_keep_date = $row['appt_keep_date'];
+$appt_motif = $row['appt_motif'];
+
+
 //get doctor data for appt
-$query = "SELECT * FROM doctor WHERE doctor_id = '$appt_doctor_id'";
-$result = mysqli_query($conn, $query);
-$data = array();
-while ($row = mysqli_fetch_assoc($result)) {
-    $data[] = $row;
-}
-$doctor_id = $data[0]['doctor_id'];
-$doctor_pf_img = $data[0]['doctor_pf_img'];
-$doctor_name = $data[0]['doctor_name'];
-$speciality = $data[0]['speciality'];
+$stmt = $conn->prepare( "SELECT * FROM doctor WHERE doctor_id  = ?");
+$stmt->bind_param("i",$appt_doctor_id);
+$stmt->execute();
+$result = $stmt->get_result();
+$row = $result->fetch_assoc() ;
+
+$doctor_id = $row['doctor_id'];
+$doctor_pf_img = $row['doctor_pf_img'];
+$doctor_name = $row['doctor_name'];
+$speciality = $row['speciality'];
 
 //set appt_date display
 $appt_date_obj = new DateTime($appt_date);
