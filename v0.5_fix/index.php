@@ -27,28 +27,25 @@ include("components/navbar.php");
 				$patient_id = $_SESSION["id"];
 
 				//get patient_apptlist
-				$query = "SELECT patient_apptlist FROM patient WHERE patient_id = $patient_id";
-				$result = mysqli_query($conn, $query);
-				$data = array();
-				while ($row = mysqli_fetch_assoc($result)) {
-	    			$data[] = $row;
-				}
-				$patient_apptlist = json_decode($data[0]['patient_apptlist']);
+				$stmt = $conn->prepare( "SELECT patient_apptlist FROM patient WHERE patient_id = ?");
+		        $stmt->bind_param("i",$patient_id);
+		        $stmt->execute();
+				$result = $stmt->get_result();
+		        $row = $result->fetch_assoc() ;
+				$patient_apptlist = json_decode($row['patient_apptlist']);
 
 				//set & save patient_appthistory then set & save patient_apptlist
-				if ($_POST['appt_id'] && $_POST['appt_id_state'])
-				{
+				if (isset($_POST['appt_id']) && isset($_POST['appt_id_state'])) {
 					$appt_id = $_POST['appt_id'];
 					$appt_id_state = $_POST['appt_id_state'];
 
-					//get patient_appthistory
-					$query = "SELECT patient_appthistory FROM patient where patient_id = $patient_id";
-					$result = mysqli_query($conn, $query);
-					$data = array();
-					while ($row = mysqli_fetch_assoc($result)) {
-					    $data[] = $row;
-					}
-					$patient_appthistory = $data[0]['patient_appthistory'];
+				//get patient_appthistory
+				$stmt = $conn->prepare( "SELECT patient_appthistory FROM patient WHERE patient_id = ?");
+		        $stmt->bind_param("i",$patient_id);
+		        $stmt->execute();
+				$result = $stmt->get_result();
+		        $row = $result->fetch_assoc() ;
+				$patient_appthistory = $row['patient_appthistory'];
 
 					//set new patient_appthistory
 					$patient_appthistory_el = array($appt_id, $appt_id_state);
@@ -59,17 +56,16 @@ include("components/navbar.php");
 					else
 					{
 						$patient_appthistory = json_decode($patient_appthistory);
-						array_push($patient_appthistory, $patient_appthistory_el);
+						$patient_appthistory[] = $patient_appthistory_el;
 						$patient_appthistory = json_encode($patient_appthistory);
 					}
 
 					//save new patient_appthistory
-					$stmt = $conn->prepare("update patient set patient_appthistory = ? where patient . patient_id = ?");
+					$stmt = $conn->prepare("UPDATE patient SET patient_appthistory = ? WHERE patient_id = ?");
 					$stmt->bind_param("si", $patient_appthistory, $patient_id);
 					$stmt->execute();
-					$stmt->reset();
+					
 	
-					$patient_id = $_SESSION["id"];
 
 					//set new patient_apptlist (remove appt_id from patient_apptlist)
 					for ($i = 0; $i < count($patient_apptlist); $i++)
@@ -82,27 +78,27 @@ include("components/navbar.php");
 					$patient_apptlist = json_encode($patient_apptlist);
 
 					//save new patient_apptlist
-					$stmt = $conn->prepare("update patient set patient_apptlist = ? where patient . patient_id = ?");
+					$stmt = $conn->prepare("UPDATE patient SET patient_apptlist = ? WHERE  patient_id = ?");
 					$stmt->bind_param("si", $patient_apptlist, $patient_id);
 					$stmt->execute();
 
-					$stmt->close();
+				
 				}
 				
 				//get patient_apptlist
-				$query = "SELECT patient_apptlist FROM patient WHERE patient_id = $patient_id";
-				$result = mysqli_query($conn, $query);
-				$data = array();
-				while ($row = mysqli_fetch_assoc($result)) {
-	    			$data[] = $row;
-				}
-				$patient_apptlist = json_decode($data[0]['patient_apptlist']);
+				$stmt = $conn->prepare( "SELECT patient_apptlist FROM patient WHERE patient_id = ?");
+		        $stmt->bind_param("i",$patient_id);
+		        $stmt->execute();
+				$result = $stmt->get_result();
+		        $row = $result->fetch_assoc() ;
+				$patient_apptlist = json_decode($row['patient_apptlist']);
+
 
 				//display patient_applist
 				if ($patient_apptlist == null) $null_patient_apptlist = true; else $null_patient_apptlist = false;
 				if (!$null_patient_apptlist)
 				{
-					echo $patient_apptlist;
+					//echo $patient_apptlist;
 					for ($i = 0; $i < count($patient_apptlist); $i++)
 					{
 						$appt_id=$patient_apptlist[$i];
@@ -118,13 +114,12 @@ include("components/navbar.php");
 
 				<?php
 				//get patient_appthistory
-				$query = "SELECT patient_appthistory FROM patient WHERE patient_id = $patient_id";
-				$result = mysqli_query($conn, $query);
-				$data = array();
-				while ($row = mysqli_fetch_assoc($result)) {
-					$data[] = $row;
-				}
-				$patient_appthistory = json_decode($data[0]['patient_appthistory']);
+				$stmt = $conn->prepare( "SELECT patient_appthistory FROM patient WHERE patient_id = ?");
+		        $stmt->bind_param("i",$patient_id);
+		        $stmt->execute();
+				$result = $stmt->get_result();
+		        $row = $result->fetch_assoc() ;
+				$patient_appthistory = json_decode($row['patient_appthistory']);
 
 				//display patient_appthisotry
 				if ($patient_appthistory == null) $null_patient_appthistory = true; else $null_patient_appthistory = false;
@@ -149,7 +144,7 @@ include("components/navbar.php");
 
 <?php
 $conn->close();
-exit();
+
 ?>
 
 <script src="index.js"></script>

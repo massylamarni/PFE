@@ -26,7 +26,7 @@ include("components/navbar.php");
 <?php
 //resultsearch function
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
+if (isset($_POST["location"]) && isset($_POST["speciality"])) {
 $location=$_POST["location"];
 $speciality=$_POST["speciality"];
 
@@ -70,7 +70,7 @@ if($location && $speciality){
 	}
 	
 }
-	//display searchresults
+	 //display searchresults
 	
 	if ($appt_searchresult == null) $null_appt_searchresult = true; else $null_appt_searchresult = false;
 	if (!$null_appt_searchresult)
@@ -83,6 +83,8 @@ if($location && $speciality){
 	}
 
 	//save appt process
+	if(isset($_POST["bookform_submit"])) { 
+
 	$appt_patient_id = $_SESSION['id'];
 	$appt_doctor_id = $_POST['doctor_id'];
 	$appt_date = $_POST['appt_date'];
@@ -90,24 +92,24 @@ if($location && $speciality){
 	$appt_motif = $_POST['appt_motif'];
 	if (!$appt_motif) $appt_motif = "Motif inconnus.";
 
-	if ($doctor_id && $appt_date)
-	{
+	if ( $appt_keep_date && $appt_date) {
+		
 		//save appt
 		$stmt = $conn->prepare("INSERT INTO appt (appt_patient_id, appt_doctor_id, appt_date,  appt_keep_date, appt_motif) VALUES (?, ?, ?, ?, ?)");
-		$stmt->bind_param("issss", $appt_patient_id, $appt_doctor_id, $appt_date,  $appt_keep_date, $appt_motif);
+		$stmt->bind_param("iisss", $appt_patient_id, $appt_doctor_id, $appt_date,  $appt_keep_date, $appt_motif);
 		$stmt->execute();
 
 		$appt_id = mysqli_insert_id($conn);
 
 		//get patient_apptlist
-		$stmt->reset();
-		$query = "SELECT patient_apptlist FROM patient WHERE patient_id = $appt_patient_id";
-		$result = mysqli_query($conn, $query);
-		$data = array();
-		while ($row = mysqli_fetch_assoc($result)) {
-			$data[] = $row;
-		}
-		$patient_apptlist = $data[0]['patient_apptlist'];
+		
+		$stmt = $conn->prepare( "SELECT patient_apptlist FROM patient WHERE patient_id = ?");
+		$stmt->bind_param("i",$appt_patient_id);
+		$stmt->execute();
+
+		$result = $stmt->get_result();
+		$row = $result->fetch_assoc() ;	
+		$patient_apptlist = $row['patient_apptlist'];
 
 		//set new patient_apptlist
 		if (empty($patient_apptlist))
@@ -117,18 +119,19 @@ if($location && $speciality){
 		else
 		{
 			$patient_apptlist = json_decode($patient_apptlist);
-			array_push($patient_apptlist, $appt_id);
+			$patient_apptlist[] = $appt_id;
 			$patient_apptlist = json_encode($patient_apptlist);
 		}
 
 		//save new patient_apptlist
-		$stmt = $conn->prepare("update patient set patient_apptlist = ? where patient . patient_id = ?");
-		$stmt->bind_param("ss", $patient_apptlist, $appt_patient_id);
+		$stmt = $conn->prepare("UPDATE patient SET patient_apptlist = ? WHERE patient_id = ?");
+		$stmt->bind_param("si", $patient_apptlist, $appt_patient_id);
 		$stmt->execute();
 
-		//close & exit
+		
 		$stmt->close();
 		$conn->close();
+	}
 	}
 ?>
 		</div>

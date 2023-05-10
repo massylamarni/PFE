@@ -19,7 +19,7 @@
 			<pre class="bookform_result"></pre>
 		</div>
 		<div class="bookform_submit"><button type="button" onclick="bookform(3, <?php echo $doctor_id ?>)">Annuler</button></div>
-		<div class="bookform_submit"><input type="submit" value="OK"></div>
+		<div class="bookform_submit"><input type="submit" value="OK" name="bookform_submit"></div>
 	</div>
 	<div class="bookform hidden">
 		<div class="bookform_title"><h3>Rendez-vous confirmé !</h3></div>
