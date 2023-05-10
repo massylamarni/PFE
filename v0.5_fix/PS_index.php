@@ -13,11 +13,13 @@
 <div class="std_containerI">
 	<div class="list">
 		<div class="list_title"><h3>Rendez-vous en cours</h3></div>
+		<input type='submit' value="ajouter une rendez-vous" id="ajouterrendez">
 		<?php include("components/PS_apptlist.php"); ?>
 		<?php include("components/PS_apptlist_blank.php"); ?>
 	</div>
 </div>
 
 <script src="index.js"></script>
+<script type="text/javascript"> ajouterunrendez()</script>
 </body>
 </html>
