@@ -3,10 +3,10 @@
 	<div class="navbar_el_container">
 
 <?php 
-if (!isset($_SESSION)) session_start();
+if (!isset($_SESSION)){ session_start();   }
 if (isset($_SESSION["usertype"])) {
-	$patient_name = $_SESSION['patient_name'];
-	$patient_pf_img = "assets/pfp6.png";
+
+	$pf_img = "assets/pfp6.png";
 	$logo_url = ($_SESSION["usertype"] == 'doctor') ? 'PS_index.php' : 'index.php';
 	$edit_profile_url = ($_SESSION["usertype"] == 'doctor') ? 'PS_editprofile.php' : 'editprofile.php';		
 ?>
@@ -18,7 +18,7 @@ if (isset($_SESSION["usertype"])) {
 			<input type="submit" class="navbar_search_submit" value="Rechercher">
 		</form>	
 		<div class="navbar_auth">
-	        <a href=<?php echo $edit_profile_url  ?> class="navbar_loggedin"><img src="<?php echo $patient_pf_img ?>"/><span><?php echo $patient_name ?></span></a>||<a href="logout.php"><span>Logout</span></a>
+	        <a href=<?php echo $edit_profile_url  ?> class="navbar_loggedin"><img src="<?php echo $pf_img ?>"/><span><?php echo $_SESSION["name"] ?></span></a>||<a href="logout.php"><span>Logout</span></a>
         </div>					
 	</div>
 </div>

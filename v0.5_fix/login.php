@@ -42,15 +42,15 @@ if ($result->num_rows == 1) {
     // User is found 
 	session_start();
 
-	$_SESSION["patient_id"]=$row["patient_id"];
-	$_SESSION["patient_email"]=$email;
-	$_SESSION["patient_password"]=$row["patient_password"];
-	$_SESSION["patient_name"]=$row["patient_name"];
-	$_SESSION["patient_bday"]=$row["patient_bday"];
-	$_SESSION["patient_phone"]=$row["patient_phone"];
-	$_SESSION["patient_gender"]=$row["patient_gender"];
-	if (isset($row["patient_location"])) $_SESSION["patient_location"] = $row["patient_location"];
-	if (isset($row["patient_pf_img"])) $_SESSION["patient_pf_img"] = $row["patient_pf_img"];
+	$_SESSION["id"]=$row["patient_id"];
+	$_SESSION["email"]=$email;
+	$_SESSION["password"]=$row["patient_password"];
+	$_SESSION["name"]=$row["patient_name"];
+	$_SESSION["bday"]=$row["patient_bday"];
+	$_SESSION["phone"]=$row["patient_phone"];
+	$_SESSION["gender"]=$row["patient_gender"];
+	if (isset($row["patient_location"])) $_SESSION["location"] = $row["patient_location"];
+	if (isset($row["patient_pf_img"])) $_SESSION["pf_img"] = $row["patient_pf_img"];
 	$_SESSION["usertype"]="patient";
 
 	header('Location: index.php');
@@ -76,16 +76,16 @@ if ($result->num_rows == 1) {
         // User is found in the doctor table
 	    session_start();
 
-	$_SESSION["doctor_id"]=$row["doctor_id"];
-	$_SESSION["doctor_email"]=$email;
-	$_SESSION["doctor_password"]=$row["doctor_password"];
-	$_SESSION["doctor_name"]=$row["doctor_name"];
-	$_SESSION["doctor_bday"]=$row["doctor_bday"];
-	$_SESSION["doctor_phone"]=$row["doctor_phone"];
-	$_SESSION["doctor_gender"]=$row["doctor_gender"];
-	$_SESSION["speciality"]=$row["doctor_speciality"];
-	if (isset($row["doctor_location"])) $_SESSION["doctor_location"] = $row["doctor_location"];
-	if (isset($row["doctor_pf_img"])) $_SESSION["doctor_pf_img"] = $row["doctor_pf_img"];
+	$_SESSION["id"]=$row["doctor_id"];
+	$_SESSION["email"]=$email;
+	$_SESSION["password"]=$row["doctor_password"];
+	$_SESSION["name"]=$row["doctor_name"];
+	$_SESSION["bday"]=$row["doctor_bday"];
+	$_SESSION["phone"]=$row["doctor_phone"];
+	$_SESSION["gender"]=$row["doctor_gender"];
+	$_SESSION["speciality"]=$row["speciality"];
+	if (isset($row["doctor_location"])) $_SESSION["location"] = $row["doctor_location"];
+	if (isset($row["doctor_pf_img"])) $_SESSION["pf_img"] = $row["doctor_pf_img"];
 	if (isset($row["description"])) $_SESSION["description"] = $row["description"];
 	if (isset($row["worktime"])) $_SESSION["worktime"] = $row["worktime"];
 	if (isset($row["pricing"])) $_SESSION["pricing"] = $row["pricing"];
