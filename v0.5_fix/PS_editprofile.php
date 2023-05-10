@@ -264,7 +264,7 @@ $worktime = array("Dimmatin"=>"09h30","Dimsoir"=> "19h30", "Lunmatin"=>"09h30","
 </div>
 
 <script src="index.js"></script>
-<script type="text/javascript">ajouterunelangue();ajouterundiplome ();ajoutertarifs();//modifie() </script>
+<script type="text/javascript">ajouterunelangue();ajouterundiplome ();ajoutertarifs();modifie() </script>
 </html>
 </body>
 </html>

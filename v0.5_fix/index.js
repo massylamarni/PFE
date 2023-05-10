@@ -328,6 +328,9 @@ for(let g=0;g<langage.length;g++){
 
 }
 console.log(tablangue);
+let  tablanguejson = JSON.stringify(tablangue);
+document.getElementById("languages_input").value = tablanguejson;
+console.log( typeof document.getElementById("languages_input").value);
 
 
 
