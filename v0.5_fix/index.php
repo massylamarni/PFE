@@ -40,7 +40,7 @@ include("components/navbar.php");
 					$appt_id_state = $_POST['appt_id_state'];
 
 					//get patient_appthistory
-					$patient_id = $_SESSION["patient_id"];
+					$patient_id = $_SESSION["id"];
 					$query = "SELECT patient_appthistory FROM patient where patient_id = $patient_id";
 					$result = mysqli_query($conn, $query);
 					$data = array();
@@ -68,7 +68,7 @@ include("components/navbar.php");
 					$stmt->execute();
 					$stmt->reset();
 	
-					$patient_id = $_SESSION["patient_id"];
+					$patient_id = $_SESSION["id"];
 
 					//set new patient_apptlist (remove appt_id from patient_apptlist)
 					for ($i = 0; $i < count($patient_apptlist); $i++)

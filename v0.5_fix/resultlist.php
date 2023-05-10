@@ -67,7 +67,7 @@ if ($_POST["location"] & $_POST["speciality"])
 	}
 
 	//save appt process
-	$appt_patient_id = $_SESSION['patient_id'];
+	$appt_patient_id = $_SESSION['id'];
 	$appt_doctor_id = $_POST['doctor_id'];
 	$appt_date = $_POST['appt_date'];
 	$appt_keep_date = (new DateTime())->format('r');
