@@ -89,7 +89,8 @@ function bookform(op, doctor_id)
 
 
 //funtion for the size of texts area
-function sizeArea(){let maxTextArea=[50,15,15,500,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15];
+function sizeArea(){
+	let maxTextArea=[50,15,15,500,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15];
 	let el=document.getElementsByTagName('textarea');
 	for (i=0; i<el.length; i++){
 		let line = el[i].value.split('\n');
