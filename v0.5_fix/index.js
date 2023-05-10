@@ -87,141 +87,133 @@ function bookform(op, doctor_id)
 	+ date_display.date + " " + date_display.month + " a " + date_display.time + "\nMotif: " + motif_in;
 }
 
-
-//funtion for the size of texts area
-function sizeArea(){
-	let maxTextArea=[50,15,15,500,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15];
-	let el=document.getElementsByTagName('textarea');
-	for (i=0; i<el.length; i++){
-		let line = el[i].value.split('\n');
-		let row = line.length;
-		let col = line.reduce(function(max, line){
-			return Math.max(max, line.length);
-		}, 0);
-		el[i].rows=row;
-		el[i].cols=col;
-	}
-};
-
-var el=document.getElementsByTagName('textarea');
-for (let k=0;el.length;k++){
-el[k].addEventListener('keydown',function(event){
-		if(el[k].value.length<=maxTextArea[k]){
-			sizeArea();
-		}else{
-			event.preventDefault();
-			el[k].value = el[k].value.slice(0,-1);
+/* sanitise input */
+function txtarea_autosize(op)
+{
+	let minlen=[10, 5, 100, 10, 50, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 50, 50];
+	let maxlen=[30, 15, 500, 15, 100, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 50, 50];
+	let txtarea=document.getElementsByClassName('txtarea');
+	if (op == 0)
+	{
+		for (let i = 0; i < txtarea.length; i++) {
+			txtarea[i].addEventListener('input', function(event) {
+				txtarea_autosize();
+			});
 		}
+		txtarea_autosize();
 	}
-)
+	else
+	{
+		for (let i = 0; i < txtarea.length; i++)
+		{
+			console.log(txtarea[i]);
+			if (txtarea[i].tagName === 'INPUT')
+			{
+				if (txtarea[i].value.length < minlen[i])
+				{
+					txtarea[i].style.width = minlen[i] + 'ch';
+				}
+				else if ((txtarea[i].value.length >= minlen[i]) && txtarea[i].value.length <= maxlen[i])
+				{
+					txtarea[i].style.width = txtarea[i].value.length+1 + 'ch';
+				}
+				else
+				{
+					txtarea[i].value = txtarea[i].value.slice(0, maxlen[i]);
+				}
+			}
+			else if (txtarea[i].tagName === 'TEXTAREA')
+			{
+				if (txtarea[i].value.length <= maxlen[i])
+				{
+					txtarea[i].style.height = '1em';
+					txtarea[i].style.width = minlen[i] + '%';
+					if (txtarea[i].scrollHeight > txtarea[i].offsetHeight)
+					{
+						txtarea[i].style.height = 'auto';
+						txtarea[i].style.height = txtarea[i].scrollHeight + 'px';
+					}
+				}
+				else
+				{
+					txtarea[i].value = txtarea[i].value.slice(0, maxlen[i]);
+				}
+			}
+		}
+	}	
 }
+
+
 // ajouter une langue
-let langue=document.getElementById('prelangue');
 function ajouterunelangue(){
+	let langue=document.getElementById('prelangue');
 	var ajouter=document.getElementById('ajouter');
-
-
-
-ajouter.addEventListener('click',function(event){
-	event.preventDefault();
-	let nouvel=document.createElement('textarea');
-	nouvel.after(ajouter)
-	nouvel.rows=1;
-	nouvel.cols=15;
-    nouvel.style.display='block';
-	nouvel.style.marginTop='3px';
-	
-	/*nouvel.addEventListener('keydown',function(event){
-		if(nouvel.value.length <= 15){
-			sizeArea();
-		}else{event.preventDefault();
-			nouvel.value = nouvel.value.slice(0,-1);}
-	})*/
-	nouvel.classList.add('langue');
-	langue.appendChild(nouvel);
-});}
+	ajouter.addEventListener('click',function(event){
+		event.preventDefault();
+		let nouvel=document.createElement('textarea');
+		nouvel.after(ajouter)
+		nouvel.rows=1;
+		nouvel.cols=15;
+    	nouvel.style.display='block';
+		nouvel.style.marginTop='3px';
+		/*nouvel.addEventListener('keydown',function(event){if(nouvel.value.length <= 15){sizeArea();}else{event.preventDefault();nouvel.value = nouvel.value.slice(0,-1);}})*/
+		nouvel.classList.add('langue');
+		langue.appendChild(nouvel);
+	});
+}
 
 
 //ajouter diplome et classification
 function ajouterundiplome(){
-var ajouterdiplome=document.getElementById('diplome');
-
-let diplome=document.getElementById('prediplome')
-
-ajouterdiplome.addEventListener('click',function(event){
-	event.preventDefault();
-	let nouvel=document.createElement('textarea');
-	let annee=document.createElement('textarea');
-	nouvel.after(ajouterdiplome);
-	annee.after(diplome);
-	nouvel.rows=1;
-	nouvel.cols=50;
-	annee.rows=1;
-	annee.cols=10;
-	annee.classList.add('pf_body_field');
-	nouvel.classList.add('pf_body_field');
-/*	nouvel.addEventListener('keydown',function(event){
-		if(nouvel.value.length <= 15){
-			sizeArea();
-		}else{event.preventDefault();
-			nouvel.value = nouvel.value.slice(0,-1);}
-	})
-	annee.addEventListener('keydown',function(event){
-		if(annee.value.length <= 15){
-			sizeArea();
-		}else{event.preventDefault();
-			annee.value = nouvel.value.slice(0,-1);}
-	})*/
-
-	let container=document.createElement('div');
-	  container.appendChild(annee);
-	  container.appendChild(nouvel);
-	  container.classList.add('tarifdiv');
-	diplome.appendChild(container);
-	
-
-});}
+	var ajouterdiplome=document.getElementById('diplome');
+	let diplome=document.getElementById('prediplome')
+	ajouterdiplome.addEventListener('click',function(event){
+		event.preventDefault();
+		let nouvel=document.createElement('textarea');
+		let annee=document.createElement('textarea');
+		nouvel.after(ajouterdiplome);
+		annee.after(diplome);
+		nouvel.rows=1;
+		nouvel.cols=50;
+		annee.rows=1;
+		annee.cols=10;
+		annee.classList.add('pf_body_field');
+		nouvel.classList.add('pf_body_field');
+		/*	nouvel.addEventListener('keydown',function(event){if(nouvel.value.length <= 15){sizeArea();}else{event.preventDefault();nouvel.value = nouvel.value.slice(0,-1);}})annee.addEventListener('keydown',function(event){if(annee.value.length <= 15){sizeArea();}else{event.preventDefault();annee.value = nouvel.value.slice(0,-1);}})*/
+		let container=document.createElement('div');
+		container.appendChild(annee);
+		container.appendChild(nouvel);
+		container.classList.add('tarifdiv');
+		diplome.appendChild(container);
+	});
+}
 
 //ajouter tarifs
 function ajoutertarifs(){
-let ajoutertarifs=document.getElementById('tarif');
-
-let tarifs=document.getElementById('pretarif');
-
-ajoutertarifs.addEventListener('click',function(event){
-	event.preventDefault();
-	let nouvel=document.createElement('textarea');
-	let prix=document.createElement('textarea');
-	nouvel.after(ajoutertarifs);
-	prix.after(ajoutertarifs);
-	nouvel.rows=1;
-	nouvel.cols=50;
-	prix.rows=1;
-	prix.cols=10;
-	prix.classList.add('pf_body_field');
-	nouvel.classList.add('pf_body_field');
-	prix.before(ajoutertarifs);
-	nouvel.after(ajoutertarifs);
-/*	nouvel.addEventListener('keydown',function(event){
-		if(nouvel.value.length <= 15){
-			sizeArea();
-		}else{event.preventDefault();
-			nouvel.value = nouvel.value.slice(0,-1);}
-	})
-	prix.addEventListener('keydown',function(event){
-		if(prix.value.length <= 15){
-			sizeArea();
-		}else{event.preventDefault();
-			prix.value = nouvel.value.slice(0,-1);}
-	})*/
-	let container=document.createElement('div');
-	  container.appendChild(nouvel);
-	  container.appendChild(prix);
-	  container.classList.add('tarifdiv');
-	tarifs.appendChild(container);
-	
-
-});}
+	let ajoutertarifs=document.getElementById('tarif');
+	let tarifs=document.getElementById('pretarif');
+	ajoutertarifs.addEventListener('click',function(event){
+		event.preventDefault();
+		let nouvel=document.createElement('textarea');
+		let prix=document.createElement('textarea');
+		nouvel.after(ajoutertarifs);
+		prix.after(ajoutertarifs);
+		nouvel.rows=1;
+		nouvel.cols=50;
+		prix.rows=1;
+		prix.cols=10;
+		prix.classList.add('pf_body_field');
+		nouvel.classList.add('pf_body_field');
+		prix.before(ajoutertarifs);
+		nouvel.after(ajoutertarifs);
+		/*	nouvel.addEventListener('keydown',function(event){if(nouvel.value.length <= 15){sizeArea();}else{event.preventDefault();nouvel.value = nouvel.value.slice(0,-1);}})prix.addEventListener('keydown',function(event){if(prix.value.length <= 15){sizeArea();}else{event.preventDefault();prix.value = nouvel.value.slice(0,-1);}})*/
+		let container=document.createElement('div');
+		container.appendChild(nouvel);
+		container.appendChild(prix);
+		container.classList.add('tarifdiv');
+		tarifs.appendChild(container);
+	});
+}
 
 //ajouter un rendez-vous
 function ajouterunrendez(){

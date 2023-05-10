@@ -436,7 +436,7 @@ html, body
 .pf
 {
 	height: 100%;
-	width: 50%;
+	width: 100%;
 }
 .pf_header
 {
@@ -482,11 +482,7 @@ html, body
 	cursor: pointer;
 	color: darkgreen;
 }
-.pf_header_text_name textarea
-{
-	resize: none;
-}
-.pf_body_field textarea
+.txtarea
 {
 	resize: none;
 }
@@ -593,11 +589,6 @@ html, body
 {
 	display: block;
 }
-.fetchto
-{
-	display: block;
-}
-
 .tarifdiv{
 	display: block;
 }

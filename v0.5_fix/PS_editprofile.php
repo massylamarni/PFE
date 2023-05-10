@@ -204,48 +204,48 @@ $worktime = array("Dimmatin"=>"09h30","Dimsoir"=> "19h30", "Lunmatin"=>"09h30","
 	<div class="pf_header">
 		<img src="<?php echo $pf_img ?>">
 		<div class="pf_header_text">
-		<div class="pf_header_text_name"><input type="text" value="<?php echo $_SESSION["name"] ?>" name="name" autocomplete="off"/></div>
+		<div class="pf_header_text_name"><input class="txtarea" type="text" value="<?php echo $_SESSION["name"] ?>" name="name" autocomplete="off"/></div>
 			<div class="pf_header_text_speciality">
-				<input type="text" value="<?php echo $_SESSION["speciality"] ?>" name="speciality" autocomplete="off"/>
+				<input class="txtarea" type="text" value="<?php echo $_SESSION["speciality"] ?>" name="speciality" autocomplete="off"/>
 			</div>
 		</div>
 	</div>
 	<div class="pf_body">
 		<div class="pf_body_field"><h3>Description</h3>
-			<pre><textarea rows="5" cols="100" name="description"><?php if(isset($_SESSION["description"])) { echo $old_description;  } ?></textarea></pre>
+			<pre><textarea class="txtarea" name="description"><?php if(isset($_SESSION["description"])) { echo $old_description;  } ?></textarea></pre>
 		</div>
-		<div class="pf_body_field"><h3>Numero telephone</h3><input type="text" value="<?php echo $_SESSION["phone"] ?>" name="phone"  autocomplete="off"/></div>
-		<div class="pf_body_field"><h3>Adresse</h3><textarea rows="1" cols="50" name="location"><?php if (isset($_SESSION["location"])){ echo $old_location; } ?></textarea></div>
+		<div class="pf_body_field"><h3>Numero telephone</h3><input class="txtarea" type="text" value="<?php echo $_SESSION["phone"] ?>" name="phone"  autocomplete="off"/></div>
+		<div class="pf_body_field"><h3>Adresse</h3><textarea class="txtarea" name="location"><?php if (isset($_SESSION["location"])){ echo $old_location; } ?></textarea></div>
 		<div class="pf_body_field"><h3>Date Naissance</h3><input type="date" name="bday"></div>
 		<div class="pf_body_field"><h3>Horaires de travail</h3>
 			<pre>
-				Dim:<textarea rows="1" cols="5"name="Dimmatin"><?php echo$worktime["Dimmatin"] ?></textarea> - <textarea rows="1" cols="5" name="Dimsoir"><?php echo $worktime["Dimsoir"] ?></textarea>
-				Lun:<textarea rows="1" cols="5"name="Lunmatin"><?php echo $worktime["Lunmatin"] ?></textarea> - <textarea rows="1" cols="5"name="Lunsoir"><?php echo $worktime["Lunsoir"] ?></textarea>
-				Mar:<textarea rows="1" cols="5"name="Marmatin"><?php echo $worktime["Marmatin"] ?></textarea> - <textarea rows="1" cols="5"name="Marsoir"><?php echo $worktime["Marsoir"] ?></textarea>
-				Mer:<textarea rows="1" cols="5"name="Mermatin"><?php echo $worktime["Mermatin"] ?></textarea> - <textarea rows="1" cols="5"name="Mersoir"><?php echo $worktime["Mersoir"] ?></textarea>
-				Jeu:<textarea rows="1" cols="5"name="Jeumatin"><?php echo $worktime["Jeumatin"] ?></textarea> - <textarea rows="1" cols="5"name="Jeusoir"><?php echo $worktime["Jeusoir"] ?></textarea>
-				Ven:<textarea rows="1" cols="5"name="Venmatin"><?php echo $worktime["Venmatin"] ?></textarea> - <textarea rows="1" cols="5"name="Vensoir"><?php echo $worktime["Vensoir"] ?></textarea>
-				Sam:<textarea rows="1" cols="5"name="Sammatin"><?php echo $worktime["Sammatin"] ?></textarea> - <textarea rows="1" cols="5"name="Samsoir"><?php echo $worktime["Samsoir"] ?></textarea>
+				Dim:<textarea class="txtarea" name="Dimmatin"><?php echo$worktime["Dimmatin"] ?></textarea> - <textarea class="txtarea"  name="Dimsoir"><?php echo $worktime["Dimsoir"] ?></textarea>
+				Lun:<textarea class="txtarea" name="Lunmatin"><?php echo $worktime["Lunmatin"] ?></textarea> - <textarea class="txtarea" name="Lunsoir"><?php echo $worktime["Lunsoir"] ?></textarea>
+				Mar:<textarea class="txtarea" name="Marmatin"><?php echo $worktime["Marmatin"] ?></textarea> - <textarea class="txtarea" name="Marsoir"><?php echo $worktime["Marsoir"] ?></textarea>
+				Mer:<textarea class="txtarea" name="Mermatin"><?php echo $worktime["Mermatin"] ?></textarea> - <textarea class="txtarea" name="Mersoir"><?php echo $worktime["Mersoir"] ?></textarea>
+				Jeu:<textarea class="txtarea" name="Jeumatin"><?php echo $worktime["Jeumatin"] ?></textarea> - <textarea class="txtarea" name="Jeusoir"><?php echo $worktime["Jeusoir"] ?></textarea>
+				Ven:<textarea class="txtarea" name="Venmatin"><?php echo $worktime["Venmatin"] ?></textarea> - <textarea class="txtarea" name="Vensoir"><?php echo $worktime["Vensoir"] ?></textarea>
+				Sam:<textarea class="txtarea" name="Sammatin"><?php echo $worktime["Sammatin"] ?></textarea> - <textarea class="txtarea" name="Samsoir"><?php echo $worktime["Samsoir"] ?></textarea>
 			</pre>
 		</div>
 		<div class="pf_body_field"><h3>Tarifs</h3>
 		<input type="hidden" id="pricing_input" name="pricing" value="">
 			<pre id="pretarif" >
-				<textarea rows="1" cols="50"><?php  ?></textarea>
+				<textarea class="txtarea"><?php  ?></textarea>
 			</pre>
 			<input type="submit" id="tarif" value="ajouter un tarifs">
 		</div>
 		<div class="pf_body_field"><h3>Diplomes & Qualifications</h3>
 		<input type="hidden" id="dq_input" name="dq" value="">
 			<pre id="prediplome" >
-				<textarea rows="1" cols="10"><?php  ?></textarea>
+				<textarea class="txtarea"><?php  ?></textarea>
 			</pre>
 			<input type="submit" id="diplome" value="ajouter un diplome">
 		</div>
 		<div class="pf_body_field"><h3>Langues parlées</h3>
 		<input type="hidden" id="languages_input" name="languages" value="">
 		<pre id="prelangue" ><?php if (!empty($languages)) { foreach ($languages as $language) {  ?>
-             <textarea class="langue" rows="1" cols="15"><?php echo $language; ?></textarea>,
+             <textarea class="langue txtarea"><?php echo $language; ?></textarea>,
 		</pre>
 		<?php   } } ?>
 		<input type="submit" id="ajouter" value="ajouter une langue">
@@ -264,7 +264,7 @@ $worktime = array("Dimmatin"=>"09h30","Dimsoir"=> "19h30", "Lunmatin"=>"09h30","
 </div>
 
 <script src="index.js"></script>
-<script type="text/javascript">ajouterunelangue();ajouterundiplome ();ajoutertarifs();//modifie() </script>
+<script type="text/javascript">txtarea_autosize(0); ajouterunelangue();ajouterundiplome ();ajoutertarifs();//modifie() </script>
 </html>
 </body>
 </html>
