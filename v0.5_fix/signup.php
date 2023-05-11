@@ -56,25 +56,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 		$conn->close();
 
 	}
-	}
-
-/* etapes a faire : 
-
-  ajout des APIs 
-*/
-
+}
 ?>
 
 <div class="std_container">
 	<div class="auth">
-		<a href="#" class="auth_api">
-			<img src="assets/gmail_logo.svg">
-			Sign up with Gmail
-		</a>
-		<a href="#" class="auth_api">
-			<img src="assets/outlook_logo.svg">
-			Sign up with Outlook
-		</a>
 		<form id="auth_form" action="" method="POST">
 			<div class="auth_form_field">
 				<label>Nom complet</label>
@@ -93,7 +79,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 				<input type="text" name="phone">
 			</div>
 			<div class="auth_form_field">
-				<label>Birthdate</label>
+				<label>Date de naissance</label>
 				<input class="in_text" type="date" name="bday" >
 			</div>
 			<div class="in_radio">
@@ -107,10 +93,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 					</div>
 				</div>
 			<div class="auth_form_captcha"></div>
-			<input class="auth_form_submit" type="submit" value="Sign up">
+			<input class="auth_form_submit" type="submit" value="S'inscrire">
 			<div class="auth_form_tos">By clicking “Sign up”, you agree to our <a href="#">terms of service</a>, <a href="#">privacy policy</a> and <a href="#">cookie policy</a></div>
 		</form>
-		<div class="auth_ask">Already have an account? <a href="login.php">Log in</a></div>
+		<div class="auth_ask">Vous avez deja un compte ? <a href="login.php">Se connecter</a></div>
+		<div class="auth_ask">Vous etes un medecin ? <a href="PS_signup.php">S'inscrire</a></div>
 	</div>
 </div>
 
