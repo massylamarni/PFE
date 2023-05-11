@@ -188,6 +188,8 @@ $worktime = array("Dimmatin"=>"09h30","Dimsoir"=> "19h30", "Lunmatin"=>"09h30","
 	    	$_SESSION["pricing"]=$pricings;
 
 		} 	
+		header("Location: PS_profile.php");
+		exit();              
 	} 
 
 	?>

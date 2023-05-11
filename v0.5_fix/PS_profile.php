@@ -4,17 +4,15 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="../index.css">
+	<link rel="stylesheet" href="index.css">
 	<title>Visuals</title>
 </head>
 <body>
 
 <?php  
-ini_set('display_errors', 1);
+//ini_set('display_errors', 1);
 
-include("navbar.php"); 
-
-define("DB_NAME","Client");
+include("components/navbar.php");
 
 
 if(!isset($_SESSION))
@@ -25,15 +23,7 @@ if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='doctor') {
 
 
 
-$conn = mysqli_connect('localhost', 'root', '', DB_NAME);
-
-	    if($conn->connect_error){
-		echo "$conn->connect_error";
-       die("Connection Failed : ". $conn->connect_error); }
-
-
-
-$pf_img = "../assets/pfp2.png";
+$pf_img = "assets/pfp2.png";
 $worktime = array("Dimmatin"=>"09h30","Dimsoir"=> "19h30", "Lunmatin"=>"09h30","Lunsoir"=> "19h30", 
              "Marmatin"=>"09h30","Marsoir"=> "19h30","Mermatin"=>"09h30","Mersoir"=> "19h30", 
 			"Jeumatin"=>"09h30","Jeusoir"=>"19h30","Venmatin"=>"","Vensoir"=> "", 
@@ -96,18 +86,15 @@ $worktime = array("Dimmatin"=>"09h30","Dimsoir"=> "19h30", "Lunmatin"=>"09h30","
 	<div class="pf_body_field"><h3>Email</h3><label><?php echo $_SESSION["email"] ?></label></div>
 	</div>
 </div>
-<a href="../PS_editprofile.php"><button type="button">Modifier</button></a>
+<a href="PS_editprofile.php"><button type="button">Modifier</button></a>
 </form>
 	</div>
 </div>
 
 <script src="index.js"></script>
-<script type="text/javascript">//txtarea_autosize(0); 
-ajouterunelangue();ajouterundiplome ();ajoutertarifs();
-modifie() </script>
-</html>
 </body>
 </html>
+
 <?php   }else{
 
 header("Location: index.php");
