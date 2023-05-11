@@ -145,8 +145,9 @@ function txtarea_autosize(op)
 
 
 // ajouter une langue
+let langue=document.getElementById('prelangue');
 function ajouterunelangue(){
-	let langue=document.getElementById('prelangue');
+	
 	var ajouter=document.getElementById('ajouter');
 	ajouter.addEventListener('click',function(event){
 		event.preventDefault();
@@ -246,7 +247,30 @@ let  tablanguejson = JSON.stringify(tablangue);
 document.getElementById("languages_input").value = tablanguejson;
 console.log( typeof document.getElementById("languages_input").value);
 
-document.getElementById("editprofile").submit();
+let tabtarif=[];
+	
+let classtrif=document.getElementsByClassName('classtarif');
+let classprix=document.getElementsByClassName('classprix');
+let n=0;
+ for(let y=0;y<classtrif.length;y++){
+	if(classtrif[y].value.trim().length!=0 && classprix[y].value.trim().length!=0){
+	let minitabtarif=[];
+	minitabtarif[0]=classtrif[y].value;
+	minitabtarif[1]=classprix[y].value;
+	tabtarif[n]=minitabtarif ;
+	 n++;}
+	else if(classtrif[y].value.trim().length==0 && classprix[y].value.trim().length==0){
+		tarifs.removeChild(classprix[y]);
+		tarifs.removeChild(classtrif[y]);
+	}
+	
+}
+console.log(tabtarif);
+
+
+
+
+//document.getElementById("editprofile").submit();
 
 })};
 

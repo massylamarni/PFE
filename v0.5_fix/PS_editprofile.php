@@ -231,7 +231,7 @@ $worktime = array("Dimmatin"=>"09h30","Dimsoir"=> "19h30", "Lunmatin"=>"09h30","
 		<div class="pf_body_field"><h3>Tarifs</h3>
 		<input type="hidden" id="pricing_input" name="pricing" value="">
 			<pre id="pretarif" >
-				<textarea class="txtarea"><?php  ?></textarea>
+				<textarea class="txtarea classtarif"><?php  ?></textarea>
 			</pre>
 			<input type="submit" id="tarif" value="ajouter un tarifs">
 		</div>
