@@ -8,7 +8,7 @@ if (isset($_SESSION["usertype"])) {
 
 	$pf_img = "assets/pfp6.png";
 	$logo_url = ($_SESSION["usertype"] == 'doctor') ? 'PS_index.php' : 'index.php';
-	$edit_profile_url = ($_SESSION["usertype"] == 'doctor') ? 'PS_editprofile.php' : 'editprofile.php';		
+	$edit_profile_url = ($_SESSION["usertype"] == 'doctor') ? 'PS_editprofile.php' : 'profile.php';		
 ?>
 
 		<a href=<?php echo $logo_url  ?> class="navbar_logo"><img src="assets/logo.png"></a>

@@ -69,7 +69,6 @@ if($location && $speciality){
 		echo "0 results";
 	}
 	
-}
 	 //display searchresults
 	
 	if ($appt_searchresult == null) $null_appt_searchresult = true; else $null_appt_searchresult = false;
@@ -81,7 +80,7 @@ if($location && $speciality){
 			include("components/resultlist.php");
 		}
 	}
-
+}
 	//save appt process
 	if(isset($_POST["bookform_submit"])) { 
 
