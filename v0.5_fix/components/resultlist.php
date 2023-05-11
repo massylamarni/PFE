@@ -1,4 +1,6 @@
 <?php
+if (!isset($_SESSION)){ session_start();   }
+
 //ini_set('display_errors', 1);
 
 //doctor
@@ -30,7 +32,7 @@ $worktime = $row['worktime'];
 		<div class="brief_adress"><?php echo $doctor_location ?></div>
 		<div class="brief_datetime"></div>
 		<div class="brief_phone"><?php echo $doctor_phone ?></div>
-		<div class="brief_book" onclick="bookform(0, <?php echo $doctor_id?>)"><p>Prendre RDV</p></div>
+		<?php if (isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='patient') {?> <div class="brief_book" onclick="bookform(0, <?php echo $doctor_id?>)"><p>Prendre RDV</p></div>
+	<?php include("components/bookform.php"); } ?>
 	</div>
-	<?php include("components/bookform.php"); ?>
 </div>
