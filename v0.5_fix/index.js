@@ -145,9 +145,8 @@ function txtarea_autosize(op)
 
 
 // ajouter une langue
-let langue=document.getElementById('prelangue');
 function ajouterunelangue(){
-	
+	let langue=document.getElementById('prelangue');
 	var ajouter=document.getElementById('ajouter');
 	ajouter.addEventListener('click',function(event){
 		event.preventDefault();
@@ -165,9 +164,10 @@ function ajouterunelangue(){
 
 
 //ajouter diplome et classification
+let diplome=document.getElementById('prediplome');
 function ajouterundiplome(){
 	var ajouterdiplome=document.getElementById('diplome');
-	let diplome=document.getElementById('prediplome')
+	
 	ajouterdiplome.addEventListener('click',function(event){
 		event.preventDefault();
 		let nouvel=document.createElement('textarea');
@@ -180,6 +180,8 @@ function ajouterundiplome(){
 		annee.cols=10;
 		annee.classList.add('pf_body_field');
 		nouvel.classList.add('pf_body_field');
+		annee.classList.add('classannee');
+		nouvel.classList.add('classdiplome');
 		/*	nouvel.addEventListener('keydown',function(event){if(nouvel.value.length <= 15){sizeArea();}else{event.preventDefault();nouvel.value = nouvel.value.slice(0,-1);}})annee.addEventListener('keydown',function(event){if(annee.value.length <= 15){sizeArea();}else{event.preventDefault();annee.value = nouvel.value.slice(0,-1);}})*/
 		let container=document.createElement('div');
 		container.appendChild(annee);
@@ -190,9 +192,10 @@ function ajouterundiplome(){
 }
 
 //ajouter tarifs
+let tarifs=document.getElementById('pretarif');
 function ajoutertarifs(){
 	let ajoutertarifs=document.getElementById('tarif');
-	let tarifs=document.getElementById('pretarif');
+	
 	ajoutertarifs.addEventListener('click',function(event){
 		event.preventDefault();
 		let nouvel=document.createElement('textarea');
@@ -207,6 +210,8 @@ function ajoutertarifs(){
 		nouvel.classList.add('pf_body_field');
 		prix.before(ajoutertarifs);
 		nouvel.after(ajoutertarifs);
+		nouvel.classList.add('classtarif');
+	    prix.classList.add('classprix');
 		/*	nouvel.addEventListener('keydown',function(event){if(nouvel.value.length <= 15){sizeArea();}else{event.preventDefault();nouvel.value = nouvel.value.slice(0,-1);}})prix.addEventListener('keydown',function(event){if(prix.value.length <= 15){sizeArea();}else{event.preventDefault();prix.value = nouvel.value.slice(0,-1);}})*/
 		let container=document.createElement('div');
 		container.appendChild(nouvel);
@@ -246,33 +251,60 @@ console.log(tablangue);
 let  tablanguejson = JSON.stringify(tablangue);
 document.getElementById("languages_input").value = tablanguejson;
 console.log( typeof document.getElementById("languages_input").value);
-
+//modifie tarif 
 let tabtarif=[];
 	
-let classtrif=document.getElementsByClassName('classtarif');
-let classprix=document.getElementsByClassName('classprix');
-let n=0;
- for(let y=0;y<classtrif.length;y++){
-	if(classtrif[y].value.trim().length!=0 && classprix[y].value.trim().length!=0){
-	let minitabtarif=[];
-	minitabtarif[0]=classtrif[y].value;
-	minitabtarif[1]=classprix[y].value;
-	tabtarif[n]=minitabtarif ;
-	 n++;}
-	else if(classtrif[y].value.trim().length==0 && classprix[y].value.trim().length==0){
-		tarifs.removeChild(classprix[y]);
-		tarifs.removeChild(classtrif[y]);
+	let classtrif=document.getElementsByClassName('classtarif');
+	let classprix=document.getElementsByClassName('classprix');
+    let n=0;
+	 for(let y=0;y<classtrif.length;y++){
+		if(classtrif[y].value.trim().length!=0 && classprix[y].value.trim().length!=0){
+		let minitabtarif=[];
+		minitabtarif[0]=classtrif[y].value;
+		minitabtarif[1]=classprix[y].value;
+		tabtarif[n]=minitabtarif ;
+		 n++;}
+		else if(classtrif[y].value.trim().length==0 && classprix[y].value.trim().length==0){
+			tarifs.removeChild(classprix[y]);
+			tarifs.removeChild(classtrif[y]);
+		}
+		
 	}
-	
-}
-console.log(tabtarif);
-
-
+	console.log(tabtarif);
+	let  tabtarifjson = JSON.stringify(tabtarif);
+document.getElementById("pricing_input").value = tabtarifjson;
+	//modifie diplome
+	let tabdiplome=[];
+	let classdiplome=document.getElementsByClassName('classdiplome');
+	let classannee=document.getElementsByClassName('classannee');
+    let p=0;
+	 for(let u=0;u<classdiplome.length;u++){
+		if(classdiplome[u].value.trim().length!=0 && classannee[u].value.trim().length!=0){
+		let minitabdiplome=[];
+		minitabdiplome[0]=classannee[u].value;
+		minitabdiplome[1]=classdiplome[u].value;
+		tabdiplome[p]=minitabdiplome ;
+		 p++;}
+		else if(classdiplome[u].value.trim().length==0 && classannee[u].value.trim().length==0){
+			diplome.removeChild(classdiplome[u]);
+			diplome.removeChild(classannee[u]);
+		}
+		
+	}
+	console.log(tabdiplome);
+	let  tabdiplomejson = JSON.stringify(tabdiplome);
+document.getElementById("dq_input").value = tabdiplomejson;
 
 
 //document.getElementById("editprofile").submit();
 
 })};
+
+
+
+	
+
+
 
 
 

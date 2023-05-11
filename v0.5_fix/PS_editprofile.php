@@ -231,14 +231,15 @@ $worktime = array("Dimmatin"=>"09h30","Dimsoir"=> "19h30", "Lunmatin"=>"09h30","
 		<div class="pf_body_field"><h3>Tarifs</h3>
 		<input type="hidden" id="pricing_input" name="pricing" value="">
 			<pre id="pretarif" >
-				<textarea class="txtarea classtarif"><?php  ?></textarea>
+<textarea class="classtarif txtarea" rows="1" cols="50"><?php  ?> </textarea><textarea class="classprix txtarea" rows="1" cols="10"><?php  ?></textarea>
+
 			</pre>
 			<input type="submit" id="tarif" value="ajouter un tarifs">
 		</div>
 		<div class="pf_body_field"><h3>Diplomes & Qualifications</h3>
 		<input type="hidden" id="dq_input" name="dq" value="">
 			<pre id="prediplome" >
-				<textarea class="txtarea"><?php  ?></textarea>
+</textarea><textarea class="classannee txtarea" rows="1" cols="10"><?php  ?></textarea><textarea class="classdiplome txtarea" rows="1" cols="50"><?php  ?> </textarea>
 			</pre>
 			<input type="submit" id="diplome" value="ajouter un diplome">
 		</div>
@@ -278,5 +279,4 @@ exit();
 }  
 
 ?>
-
 
