@@ -9,7 +9,10 @@
 </head>
 <body>
 
-<?php  include("components/navbar.php"); 
+<?php  
+ini_set('display_errors', 1);
+
+include("components/navbar.php"); 
 
 define("DB_NAME","Client");
 
@@ -28,7 +31,7 @@ $conn = mysqli_connect('localhost', 'root', '', DB_NAME);
 		echo "$conn->connect_error";
        die("Connection Failed : ". $conn->connect_error); }
 
-//retreiving the language array from db and sending it to js
+//retreiving the language array from db 
 	$stmt = $conn->prepare("SELECT language FROM doctor WHERE doctor_id = ?");
 	$stmt->bind_param("s", $_SESSION["id"]);
 	$stmt->execute();
@@ -36,9 +39,8 @@ $conn = mysqli_connect('localhost', 'root', '', DB_NAME);
 	$row = $result->fetch_assoc();
     $languages=$row["language"];
 	$languages=json_decode($languages);
-	echo '<script> var languagesData = ' . json_encode($languages) . ';</script>';
 	
-//retreiving the dq array from db and sending it to js
+//retreiving the dq array from db 
     $stmt = $conn->prepare("SELECT dq FROM doctor WHERE doctor_id = ?");
 	$stmt->bind_param("s", $_SESSION["id"]);
 	$stmt->execute();
@@ -46,9 +48,8 @@ $conn = mysqli_connect('localhost', 'root', '', DB_NAME);
 	$row = $result->fetch_assoc();
 	$dqs=$row["dq"];
 	$dqs=json_decode($dqs);
-	echo '<script> var dqData = ' . json_encode($dqs) . ';</script>';
 	
-//retreiving the pricing array from db and sending it to js
+//retreiving the pricing array from db 
    $stmt = $conn->prepare("SELECT pricing FROM doctor WHERE doctor_id = ?");
    $stmt->bind_param("s", $_SESSION["id"]);
    $stmt->execute();
@@ -56,7 +57,6 @@ $conn = mysqli_connect('localhost', 'root', '', DB_NAME);
    $row = $result->fetch_assoc();
    $pricings=$row["pricing"];
    $pricings=json_decode($pricings);
-   echo '<script> var pricingData = ' . json_encode($pricings) . ';</script>';
 
 	
 
@@ -166,13 +166,13 @@ $worktime = array("Dimmatin"=>"09h30","Dimsoir"=> "19h30", "Lunmatin"=>"09h30","
 		  } 
 		
 		}
-		if (isset($_POST["languages"])){    
-	     	$db_languages=json_encode($languages);
+
+		    $db_languages=$_POST["languages"];
 		    $stmt = $conn->prepare("UPDATE doctor SET language = ? WHERE doctor_id = ?");
 	    	$stmt->bind_param("si", $db_languages, $_SESSION["id"]);
 	    	$stmt->execute();
-	    	$_SESSION["language"]=$languages;
-		}
+	    	$_SESSION["language"]= json_decode($db_languages);
+
 
 		if (isset($_POST["dq"])){    
 			$db_dq=json_encode($dqs);
@@ -199,7 +199,7 @@ $worktime = array("Dimmatin"=>"09h30","Dimsoir"=> "19h30", "Lunmatin"=>"09h30","
 
 	<h3>Gerer Compte</h3>
 
-<form class="ep_form" action="" method="POST">
+<form class="ep_form" action="" method="POST" id="editprofile">
 <div class="pf" >
 	<div class="pf_header">
 		<img src="<?php echo $pf_img ?>">
@@ -264,7 +264,9 @@ $worktime = array("Dimmatin"=>"09h30","Dimsoir"=> "19h30", "Lunmatin"=>"09h30","
 </div>
 
 <script src="index.js"></script>
-<script type="text/javascript">txtarea_autosize(0); ajouterunelangue();ajouterundiplome ();ajoutertarifs();//modifie() </script>
+<script type="text/javascript">//txtarea_autosize(0); 
+ajouterunelangue();ajouterundiplome ();ajoutertarifs();
+modifie() </script>
 </html>
 </body>
 </html>

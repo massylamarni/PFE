@@ -246,7 +246,7 @@ let  tablanguejson = JSON.stringify(tablangue);
 document.getElementById("languages_input").value = tablanguejson;
 console.log( typeof document.getElementById("languages_input").value);
 
-
+document.getElementById("editprofile").submit();
 
 })};
 
