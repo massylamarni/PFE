@@ -1,68 +1,120 @@
-<?php
-$id = "£00000";
-$name = "User Name";
-$email = "dummy@email.com";
-$password = "**********";
-$phone = "0752692364";
-$bday = date("d-m-y");
-$gender = "M";
-$pf_img = "assets/pfp2.png";
-$location = "75017 Colorado, USA";
-$speciality = array("Psychologue", "Dermatologue");
-$description = "Spécialisé dans le traitement des maladies de la peau, des ongles et des cheveux,\nnotamment les éruptions cutanées, les infections de la peau, l'acné, les taches de\nvieillesse, les cancers de la peau, les allergies cutanées et les affections auto-immunes.";
-$worktime = array(array("09h30", "19h30"), array("09h30", "19h30"), array("09h30", "19h30"), array("09h30", "19h30"), array("09h30", "19h30"), array("", ""), array("09h30", "19h30"));
-$pricing = array(array("Consultation simple", "100 £"), array("Consultation avec acte", "200 £"));
-$dq = array(array("1977", "Diplôme d'État de docteur en médecine - Université Paris 11 - Paris-Saclay"), array("1977", "D.E.S. Dermatologie et vénéréologie - UFR de médecine Lariboisière-Saint-Louis"));
-$language = array("Anglais", "Francais", "Espagnol");
-?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../index.css">
+	<title>Visuals</title>
+</head>
+<body>
 
-<div class="pf" id="<?php echo $id ?>">
+<?php  
+ini_set('display_errors', 1);
+
+include("navbar.php"); 
+
+define("DB_NAME","Client");
+
+
+if(!isset($_SESSION))
+{
+session_start();
+}
+if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='doctor') {
+
+
+
+$conn = mysqli_connect('localhost', 'root', '', DB_NAME);
+
+	    if($conn->connect_error){
+		echo "$conn->connect_error";
+       die("Connection Failed : ". $conn->connect_error); }
+
+
+
+$pf_img = "../assets/pfp2.png";
+$worktime = array("Dimmatin"=>"09h30","Dimsoir"=> "19h30", "Lunmatin"=>"09h30","Lunsoir"=> "19h30", 
+             "Marmatin"=>"09h30","Marsoir"=> "19h30","Mermatin"=>"09h30","Mersoir"=> "19h30", 
+			"Jeumatin"=>"09h30","Jeusoir"=>"19h30","Venmatin"=>"","Vensoir"=> "", 
+			"Sammatin"=>"09h30","Samsoir"=> "19h30");
+
+	?>
+
+<div class="std_container">
+	<div class="ep_container">
+
+	<h3>Mon profile</h3>
+
+<form class="ep_form" action="" method="POST" id="editprofile">
+<div class="pf" >
 	<div class="pf_header">
 		<img src="<?php echo $pf_img ?>">
 		<div class="pf_header_text">
-			<div class="pf_header_text_name"><?php echo $name ?></div>
-			<div class="pf_header_text_id"><?php echo $id ?></div>
+		<div class="pf_header_text_name"><label><?php echo $_SESSION["name"] ?></label></div>
 			<div class="pf_header_text_speciality">
-				<?php echo $speciality[0] ?>, 
-				<?php echo $speciality[1] ?>
+				<label><?php echo $_SESSION["speciality"] ?></label>
 			</div>
 		</div>
 	</div>
 	<div class="pf_body">
 		<div class="pf_body_field"><h3>Description</h3>
-			<pre><?php echo $description ?></pre>
+			<pre><label><?php if(isset($_SESSION["description"])) echo $old_description?></label></pre>
 		</div>
-		<div class="pf_body_field"><h3>Numero telephone</h3><?php echo $phone ?></div>
-		<div class="pf_body_field"><h3>Adresse</h3><?php echo $location ?></div>
-		<div class="pf_body_field"><h3>Date Naissance</h3><?php echo $bday ?></div>
+		<div class="pf_body_field"><h3>Numero telephone</h3><label><?php echo $_SESSION["phone"] ?></label></div>
+		<div class="pf_body_field"><h3>Adresse</h3><label><?php if (isset($_SESSION["location"])){ echo $old_location; } ?></label></div>
+		<div class="pf_body_field"><h3>Date Naissance</h3><label><?php echo $_SESSION["bday"] ?></label> </div>
 		<div class="pf_body_field"><h3>Horaires de travail</h3>
 			<pre>
-				Dim:<?php echo $worktime[0][0] ?> - <?php echo $worktime[0][1] ?>
-				Lun:<?php echo $worktime[1][0] ?> - <?php echo $worktime[1][1] ?>
-				Mar:<?php echo $worktime[2][0] ?> - <?php echo $worktime[2][1] ?>
-				Mer:<?php echo $worktime[3][0] ?> - <?php echo $worktime[3][1] ?>
-				Jeu:<?php echo $worktime[4][0] ?> - <?php echo $worktime[4][1] ?>
-				Ven:<?php echo $worktime[5][0] ?> - <?php echo $worktime[5][1] ?>
-				Sam:<?php echo $worktime[6][0] ?> - <?php echo $worktime[6][1] ?>
+				Dim:<label><?php echo $worktime["Dimmatin"] ?></label> - <label><?php echo $worktime["Dimsoir"] ?></label>
+				Lun:<label><?php echo $worktime["Lunmatin"] ?></label> - <label><?php echo $worktime["Lunsoir"] ?></label>
+				Mar:<label><?php echo $worktime["Marmatin"] ?></label> - <label><?php echo $worktime["Marsoir"] ?></label>
+				Mer:<label><?php echo $worktime["Mermatin"] ?></label> - <label><?php echo $worktime["Mersoir"] ?></label>
+				Jeu:<label><?php echo $worktime["Jeumatin"] ?></label> - <label><?php echo $worktime["Jeusoir"] ?></label>
+				Ven:<label><?php echo $worktime["Venmatin"] ?></label> - <label><?php echo $worktime["Vensoir"] ?></label>
+				Sam:<label><?php echo $worktime["Sammatin"] ?></label> - <label><?php echo $worktime["Samsoir"] ?></label>
 			</pre>
 		</div>
 		<div class="pf_body_field"><h3>Tarifs</h3>
-			<pre>
-				<?php echo $pricing[0][0] ?> <?php echo $pricing[0][1] ?>
-				<?php echo $pricing[1][0] ?> <?php echo $pricing[1][1] ?>
-			</pre>
+		<label><?php if (isset($_SESSION["pricing"])){ echo $old_pricing; } ?></label>
+			
 		</div>
 		<div class="pf_body_field"><h3>Diplomes & Qualifications</h3>
-			<pre>
-				<?php echo $dq[0][0] ?> <?php echo $dq[0][1] ?>
-				<?php echo $dq[1][0] ?> <?php echo $dq[1][1] ?>
-			</pre>
+		<label><?php if (isset($_SESSION["dq"])){ echo $old_dq; } ?></label>
+
+			
 		</div>
 		<div class="pf_body_field"><h3>Langues parlées</h3>
-			<?php echo $language[0] ?>
-			<?php echo $language[1] ?>
-			<?php echo $language[2] ?>
+		<input type="hidden" id="languages_input" name="languages" value="">
+		<label><?php if (isset($_SESSION["languages"])){ echo $old_languages; }  ?></label>
+             
+	
 		</div>
 		<div class="pf_body_images"><h3>∮ Images</h3></div>
 	</div>
+	<div>
+	<div class="pf_body_field"><h3>Email</h3><label><?php echo $_SESSION["email"] ?></label></div>
+	</div>
 </div>
+<a href="../PS_editprofile.php"><button type="button">Modifier</button></a>
+</form>
+	</div>
+</div>
+
+<script src="index.js"></script>
+<script type="text/javascript">//txtarea_autosize(0); 
+ajouterunelangue();ajouterundiplome ();ajoutertarifs();
+modifie() </script>
+</html>
+</body>
+</html>
+<?php   }else{
+
+header("Location: index.php");
+exit();
+
+}  
+
+?>
+
+
