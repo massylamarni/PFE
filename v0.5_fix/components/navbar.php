@@ -14,6 +14,7 @@ if (isset($_SESSION["usertype"])) {
 		<a href=<?php echo $logo_url  ?> class="navbar_logo"><img src="assets/logo.png"></a>
 		<form id="navbar_search" action="resultlist.php" method="POST">
 			<input type="text" class="navbar_search_location" placeholder="Emplacement..."name="location">
+            <a href="gps.php"><img src="assets/maps.png"></a>
 			<input type="text" class="navbar_search_speciality" placeholder="Specialité..."name="speciality">
 			<input type="submit" class="navbar_search_submit" value="Rechercher">
 		</form>	
