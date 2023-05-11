@@ -174,14 +174,12 @@ $worktime = array("Dimmatin"=>"09h30","Dimsoir"=> "19h30", "Lunmatin"=>"09h30","
 	    	$_SESSION["language"]= json_decode($db_languages);
 
 
-		if (isset($_POST["dq"])){    
-			$db_dq=json_encode($dqs);
+			$db_dq=($_POST["dq"]);
 		    $stmt = $conn->prepare("UPDATE doctor SET dq = ? WHERE doctor_id = ?");
 	    	$stmt->bind_param("si", $db_dq, $_SESSION["id"]);
 	    	$stmt->execute();
-	    	$_SESSION["dq"]=$dqs;
-		} 
-
+	    	$_SESSION["dq"]=json_decode($dqs);
+		
 		if (isset($_POST["pricing"])){    
 			$db_pricing=json_encode($pricings);
 		    $stmt = $conn->prepare("UPDATE doctor SET pricing = ? WHERE doctor_id = ?");
@@ -238,9 +236,10 @@ $worktime = array("Dimmatin"=>"09h30","Dimsoir"=> "19h30", "Lunmatin"=>"09h30","
 		</div>
 		<div class="pf_body_field"><h3>Diplomes & Qualifications</h3>
 		<input type="hidden" id="dq_input" name="dq" value="">
-			<pre id="prediplome" >
-</textarea><textarea class="classannee txtarea" rows="1" cols="10"><?php  ?></textarea><textarea class="classdiplome txtarea" rows="1" cols="50"><?php  ?> </textarea>
+			<pre id="prediplome" > <?php if (!empty($dqs)) { foreach ($dqs as $dq) {  ?>
+</textarea><textarea class="classannee txtarea" rows="1" cols="10"><?php $dq[0] ?></textarea><textarea class="classdiplome txtarea" rows="1" cols="50"><?php $dq[1] ?> </textarea>
 			</pre>
+			<?php  } } ?>
 			<input type="submit" id="diplome" value="ajouter un diplome">
 		</div>
 		<div class="pf_body_field"><h3>Langues parlées</h3>
