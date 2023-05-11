@@ -114,14 +114,6 @@ $conn->close();
 
 <div class="std_container">
 	<div class="auth">
-		<a href="#" class="auth_api">
-			<img src="assets/gmail_logo.svg">
-			Log in with Gmail
-		</a>
-		<a href="#" class="auth_api">
-			<img src="assets/outlook_logo.svg">
-			Log in with Outlook
-		</a>
 		<form id="auth_form" action="" method="POST">
 			<div class="auth_form_field">
 				<label>Email</label>
@@ -132,9 +124,9 @@ $conn->close();
 				<input type="password" name="password"/>
 			</div>
 			<div class="auth_form_captcha"></div>
-			<input class="auth_form_submit" type="submit" value="Log in">
+			<input class="auth_form_submit" type="submit" value="Se connecter">
 		</form>
-		<div class="auth_ask">Don't have an account? <a href="signup.php">Sign up</a></div>
+		<div class="auth_ask">Vous n'avez pas de compte ? <a href="signup.php">S'inscrire</a></div>
 	</div>
 </div>
 
