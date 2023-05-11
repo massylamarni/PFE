@@ -6,7 +6,7 @@
 if (!isset($_SESSION)){ session_start();   }
 if (isset($_SESSION["usertype"])) {
 
-	$pf_img = "../assets/pfp6.png";
+	$pf_img = "assets/pfp6.png";
 	$logo_url = ($_SESSION["usertype"] == 'doctor') ? 'PS_index.php' : 'index.php';
 	$profile_url = ($_SESSION["usertype"] == 'doctor') ? 'PS_editprofile.php' : 'components/profile.php';		
 ?>
