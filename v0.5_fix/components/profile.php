@@ -9,6 +9,7 @@
 </head>
 <body>
 
+
 <?php include("navbar.php");
 
 define("DB_NAME","Client");
