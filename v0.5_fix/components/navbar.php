@@ -6,12 +6,25 @@
 if (!isset($_SESSION)){ session_start();   }
 if (isset($_SESSION["usertype"])) {
 
+	$current_file_name= basename($_SERVER["PHP_SELF"]);
+
+	if (($current_file_name=="profile.php") ||($current_file_name=="PS_profile.php")){
+
+	$pf_img = "../assets/pfp6.png";
+	$logo_url = ($_SESSION["usertype"] == 'doctor') ? '../PS_index.php' : '../index.php';
+	$profile_url = ($_SESSION["usertype"] == 'doctor') ? '../PS_editprofile.php' : 'profile.php';	
+	$logo_img="../assets/logo.png";
+	
+	}else{  
+
 	$pf_img = "assets/pfp6.png";
 	$logo_url = ($_SESSION["usertype"] == 'doctor') ? 'PS_index.php' : 'index.php';
-	$profile_url = ($_SESSION["usertype"] == 'doctor') ? 'PS_editprofile.php' : 'components/profile.php';		
+	$profile_url = ($_SESSION["usertype"] == 'doctor') ? 'PS_editprofile.php' : 'components/profile.php';
+	$logo_img="assets/logo.png";
+	}	
 ?>
 
-		<a href=<?php echo $logo_url  ?> class="navbar_logo"><img src="assets/logo.png"></a>
+		<a href=<?php echo $logo_url  ?> class="navbar_logo"><img src=<?php echo $logo_img ?> ></a>
 		<form id="navbar_search" action="resultlist.php" method="POST">
 			<input type="text" class="navbar_search_location" placeholder="Emplacement..."name="location">
 			<input type="text" class="navbar_search_speciality" placeholder="Specialité..."name="speciality">
