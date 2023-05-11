@@ -219,7 +219,7 @@ $worktime = array("Dimmatin"=>"09h30","Dimsoir"=> "19h30", "Lunmatin"=>"09h30","
 		<div class="pf_body_field"><h3>Date Naissance</h3><input type="date" name="bday"></div>
 		<div class="pf_body_field"><h3>Horaires de travail</h3>
 			<pre>
-				Dim:<textarea class="txtarea" name="Dimmatin"><?php echo$worktime["Dimmatin"] ?></textarea> - <textarea class="txtarea"  name="Dimsoir"><?php echo $worktime["Dimsoir"] ?></textarea>
+				Dim:<textarea class="txtarea" name="Dimmatin"><?php echo $worktime["Dimmatin"] ?></textarea> - <textarea class="txtarea" name="Dimsoir"><?php echo $worktime["Dimsoir"] ?></textarea>
 				Lun:<textarea class="txtarea" name="Lunmatin"><?php echo $worktime["Lunmatin"] ?></textarea> - <textarea class="txtarea" name="Lunsoir"><?php echo $worktime["Lunsoir"] ?></textarea>
 				Mar:<textarea class="txtarea" name="Marmatin"><?php echo $worktime["Marmatin"] ?></textarea> - <textarea class="txtarea" name="Marsoir"><?php echo $worktime["Marsoir"] ?></textarea>
 				Mer:<textarea class="txtarea" name="Mermatin"><?php echo $worktime["Mermatin"] ?></textarea> - <textarea class="txtarea" name="Mersoir"><?php echo $worktime["Mersoir"] ?></textarea>
