@@ -10,7 +10,7 @@ if (isset($_SESSION["usertype"])) {
 
 	$pf_img = "assets/pfp6.png";
 	$logo_url = ($_SESSION["usertype"] == 'doctor') ? 'PS_index.php' : 'index.php';
-	$profile_url = ($_SESSION["usertype"] == 'doctor') ? 'PS_editprofile.php' : 'profile.php';	
+	$profile_url = ($_SESSION["usertype"] == 'doctor') ? 'components/PS_profile.phps' : 'profile.php';	
 		
 ?>
 
