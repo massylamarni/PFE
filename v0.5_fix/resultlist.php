@@ -143,5 +143,10 @@ if($location && $speciality){
 
 
 <script src="index.js"></script>
+<script type="text/javascript">
+	setTimeout(() => {
+		showprofile();
+	}, 1000);
+</script>
 </body>
 </html>   

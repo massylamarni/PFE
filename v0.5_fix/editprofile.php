@@ -95,7 +95,7 @@ if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='patient') {
         } 
       
       }
-         header("Location: components/profile.php");
+         header("Location: profile.php");
          exit();              
 }
 
