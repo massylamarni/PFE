@@ -90,7 +90,8 @@ if($location && $speciality){
 		$appt_keep_date = (new DateTime())->format('r');
 		$appt_motif = $_POST['appt_motif'];
 		if (!$appt_motif) $appt_motif = "Motif inconnus.";
-		
+
+		 if ($appt_date) {  
 		//save appt
 		$stmt = $conn->prepare("INSERT INTO appt (appt_patient_id, appt_doctor_id, appt_date,  appt_keep_date, appt_motif) VALUES (?, ?, ?, ?, ?)");
 		$stmt->bind_param("iisss", $appt_patient_id, $appt_doctor_id, $appt_date,  $appt_keep_date, $appt_motif);
@@ -152,6 +153,7 @@ if($location && $speciality){
 
 		$stmt->close();
 		$conn->close();
+	}
 	}
 ?>
 

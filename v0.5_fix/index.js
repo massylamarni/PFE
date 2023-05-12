@@ -161,6 +161,7 @@ function addto_apptlist(op, el)
 }
 
 // ajouter une langue
+let langue=document.getElementById('prelangue');
 function ajouterunelangue(){
 	let langue=document.getElementById('prelangue');
 	var ajouter=document.getElementById('ajouter');
