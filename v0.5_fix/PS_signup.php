@@ -55,8 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 		$conn->close();
 
 	}
-	}
-	
+}
 ?>
 
 <div class="std_container">

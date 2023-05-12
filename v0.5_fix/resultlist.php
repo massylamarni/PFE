@@ -84,14 +84,12 @@ if($location && $speciality){
 	//save appt process
 	if(isset($_POST["bookform_submit"])) { 
 
-	$appt_patient_id = $_SESSION['id'];
-	$appt_doctor_id = $_POST['doctor_id'];
-	$appt_date = $_POST['appt_date'];
-	$appt_keep_date = (new DateTime())->format('r');
-	$appt_motif = $_POST['appt_motif'];
-	if (!$appt_motif) $appt_motif = "Motif inconnus.";
-
-	if ( $appt_keep_date && $appt_date) {
+		$appt_patient_id = $_SESSION['id'];
+		$appt_doctor_id = $_POST['doctor_id'];
+		$appt_date = $_POST['appt_date'];
+		$appt_keep_date = (new DateTime())->format('r');
+		$appt_motif = $_POST['appt_motif'];
+		if (!$appt_motif) $appt_motif = "Motif inconnus.";
 		
 		//save appt
 		$stmt = $conn->prepare("INSERT INTO appt (appt_patient_id, appt_doctor_id, appt_date,  appt_keep_date, appt_motif) VALUES (?, ?, ?, ?, ?)");
@@ -101,9 +99,8 @@ if($location && $speciality){
 		$appt_id = mysqli_insert_id($conn);
 
 		//get patient_apptlist
-		
 		$stmt = $conn->prepare( "SELECT patient_apptlist FROM patient WHERE patient_id = ?");
-		$stmt->bind_param("i",$appt_patient_id);
+		$stmt->bind_param("i", $appt_patient_id);
 		$stmt->execute();
 
 		$result = $stmt->get_result();
@@ -127,12 +124,37 @@ if($location && $speciality){
 		$stmt->bind_param("si", $patient_apptlist, $appt_patient_id);
 		$stmt->execute();
 
-		
+		//get doctor_apptlist
+		$stmt = $conn->prepare( "SELECT doctor_apptlist FROM doctor WHERE doctor_id = ?");
+		$stmt->bind_param("i",$appt_doctor_id);
+		$stmt->execute();
+
+		$result = $stmt->get_result();
+		$row = $result->fetch_assoc();
+		$doctor_apptlist = $row['doctor_apptlist'];
+
+		//set new doctor_apptlist
+		if (empty($doctor_apptlist))
+		{
+			$doctor_apptlist = json_encode([$appt_id]);
+		}
+		else
+		{
+			$doctor_apptlist = json_decode($doctor_apptlist);
+			$doctor_apptlist[] = $appt_id;
+			$doctor_apptlist = json_encode($doctor_apptlist);
+		}
+
+		//save new doctor_apptlist
+		$stmt = $conn->prepare("UPDATE doctor SET doctor_apptlist = ? WHERE doctor_id = ?");
+		$stmt->bind_param("si", $doctor_apptlist, $appt_doctor_id);
+		$stmt->execute();
+
 		$stmt->close();
 		$conn->close();
 	}
-	}
 ?>
+
 		</div>
 	</div>
 	<div class="secondary">

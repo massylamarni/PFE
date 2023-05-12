@@ -1,23 +1,16 @@
-<?php
-$pf_id = "pf6";
-$pf_image = "assets/pfp2.png";
-$pf_name = "User Name";
-$brief_date = "Lundi, 31 mars";
-$brief_time = "a 15:30";
-$brief_date_rem = "Il reste 2j, ";
-$brief_time_rem = "12h et 9min";
-?>
-<div class="list_el">
-	<div class="pfp" id="<?php echo $pf_id?>">
-		<img src="<?php echo $pf_image?>">
+<form class="list_el" method="post" action="PS_index.php">
+	<div class="pfp">
+		<img src="assets/pfp2.png">
+		<input type="hidden" name="tpatient_pf_img">
 		<div class="pfp_text">
-			<div class="pfp_text_name"><input type="text"></div>
+			<div class="pfp_text_name"><input type="text" name="tpatient_name"></div>
 		</div>
 	</div>
 	<div class="list_el_brief">
-		<div class="brief_datetime"><input type="datetime-local"></div>
-		<div class="brief_datetime"></div>
+		<div class="brief_datetime"><input type="datetime-local" name="appt_date"></div>
 		<div class="brief_motif"><p>Motif de consultation</p></div>
-		<div class="brief_cancel"><p>Ajouter</p></div>
+		<input type="hidden" name="appt_motif">
+		<div class="brief_action"><input type="submit" name="PS_apptlist_blank_submit" value="Ajouter"></div>
+		<div class="brief_action"><p onclick="addto_apptlist(1, this)">X</p></div>
 	</div>
-</div>
+</form>

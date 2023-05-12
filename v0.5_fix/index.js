@@ -143,6 +143,24 @@ function txtarea_autosize(op)
 	}	
 }
 
+//add appt (doctor side)
+function addto_apptlist(op, el)
+{
+	if (op == 0)
+	{
+		fetch('components/PS_apptlist_blank.php')
+		.then(response => response.text())
+		.then(data => {
+			document.getElementsByClassName('list')[0].insertAdjacentHTML('beforeend', data);
+		});
+		document.getElementsByClassName('apptlist_null')[0].innerHTML = "";
+	}
+	else
+	{
+		el.parentElement.parentElement.remove();
+		document.getElementsByClassName('apptlist_null')[0].innerHTML = "Pas de rendez-vous en cours !";
+	}
+}
 
 // ajouter une langue
 function ajouterunelangue(){
@@ -215,15 +233,6 @@ function ajoutertarifs(){
 	});
 }
 
-//ajouter un rendez-vous
-function addto_apptlist()
-{
-	fetch('components/PS_apptlist_blank.php')
-	.then(response => response.text())
-	.then(data => {
-		document.getElementsByClassName('list')[0].insertAdjacentHTML('beforeend', data);
-	});
-}
 
 //modifie
 function modifie(){
