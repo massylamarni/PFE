@@ -160,161 +160,87 @@ function addto_apptlist(op, el)
 	}
 }
 
-// ajouter une langue
-let langue=document.getElementById('prelangue');
-function ajouterunelangue(){
-	let langue=document.getElementById('prelangue');
-	var ajouter=document.getElementById('ajouter');
-	ajouter.addEventListener('click',function(event){
-		event.preventDefault();
-		let nouvel=document.createElement('textarea');
-		nouvel.after(ajouter)
-		nouvel.rows=1;
-		nouvel.cols=15;
-    	nouvel.style.display='block';
-		nouvel.style.marginTop='3px';
-		/*nouvel.addEventListener('keydown',function(event){if(nouvel.value.length <= 15){sizeArea();}else{event.preventDefault();nouvel.value = nouvel.value.slice(0,-1);}})*/
-		nouvel.classList.add('langue');
-		langue.appendChild(nouvel);
-	});
+//ajouter tarifs
+function add_pricing()
+{	
+	let pretarif = document.getElementById('pretarif');
+	adjhtml = '<div class="tarif_el"><textarea class="txtarea tarif_el_service"></textarea><textarea class="txtarea tarif_el_price"></textarea></div>';
+	pretarif.insertAdjacentHTML('beforeend', adjhtml);
 }
-
 
 //ajouter diplome et classification
-let diplome=document.getElementById('prediplome');
-function ajouterundiplome(){
-	var ajouterdiplome=document.getElementById('diplome');
-	
-	ajouterdiplome.addEventListener('click',function(event){
-		event.preventDefault();
-		let nouvel=document.createElement('textarea');
-		let annee=document.createElement('textarea');
-		nouvel.after(ajouterdiplome);
-		annee.after(diplome);
-		nouvel.rows=1;
-		nouvel.cols=50;
-		annee.rows=1;
-		annee.cols=10;
-		annee.classList.add('pf_body_field');
-		nouvel.classList.add('pf_body_field');
-		annee.classList.add('classannee');
-		nouvel.classList.add('classdiplome');
-		/*	nouvel.addEventListener('keydown',function(event){if(nouvel.value.length <= 15){sizeArea();}else{event.preventDefault();nouvel.value = nouvel.value.slice(0,-1);}})annee.addEventListener('keydown',function(event){if(annee.value.length <= 15){sizeArea();}else{event.preventDefault();annee.value = nouvel.value.slice(0,-1);}})*/
-		let container=document.createElement('div');
-		container.appendChild(annee);
-		container.appendChild(nouvel);
-		container.classList.add('tarifdiv');
-		diplome.appendChild(container);
-	});
+function add_dq()
+{
+	let prediplome = document.getElementById('prediplome');
+	adjhtml = '<div class="dq_el"><textarea class="txtarea dq_el_date"></textarea><textarea class="txtarea dq_el_event"></textarea></div>';
+	prediplome.insertAdjacentHTML('beforeend', adjhtml);
 }
 
-//ajouter tarifs
-let tarifs=document.getElementById('pretarif');
-function ajoutertarifs(){
-	let ajoutertarifs=document.getElementById('tarif');
-	
-	ajoutertarifs.addEventListener('click',function(event){
-		event.preventDefault();
-		let nouvel=document.createElement('textarea');
-		let prix=document.createElement('textarea');
-		nouvel.after(ajoutertarifs);
-		prix.after(ajoutertarifs);
-		nouvel.rows=1;
-		nouvel.cols=50;
-		prix.rows=1;
-		prix.cols=10;
-		prix.classList.add('pf_body_field');
-		nouvel.classList.add('pf_body_field');
-		prix.before(ajoutertarifs);
-		nouvel.after(ajoutertarifs);
-		nouvel.classList.add('classtarif');
-	    prix.classList.add('classprix');
-		/*	nouvel.addEventListener('keydown',function(event){if(nouvel.value.length <= 15){sizeArea();}else{event.preventDefault();nouvel.value = nouvel.value.slice(0,-1);}})prix.addEventListener('keydown',function(event){if(prix.value.length <= 15){sizeArea();}else{event.preventDefault();prix.value = nouvel.value.slice(0,-1);}})*/
-		let container=document.createElement('div');
-		container.appendChild(nouvel);
-		container.appendChild(prix);
-		container.classList.add('tarifdiv');
-		tarifs.appendChild(container);
-	});
+// ajouter une langue
+function add_language()
+{
+	let prelangue = document.getElementById('prelangue');
+	adjhtml = '<textarea class="txtarea language_el"></textarea>';
+	prelangue.insertAdjacentHTML('beforeend', adjhtml);
 }
 
-
-//modifie
-function modifie(){
-let modifie=document.getElementById('modifie');
-let langage=document.getElementsByClassName('langue');
-modifie.addEventListener('click',function(event){
-	event.preventDefault();
-    let tablangue=[];
-	let m=0;
-for(let g=0;g<langage.length;g++){
-	if(langage[g].value.trim().length!=0) {
-	tablangue[m]=langage[g].value;
-	m++;
-	}
-	if(langage[g].value.trim().length==0) langue.removeChild(langage[g]);
-
-}
-console.log(tablangue);
-let  tablanguejson = JSON.stringify(tablangue);
-document.getElementById("languages_input").value = tablanguejson;
-console.log( typeof document.getElementById("languages_input").value);
-//modifie tarif 
-let tabtarif=[];
-	
-	let classtrif=document.getElementsByClassName('classtarif');
-	let classprix=document.getElementsByClassName('classprix');
-    let n=0;
-	 for(let y=0;y<classtrif.length;y++){
-		if(classtrif[y].value.trim().length!=0 && classprix[y].value.trim().length!=0){
-		let minitabtarif=[];
-		minitabtarif[0]=classtrif[y].value;
-		minitabtarif[1]=classprix[y].value;
-		tabtarif[n]=minitabtarif ;
-		 n++;}
-		else if(classtrif[y].value.trim().length==0 && classprix[y].value.trim().length==0){
-			tarifs.removeChild(classprix[y]);
-			tarifs.removeChild(classtrif[y]);
+function getinput_doctor_editprofile()
+{
+	//pricing
+	let tarif_el_service = document.getElementsByClassName('tarif_el_service');
+	let tarif_el_price = document.getElementsByClassName('tarif_el_price');
+	let save_pricing = [];
+	let n = 0;
+	for (let i = 0; i < tarif_el_service.length; i++)
+	{
+		if ((tarif_el_service[i].value.trim().length != 0) && (tarif_el_price[i].value.trim().length != 0))
+		{
+			let temp = [];
+			temp[0] = tarif_el_service[i].value;
+			temp[1] = tarif_el_price[i].value;
+			save_pricing[n] = temp;
+			n++;
 		}
-		
 	}
-	console.log(tabtarif);
-	let  tabtarifjson = JSON.stringify(tabtarif);
-document.getElementById("pricing_input").value = tabtarifjson;
-	//modifie diplome
-	let tabdiplome=[];
-	let classdiplome=document.getElementsByClassName('classdiplome');
-	let classannee=document.getElementsByClassName('classannee');
-    let p=0;
-	 for(let u=0;u<classdiplome.length;u++){
-		if(classdiplome[u].value.trim().length!=0 && classannee[u].value.trim().length!=0){
-		let minitabdiplome=[];
-		minitabdiplome[0]=classannee[u].value;
-		minitabdiplome[1]=classdiplome[u].value;
-		tabdiplome[p]=minitabdiplome ;
-		 p++;}
-		else if(classdiplome[u].value.trim().length==0 && classannee[u].value.trim().length==0){
-			diplome.removeChild(classdiplome[u]);
-			diplome.removeChild(classannee[u]);
+	save_pricing = JSON.stringify(save_pricing);
+	console.log(save_pricing);
+	document.getElementById('pricing_input').value = save_pricing;
+
+	//dq
+	let dq_el_date = document.getElementsByClassName('dq_el_date');
+	let dq_el_event = document.getElementsByClassName('dq_el_event');
+	let save_dq = [];
+	n = 0;
+	for (let i = 0; i < dq_el_date.length; i++)
+	{
+		if ((dq_el_date[i].value.trim().length != 0) && (dq_el_event[i].value.trim().length != 0))
+		{
+			let temp = [];
+			temp[0] = dq_el_date[i].value;
+			temp[1] = dq_el_event[i].value;
+			save_dq[n] = temp;
+			n++;
 		}
-		
 	}
-	console.log(tabdiplome);
-	let  tabdiplomejson = JSON.stringify(tabdiplome);
-document.getElementById("dq_input").value = tabdiplomejson;
+	save_dq = JSON.stringify(save_dq);
+	console.log(save_dq);
+	document.getElementById('dq_input').value = save_dq;
 
+	//language
+	let language_el = document.getElementsByClassName('language_el');
+	let save_language = [];
+	n = 0;
+	for (let i = 0; i < language_el.length; i++)
+	{
+		if (language_el[i].value.trim().length != 0)
+		{
+			save_language[n] = language_el[i].value;
+			n++;
+		}
+	}
+	save_language = JSON.stringify(save_language);
+	console.log(save_language);
+	document.getElementById('languages_input').value = save_language;
 
-document.getElementById("editprofile").submit();
-
-})};
-
-
-
-	
-
-
-
-
-
-	
-
+	document.getElementById('editprofile').submit();
+}

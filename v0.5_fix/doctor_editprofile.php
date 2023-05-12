@@ -223,7 +223,7 @@ $pf_img = "assets/pfp2.png";
 
 	<h3>Gerer Compte</h3>
 
-<form class="ep_form" action="" method="POST" id="editprofile">
+<form class="ep_form" action="" method="POST" onsubmit="event.preventDefault(); getinput_doctor_editprofile()" id="editprofile">
 <div class="pf" >
 	<div class="pf_header">
 		<img src="<?php echo $pf_img ?>">
@@ -258,7 +258,7 @@ $pf_img = "assets/pfp2.png";
 <textarea class="classtarif txtarea" rows="1" cols="50"><?php echo $pricing[0] ?> </textarea><textarea class="classprix txtarea" rows="1" cols="10"><?php echo $pricing[1] ?></textarea>
 			</pre>
 			<?php  } } ?>
-			<input type="submit" id="tarif" value="ajouter un tarifs">
+			<buton type="button" onclick="add_pricing()">Ajouter</button>
 		</div>
 		<div class="pf_body_field"><h3>Diplomes & Qualifications</h3>
 		<input type="hidden" id="dq_input" name="dq" value="">
@@ -266,7 +266,7 @@ $pf_img = "assets/pfp2.png";
 </textarea><textarea class="classannee txtarea" rows="1" cols="10"><?php echo $dq[0] ?></textarea><textarea class="classdiplome txtarea" rows="1" cols="50"><?php echo $dq[1] ?> </textarea>
 			</pre>
 			<?php  } } ?>
-			<input type="submit" id="diplome" value="ajouter un diplome">
+			<button type="button" onclick="add_dq()">Ajouter</button>
 		</div>
 		<div class="pf_body_field"><h3>Langues parlées</h3>
 		<input type="hidden" id="languages_input" name="languages" value="">
@@ -274,7 +274,7 @@ $pf_img = "assets/pfp2.png";
              <textarea class="langue txtarea"><?php echo $language; ?></textarea>,
 		</pre>
 		<?php   } } ?>
-		<input type="submit" id="ajouter" value="ajouter une langue">
+		<button type="button" onclick="add_language()">Ajouter</button>
 		</div>
 		<div class="pf_body_images"><h3>∮ Images</h3></div>
 	</div>
