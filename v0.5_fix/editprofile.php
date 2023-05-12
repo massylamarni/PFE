@@ -95,13 +95,8 @@ if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='patient') {
         } 
       
       }
-         //header("Location: components/profile.php");
-         //exit(); 
-         
-         
-         header("Location: index.php");
-         exit();
-              
+         header("Location: profile.php");
+         exit();              
 }
 
  
@@ -123,7 +118,7 @@ if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='patient') {
 	</div>
 	<div class="pf_body">
   <div class="pf_body_field"><h3>Email</h3><input class="in_text" type="text"value="<?php echo $_SESSION["email"] ?>" name="email" autocomplete="off"/></div>
-		<div class="pf_body_field"><h3>Date Naissance</h3><input type="date" name="bday"></div>
+		<div class="pf_body_field"><h3>Date Naissance</h3><input type="date" name="bday" value="<?php echo $_SESSION["bday"] ?>"></div>
 	</div>
 	<div>
   <div class="pf_body_field"><h3>Numero telephone</h3><input type="text" value="<?php echo $_SESSION["phone"] ?>" name="phone"  autocomplete="off"/></div>

@@ -9,7 +9,10 @@
 </head>
 <body>
 
-<?php  include("components/navbar.php"); 
+<?php  
+ini_set('display_errors', 1);
+
+include("components/navbar.php"); 
 
 define("DB_NAME","Client");
 
@@ -28,7 +31,8 @@ $conn = mysqli_connect('localhost', 'root', '', DB_NAME);
 		echo "$conn->connect_error";
        die("Connection Failed : ". $conn->connect_error); }
 
-//retreiving the language array from db and sending it to js
+
+//retreiving the language array from db 
 	$stmt = $conn->prepare("SELECT language FROM doctor WHERE doctor_id = ?");
 	$stmt->bind_param("s", $_SESSION["id"]);
 	$stmt->execute();
@@ -36,9 +40,8 @@ $conn = mysqli_connect('localhost', 'root', '', DB_NAME);
 	$row = $result->fetch_assoc();
     $languages=$row["language"];
 	$languages=json_decode($languages);
-	echo '<script> var languagesData = ' . json_encode($languages) . ';</script>';
 	
-//retreiving the dq array from db and sending it to js
+//retreiving the dq array from db 
     $stmt = $conn->prepare("SELECT dq FROM doctor WHERE doctor_id = ?");
 	$stmt->bind_param("s", $_SESSION["id"]);
 	$stmt->execute();
@@ -46,9 +49,8 @@ $conn = mysqli_connect('localhost', 'root', '', DB_NAME);
 	$row = $result->fetch_assoc();
 	$dqs=$row["dq"];
 	$dqs=json_decode($dqs);
-	echo '<script> var dqData = ' . json_encode($dqs) . ';</script>';
 	
-//retreiving the pricing array from db and sending it to js
+//retreiving the pricing array from db 
    $stmt = $conn->prepare("SELECT pricing FROM doctor WHERE doctor_id = ?");
    $stmt->bind_param("s", $_SESSION["id"]);
    $stmt->execute();
@@ -56,15 +58,29 @@ $conn = mysqli_connect('localhost', 'root', '', DB_NAME);
    $row = $result->fetch_assoc();
    $pricings=$row["pricing"];
    $pricings=json_decode($pricings);
-   echo '<script> var pricingData = ' . json_encode($pricings) . ';</script>';
 
-	
+//retreiving the worktime object from db 
+    $stmt = $conn->prepare("SELECT worktime FROM doctor WHERE doctor_id = ?");
+	$stmt->bind_param("s", $_SESSION["id"]);
+	$stmt->execute();
+	$result = $stmt->get_result();
+	$row = $result->fetch_assoc();
+    $worktimes=$row["worktime"];
+	$worktimes=json_decode($worktimes);
+
+	if (empty($worktimes)) {
+		$worktimes = new stdClass();
+		$worktimes->Dimmatin = '';$worktimes->Dimsoir = '';
+		$worktimes->Lunmatin = '';$worktimes->Lunsoir = '';
+		$worktimes->Marmatin = '';$worktimes->Marsoir = '';
+		$worktimes->Mermatin = '';$worktimes->Mersoir = '';
+		$worktimes->Jeumatin = '';$worktimes->Jeusoir = '';
+		$worktimes->Venmatin = '';$worktimes->Vensoir = '';
+		$worktimes->Sammatin = '';$worktimes->Samsoir = '';	
+	}
 
 $pf_img = "assets/pfp2.png";
-$worktime = array("Dimmatin"=>"09h30","Dimsoir"=> "19h30", "Lunmatin"=>"09h30","Lunsoir"=> "19h30", 
-             "Marmatin"=>"09h30","Marsoir"=> "19h30","Mermatin"=>"09h30","Mersoir"=> "19h30", 
-			"Jeumatin"=>"09h30","Jeusoir"=>"19h30","Venmatin"=>"","Vensoir"=> "", 
-			"Sammatin"=>"09h30","Samsoir"=> "19h30");
+
 
 			
 
@@ -79,18 +95,7 @@ $worktime = array("Dimmatin"=>"09h30","Dimsoir"=> "19h30", "Lunmatin"=>"09h30","
 	if (isset($_SESSION["description"])) {
 		$old_description=$_SESSION["description"] ;
 	}
-	if (isset($_SESSION["worktime"])) {
-		$old_worktime=$_SESSION["worktime"] ;
-	}
-	if (isset($_SESSION["pricing"])) {
-		$old_pricing=$_SESSION["pricing"] ;
-	}
-	if (isset($_SESSION["dq"])) {
-		$old_dq=$_SESSION["dq"] ;
-	}
-	if (isset($_SESSION["language"])) {
-		$old_language=$_SESSION["language"] ;
-	}
+	
 	if ($_SERVER["REQUEST_METHOD"] === "POST") {
         
         $new_name=$_POST["name"];
@@ -166,30 +171,49 @@ $worktime = array("Dimmatin"=>"09h30","Dimsoir"=> "19h30", "Lunmatin"=>"09h30","
 		  } 
 		
 		}
-		if (isset($_POST["languages"])){    
-	     	$db_languages=json_encode($languages);
+
+		    $db_languages=$_POST["languages"];
 		    $stmt = $conn->prepare("UPDATE doctor SET language = ? WHERE doctor_id = ?");
 	    	$stmt->bind_param("si", $db_languages, $_SESSION["id"]);
 	    	$stmt->execute();
-	    	$_SESSION["language"]=$languages;
-		}
+	    	$_SESSION["language"]= json_decode($db_languages);
 
-		if (isset($_POST["dq"])){    
-			$db_dq=json_encode($dqs);
+
+			$db_dq=($_POST["dq"]);
 		    $stmt = $conn->prepare("UPDATE doctor SET dq = ? WHERE doctor_id = ?");
 	    	$stmt->bind_param("si", $db_dq, $_SESSION["id"]);
 	    	$stmt->execute();
-	    	$_SESSION["dq"]=$dqs;
-		} 
-
-		if (isset($_POST["pricing"])){    
-			$db_pricing=json_encode($pricings);
+	    	$_SESSION["dq"]=json_decode($db_dq);
+		
+		
+			$db_pricing=$_POST["pricing"];
 		    $stmt = $conn->prepare("UPDATE doctor SET pricing = ? WHERE doctor_id = ?");
 	    	$stmt->bind_param("si", $db_pricing, $_SESSION["id"]);
 	    	$stmt->execute();
-	    	$_SESSION["pricing"]=$pricings;
+	    	$_SESSION["pricing"]=json_decode($db_pricing);
 
-		} 	
+			$submittedWorktime = array(
+				'Dimmatin' => $_POST['Dimmatin'],'Dimsoir' => $_POST['Dimsoir'],
+				'Lunmatin' => $_POST['Lunmatin'],'Lunsoir' => $_POST['Lunsoir'],
+				'Marmatin' => $_POST['Marmatin'],'Marsoir' => $_POST['Marsoir'],
+				'Mermatin' => $_POST['Mermatin'],'Mersoir' => $_POST['Mersoir'],
+				'Jeumatin' => $_POST['Jeumatin'],'Jeusoir' => $_POST['Jeusoir'],
+				'Venmatin' => $_POST['Venmatin'],'Vensoir' => $_POST['Vensoir'],
+				'Sammatin' => $_POST['Sammatin'],'Samsoir' => $_POST['Samsoir'],
+			);
+		
+			foreach ($submittedWorktime as $key => $value) {
+				$worktimes->$key = $value;
+			}
+			
+			$db_worktimes=json_encode($worktimes);
+			$stmt = $conn->prepare("UPDATE doctor SET worktime = ? WHERE doctor_id = ?");
+	    	$stmt->bind_param("si", $db_worktimes, $_SESSION["id"]);
+	    	$stmt->execute();
+	    	$_SESSION["worktime"]=$worktimes;
+
+		header("Location: PS_profile.php");
+		exit();              
 	} 
 
 	?>
@@ -199,7 +223,7 @@ $worktime = array("Dimmatin"=>"09h30","Dimsoir"=> "19h30", "Lunmatin"=>"09h30","
 
 	<h3>Gerer Compte</h3>
 
-<form class="ep_form" action="" method="POST">
+<form class="ep_form" action="" method="POST" id="editprofile">
 <div class="pf" >
 	<div class="pf_header">
 		<img src="<?php echo $pf_img ?>">
@@ -219,27 +243,29 @@ $worktime = array("Dimmatin"=>"09h30","Dimsoir"=> "19h30", "Lunmatin"=>"09h30","
 		<div class="pf_body_field"><h3>Date Naissance</h3><input type="date" name="bday"></div>
 		<div class="pf_body_field"><h3>Horaires de travail</h3>
 			<pre>
-				Dim:<textarea class="txtarea" name="Dimmatin"><?php echo$worktime["Dimmatin"] ?></textarea> - <textarea class="txtarea"  name="Dimsoir"><?php echo $worktime["Dimsoir"] ?></textarea>
-				Lun:<textarea class="txtarea" name="Lunmatin"><?php echo $worktime["Lunmatin"] ?></textarea> - <textarea class="txtarea" name="Lunsoir"><?php echo $worktime["Lunsoir"] ?></textarea>
-				Mar:<textarea class="txtarea" name="Marmatin"><?php echo $worktime["Marmatin"] ?></textarea> - <textarea class="txtarea" name="Marsoir"><?php echo $worktime["Marsoir"] ?></textarea>
-				Mer:<textarea class="txtarea" name="Mermatin"><?php echo $worktime["Mermatin"] ?></textarea> - <textarea class="txtarea" name="Mersoir"><?php echo $worktime["Mersoir"] ?></textarea>
-				Jeu:<textarea class="txtarea" name="Jeumatin"><?php echo $worktime["Jeumatin"] ?></textarea> - <textarea class="txtarea" name="Jeusoir"><?php echo $worktime["Jeusoir"] ?></textarea>
-				Ven:<textarea class="txtarea" name="Venmatin"><?php echo $worktime["Venmatin"] ?></textarea> - <textarea class="txtarea" name="Vensoir"><?php echo $worktime["Vensoir"] ?></textarea>
-				Sam:<textarea class="txtarea" name="Sammatin"><?php echo $worktime["Sammatin"] ?></textarea> - <textarea class="txtarea" name="Samsoir"><?php echo $worktime["Samsoir"] ?></textarea>
+				Dim:<textarea class="txtarea" name="Dimmatin"><?php echo $worktimes->Dimmatin ?></textarea> - <textarea class="txtarea" name="Dimsoir"><?php echo $worktimes->Dimsoir?></textarea>	
+				Lun:<textarea class="txtarea" name="Lunmatin"><?php echo $worktimes->Lunmatin ?></textarea> - <textarea class="txtarea" name="Lunsoir"><?php echo $worktimes->Lunsoir ?></textarea>
+				Mar:<textarea class="txtarea" name="Marmatin"><?php echo $worktimes->Marmatin ?></textarea> - <textarea class="txtarea" name="Marsoir"><?php echo $worktimes->Marsoir ?></textarea>
+				Mer:<textarea class="txtarea" name="Mermatin"><?php echo $worktimes->Mermatin ?></textarea> - <textarea class="txtarea" name="Mersoir"><?php echo $worktimes->Mersoir?></textarea>
+				Jeu:<textarea class="txtarea" name="Jeumatin"><?php echo $worktimes->Jeumatin ?></textarea> - <textarea class="txtarea" name="Jeusoir"><?php echo $worktimes->Jeusoir ?></textarea>
+				Ven:<textarea class="txtarea" name="Venmatin"><?php echo $worktimes->Venmatin ?></textarea> - <textarea class="txtarea" name="Vensoir"><?php echo $worktimes->Vensoir ?></textarea>
+				Sam:<textarea class="txtarea" name="Sammatin"><?php echo $worktimes->Sammatin ?></textarea> - <textarea class="txtarea" name="Samsoir"><?php echo $worktimes->Samsoir ?></textarea>
 			</pre>
 		</div>
 		<div class="pf_body_field"><h3>Tarifs</h3>
 		<input type="hidden" id="pricing_input" name="pricing" value="">
-			<pre id="pretarif" >
-				<textarea class="txtarea"><?php  ?></textarea>
+			<pre id="pretarif" ><?php if (!empty($pricings)) { foreach ($pricings as $pricing) {  ?>
+<textarea class="classtarif txtarea" rows="1" cols="50"><?php echo $pricing[0] ?> </textarea><textarea class="classprix txtarea" rows="1" cols="10"><?php echo $pricing[1] ?></textarea>
 			</pre>
+			<?php  } } ?>
 			<input type="submit" id="tarif" value="ajouter un tarifs">
 		</div>
 		<div class="pf_body_field"><h3>Diplomes & Qualifications</h3>
 		<input type="hidden" id="dq_input" name="dq" value="">
-			<pre id="prediplome" >
-				<textarea class="txtarea"><?php  ?></textarea>
+			<pre id="prediplome" > <?php if (!empty($dqs)) { foreach ($dqs as $dq) {  ?>
+</textarea><textarea class="classannee txtarea" rows="1" cols="10"><?php echo $dq[0] ?></textarea><textarea class="classdiplome txtarea" rows="1" cols="50"><?php echo $dq[1] ?> </textarea>
 			</pre>
+			<?php  } } ?>
 			<input type="submit" id="diplome" value="ajouter un diplome">
 		</div>
 		<div class="pf_body_field"><h3>Langues parlées</h3>
@@ -264,7 +290,8 @@ $worktime = array("Dimmatin"=>"09h30","Dimsoir"=> "19h30", "Lunmatin"=>"09h30","
 </div>
 
 <script src="index.js"></script>
-<script type="text/javascript">txtarea_autosize(0); ajouterunelangue();ajouterundiplome ();ajoutertarifs();//modifie() </script>
+<script type="text/javascript">//txtarea_autosize(0); 
+ajouterunelangue();ajouterundiplome ();ajoutertarifs(); modifie() </script>
 </html>
 </body>
 </html>
@@ -276,5 +303,4 @@ exit();
 }  
 
 ?>
-
 
