@@ -145,6 +145,7 @@ function txtarea_autosize(op)
 
 
 // ajouter une langue
+let langue=document.getElementById('prelangue');
 function ajouterunelangue(){
 	let langue=document.getElementById('prelangue');
 	var ajouter=document.getElementById('ajouter');
