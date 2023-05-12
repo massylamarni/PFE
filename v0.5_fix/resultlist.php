@@ -160,7 +160,7 @@ if($location && $speciality){
 		</div>
 	</div>
 	<div class="secondary">
-		<?php include("components/doctor_profile.php"); ?>
+		<?php include("components/doctor_search_profile.php"); ?>
 	</div>
 </div>
 
