@@ -44,7 +44,10 @@ $pf_img = "assets/pfp2.png";  ?>
 		<div class="pf_body_field"><h3>Adresse</h3><label><?php if (isset($_SESSION["location"])){ echo $_SESSION["location"]; } ?></label></div>
 		<div class="pf_body_field"><h3>Date Naissance</h3><label><?php echo $_SESSION["bday"] ?></label> </div>
 		<div class="pf_body_field"><h3>Horaires de travail</h3>
-		<?php if (isset($_SESSION["worktime"])) { $worktime= $_SESSION["worktime"]; ?>
+		<?php if (isset($_SESSION["worktime"])) { 
+			if (is_string($_SESSION["worktime"])) {
+				$worktime =json_decode($_SESSION["worktime"]) ;
+			} else {$worktime= $_SESSION["worktime"]; }?>
 			<pre>
 				Dim:<label><?php echo $worktime->Dimmatin ?></label> - <label><?php echo $worktime->Dimsoir ?></label>
 				Lun:<label><?php echo $worktime->Lunmatin ?></label> - <label><?php echo $worktime->Lunsoir ?></label>
@@ -56,18 +59,23 @@ $pf_img = "assets/pfp2.png";  ?>
 			<?php  }  ?>
 			</pre>
 		</div>
-
+		
+		
 		<div class="pf_body_field"><h3>Tarifs</h3>
 		<pre>
-		<?php if (isset($_SESSION["pricing"])) { foreach ($_SESSION["pricing"] as $pricing) {  ?>
+		<?php if (isset($_SESSION["pricing"])) { 
+			if (is_string($_SESSION["pricing"])) {$_SESSION["pricing"]=json_decode($_SESSION["pricing"]);}
+			foreach ($_SESSION["pricing"] as $pricing) {  ?>
 <label> <?php echo $pricing[0] ?></label> : <label><?php echo $pricing[1] ?></label>
-        <?php  } } ?>
+        <?php } } ?>
         </pre>			
 		</div>
 
 		<div class="pf_body_field"><h3>Diplomes & Qualifications</h3>
 		<pre>
-		<?php if (isset($_SESSION["dq"])) { foreach ($_SESSION["dq"] as $dq) {  ?>
+		<?php if (isset($_SESSION["dq"])){
+		if (is_string($_SESSION["dq"])) {$_SESSION["dq"]=json_decode($_SESSION["dq"]);}
+		 foreach ($_SESSION["dq"] as $dq) {  ?>
 <label> <?php echo $dq[0] ?></label> : <label><?php echo $dq[1] ?></label>
         <?php  } } ?>
 		</pre>	
@@ -75,7 +83,9 @@ $pf_img = "assets/pfp2.png";  ?>
 
 		<div class="pf_body_field"><h3>Langues parlées</h3>
 		<pre>
-		<?php if (isset($_SESSION["language"])) { foreach ($_SESSION["language"] as $language) {  ?>
+		<?php if (isset($_SESSION["language"])) {
+		if (is_string($_SESSION["language"])) {$_SESSION["language"]=json_decode($_SESSION["language"]);}
+		 foreach ($_SESSION["language"] as $language) {  ?>
 <label> <?php echo $language ?></label> 
         <?php  } } ?>
 		</pre>
