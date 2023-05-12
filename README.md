@@ -11,6 +11,8 @@ IDIR:
 -Creer un systeme de gestion d'images pour la page "PS_editprofile" (importer des images et les afficher lors du click sur le bouton Images).
 -Faire fonctionner la fonction "Motif de consultation" pour les composants "aptlist.php" (lecture), "apthistory.php" (lecture), "bookform.php" (saisie), "PS_aptlist_blank.php" (saisie).
 -Creer un menu profile contenant: Gerer Compte, Logout.
+-Ajouter une fonctionnalite pour ajouter et voir des images ps_editprofile.
+-Ajouter obtion pour modifier image de profil ps_editprofile.
 
 YASSIN:
 -Faire fonctionner le systeme de recherche de medecins.

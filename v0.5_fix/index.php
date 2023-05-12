@@ -18,7 +18,6 @@ include("components/navbar.php");
 ?>
 
 <div class="std_containerI">
-	<div class="fetchto"></div>
 	<div class="main">
 		<div class="list">
 			<div class="list_title"><h3>Rendez-vous en cours</h3></div>
@@ -26,26 +25,18 @@ include("components/navbar.php");
 				<?php
 				$patient_id = $_SESSION["id"];
 
-				//get patient_apptlist
-				$stmt = $conn->prepare( "SELECT patient_apptlist FROM patient WHERE patient_id = ?");
-		        $stmt->bind_param("i",$patient_id);
-		        $stmt->execute();
-				$result = $stmt->get_result();
-		        $row = $result->fetch_assoc() ;
-				$patient_apptlist = json_decode($row['patient_apptlist']);
-
 				//set & save patient_appthistory then set & save patient_apptlist
 				if (isset($_POST['appt_id']) && isset($_POST['appt_id_state'])) {
 					$appt_id = $_POST['appt_id'];
 					$appt_id_state = $_POST['appt_id_state'];
 
-				//get patient_appthistory
-				$stmt = $conn->prepare( "SELECT patient_appthistory FROM patient WHERE patient_id = ?");
-		        $stmt->bind_param("i",$patient_id);
-		        $stmt->execute();
-				$result = $stmt->get_result();
-		        $row = $result->fetch_assoc() ;
-				$patient_appthistory = $row['patient_appthistory'];
+					//get patient_appthistory
+					$stmt = $conn->prepare( "SELECT patient_appthistory FROM patient WHERE patient_id = ?");
+		    	    $stmt->bind_param("i",$patient_id);
+		    	    $stmt->execute();
+					$result = $stmt->get_result();
+		    	    $row = $result->fetch_assoc() ;
+					$patient_appthistory = $row['patient_appthistory'];
 
 					//set new patient_appthistory
 					$patient_appthistory_el = array($appt_id, $appt_id_state);
@@ -65,7 +56,13 @@ include("components/navbar.php");
 					$stmt->bind_param("si", $patient_appthistory, $patient_id);
 					$stmt->execute();
 					
-	
+					//get patient_apptlist
+					$stmt = $conn->prepare( "SELECT patient_apptlist FROM patient WHERE patient_id = ?");
+			        $stmt->bind_param("i",$patient_id);
+			        $stmt->execute();
+					$result = $stmt->get_result();
+			        $row = $result->fetch_assoc() ;
+					$patient_apptlist = json_decode($row['patient_apptlist']);
 
 					//set new patient_apptlist (remove appt_id from patient_apptlist)
 					for ($i = 0; $i < count($patient_apptlist); $i++)
@@ -81,10 +78,8 @@ include("components/navbar.php");
 					$stmt = $conn->prepare("UPDATE patient SET patient_apptlist = ? WHERE  patient_id = ?");
 					$stmt->bind_param("si", $patient_apptlist, $patient_id);
 					$stmt->execute();
-
-				
 				}
-				
+
 				//get patient_apptlist
 				$stmt = $conn->prepare( "SELECT patient_apptlist FROM patient WHERE patient_id = ?");
 		        $stmt->bind_param("i",$patient_id);
@@ -93,12 +88,10 @@ include("components/navbar.php");
 		        $row = $result->fetch_assoc() ;
 				$patient_apptlist = json_decode($row['patient_apptlist']);
 
-
 				//display patient_applist
 				if ($patient_apptlist == null) $null_patient_apptlist = true; else $null_patient_apptlist = false;
 				if (!$null_patient_apptlist)
 				{
-					//echo $patient_apptlist;
 					for ($i = 0; $i < count($patient_apptlist); $i++)
 					{
 						$appt_id=$patient_apptlist[$i];

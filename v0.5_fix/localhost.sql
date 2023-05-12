@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 08, 2023 at 11:29 PM
+-- Generation Time: May 12, 2023 at 03:56 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -38,14 +38,6 @@ CREATE TABLE `appt` (
   `appt_motif` varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `appt`
---
-
-INSERT INTO `appt` (`appt_id`, `appt_patient_id`, `appt_doctor_id`, `appt_date`, `appt_keep_date`, `appt_motif`) VALUES
-(29, '0', '3', 'Thu, 25 May 2023 11:58:00 GMT', 'Mon, 08 May 2023 19:54:01 GMT', 'Motif Inconnus.'),
-(30, '0', '3', 'Thu, 25 May 2023 11:13:00 GMT', 'Mon, 08 May 2023 20:15:36 GMT', 'Motif Inconnus.');
-
 -- --------------------------------------------------------
 
 --
@@ -68,15 +60,21 @@ CREATE TABLE `doctor` (
   `worktime` varchar(300) DEFAULT NULL,
   `pricing` varchar(500) DEFAULT NULL,
   `dq` varchar(500) DEFAULT NULL,
-  `language` varchar(500) DEFAULT NULL
+  `language` varchar(500) DEFAULT NULL,
+  `doctor_apptlist` varchar(500) DEFAULT NULL,
+  `doctor_appthistory` varchar(500) DEFAULT NULL,
+  `doctor_tapptlist` varchar(500) DEFAULT NULL,
+  `doctor_tappthistory` varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `doctor`
 --
 
-INSERT INTO `doctor` (`doctor_id`, `doctor_name`, `doctor_email`, `doctor_password`, `doctor_phone`, `doctor_bday`, `doctor_gender`, `doctor_pf_img`, `doctor_location`, `licence`, `speciality`, `description`, `worktime`, `pricing`, `dq`, `language`) VALUES
-(3, 'Little Jackob', 'little@star.com', '$2y$10$Pw1LEA58/dYvQ68tTut3w.fNMi9KgHHH9kpB4o80ADCF5tcPE/VdC', '0794891034', '2023-05-25', 'M', NULL, NULL, NULL, 'star', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `doctor` (`doctor_id`, `doctor_name`, `doctor_email`, `doctor_password`, `doctor_phone`, `doctor_bday`, `doctor_gender`, `doctor_pf_img`, `doctor_location`, `licence`, `speciality`, `description`, `worktime`, `pricing`, `dq`, `language`, `doctor_apptlist`, `doctor_appthistory`, `doctor_tapptlist`, `doctor_tappthistory`) VALUES
+(5, 'm1', 'm1', '$2y$10$Ypw1vN0PVZ436fFbr92mB.g7RXK17P/imAncFsyRSMj2Rai9Gc3/q', 'm1', '2023-05-01', 'M', NULL, NULL, NULL, 'm1', NULL, NULL, NULL, NULL, NULL, '', '', '', ''),
+(6, 'm2', 'm2', '$2y$10$akKZK8q7KWyba6HksgluCe3UNo3F0eQ0I8jWbXVdlSWgoSgGimTvW', 'm2', '2023-05-02', 'M', NULL, NULL, NULL, 'm2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(7, 'm3', 'm3', '$2y$10$NZT8icdN24J.TpTTNUoPzeompnUt5OLoPQHagnQQM5bVqPxqhoH8q', 'm3', '2023-05-03', 'M', NULL, NULL, NULL, 'm3', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -103,7 +101,23 @@ CREATE TABLE `patient` (
 --
 
 INSERT INTO `patient` (`patient_id`, `patient_name`, `patient_email`, `patient_password`, `patient_phone`, `patient_bday`, `patient_gender`, `patient_pf_img`, `patient_location`, `patient_apptlist`, `patient_appthistory`) VALUES
-(15, 'SimpleUser64', 's@u.com', '$2y$10$gWT2e3aax4SG3xs74pZTA.VePq80lkr7BvgmzTKXIoAZBlsrbjxRi', '0794891034', '2023-05-20', 'M', NULL, NULL, '[]', '[[\"30\",\"RDV Annul\\u00e9\"],[\"30\",\"RDV Annule}\"]]');
+(2, 'p1', 'p1', '$2y$10$lhOAN0Wj/yxztzBK7wSLee3bpIkAMP9o4YG29P4FvCkhEGJ4goThy', 'p1', '2023-05-01', 'M', NULL, NULL, '', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tpatient`
+--
+
+CREATE TABLE `tpatient` (
+  `tpatient_id` int(9) NOT NULL,
+  `tpatient_name` varchar(50) DEFAULT NULL,
+  `tpatient_pf_img` varchar(50) DEFAULT NULL,
+  `tpatient_appt_date` varchar(50) DEFAULT NULL,
+  `tpatient_appt_keep_date` varchar(50) DEFAULT NULL,
+  `tpatient_doctor_id` int(9) DEFAULT NULL,
+  `tpatient_appt_motif` varchar(500) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Indexes for dumped tables
@@ -128,6 +142,12 @@ ALTER TABLE `patient`
   ADD PRIMARY KEY (`patient_id`);
 
 --
+-- Indexes for table `tpatient`
+--
+ALTER TABLE `tpatient`
+  ADD PRIMARY KEY (`tpatient_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -135,19 +155,25 @@ ALTER TABLE `patient`
 -- AUTO_INCREMENT for table `appt`
 --
 ALTER TABLE `appt`
-  MODIFY `appt_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `appt_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `doctor`
 --
 ALTER TABLE `doctor`
-  MODIFY `doctor_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `doctor_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `patient`
 --
 ALTER TABLE `patient`
-  MODIFY `patient_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `patient_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `tpatient`
+--
+ALTER TABLE `tpatient`
+  MODIFY `tpatient_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 --
 -- Database: `phpmyadmin`
 --
@@ -318,7 +344,7 @@ CREATE TABLE `pma__recent` (
 --
 
 INSERT INTO `pma__recent` (`username`, `tables`) VALUES
-('root', '[{\"db\":\"Client\",\"table\":\"patient\"},{\"db\":\"Client\",\"table\":\"appt\"},{\"db\":\"Client\",\"table\":\"doctor\"},{\"db\":\"Client\",\"table\":\"apt\"},{\"db\":\"test\",\"table\":\"user\"},{\"db\":\"phpmyadmin\",\"table\":\"pma__bookmark\"}]');
+('root', '[{\"db\":\"Client\",\"table\":\"appt\"},{\"db\":\"Client\",\"table\":\"patient\"},{\"db\":\"Client\",\"table\":\"doctor\"},{\"db\":\"Client\",\"table\":\"tpatient\"},{\"db\":\"Client\",\"table\":\"apt\"},{\"db\":\"test\",\"table\":\"user\"},{\"db\":\"phpmyadmin\",\"table\":\"pma__bookmark\"}]');
 
 -- --------------------------------------------------------
 
@@ -425,7 +451,7 @@ CREATE TABLE `pma__userconfig` (
 --
 
 INSERT INTO `pma__userconfig` (`username`, `timevalue`, `config_data`) VALUES
-('root', '2023-05-08 19:11:57', '{\"Console\\/Mode\":\"collapse\",\"Console\\/Height\":477.00200000000000954969436861574649810791015625}');
+('root', '2023-05-12 10:14:15', '{\"Console\\/Mode\":\"collapse\",\"Console\\/Height\":477.00200000000000954969436861574649810791015625}');
 
 -- --------------------------------------------------------
 

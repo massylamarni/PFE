@@ -4,15 +4,14 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="../index.css">
+	<link rel="stylesheet" href="index.css">
 	<title>Visuals</title>
 </head>
 <body>
 
 
-<?php include("navbar.php");
+<?php include("components/navbar.php");
 
-define("DB_NAME","Client");
 
 if(!isset($_SESSION))
 {
@@ -20,12 +19,6 @@ session_start();
 }
 if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='patient') {
 
-	$conn = mysqli_connect('localhost', 'root', '', DB_NAME);
-
-	if($conn->connect_error){
-		echo "$conn->connect_error";
-     die("Connection Failed : ". $conn->connect_error);
-	 } 
 
       if (isset($_SESSION["location"])){
       $old_location=$_SESSION["location"];
@@ -33,7 +26,7 @@ if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='patient') {
       /*if (isset($_SESSION["pf_img"])){
       $old_pf_img = $_SESSION["pf_img"];
       }*/
-		  $old_pf_img = "../assets/pfp2.png";
+		  $old_pf_img = "assets/pfp2.png";
       
 
       
@@ -60,7 +53,7 @@ if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='patient') {
   <div class="pf_body_field"><h3>Location</h3><label><?php if (isset($_SESSION["location"])){ echo $old_location; } ?></label></div>
 		
 </div>
-<a href="../editprofile.php"><button type="button">Modifier</button></a>
+<a href="editprofile.php"><button type="button">Modifier</button></a>
 </form>
 </div>
 </div>
