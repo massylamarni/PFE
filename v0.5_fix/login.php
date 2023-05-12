@@ -53,7 +53,7 @@ if ($result->num_rows == 1) {
 	if (isset($row["patient_pf_img"])) $_SESSION["pf_img"] = $row["patient_pf_img"];
 	$_SESSION["usertype"]="patient";
 
-	header('Location: index.php');
+	header('Location: patient_index.php');
     $stmt->close();
     $conn->close();
     exit();
@@ -93,7 +93,7 @@ if ($result->num_rows == 1) {
 	if (isset($row["language"])) $_SESSION["language"] = $row["language"];
 	$_SESSION["usertype"]="doctor";
 
-	header('Location: PS_index.php');
+	header('Location: doctor_index.php');
 	$stmt->close();
     $conn->close();
 	exit();
@@ -126,7 +126,7 @@ $conn->close();
 			<div class="auth_form_captcha"></div>
 			<input class="auth_form_submit" type="submit" value="Se connecter">
 		</form>
-		<div class="auth_ask">Vous n'avez pas de compte ? <a href="signup.php">S'inscrire</a></div>
+		<div class="auth_ask">Vous n'avez pas de compte ? <a href="patient_signup.php">S'inscrire</a></div>
 	</div>
 </div>
 

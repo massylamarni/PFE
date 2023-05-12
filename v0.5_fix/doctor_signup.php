@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<?php //include("components/navbar.php"); 
+<?php
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -101,7 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 			<div class="auth_form_tos">By clicking “Sign up”, you agree to our <a href="#">terms of service</a>, <a href="#">privacy policy</a> and <a href="#">cookie policy</a></div>
 		</form>
 		<div class="auth_ask">Vous avez deja un compte ? <a href="login.php">Se connecter</a></div>
-		<div class="auth_ask">Vous etes un patient ? <a href="signup.php">S'inscrire</a></div>
+		<div class="auth_ask">Vous etes un patient ? <a href="patient_signup.php">S'inscrire</a></div>
 	</div>
 </div>
 

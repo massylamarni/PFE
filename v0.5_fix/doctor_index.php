@@ -96,7 +96,7 @@ include("components/navbar.php");
 					for ($i = 0; $i < count($doctor_apptlist); $i++)
 					{
 						$appt_id=$doctor_apptlist[$i];
-						include("components/PS_apptlist.php");
+						include("components/doctor_apptlist_el.php");
 					}
 				}
 
@@ -214,14 +214,14 @@ include("components/navbar.php");
 					for ($i = 0; $i < count($doctor_tapptlist); $i++)
 					{
 						$tpatient_id_id=$doctor_tapptlist[$i];
-						include("components/PS_tapptlist.php");
+						include("components/doctor_tapptlist_el.php");
 					}
 				}
 				?>
 
 			<div class="apptlist_null"><?php if ($null_doctor_apptlist && $null_doctor_tapptlist) echo "Pas de rendez-vous en cours !"; ?></div>
 		</div>
-		<div class="history">
+		<div class="list">
 			<div class="list_title"><h3>Historique des Rendez-vous</h3></div>
 
 				<?php
@@ -241,7 +241,7 @@ include("components/navbar.php");
 					{
 						$appt_id=$doctor_appthistory[$i][0];
 						$state=$doctor_appthistory[$i][1];
-						include("components/PS_appthistory.php");
+						include("components/doctor_appthistory_el.php");
 					}
 				}
 
@@ -261,7 +261,7 @@ include("components/navbar.php");
 					{
 						$tpatient_id=$doctor_tappthistory[$i][0];
 						$state=$doctor_tappthistory[$i][1];
-						include("components/PS_tappthistory.php");
+						include("components/doctor_tappthistory_el.php");
 					}
 				}
 				?>
@@ -270,7 +270,7 @@ include("components/navbar.php");
 		</div>
 	</div>
 	<div class="secondary">
-		<?php include("components/PS_profile.php"); ?>
+		<?php include("components/doctor_profile.php"); ?>
 	</div>
 </div>
 

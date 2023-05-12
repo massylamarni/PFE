@@ -98,7 +98,7 @@ $pf_img = "assets/pfp2.png";  ?>
 	<div class="pf_body_field"><h3>Email</h3><label><?php echo $_SESSION["email"] ?></label></div>
 	</div>
 </div>
-<a href="PS_editprofile.php"><button type="button">Modifier</button></a>
+<a href="doctor_editprofile.php"><button type="button">Modifier</button></a>
 </form>
 	</div>
 </div>
@@ -109,7 +109,7 @@ $pf_img = "assets/pfp2.png";  ?>
 
 <?php   }else{
 
-header("Location: index.php");
+header("Location: patient_index.php");
 exit();
 
 }  

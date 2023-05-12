@@ -212,7 +212,7 @@ $pf_img = "assets/pfp2.png";
 	    	$stmt->execute();
 	    	$_SESSION["worktime"]=$worktimes;
 
-		header("Location: PS_profile.php");
+		header("Location: doctor_profile.php");
 		exit();              
 	} 
 
@@ -297,7 +297,7 @@ ajouterunelangue();ajouterundiplome ();ajoutertarifs(); modifie() </script>
 </html>
 <?php   }else{
 
-header("Location: index.php");
+header("Location: patient_index.php");
 exit();
 
 }  

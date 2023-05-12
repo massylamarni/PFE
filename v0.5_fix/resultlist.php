@@ -77,7 +77,7 @@ if($location && $speciality){
 		for ($i = 0; $i < count($appt_searchresult); $i++)
 		{
 			$doctor_id=$appt_searchresult[$i];
-			include("components/resultlist.php");
+			include("components/resultlist_el.php");
 		}
 	}
 }
@@ -158,7 +158,7 @@ if($location && $speciality){
 		</div>
 	</div>
 	<div class="secondary">
-		<?php include("components/PS_profile.php"); ?>
+		<?php include("components/doctor_profile.php"); ?>
 	</div>
 </div>
 

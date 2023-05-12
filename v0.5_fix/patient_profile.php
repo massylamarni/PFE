@@ -53,7 +53,7 @@ if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='patient') {
   <div class="pf_body_field"><h3>Location</h3><label><?php if (isset($_SESSION["location"])){ echo $old_location; } ?></label></div>
 		
 </div>
-<a href="editprofile.php"><button type="button">Modifier</button></a>
+<a href="patient_editprofile.php"><button type="button">Modifier</button></a>
 </form>
 </div>
 </div>
@@ -64,11 +64,11 @@ if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='patient') {
 
 <?php   }elseif(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='doctor'){
 
-header("Location: PS_index.php");
+header("Location: doctor_index.php");
 exit();
 
 }else{
 
-  header("Location: index.php");
+  header("Location: patient_index.php");
   exit();
 }  ?>

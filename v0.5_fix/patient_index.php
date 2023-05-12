@@ -95,14 +95,14 @@ include("components/navbar.php");
 					for ($i = 0; $i < count($patient_apptlist); $i++)
 					{
 						$appt_id=$patient_apptlist[$i];
-						include("components/apptlist.php");
+						include("components/patient_apptlist_el.php");
 					}
 				}
 				?>
 
 			<div class="apptlist_null"><?php if ($null_patient_apptlist) echo "Pas de rendez-vous en cours !"; ?></div>
 		</div>
-		<div class="history">
+		<div class="list">
 			<div class="list_title"><h3>Historique des Rendez-vous</h3></div>
 
 				<?php
@@ -122,7 +122,7 @@ include("components/navbar.php");
 					{
 						$appt_id=$patient_appthistory[$i][0];
 						$state=$patient_appthistory[$i][1];
-						include("components/appthistory.php");
+						include("components/patient_appthistory_el.php");
 					}
 				}
 				?>
@@ -131,7 +131,7 @@ include("components/navbar.php");
 		</div>
 	</div>
 	<div class="secondary">
-		<?php include("components/PS_profile.php"); ?>
+		<?php include("components/doctor_profile.php"); ?>
 	</div>
 </div>
 

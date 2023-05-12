@@ -95,7 +95,7 @@ if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='patient') {
         } 
       
       }
-         header("Location: profile.php");
+         header("Location: patient_profile.php");
          exit();              
 }
 
@@ -138,11 +138,11 @@ if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='patient') {
 
 <?php   }elseif(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='doctor'){
 
-header("Location: PS_index.php");
+header("Location: doctor_index.php");
 exit();
 
 }else{
 
-  header("Location: index.php");
+  header("Location: patient_index.php");
   exit();
 }  ?>

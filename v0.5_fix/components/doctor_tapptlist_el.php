@@ -41,7 +41,7 @@ $DAYS = array("Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam");
 		<div class="brief_datetime"><div class="brief_date">Il reste <?php echo $days_rem ?>j, </div><div class="brief_time"><?php echo $hours_rem ?>h et <?php echo $minutes_rem ?>min</div></div>
 		<div class="brief_motif"><p>Motif de consultation</p></div>
 		<div class="motif hidden"><?php echo $tpatient_appt_motif ?></div>
-		<form class="brief_action" name="pass_<?php echo $tpatient_id?>" method="post" action="PS_index.php">
+		<form class="brief_action" name="pass_<?php echo $tpatient_id?>" method="post" action="doctor_index.php">
 			<input type="hidden" name="tpatient_id" value="<?php echo $tpatient_id?>">
 			<input type="hidden" name="tpatient_id_state" value="Passé">
 			<input type="submit" value="Faire Passer">

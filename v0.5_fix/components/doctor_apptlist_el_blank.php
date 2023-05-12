@@ -1,4 +1,4 @@
-<form class="list_el" method="post" action="PS_index.php">
+<form class="list_el" method="post" action="doctor_index.php">
 	<div class="pfp">
 		<img src="assets/pfp2.png">
 		<input type="hidden" name="tpatient_pf_img">

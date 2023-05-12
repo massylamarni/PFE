@@ -148,17 +148,15 @@ function addto_apptlist(op, el)
 {
 	if (op == 0)
 	{
-		fetch('components/PS_apptlist_blank.php')
+		fetch('components/doctor_apptlist_el_blank.php')
 		.then(response => response.text())
 		.then(data => {
 			document.getElementsByClassName('list')[0].insertAdjacentHTML('beforeend', data);
 		});
-		document.getElementsByClassName('apptlist_null')[0].innerHTML = "";
 	}
 	else
 	{
-		el.parentElement.parentElement.remove();
-		document.getElementsByClassName('apptlist_null')[0].innerHTML = "Pas de rendez-vous en cours !";
+		el.parentElement.parentElement.parentElement.remove();
 	}
 }
 
