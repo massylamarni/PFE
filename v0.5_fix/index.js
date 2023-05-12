@@ -296,7 +296,7 @@ document.getElementById("pricing_input").value = tabtarifjson;
 document.getElementById("dq_input").value = tabdiplomejson;
 
 
-//document.getElementById("editprofile").submit();
+document.getElementById("editprofile").submit();
 
 })};
 
