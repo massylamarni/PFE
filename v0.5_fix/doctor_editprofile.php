@@ -295,12 +295,15 @@ ajouterunelangue();ajouterundiplome ();ajoutertarifs(); modifie() </script>
 </html>
 </body>
 </html>
-<?php   }else{
+<?php     }elseif(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='patient'){
 
 header("Location: patient_index.php");
 exit();
 
-}  
+}else{
 
-?>
+  header("Location: index.php");
+  exit();
+}  ?>
+
 

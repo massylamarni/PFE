@@ -143,6 +143,6 @@ exit();
 
 }else{
 
-  header("Location: patient_index.php");
+  header("Location: index.php");
   exit();
 }  ?>
