@@ -14,6 +14,8 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+if(!isset($_SESSION["usertype"]))  {   
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 	$name=$_POST["name"];
@@ -108,3 +110,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <script src="index.js"></script>
 </body>
 </html>
+
+<?php   }elseif(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='doctor'){
+
+header("Location: doctor_index.php");
+exit();
+
+}elseif(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='patient'){
+
+  header("Location: patient_index.php");
+  exit();
+}  ?>
