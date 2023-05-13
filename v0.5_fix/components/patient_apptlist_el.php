@@ -54,7 +54,7 @@ $DAYS = array("Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam");
 		<div class="brief_datetime"><div class="brief_date">Il reste <?php echo $days_rem ?>j, </div><div class="brief_time"><?php echo $hours_rem ?>h et <?php echo $minutes_rem ?>min</div></div>
 		<div class="brief_motif"><p>Motif de consultation</p></div>
 		<div class="motif hidden"><?php echo $appt_motif ?></div>
-		<form class="brief_cancel" name="cancel_<?php echo $appt_id?>" method="post" action="patient_index.php">
+		<form class="brief_action" name="cancel_<?php echo $appt_id?>" method="post" action="patient_index.php">
 			<input type="hidden" name="appt_id" value="<?php echo $appt_id?>">
 			<input type="hidden" name="appt_id_state" value="Annulé">
 			<input type="submit" value="Annuler RDV">

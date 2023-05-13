@@ -58,7 +58,7 @@ include("components/navbar.php");
 					
 					//get patient_apptlist
 					$stmt = $conn->prepare( "SELECT patient_apptlist FROM patient WHERE patient_id = ?");
-			        $stmt->bind_param("i",$patient_id);
+			        $stmt->bind_param("i", $patient_id);
 			        $stmt->execute();
 					$result = $stmt->get_result();
 			        $row = $result->fetch_assoc() ;
@@ -77,6 +77,37 @@ include("components/navbar.php");
 					//save new patient_apptlist
 					$stmt = $conn->prepare("UPDATE patient SET patient_apptlist = ? WHERE  patient_id = ?");
 					$stmt->bind_param("si", $patient_apptlist, $patient_id);
+					$stmt->execute();
+
+					//get appt data for appt
+					$stmt = $conn->prepare( "SELECT * FROM appt WHERE appt_id  = ?");
+					$stmt->bind_param("i",$appt_id);
+					$stmt->execute();
+					$result = $stmt->get_result();
+					$row = $result->fetch_assoc() ;
+					$appt_doctor_id = $row['appt_doctor_id'];
+
+					//get doctor_apptlist
+					$stmt = $conn->prepare( "SELECT doctor_apptlist FROM doctor WHERE doctor_id = ?");
+			        $stmt->bind_param("i", $appt_doctor_id);
+			        $stmt->execute();
+					$result = $stmt->get_result();
+			        $row = $result->fetch_assoc() ;
+					$doctor_apptlist = json_decode($row['doctor_apptlist']);
+
+					//set new doctor_apptlist (remove appt_id from doctor_apptlist)
+					for ($i = 0; $i < count($doctor_apptlist); $i++)
+					{
+						if ($doctor_apptlist[$i] == $appt_id)
+						{
+							\array_splice($doctor_apptlist, $i, 1);
+						}
+					}
+					$doctor_apptlist = json_encode($doctor_apptlist);
+
+					//save new doctor_apptlist
+					$stmt = $conn->prepare("UPDATE doctor SET doctor_apptlist = ? WHERE  doctor_id = ?");
+					$stmt->bind_param("si", $doctor_apptlist, $appt_doctor_id);
 					$stmt->execute();
 				}
 
