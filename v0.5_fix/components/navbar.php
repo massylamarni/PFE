@@ -24,7 +24,7 @@ if (isset($_SESSION["usertype"])) {
 		</form>	
 		<div class="navbar_auth">
 			
-	        <p id="profile" class="navbar_loggedin"><img src="<?php echo $pf_img ?>"/><span  ><?php echo $_SESSION["name"] ?></span></p>
+	        <button id="profile" class="navbar_loggedin" onclick="profile()"><img src="<?php echo $pf_img ?>"/><span  ><?php echo $_SESSION["name"] ?></span></button>
 			<div class="hidden" id="divprofile">
 			 <a class="logout" href=<?php echo $profile_url  ?>> profil </a>
 			 <a  href="components/logout.php"><span class="logout">Logout</span></a>

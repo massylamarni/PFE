@@ -143,6 +143,8 @@ html, body
 	align-items: center;
 	height: 32px;
 	width: 128px;
+	border: none;
+	background-color: white;
 }
 .navbar_loggedin img
 {

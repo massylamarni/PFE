@@ -246,7 +246,7 @@ function getinput_doctor_editprofile()
 }
 
 //inscription
-function inscription(){
+/*function inscription(){
 let inscription=document.getElementById('inscription');
 let divinscription=document.getElementById('divinscription');
 inscription.addEventListener('click',function(event){
@@ -261,5 +261,10 @@ profile.addEventListener('click',function(event){
 	event.preventDefault();
 	divprofile.classList.toggle('hidden');
 	divprofile.classList.toggle('profile');
-});
+});*/
+function profile(){
+  let divprofile=document.getElementById('divprofile');
+  divprofile.classList.toggle('hidden');
+  divprofile.classList.toggle('profile');
+}
 
