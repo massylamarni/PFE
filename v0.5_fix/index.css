@@ -134,6 +134,7 @@ html, body
 	flex-direction: row;
 	align-items: center;
 	position: relative;
+	
 }
 .navbar_loggedin
 {
@@ -151,8 +152,9 @@ html, body
 }
 .navbar_loggedin span
 {
-	font-size: 15px;
+	font-size: 13px;
 	margin-left: 3px;
+	
 }
 
 /* INDEX STYLE */
@@ -648,13 +650,29 @@ html, body
 }
 
 .profile{
-	width: 200px;
+	width: 120px;
 	position: absolute;
-	top: 44px;
-	left: 20px;
-	background-color: red;
+	top: 51px;
+	left: -3px;
+	background-color:white;
+	box-shadow:  0 0 15px 2px #999A99;
+	height: 64px;
 }
 #profile{
-	background-color: #1a73e9;
 	cursor: pointer;
+	font-size: 10px;
 }
+
+.logout{
+	color: #999A99;
+	display: block;
+	margin-top: 10px;
+	font-size: 15px;
+	font-family: 'Robot',sans-serif;
+	margin-left: 5px;
+}
+
+.logout:hover{
+	font-size: 16px;
+}
+

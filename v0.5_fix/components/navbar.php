@@ -26,8 +26,8 @@ if (isset($_SESSION["usertype"])) {
 			
 	        <p id="profile" class="navbar_loggedin"><img src="<?php echo $pf_img ?>"/><span  ><?php echo $_SESSION["name"] ?></span></p>
 			<div class="hidden" id="divprofile">
-			 <a  href=<?php echo $profile_url  ?> class="navbar_loggedin"><span>gerer votre compte </span></a>
-			 <a  href="components/logout.php"><span>Logout</span></a>
+			 <a class="logout" href=<?php echo $profile_url  ?>> profil </a>
+			 <a  href="components/logout.php"><span class="logout">Logout</span></a>
             </div>
         </div>					
 	</div>
