@@ -129,18 +129,20 @@ $conn->close();
 		<form id="auth_form" action="" method="POST">
 			<div class="auth_form_field">
 				<label>Email</label>
-				<input type="text" name="email"/>
+				<input type="email" name="email" id="email"/><p id="veremail">votre email est incorecte !!!</p>
 			</div>
 			<div class="auth_form_field">
 				<label>Mot passe</label>
-				<input type="password" name="password"/>
+				<input type="password" name="password" id="motsdepasse"/><p id="vermotsdepasse">mots de passe incorecte !!!</p>
 			</div>
 			<div class="auth_form_captcha"></div>
-			<input class="auth_form_submit" type="submit" value="Se connecter">
+			<input class="auth_form_submit" type="submit" value="Se connecter" onclick="chauxvide(event)">
+			<p id="remplirchaux" class="hidden">viuellez remplir tout les chaux </p>
 		</form>
 		<div class="auth_ask">Vous n'avez pas de compte ? <a href="patient_signup.php">S'inscrire</a></div>
 	</div>
 </div>
 
 </body>
+<script src="index.js"></script>
 </html>

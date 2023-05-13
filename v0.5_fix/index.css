@@ -678,3 +678,17 @@ html, body
 	font-size: 16px;
 }
 
+#veremail{
+	color: red;
+	font-size: 13px;
+}
+#vermotsdepasse{
+	color:red;
+	font-size: 13px;
+}
+
+.remplirtoutleschaux{
+	color:red;
+	font-size: 13px;
+}
+

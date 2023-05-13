@@ -189,6 +189,11 @@ $pf_img = "assets/pfp2.png";
 		<img src="<?php echo $pf_img ?>">
 		<div class="pf_header_text">
 		<div class="pf_header_text_name"><input class="txtarea" type="text" value="<?php echo $_SESSION["name"] ?>" name="name" autocomplete="off"/></div>
+		<div>
+			<p>modifie la photo de profile</p>
+			<input type="file" id="photodeprofile">
+
+	    </div>
 			<div class="pf_header_text_speciality">
 				<input class="txtarea" type="text" value="<?php echo $_SESSION["speciality"] ?>" name="speciality" autocomplete="off"/>
 			</div>
@@ -251,7 +256,7 @@ $pf_img = "assets/pfp2.png";
 
 <script src="index.js"></script>
 <script type="text/javascript">//txtarea_autosize(0); 
-ajouterunelangue();ajouterundiplome ();ajoutertarifs(); modifie() </script>
+add_language();getinput_doctor_editprofile </script>
 </html>
 </body>
 </html>

@@ -227,6 +227,7 @@ function getinput_doctor_editprofile()
 	document.getElementById('dq_input').value = save_dq;
 
 	//language
+
 	let language_el = document.getElementsByClassName('language_el');
 	let save_language = [];
 	n = 0;
@@ -272,4 +273,23 @@ function inscription(){
 	divinscription.classList.toggle('hidden');
 	divinscription.classList.toggle('inscription');
 }
+
+//photo de profile
+/*let photodeprofile=document.getElementById('photodeprofile');
+let urlimage=URL.createObjectURL(photodeprofile.files[0]);
+console.log(urlimage);*/
+
+function chauxvide(event){
+	//event.preventDefault();
+	let motsdepasse=document.getElementById('motsdepasse');
+	let email=document.getElementById('email');
+	let remplir=document.getElementById('remplirchaux');
+	if(motsdepasse.value.trim().length==0 || email.value.trim().length==0){
+		remplir.classList.remove('hidden')
+		remplir.classList.add('remplirtoutleschaux');
+
+	}
+}
+
+
 
