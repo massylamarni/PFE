@@ -8,7 +8,21 @@
 	<title>Visuals</title>
 </head>
 <body>
-<?php include("components/navbar.php"); ?>
+<?php 
+if(!isset($_SESSION)){session_start();}
+
+if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='doctor'){
+
+	header("Location: doctor_index.php");
+	exit();
+	
+	}elseif(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='patient'){
+	
+	  header("Location: patient_index.php");
+	  exit();
+	}  
+
+include("components/navbar.php"); ?>
 
 <div class="std_containerI">
     <h1>BLANK</h1>
