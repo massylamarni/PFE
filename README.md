@@ -16,3 +16,6 @@ RYADH:
 RESTE:
 -CSS + responsivité.
 -Page admin + moderateur.
+
+-fixer showprofile().
+-donner des valuers par default aux element resultlist, apptlist & appthistory.
