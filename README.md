@@ -8,6 +8,7 @@ IDIR:
 
 YASSIN:
 - fixer la page patient_profile.php.
+- changer le fonctionnement des champs horaires dans les pages doctor_editprofile & doctor_profile (de clés vers index).
 
 RYADH:
 -Faire fonctionner le systeme de recherche sur google map.  AUJOURDHUI !!!
