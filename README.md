@@ -7,8 +7,7 @@ IDIR:
 -Permettre au patient de reserver que sur les dates permise (inclue dans l'horaire du medecin && disponible ).
 
 YASSIN:
-- fixer la page patient_profile.php.
-- changer le fonctionnement des champs horaires dans les pages doctor_editprofile & doctor_profile (de clés vers index).
+-Verifications et prevention de cas d'erreurs & optimisation de code.
 
 RYADH:
 -Faire fonctionner le systeme de recherche sur google map.  AUJOURDHUI !!!
