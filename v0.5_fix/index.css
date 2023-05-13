@@ -106,7 +106,7 @@ html, body
 	background-color: #1a73e9;
 	color: white;
 	border-radius : 5px;
-
+	font-family: 'Robot',sans-serif;
 }
 .navbar_auth_login:hover{
 	font-size: 16px;
@@ -122,6 +122,7 @@ html, body
 	display: block;
 	border: 1px solid white;
 	margin-top:5px;
+	font-family: 'Robot',sans-serif;
 }
 .navbar_auth_signup:hover{
 	font-size: 16px;
@@ -614,6 +615,7 @@ html, body
 	margin-left: 5px;
 	background-color:white;
 	border-radius: 5px;
+	font-family: 'Robot',sans-serif;
 	
 }
 #inscription:hover{
