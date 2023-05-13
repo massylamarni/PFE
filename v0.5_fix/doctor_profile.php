@@ -46,20 +46,19 @@ $pf_img = "assets/pfp2.png";  ?>
 		<div class="pf_body_field"><h3>Horaires de travail</h3>
 		<?php if (isset($_SESSION["worktime"])) { 
 			if (is_string($_SESSION["worktime"])) {
-				$worktime =json_decode($_SESSION["worktime"]) ;
-			} else {$worktime= $_SESSION["worktime"]; }?>
+				$worktimes =json_decode($_SESSION["worktime"]) ;
+			} else {$worktimes = $_SESSION["worktime"]; }?>
 			<pre>
-				Dim:<label><?php echo $worktime->Dimmatin ?></label> - <label><?php echo $worktime->Dimsoir ?></label>
-				Lun:<label><?php echo $worktime->Lunmatin ?></label> - <label><?php echo $worktime->Lunsoir ?></label>
-				Mar:<label><?php echo $worktime->Marmatin ?></label> - <label><?php echo $worktime->Marsoir ?></label>
-				Mer:<label><?php echo $worktime->Mermatin ?></label> - <label><?php echo $worktime->Mersoir ?></label>
-				Jeu:<label><?php echo $worktime->Jeumatin ?></label> - <label><?php echo $worktime->Jeusoir ?></label>
-				Ven:<label><?php echo $worktime->Venmatin ?></label> - <label><?php echo $worktime->Vensoir ?></label>
-				Sam:<label><?php echo $worktime->Sammatin ?></label> - <label><?php echo $worktime->Samsoir ?></label>
+				Dim:<label><?php echo $worktimes[0][0] ?></label> - <label><?php echo $worktimes[0][1] ?></label>
+				Lun:<label><?php echo $worktimes[1][0] ?></label> - <label><?php echo $worktimes[1][1] ?></label>
+				Mar:<label><?php echo $worktimes[2][0] ?></label> - <label><?php echo $worktimes[2][1] ?></label>
+				Mer:<label><?php echo $worktimes[3][0] ?></label> - <label><?php echo $worktimes[3][1] ?></label>
+				Jeu:<label><?php echo $worktimes[4][0] ?></label> - <label><?php echo $worktimes[4][1] ?></label>
+				Ven:<label><?php echo $worktimes[5][0] ?></label> - <label><?php echo $worktimes[5][1] ?></label>
+				Sam:<label><?php echo $worktimes[6][0] ?></label> - <label><?php echo $worktimes[6][1] ?></label>
 			<?php  }  ?>
 			</pre>
 		</div>
-		
 		
 		<div class="pf_body_field"><h3>Tarifs</h3>
 		<pre>

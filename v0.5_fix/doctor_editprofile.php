@@ -32,52 +32,26 @@ $conn = mysqli_connect('localhost', 'root', '', DB_NAME);
        die("Connection Failed : ". $conn->connect_error); }
 
 
-//retreiving the language array from db 
-	$stmt = $conn->prepare("SELECT language FROM doctor WHERE doctor_id = ?");
-	$stmt->bind_param("s", $_SESSION["id"]);
-	$stmt->execute();
-	$result = $stmt->get_result();
-	$row = $result->fetch_assoc();
-    $languages=$row["language"];
-	$languages=json_decode($languages);
-	
-//retreiving the dq array from db 
-    $stmt = $conn->prepare("SELECT dq FROM doctor WHERE doctor_id = ?");
-	$stmt->bind_param("s", $_SESSION["id"]);
-	$stmt->execute();
-	$result = $stmt->get_result();
-	$row = $result->fetch_assoc();
-	$dqs=$row["dq"];
-	$dqs=json_decode($dqs);
-	
-//retreiving the pricing array from db 
-   $stmt = $conn->prepare("SELECT pricing FROM doctor WHERE doctor_id = ?");
-   $stmt->bind_param("s", $_SESSION["id"]);
-   $stmt->execute();
-   $result = $stmt->get_result();
-   $row = $result->fetch_assoc();
-   $pricings=$row["pricing"];
-   $pricings=json_decode($pricings);
+	   $stmt = $conn->prepare("SELECT * FROM doctor WHERE doctor_id = ?");
+	   $stmt->bind_param("s", $_SESSION["id"]);
+	   $stmt->execute();
+	   $result = $stmt->get_result();
+	   $row = $result->fetch_assoc();
+	   $languages=$row["language"];
+	   $languages=json_decode($languages);
+	   $dqs=$row["dq"];
+	   $dqs=json_decode($dqs);
+	   $pricings=$row["pricing"];
+	   $pricings=json_decode($pricings);
+	   $worktimes=$row["worktime"];
+	   $worktimes=json_decode($worktimes);	  
 
-//retreiving the worktime object from db 
-    $stmt = $conn->prepare("SELECT worktime FROM doctor WHERE doctor_id = ?");
-	$stmt->bind_param("s", $_SESSION["id"]);
-	$stmt->execute();
-	$result = $stmt->get_result();
-	$row = $result->fetch_assoc();
-    $worktimes=$row["worktime"];
-	$worktimes=json_decode($worktimes);
-
-	if (empty($worktimes)) {
-		$worktimes = new stdClass();
-		$worktimes->Dimmatin = '';$worktimes->Dimsoir = '';
-		$worktimes->Lunmatin = '';$worktimes->Lunsoir = '';
-		$worktimes->Marmatin = '';$worktimes->Marsoir = '';
-		$worktimes->Mermatin = '';$worktimes->Mersoir = '';
-		$worktimes->Jeumatin = '';$worktimes->Jeusoir = '';
-		$worktimes->Venmatin = '';$worktimes->Vensoir = '';
-		$worktimes->Sammatin = '';$worktimes->Samsoir = '';	
-	}
+        if (!isset($worktimes)) { 
+			$worktimes = array(
+			array('', ''),array('', ''),array('', ''),
+			array('', ''),array('', ''),array('', ''),array('', '')
+			);
+		}
 
 $pf_img = "assets/pfp2.png";
 
@@ -172,45 +146,31 @@ $pf_img = "assets/pfp2.png";
 		
 		}
 
-		    $db_languages=$_POST["languages"];
-		    $stmt = $conn->prepare("UPDATE doctor SET language = ? WHERE doctor_id = ?");
-	    	$stmt->bind_param("si", $db_languages, $_SESSION["id"]);
-	    	$stmt->execute();
-	    	$_SESSION["language"]= json_decode($db_languages);
+		$db_languages = $_POST["languages"];
+		$db_dq = $_POST["dq"];
+		$db_pricing = $_POST["pricing"];
+		$worktimes = array(
+			array($_POST['Dimmatin'], $_POST['Dimsoir']),
+			array($_POST['Lunmatin'], $_POST['Lunsoir']),
+			array($_POST['Marmatin'], $_POST['Marsoir']),
+			array($_POST['Mermatin'], $_POST['Mersoir']),
+			array($_POST['Jeumatin'], $_POST['Jeusoir']),
+			array($_POST['Venmatin'], $_POST['Vensoir']),
+			array($_POST['Sammatin'], $_POST['Samsoir'])
+		);
+		$db_worktimes=json_encode($worktimes);
 
-
-			$db_dq=($_POST["dq"]);
-		    $stmt = $conn->prepare("UPDATE doctor SET dq = ? WHERE doctor_id = ?");
-	    	$stmt->bind_param("si", $db_dq, $_SESSION["id"]);
-	    	$stmt->execute();
-	    	$_SESSION["dq"]=json_decode($db_dq);
+		$stmt = $conn->prepare("UPDATE doctor SET language = ?, dq = ?, pricing = ?,worktime = ? WHERE doctor_id = ?");
+		$stmt->bind_param("ssssi", $db_languages, $db_dq, $db_pricing,$db_worktimes, $_SESSION["id"]);
+		$stmt->execute();
 		
-		
-			$db_pricing=$_POST["pricing"];
-		    $stmt = $conn->prepare("UPDATE doctor SET pricing = ? WHERE doctor_id = ?");
-	    	$stmt->bind_param("si", $db_pricing, $_SESSION["id"]);
-	    	$stmt->execute();
-	    	$_SESSION["pricing"]=json_decode($db_pricing);
-
-			$submittedWorktime = array(
-				'Dimmatin' => $_POST['Dimmatin'],'Dimsoir' => $_POST['Dimsoir'],
-				'Lunmatin' => $_POST['Lunmatin'],'Lunsoir' => $_POST['Lunsoir'],
-				'Marmatin' => $_POST['Marmatin'],'Marsoir' => $_POST['Marsoir'],
-				'Mermatin' => $_POST['Mermatin'],'Mersoir' => $_POST['Mersoir'],
-				'Jeumatin' => $_POST['Jeumatin'],'Jeusoir' => $_POST['Jeusoir'],
-				'Venmatin' => $_POST['Venmatin'],'Vensoir' => $_POST['Vensoir'],
-				'Sammatin' => $_POST['Sammatin'],'Samsoir' => $_POST['Samsoir'],
-			);
-		
-			foreach ($submittedWorktime as $key => $value) {
-				$worktimes->$key = $value;
-			}
+		$_SESSION["language"] = json_decode($db_languages);
+		$_SESSION["dq"] = json_decode($db_dq);
+		$_SESSION["pricing"] = json_decode($db_pricing);
+		$_SESSION["worktime"]=$worktimes;
 			
-			$db_worktimes=json_encode($worktimes);
-			$stmt = $conn->prepare("UPDATE doctor SET worktime = ? WHERE doctor_id = ?");
-	    	$stmt->bind_param("si", $db_worktimes, $_SESSION["id"]);
-	    	$stmt->execute();
-	    	$_SESSION["worktime"]=$worktimes;
+			
+	    	
 
 		header("Location: doctor_profile.php");
 		exit();              
@@ -243,13 +203,13 @@ $pf_img = "assets/pfp2.png";
 		<div class="pf_body_field"><h3>Date Naissance</h3><input type="date" name="bday"></div>
 		<div class="pf_body_field"><h3>Horaires de travail</h3>
 			<pre>
-				Dim:<textarea class="txtarea" name="Dimmatin"><?php echo $worktimes->Dimmatin ?></textarea> - <textarea class="txtarea" name="Dimsoir"><?php echo $worktimes->Dimsoir?></textarea>	
-				Lun:<textarea class="txtarea" name="Lunmatin"><?php echo $worktimes->Lunmatin ?></textarea> - <textarea class="txtarea" name="Lunsoir"><?php echo $worktimes->Lunsoir ?></textarea>
-				Mar:<textarea class="txtarea" name="Marmatin"><?php echo $worktimes->Marmatin ?></textarea> - <textarea class="txtarea" name="Marsoir"><?php echo $worktimes->Marsoir ?></textarea>
-				Mer:<textarea class="txtarea" name="Mermatin"><?php echo $worktimes->Mermatin ?></textarea> - <textarea class="txtarea" name="Mersoir"><?php echo $worktimes->Mersoir?></textarea>
-				Jeu:<textarea class="txtarea" name="Jeumatin"><?php echo $worktimes->Jeumatin ?></textarea> - <textarea class="txtarea" name="Jeusoir"><?php echo $worktimes->Jeusoir ?></textarea>
-				Ven:<textarea class="txtarea" name="Venmatin"><?php echo $worktimes->Venmatin ?></textarea> - <textarea class="txtarea" name="Vensoir"><?php echo $worktimes->Vensoir ?></textarea>
-				Sam:<textarea class="txtarea" name="Sammatin"><?php echo $worktimes->Sammatin ?></textarea> - <textarea class="txtarea" name="Samsoir"><?php echo $worktimes->Samsoir ?></textarea>
+				Dim:<textarea class="txtarea" name="Dimmatin"><?php  echo $worktimes[0][0]?></textarea> - <textarea class="txtarea" name="Dimsoir"><?php  echo $worktimes[0][1]?></textarea>	
+				Lun:<textarea class="txtarea" name="Lunmatin"><?php  echo $worktimes[1][0] ?></textarea> - <textarea class="txtarea" name="Lunsoir"><?php echo $worktimes[1][1] ?></textarea>
+				Mar:<textarea class="txtarea" name="Marmatin"><?php  echo $worktimes[2][0] ?></textarea> - <textarea class="txtarea" name="Marsoir"><?php echo $worktimes[2][1] ?></textarea>
+				Mer:<textarea class="txtarea" name="Mermatin"><?php  echo $worktimes[3][0] ?></textarea> - <textarea class="txtarea" name="Mersoir"><?php echo $worktimes[3][1]?></textarea>
+				Jeu:<textarea class="txtarea" name="Jeumatin"><?php  echo $worktimes[4][0] ?></textarea> - <textarea class="txtarea" name="Jeusoir"><?php echo $worktimes[4][1] ?></textarea>
+				Ven:<textarea class="txtarea" name="Venmatin"><?php  echo $worktimes[5][0] ?></textarea> - <textarea class="txtarea" name="Vensoir"><?php echo $worktimes[5][1] ?></textarea>
+				Sam:<textarea class="txtarea" name="Sammatin"><?php  echo $worktimes[6][0] ?></textarea> - <textarea class="txtarea" name="Samsoir"><?php echo $worktimes[6][1] ?></textarea>
 			</pre>
 		</div>
 		<div class="pf_body_field"><h3>Tarifs</h3>

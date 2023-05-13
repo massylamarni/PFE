@@ -41,42 +41,45 @@ if (isset($_GET['doctor_id']))
 		<div class="pf_body_field"><h3>Numero telephone</h3><?php echo $row['doctor_phone'] ?></div>
 		<div class="pf_body_field"><h3>Adresse</h3><?php if (isset($row['doctor_location'])) echo $row['doctor_location'] ?></div>
 
-		<?php if (isset($row['worktime'])){ $worktime = json_decode($row['worktime']); ?>
 		<div class="pf_body_field"><h3>Horaires de travail</h3>
-		    <pre>
-				Dim:<label><?php echo $worktime->Dimmatin ?></label> - <label><?php echo $worktime->Dimsoir ?></label>
-				Lun:<label><?php echo $worktime->Lunmatin ?></label> - <label><?php echo $worktime->Lunsoir ?></label>
-				Mar:<label><?php echo $worktime->Marmatin ?></label> - <label><?php echo $worktime->Marsoir ?></label>
-				Mer:<label><?php echo $worktime->Mermatin ?></label> - <label><?php echo $worktime->Mersoir ?></label>
-				Jeu:<label><?php echo $worktime->Jeumatin ?></label> - <label><?php echo $worktime->Jeusoir ?></label>
-				Ven:<label><?php echo $worktime->Venmatin ?></label> - <label><?php echo $worktime->Vensoir ?></label>
-				Sam:<label><?php echo $worktime->Sammatin ?></label> - <label><?php echo $worktime->Samsoir ?></label>
-		    </pre>
+		<?php if (isset($row['worktime'])){ $worktimes = json_decode($row['worktime']); ?>
+		<pre>
+				Dim:<label><?php echo $worktimes[0][0] ?></label> - <label><?php echo $worktimes[0][1] ?></label>
+				Lun:<label><?php echo $worktimes[1][0] ?></label> - <label><?php echo $worktimes[1][1] ?></label>
+				Mar:<label><?php echo $worktimes[2][0] ?></label> - <label><?php echo $worktimes[2][1] ?></label>
+				Mer:<label><?php echo $worktimes[3][0] ?></label> - <label><?php echo $worktimes[3][1] ?></label>
+				Jeu:<label><?php echo $worktimes[4][0] ?></label> - <label><?php echo $worktimes[4][1] ?></label>
+				Ven:<label><?php echo $worktimes[5][0] ?></label> - <label><?php echo $worktimes[5][1] ?></label>
+				Sam:<label><?php echo $worktimes[6][0] ?></label> - <label><?php echo $worktimes[6][1] ?></label>
+		</pre>
 		</div>
-		<?php }
+		<?php } ?>
 
-		if (isset($row["pricing"])) { $row["pricing"]=json_decode($row["pricing"]);  ?>
 		<div class="pf_body_field"><h3>Tarifs</h3>
 		<pre>
-			<?php  foreach ($row["pricing"] as $pricing) { ?>
+		<?php 
+		if (isset($row["pricing"])) { $row["pricing"]=json_decode($row["pricing"]);  
+			 foreach ($row["pricing"] as $pricing) { ?>
                 <label><?php echo $pricing[0] ?></label> : <label><?php echo $pricing[1] ?></label>
 		</pre>
 		</div>
-		<?php } } 
-		
-		if (isset($row["dq"])) { $row["dq"]=json_decode($row["dq"]); ?>
+		<?php } } ?>
 		<div class="pf_body_field"><h3>Diplomes & Qualifications</h3>
 			<pre>
-			<?php  foreach ($row["dq"] as $dq) { ?>
+			<?php
+		if (isset($row["dq"])) { $row["dq"]=json_decode($row["dq"]); 
+			  foreach ($row["dq"] as $dq) { ?>
 				<label> <?php echo $dq[0] ?></label> : <label><?php echo $dq[1] ?></label>
 			</pre>
 		</div>
-		<?php } } 
-		
-		if (isset($row["language"])) { $row["language"]=json_decode($row["language"]); ?>
+		<?php } } ?>
 		<div class="pf_body_field"><h3>Langues parlées</h3>
-		<?php  foreach ($row["language"] as $language) { ?>
+		<pre>
+		<?php
+		if (isset($row["language"])) { $row["language"]=json_decode($row["language"]); 
+		  foreach ($row["language"] as $language) { ?>
 			<label> <?php echo $language ?></label> 
+			</pre>
 		</div>
 		<?php } } ?>
 		
