@@ -253,3 +253,13 @@ inscription.addEventListener('click',function(event){
 	divinscription.classList.toggle('hidden');
 	divinscription.classList.toggle('inscription');
 });
+
+let profile=document.getElementById('profile');
+let divprofile=document.getElementById('divprofile');
+profile.addEventListener('click',function(event){
+	event.preventDefault();
+	console.log('djfsbfijd');
+	divprofile.classList.toggle('hidden');
+	divprofile.classList.toggle('profile');
+});
+

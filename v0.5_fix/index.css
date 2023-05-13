@@ -626,3 +626,15 @@ html, body
 	color: #1a73e9;
 	border: 1px solid #DBDCDF;
 }
+
+.profile{
+	width: 200px;
+	position: absolute;
+	top: 44px;
+	left: 20px;
+	background-color: red;
+}
+#profile{
+	background-color: #1a73e9;
+	cursor: pointer;
+}

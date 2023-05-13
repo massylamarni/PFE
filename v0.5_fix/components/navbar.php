@@ -24,7 +24,11 @@ if (isset($_SESSION["usertype"])) {
 		</form>	
 		<div class="navbar_auth">
 			
-	        <a href=<?php echo $profile_url  ?> class="navbar_loggedin"><img src="<?php echo $pf_img ?>"/><span><?php echo $_SESSION["name"] ?></span></a>||<a href="components/logout.php"><span>Logout</span></a>
+	        <p id="profile" class="navbar_loggedin"><img src="<?php echo $pf_img ?>"/><span  ><?php echo $_SESSION["name"] ?></span></p>
+			<div class="hidden" id="divprofile">
+			 <a  href=<?php echo $profile_url  ?> class="navbar_loggedin"><span>gerer votre compte </span></a>
+			 <a  href="components/logout.php"><span>Logout</span></a>
+            </div>
         </div>					
 	</div>
 </div>
@@ -43,8 +47,8 @@ if (isset($_SESSION["usertype"])) {
 		<a href="login.php" class="navbar_auth_login">Connexion</a>
 		<p id="inscription">Inscription</p>
 		<div class="hidden" id="divinscription">
-    	<a href="doctor_signup.php" class="navbar_auth_signup"  > Inscription Medecin</a>
-		<a href="patient_signup.php" class="navbar_auth_signup"> Inscription Patient</a>
+    	<a href="doctor_signup.php" class="navbar_auth_signup"  >Inscription Medecin</a>
+		<a href="patient_signup.php" class="navbar_auth_signup">Inscription Patient</a>
          </div>
 		</div>
 	</div>
