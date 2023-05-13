@@ -244,3 +244,12 @@ function getinput_doctor_editprofile()
 
 	document.getElementById('editprofile').submit();
 }
+
+//inscription
+let inscription=document.getElementById('inscription');
+let divinscription=document.getElementById('divinscription');
+inscription.addEventListener('click',function(event){
+	event.preventDefault();
+	divinscription.classList.toggle('hidden');
+	divinscription.classList.toggle('inscription');
+});

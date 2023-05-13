@@ -13,8 +13,9 @@ if (isset($_SESSION["usertype"])) {
 	$profile_url = ($_SESSION["usertype"] == 'doctor') ? 'doctor_profile.php' : 'patient_profile.php';	
 		
 ?>
-
+        
 		<a href=<?php echo $logo_url  ?> class="navbar_logo"><img src="assets/logo.png" ></a>
+		
 		<form id="navbar_search" action="resultlist.php" method="POST">
 			<input type="text" class="navbar_search_location" placeholder="Emplacement..."name="location">
             <a href="gps.php"><img src="assets/maps.png"></a>
@@ -22,7 +23,8 @@ if (isset($_SESSION["usertype"])) {
 			<input type="submit" class="navbar_search_submit" value="Rechercher">
 		</form>	
 		<div class="navbar_auth">
-	        <a href=<?php echo $profile_url  ?> class="navbar_loggedin"><img src="<?php echo $pf_img ?>"/><span><?php echo $_SESSION["name"] ?></span></a>||<a href="components/logout.php"><span>Logout</span></a>
+			
+	        <a href=<?php echo $profile_url  ?> class="navbar_loggedin"><img src="<?php echo $pf_img ?>"/><span><?php echo $_SESSION["name"] ?></span></a>||<a href="logout.php"><span>Logout</span></a>
         </div>					
 	</div>
 </div>
@@ -38,9 +40,12 @@ if (isset($_SESSION["usertype"])) {
 			<input type="submit" class="navbar_search_submit" value="Rechercher">
 		</form>	
 		<div class="navbar_auth">
-    		<a href="doctor_signup.php" class="navbar_auth_signup">Inscription Medecins</a>
-			<a href="login.php" class="navbar_auth_login">Connexion</a>
-			<a href="patient_signup.php" class="navbar_auth_signup">Inscription</a>
+		<a href="login.php" class="navbar_auth_login">Connexion</a>
+		<p id="inscription">Inscription</p>
+		<div class="hidden" id="divinscription">
+    	<a href="doctor_signup.php" class="navbar_auth_signup"  > Medecin</a>
+		<a href="patient_signup.php" class="navbar_auth_signup"> Patient</a>
+         </div>
 		</div>
 	</div>
 </div>

@@ -105,15 +105,17 @@ html, body
 }
 .navbar_auth_signup
 {
-	font-size: 15px;
+	font-size: 18px;
 	padding: 6px 9px 7px 9px;
 	margin-left: 5px;
+	display: block;
 }
 .navbar_auth
 {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	position: relative;
 }
 .navbar_loggedin
 {
@@ -570,4 +572,19 @@ html, body
 }
 .tarifdiv{
 	display: block;
+}
+
+.inscription{
+	background-color:white;
+	position: absolute;
+	top: 49px;
+	right: -13px;
+	border: 1px solid white;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+#inscription{
+	cursor: pointer;
+	color: -webkit-link;
 }
