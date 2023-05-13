@@ -45,7 +45,7 @@ if (isset($_SESSION["usertype"])) {
 		</form>	
 		<div class="navbar_auth">
 		<a href="login.php" class="navbar_auth_login">Connexion</a>
-		<p id="inscription">Inscription</p>
+		<button id="inscription" onclick="inscription()">Inscription</button>
 		<div class="hidden" id="divinscription">
     	<a href="doctor_signup.php" class="navbar_auth_signup"  >Inscription Medecin</a>
 		<a href="patient_signup.php" class="navbar_auth_signup">Inscription Patient</a>

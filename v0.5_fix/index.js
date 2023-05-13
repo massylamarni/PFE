@@ -254,7 +254,7 @@ inscription.addEventListener('click',function(event){
 	divinscription.classList.toggle('hidden');
 	divinscription.classList.toggle('inscription');
 });}
-
+/*
 let profile=document.getElementById('profile');
 let divprofile=document.getElementById('divprofile');
 profile.addEventListener('click',function(event){
@@ -266,5 +266,10 @@ function profile(){
   let divprofile=document.getElementById('divprofile');
   divprofile.classList.toggle('hidden');
   divprofile.classList.toggle('profile');
+}
+function inscription(){
+	let divinscription=document.getElementById('divinscription');
+	divinscription.classList.toggle('hidden');
+	divinscription.classList.toggle('inscription');
 }
 
