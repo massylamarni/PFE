@@ -8,39 +8,39 @@ var date_display = {			//generic
 }
 
 var last_pfp_id = 0;			//showprofile
-
-const lastform = 2;			//bookform
-var formnum = 0;
+var formnum = 0;				//bookform
 
 /* APTLIST & RESULTLIST */
 function showprofile()
 {
-	var list_els = document.getElementsByClassName("list_el");
-	for (i = 0; i < list_els.length; i++)
+	let list_el = document.getElementsByClassName("list_el");
+	for (let i = 0; i < list_el.length; i++)
 	{
-		let list_el = list_els[i];
-		list_el.addEventListener("click", 
-			function(event)
+		list_el[i].addEventListener("click", function(event){
+			if ((event.target.tagName != 'P') && (event.target.tagName != 'A'))
 			{
-				if ((event.target.tagName != 'P') && (event.target.tagName != 'A'))
+				if ((list_el[i].id == last_pfp_id) && (document.getElementsByClassName("secondary")[0].style.display == "flex"))
 				{
-					if ((list_el.id == last_pfp_id) && (document.getElementsByClassName("secondary")[0].style.display == "flex"))
-					{
-						document.getElementsByClassName("secondary")[0].style.display = "none";
-					}
-					else
-					{
-						document.getElementsByClassName("secondary")[0].style.display = "flex";
-						last_pfp_id = list_el.id;
-					}
-					console.log("last_pfp_id: " + last_pfp_id);
+					document.getElementsByClassName("secondary")[0].style.display = "none";
 				}
-				else if ((event.target.tagName == 'P'))
+				else
 				{
-					console.log("motif: " + list_el.getElementsByClassName("motif")[0].innerHTML);
+					if (last_pfp_id != 0) document.getElementById(`pf_${last_pfp_id}`).remove();
+					last_pfp_id = list_el[i].id;
+					fetch(`components/doctor_profile.php?doctor_id=${last_pfp_id}`)
+					.then(response => response.text())
+					.then(data => {
+						document.getElementById('doctor_profile').insertAdjacentHTML('beforeend', data);
+					});
+					
+					document.getElementsByClassName("secondary")[0].style.display = "flex";
 				}
 			}
-		);
+			else if ((event.target.tagName == 'P'))
+			{
+				console.log("motif: " + list_el[i].getElementsByClassName("motif")[0].innerHTML);
+			}
+		});
 	}
 }
 

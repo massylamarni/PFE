@@ -10,7 +10,7 @@
 <body>		
 		
 <?php 
-//ini_set('display_errors', 1);
+ini_set('display_errors', 1);
 
 $conn = mysqli_connect('localhost', 'root', '', 'Client');
 
@@ -160,11 +160,9 @@ if($location && $speciality){
 		</div>
 	</div>
 	<div class="secondary">
-		<?php include("components/doctor_search_profile.php"); ?>
+		<div id="doctor_profile"></div>
 	</div>
 </div>
-
-
 
 <script src="index.js"></script>
 <script type="text/javascript">
