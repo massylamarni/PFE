@@ -30,11 +30,11 @@ $patient_name = $row['patient_name'];
 
 //set appt_date remaining display
 $appt_date_obj = new DateTime($appt_date);
-$date_obj = new DateTime();
-$ms_rem = abs($appt_date_obj->format('U') * 1000 + $appt_date_obj->format('u') - abs($date_obj->format('U') * 1000 + $date_obj->format('u')));
-$days_rem = floor($ms_rem / (1000 * 60 * 60 * 24));
-$hours_rem = floor(($ms_rem % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-$minutes_rem = floor(($ms_rem % (1000 * 60 * 60)) / (1000 * 60));
+$date_obj = new DateTime(null);
+$date_rem = $appt_date_obj->diff($date_obj);
+$days_rem = $date_rem->d;
+$hours_rem = $date_rem->h;
+$minutes_rem = $date_rem->i;
 $MONTHS = array("Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre");
 $DAYS = array("Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam");
 ?>

@@ -332,7 +332,7 @@ include("components/navbar.php");
 		</div>
 	</div>
 	<div class="secondary">
-		<?php include("components/doctor_profile.php"); ?>
+		<?php include("components/patient_profile.php"); ?>
 	</div>
 </div>
 
