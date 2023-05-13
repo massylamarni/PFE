@@ -1,22 +1,14 @@
-Tasks:
-- Login & Signup
-- Profile management
-- Appointments management
-- Search
-
 IDIR:
--Creer un systeme de filtrage de resultats pour la page "resultlist.php", les filtres seront laissé a ton choix.
--Ajouter un bouton pour l'ajout de rendez-vous dans la page "PS_index.php".
--Ajouter des boutons pour l'ajout de champs dans la "PS_editprofile" pour: specialité, tarifs, diplomes & qualifications, langues parlees.
--Creer un systeme de gestion d'images pour la page "PS_editprofile" (importer des images et les afficher lors du click sur le bouton Images).
--Faire fonctionner la fonction "Motif de consultation" pour les composants "aptlist.php" (lecture), "apthistory.php" (lecture), "bookform.php" (saisie), "PS_aptlist_blank.php" (saisie).
+-Creer un systeme de gestion d'images pour la page "doctor_editprofile" (importer des images et les afficher lors du click sur le bouton Images).
+-Ajouter obtion pour modifier image de profil doctor_editprofile.
+-Faire fonctionner la fonction "Motif de consultation" pour les composants "aptlist.php" (lecture), "apthistory.php" (lecture), "bookform.php" (saisie), "doctor_aptlist_blank.php" (saisie).
 -Creer un menu profile contenant: Gerer Compte, Logout.
--Ajouter une fonctionnalite pour ajouter et voir des images ps_editprofile.
--Ajouter obtion pour modifier image de profil ps_editprofile.
+-Surveiller la saise de l'utilisateur dans tout les champs existants et afficher des & indications messages d'erreurs.
+-Permettre au patient de reserver que sur les dates permise (inclue dans l'horaire du medecin && disponible ).
 
 YASSIN:
--Faire fonctionner le systeme de recherche de medecins.
--Enregistrer les informations saisie sur "bookform.php" dans la BD.
+- Regler les liaisons avec la page index.php
+- Revoquer l'acces aux pages patient et docteur si l'utilisateur n'est pas connecté au compte patient ou docteur respectivement.
 
 RYADH:
--Faire fonctionner le systeme de recherche sur google map.
+-Faire fonctionner le systeme de recherche sur google map.  AUJOURDHUI !!!
