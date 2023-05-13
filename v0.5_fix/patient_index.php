@@ -11,6 +11,11 @@
 
 <?php
 //ini_set('display_errors', 1);
+if(!isset($_SESSION))
+{
+session_start();
+}
+if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='patient') {
 
 $conn = mysqli_connect('localhost', 'root', '', 'Client');
 
@@ -179,3 +184,13 @@ $conn->close();
 </script>
 </body>
 </html>
+<?php   }elseif(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='doctor'){
+
+header("Location: doctor_index.php");
+exit();
+
+}else{
+
+  header("Location: index.php");
+  exit();
+}  ?>

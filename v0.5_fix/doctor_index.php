@@ -12,6 +12,12 @@
 <?php
 ini_set('display_errors', 1);
 
+if(!isset($_SESSION))
+{
+session_start();
+}
+if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='doctor') {
+
 $conn = mysqli_connect('localhost', 'root', '', 'Client');
 
 include("components/navbar.php");
@@ -342,3 +348,13 @@ $conn->close();
 </script>
 </body>
 </html>
+<?php   }elseif(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='patient'){
+
+header("Location: patient_index.php");
+exit();
+
+}else{
+
+  header("Location: index.php");
+  exit();
+}  ?>
