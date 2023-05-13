@@ -27,5 +27,6 @@ include("components/navbar.php"); ?>
 <div class="std_containerI">
     <h1>BLANK</h1>
 </div>
+<script src="index.js"></script>
 </body>
 </html>
