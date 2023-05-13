@@ -12,3 +12,7 @@ YASSIN:
 
 RYADH:
 -Faire fonctionner le systeme de recherche sur google map.  AUJOURDHUI !!!
+
+RESTE:
+-CSS + responsivité.
+-Page admin + moderateur.
