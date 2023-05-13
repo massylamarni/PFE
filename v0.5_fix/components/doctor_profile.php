@@ -2,10 +2,9 @@
 
 ini_set('display_errors', 1);
 
-$conn = mysqli_connect('localhost', 'root', '', 'Client');
-
 if (isset($_GET['doctor_id']))
 {
+	$conn = mysqli_connect('localhost', 'root', '', 'Client');
 	$doctor_id = $_GET['doctor_id'];
 	$stmt = $conn->prepare( "SELECT * FROM doctor WHERE doctor_id = ?");
 	$stmt->bind_param("i",$doctor_id);
@@ -14,9 +13,9 @@ if (isset($_GET['doctor_id']))
 	$row = $result->fetch_assoc() ;
 
 	$stmt->close();
+	$conn->close();
 }
 
-$conn->close();
 		
 //if (isset($row["doctor_pf_img"])) $_SESSION["pf_img"] = $row["doctor_pf_img"];
 

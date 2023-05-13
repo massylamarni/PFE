@@ -30,7 +30,7 @@ $worktime = $row['worktime'];
 	</div>
 	<div class="list_el_brief">
 		<div class="brief_adress"><?php echo $doctor_location ?></div>
-		<div class="brief_datetime"></div>
+		<div class="brief_datetime">/</div><!-- Date de prise de RDV disponible la plus proche -->
 		<div class="brief_phone"><?php echo $doctor_phone ?></div>
 		<?php if (isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='patient') {?> <div class="brief_book" onclick="bookform(0, <?php echo $doctor_id?>)"><p>Prendre RDV</p></div>
 	<?php include("components/bookform.php"); } ?>
