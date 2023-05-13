@@ -1,22 +1,29 @@
-
 <?php
 
-//ini_set('display_errors', 1);
+ini_set('display_errors', 1);
 
-//doctor
+$conn = mysqli_connect('localhost', 'root', '', 'Client');
 
-    $stmt = $conn->prepare( "SELECT * FROM doctor WHERE doctor_id = ?");
+if (isset($_GET['doctor_id']))
+{
+	$doctor_id = $_GET['doctor_id'];
+	$stmt = $conn->prepare( "SELECT * FROM doctor WHERE doctor_id = ?");
 	$stmt->bind_param("i",$doctor_id);
 	$stmt->execute();
 	$result = $stmt->get_result();
 	$row = $result->fetch_assoc() ;
-			
+
+	$stmt->close();
+}
+
+$conn->close();
+		
 //if (isset($row["doctor_pf_img"])) $_SESSION["pf_img"] = $row["doctor_pf_img"];
 
 ?>
 
 
-<div class="pf" id="<?php echo $id ?>">
+<div class="pf" id="pf_<?php echo $doctor_id ?>">
 	<div class="pf_header">
 		<img src="<?php echo $row['doctor_pf_img'] ?>">
 		<div class="pf_header_text">

@@ -19,8 +19,8 @@ $doctor_phone = $row['doctor_phone'];
 $worktime = $row['worktime'];
 ?>
 
-<div class="list_el">
-	<div class="pfp" id="<?php echo $doctor_id?>">
+<div class="list_el" id="<?php echo $doctor_id?>">
+	<div class="pfp">
 		<img src="<?php echo $doctor_pf_img ?>">
 		<div class="pfp_text">
 			<div class="pfp_text_name"><?php echo $doctor_name ?></div>

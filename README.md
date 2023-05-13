@@ -7,8 +7,7 @@ IDIR:
 -Permettre au patient de reserver que sur les dates permise (inclue dans l'horaire du medecin && disponible ).
 
 YASSIN:
-- Regler les liaisons avec la page index.php
-- Revoquer l'acces aux pages patient et docteur si l'utilisateur n'est pas connecté au compte patient ou docteur respectivement.
+- fixer la page patient_profile.php.
 
 RYADH:
 -Faire fonctionner le systeme de recherche sur google map.  AUJOURDHUI !!!
