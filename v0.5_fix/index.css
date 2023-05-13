@@ -105,42 +105,28 @@ html, body
 	border: 1px solid white;
 	background-color: #1a73e9;
 	color: white;
-	border-radius: 3px;
+	border-radius : 5px;
 
 }
 .navbar_auth_login:hover{
-	font-size: 18px;
+	font-size: 16px;
 	
 }
-.navbar_auth_login:active{
-	background-color: white;
-	color: #1a73e9;
-	border: 1px solid #DBDCDF;	
-}
+
 .navbar_auth_signup
 {   
-	color: white;
+	color: #999A99;
 	font-size: 15px;
 	padding: 6px 9px 7px 9px;
 	margin-left: 5px;
 	display: block;
 	border: 1px solid white;
-	background-color: #1a73e9;
-	border-radius: 3px;
 	margin-top:5px;
-	width: 67px;
 }
 .navbar_auth_signup:hover{
-	font-size: 18px;
+	font-size: 16px;
 	
 }
-.navbar_auth_signup:active{
-	background-color: white;
-	color: #1a73e9;
-	border: 1px solid #DBDCDF
-
-}
-
 .navbar_auth
 {
 	display: flex;
@@ -609,26 +595,29 @@ html, body
 	
 	position: absolute;
 	top: 49px;
-	right: -1px;
+	right: -81px;
 	border-bottom-left-radius: 5px;
 	border-bottom-right-radius: 5px;
 	color:#1a73e9;
 	margin: 0px;
+	background-color: white;
+	width: 166px;
+	box-shadow:  0 0 15px 2px #999A99;
 }
 
 #inscription{
 	cursor: pointer;
-	color:  white;
-	border: 1px solid white;
+	color: #1a73e9;
+	border: 1px solid #DBDCDF;
 	font-size: 15px;
 	padding: 6px 9px 7px 9px;
 	margin-left: 5px;
-	background-color:#1a73e9;
-	border-radius: 3px;
+	background-color:white;
+	border-radius: 5px;
 	
 }
 #inscription:hover{
-	font-size: 18px;
+	font-size: 16px;
 }
 #inscription:active{
 	background-color: white;

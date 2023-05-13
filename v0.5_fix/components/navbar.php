@@ -43,8 +43,8 @@ if (isset($_SESSION["usertype"])) {
 		<a href="login.php" class="navbar_auth_login">Connexion</a>
 		<p id="inscription">Inscription</p>
 		<div class="hidden" id="divinscription">
-    	<a href="doctor_signup.php" class="navbar_auth_signup"  > Medecin</a>
-		<a href="patient_signup.php" class="navbar_auth_signup"> Patient</a>
+    	<a href="doctor_signup.php" class="navbar_auth_signup"  > Inscription Medecin</a>
+		<a href="patient_signup.php" class="navbar_auth_signup"> Inscription Patient</a>
          </div>
 		</div>
 	</div>
