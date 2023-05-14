@@ -18,7 +18,6 @@ if (isset($_SESSION["usertype"])) {
 		
 		<form id="navbar_search" action="resultlist.php" method="POST">
 			<input type="text" class="navbar_search_location" placeholder="Emplacement..."name="location">
-            <a href="gps.php"><img src="assets/maps.png"></a>
 			<input type="text" class="navbar_search_speciality" placeholder="Specialité..."name="speciality">
 			<input type="submit" class="navbar_search_submit" value="Rechercher">
 		</form>	
