@@ -243,6 +243,12 @@ function getinput_doctor_editprofile()
 	console.log(save_language);
 	document.getElementById('languages_input').value = save_language;
 
+	//google map coord 
+	previousClickedLocation = JSON.stringify( previousClickedLocation);
+	console.log(previousClickedLocation);
+	document.getElementById('map_coord').value =  previousClickedLocation;
+
+
 	document.getElementById('editprofile').submit();
 }
 
