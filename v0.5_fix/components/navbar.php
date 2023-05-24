@@ -13,7 +13,7 @@ if (isset($_SESSION["usertype"])) {
 		
 ?>
         
-		<a href=<?php echo $logo_url ?> class="navbar_logo"><img src="assets/logo.png" ></a>
+		<a href=<?php echo $logo_url ?> class="navbar_logo"><img src="assets/logo.svg" ></a>
 		
 		<div class="navbar_menu">
 			<form id="navbar_search" class="flex fiveg flexcenter" action="resultlist.php" method="POST">
@@ -49,7 +49,7 @@ if (isset($_SESSION["usertype"])) {
 }else{ 
 ?>
 
-         <a href="index.php" class="navbar_logo"><img src="assets/logo.png"></a>
+         <a href="index.php" class="navbar_logo"><img src="assets/logo.svg"></a>
 		 
 		 
 		 <div class="navbar_menu">
