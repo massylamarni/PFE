@@ -444,13 +444,16 @@ html, body
 }
 .auth_error_message
 {
-	background: #ffb8b8;
-	padding: 15px 20px;
-	border-radius: 4px;
-	margin-bottom: 25px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 32px;
+	width: 100%;
+	background-color: #ffb8b8;
+	border-radius: 3px;
+	margin-bottom: 20px;
 	font-size: 15px;
 	color: #140000;
-	margin-top: 0;
 }
 .auth_form_field
 {
