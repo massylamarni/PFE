@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 12, 2023 at 03:56 PM
+-- Generation Time: May 24, 2023 at 10:34 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -64,17 +64,18 @@ CREATE TABLE `doctor` (
   `doctor_apptlist` varchar(500) DEFAULT NULL,
   `doctor_appthistory` varchar(500) DEFAULT NULL,
   `doctor_tapptlist` varchar(500) DEFAULT NULL,
-  `doctor_tappthistory` varchar(500) DEFAULT NULL
+  `doctor_tappthistory` varchar(500) DEFAULT NULL,
+  `doctor_coord` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `doctor`
 --
 
-INSERT INTO `doctor` (`doctor_id`, `doctor_name`, `doctor_email`, `doctor_password`, `doctor_phone`, `doctor_bday`, `doctor_gender`, `doctor_pf_img`, `doctor_location`, `licence`, `speciality`, `description`, `worktime`, `pricing`, `dq`, `language`, `doctor_apptlist`, `doctor_appthistory`, `doctor_tapptlist`, `doctor_tappthistory`) VALUES
-(5, 'm1', 'm1', '$2y$10$Ypw1vN0PVZ436fFbr92mB.g7RXK17P/imAncFsyRSMj2Rai9Gc3/q', 'm1', '2023-05-01', 'M', NULL, NULL, NULL, 'm1', NULL, NULL, NULL, NULL, NULL, '', '', '', ''),
-(6, 'm2', 'm2', '$2y$10$akKZK8q7KWyba6HksgluCe3UNo3F0eQ0I8jWbXVdlSWgoSgGimTvW', 'm2', '2023-05-02', 'M', NULL, NULL, NULL, 'm2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(7, 'm3', 'm3', '$2y$10$NZT8icdN24J.TpTTNUoPzeompnUt5OLoPQHagnQQM5bVqPxqhoH8q', 'm3', '2023-05-03', 'M', NULL, NULL, NULL, 'm3', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `doctor` (`doctor_id`, `doctor_name`, `doctor_email`, `doctor_password`, `doctor_phone`, `doctor_bday`, `doctor_gender`, `doctor_pf_img`, `doctor_location`, `licence`, `speciality`, `description`, `worktime`, `pricing`, `dq`, `language`, `doctor_apptlist`, `doctor_appthistory`, `doctor_tapptlist`, `doctor_tappthistory`, `doctor_coord`) VALUES
+(10, 'Medecin 1', 'med1@med.com', '$2y$10$bzmyjSWQ.WbUqj1NXi9XDOpMkE/4IOQxLeLOoAc6STN2OqRF.6Q4C', '0794891034', '1985-05-09', 'M', NULL, NULL, NULL, 'Specialité', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(11, 'Medecin 2', 'med2@med.com', '$2y$10$4n/xU6pJiLHyUr/mKvg4.OVVjA3PeMXk7HhIKUjlJBkVPojTmlQG.', '0794891034', '1985-09-09', 'M', NULL, NULL, NULL, 'Specialité', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(12, 'Medecin 3', 'med3@med.com', '$2y$10$p.86Ar5sb8ZRy0LldQtore6yQ4X6oNvnxlJIvQ7ps6qbSCPJbRBXu', '0794891034', '1986-08-08', 'M', NULL, NULL, NULL, 'Specialité', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -101,7 +102,9 @@ CREATE TABLE `patient` (
 --
 
 INSERT INTO `patient` (`patient_id`, `patient_name`, `patient_email`, `patient_password`, `patient_phone`, `patient_bday`, `patient_gender`, `patient_pf_img`, `patient_location`, `patient_apptlist`, `patient_appthistory`) VALUES
-(2, 'p1', 'p1', '$2y$10$lhOAN0Wj/yxztzBK7wSLee3bpIkAMP9o4YG29P4FvCkhEGJ4goThy', 'p1', '2023-05-01', 'M', NULL, NULL, '', NULL);
+(7, 'Patient 1', 'pat1@pat.com', '$2y$10$1YOiq.NvqEiTa.W3ycX7oOqAAZFF7MPh9IUlvqccN9FI36B.HDoLW', '0794891034', '1995-03-03', 'M', NULL, NULL, NULL, NULL),
+(8, 'Patient 2', 'pat2@pat.com', '$2y$10$P9JHkNFQIDhHhNcYjUID.e.sa7CNQL4EExCCHlfSz1AKPtPaHN3Fq', '0794891034', '1996-03-04', 'M', NULL, NULL, NULL, NULL),
+(9, 'Patient 3', 'pat3@pat.com', '$2y$10$F48LJ4XEEr1cvx0GnbILB.K9KV0k.UA7npfVNxhPfCy8zTwu/1vpS', '0794891034', '1994-05-05', 'M', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -161,13 +164,13 @@ ALTER TABLE `appt`
 -- AUTO_INCREMENT for table `doctor`
 --
 ALTER TABLE `doctor`
-  MODIFY `doctor_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `doctor_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `patient`
 --
 ALTER TABLE `patient`
-  MODIFY `patient_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `patient_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tpatient`
@@ -344,7 +347,7 @@ CREATE TABLE `pma__recent` (
 --
 
 INSERT INTO `pma__recent` (`username`, `tables`) VALUES
-('root', '[{\"db\":\"Client\",\"table\":\"appt\"},{\"db\":\"Client\",\"table\":\"patient\"},{\"db\":\"Client\",\"table\":\"doctor\"},{\"db\":\"Client\",\"table\":\"tpatient\"},{\"db\":\"Client\",\"table\":\"apt\"},{\"db\":\"test\",\"table\":\"user\"},{\"db\":\"phpmyadmin\",\"table\":\"pma__bookmark\"}]');
+('root', '[{\"db\":\"Client\",\"table\":\"doctor\"},{\"db\":\"Client\",\"table\":\"patient\"},{\"db\":\"Client\",\"table\":\"appt\"},{\"db\":\"Client\",\"table\":\"tpatient\"},{\"db\":\"Client\",\"table\":\"apt\"},{\"db\":\"test\",\"table\":\"user\"},{\"db\":\"phpmyadmin\",\"table\":\"pma__bookmark\"}]');
 
 -- --------------------------------------------------------
 
@@ -451,7 +454,7 @@ CREATE TABLE `pma__userconfig` (
 --
 
 INSERT INTO `pma__userconfig` (`username`, `timevalue`, `config_data`) VALUES
-('root', '2023-05-12 10:14:15', '{\"Console\\/Mode\":\"collapse\",\"Console\\/Height\":477.00200000000000954969436861574649810791015625}');
+('root', '2023-05-24 20:17:54', '{\"Console\\/Mode\":\"collapse\",\"Console\\/Height\":477.00200000000000954969436861574649810791015625}');
 
 -- --------------------------------------------------------
 
@@ -639,29 +642,6 @@ ALTER TABLE `pma__pdf_pages`
 --
 ALTER TABLE `pma__savedsearches`
   MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT;
---
--- Database: `test`
---
-CREATE DATABASE IF NOT EXISTS `test` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `test`;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `user`
---
-
-CREATE TABLE `user` (
-  `name` varchar(10) NOT NULL,
-  `email` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `user`
---
-
-INSERT INTO `user` (`name`, `email`) VALUES
-('username', 'um@mail.c');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
