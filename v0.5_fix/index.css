@@ -65,6 +65,7 @@ html, body
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	justify-content: center;
 	height: 32px;
 	width: 128px;
 }
@@ -407,6 +408,21 @@ html, body
 }
 
 /* LOGIN & SIGNUP STYLE */
+.auth_logo
+{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	height: 32px;
+	width: 64px;
+	margin-bottom: 20px;
+}
+.auth_logo img
+{
+	height: 32px;
+	width: 32px;
+}
 .auth
 {
 	height: 100%;

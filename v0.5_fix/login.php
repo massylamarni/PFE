@@ -127,6 +127,7 @@ $conn->close();
 <div class="simple_container">
 	<div class="auth">
 		<form id="auth_form" action="" method="POST">
+			<a href="patient_index.php" class="auth_logo"><img src="assets/logo.svg"></a>
 			<?php if (!empty($error_message)): ?>
 				<div class="auth_error_message"><?php echo $error_message; ?></div>
 			<?php endif; ?>

@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $result = $stmt->get_result();
 
             if ($result->num_rows > 0 ) {
-				echo "email already exists";
+				$error_message = "Email already exists";
 			}else{
 			$password_hashed = password_hash($password, PASSWORD_DEFAULT);
 			$stmt = $conn->prepare("insert into doctor (doctor_name, doctor_email, doctor_password, doctor_phone, doctor_bday, doctor_gender, speciality) values(?, ?, ?, ?, ?, ?, ?)");
@@ -74,37 +74,41 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <div class="simple_container">
 	<div class="auth">
 		<form id="auth_form" action="" method="POST">
+			<a href="patient_index.php" class="auth_logo"><img src="assets/logo.svg"></a>
+			<?php if (!empty($error_message)): ?>
+				<div class="auth_error_message"><?php echo $error_message; ?></div>
+			<?php endif; ?>
 			<div class="auth_form_field">
 				<label>Nom complet</label>
-				<input type="text" name="name"/>
+				<input type="text" name="name" required=""/>
 			</div>
 			<div class="auth_form_field">
 				<label>Email</label>
-				<input type="text"name="email">
+				<input type="email" name="email" required=""/>
 			</div>
 			<div class="auth_form_field">
 				<label>Mot passe</label>
-				<input type="password"name="password">
+				<input type="password" name="password" required=""/>
 			</div>
 			<div class="auth_form_field">
 				<label>Numero telephone</label>
-				<input type="text"name="phone">
+				<input type="tel" pattern="([0-9]{9})|([0-9]{10})" name="phone" required=""/>
 			</div>
 			<div class="auth_form_field">
 				<label>Specialité</label>
-				<input type="text"name="speciality">
+				<input type="text" name="speciality" required=""/>
 			</div>
 			<div class="auth_form_field">
 				<label>Date de naissance</label>
-				<input class="in_text" type="date" name="bday" >
+				<input class="in_text" type="date" name="bday" required=""/>
 			</div>
 			<div class="in_radio">
 					<div>
-						<input type="radio" id="r_male" name="gender" value="M">
+						<input type="radio" id="r_male" name="gender" value="M" required=""/>
 						<label for="r_male">Male</label>
 					</div>
 					<div>
-						<input type="radio" id="r_female" name="gender" value="F">
+						<input type="radio" id="r_female" name="gender" value="F" required=""/>
 						<label for="r_female">Female</label>
 					</div>
 				</div>

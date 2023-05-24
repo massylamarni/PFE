@@ -15,7 +15,6 @@ if (isset($_SESSION["usertype"])) {
 ?>
         
 		<a href=<?php echo $logo_url  ?> class="navbar_logo"><img src="assets/logo.svg" ></a>
-		
 		<form id="navbar_search_form" action="resultlist.php" method="POST">
 			<input type="text" class="navbar_search_location" placeholder="Emplacement..."name="location">
 			<input type="text" class="navbar_search_speciality" placeholder="Specialité..."name="speciality">
@@ -36,7 +35,7 @@ if (isset($_SESSION["usertype"])) {
 }else{ 
 ?>
 
-         <a href="patient_index.php" class="navbar_logo"><img src="assets/logo.svg"></a>
+        <a href="patient_index.php" class="navbar_logo"><img src="assets/logo.svg"></a>
         <form id="navbar_search_form" action="resultlist.php" method="POST">
 			<input type="text" class="navbar_search_location" placeholder="Emplacement..." name="location">
 			<input type="text" class="navbar_search_speciality" placeholder="Specialité..." name="speciality">
