@@ -169,6 +169,12 @@ $pf_img = "assets/pfp2.png";
 		$_SESSION["pricing"] = json_decode($db_pricing);
 		$_SESSION["worktime"]=$worktimes;
 			
+		$db_coord=$_POST["coord"];
+
+		$stmt = $conn->prepare("UPDATE doctor SET doctor_coord = ? WHERE doctor_id = ?");
+		$stmt->bind_param("si",  $db_coord, $_SESSION["id"]);
+		$stmt->execute();
+	
 			
 	    	
 
@@ -233,6 +239,10 @@ $pf_img = "assets/pfp2.png";
 		</div>
 		<div class="pf_body_field"><h3>Numero telephone</h3><input class="txtarea" type="text" value="<?php echo $_SESSION["phone"] ?>" name="phone"  autocomplete="off"/></div>
 		<div class="pf_body_field"><h3>Adresse</h3><textarea class="txtar" name="location"><?php if (isset($_SESSION["location"])){ echo $old_location; } ?></textarea></div>
+		
+		<div class="list_map"><?php include("components/gps.php") ?> </div>
+		<input type="hidden" id="map_coord" name="coord" value="">
+		
 		<div class="pf_body_field"><h3>Date Naissance</h3><input type="date" name="bday"></div>
 		<div class="pf_body_field flex flexcol twentg">
 			<div class="flex flexcol teng">
