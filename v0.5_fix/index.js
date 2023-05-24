@@ -285,3 +285,13 @@ function toggle_signup(){
 let urlimage=URL.createObjectURL(photodeprofile.files[0]);
 console.log(urlimage);*/
 
+function verifyRecaptcha() {
+	var response = grecaptcha.getResponse();
+  
+	if (response.length === 0) {
+	  return false;
+	} else {
+	  return true;
+	}
+  }
+  
