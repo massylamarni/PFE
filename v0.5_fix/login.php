@@ -112,7 +112,7 @@ if ($result->num_rows == 1) {
 }
 } else {
         // User is not found in either table
-         $error_message = "Invalid email or password";
+        echo "Invalid email or password";
 	
     }
 }
@@ -127,21 +127,17 @@ $conn->close();
 <div class="std_container">
 	<div class="auth">
 		<form id="auth_form" action="" method="POST">
-			<p id="remplirchaux" class="hidden">Veuillez remplir tous les champs</p>
-			<?php if (!empty($error_message)): ?>
-				<div class="errormessage"><?php echo $error_message; ?></div>
-			<?php endif; ?>
 			<div class="auth_form_field">
 				<label>Email</label>
-				<input type="email" name="email" required="" id="email"/>
+				<input type="email" name="email" id="email"/><p id="veremail">votre email est incorecte !!!</p>
 			</div>
 			<div class="auth_form_field">
 				<label>Mot passe</label>
-				<input type="password" name="password" required="" id="motsdepasse"/>
+				<input type="password" name="password" id="motsdepasse"/><p id="vermotsdepasse">mots de passe incorecte !!!</p>
 			</div>
 			<div class="auth_form_captcha"></div>
 			<input class="auth_form_submit" type="submit" value="Se connecter" onclick="chauxvide(event)">
-			
+			<p id="remplirchaux" class="hidden">viuellez remplir tout les chaux </p>
 		</form>
 		<div class="auth_ask">Vous n'avez pas de compte ? <a href="patient_signup.php">S'inscrire</a></div>
 	</div>

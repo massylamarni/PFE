@@ -296,15 +296,3 @@ function chauxvide(event){
 
 	}
 }
-
-
-// JavaScript to handle menu toggle
-const menuToggle = document.getElementById('menuToggle');
-const navbarMenu = document.querySelector('.navbar_menu');
-const navbar = document.querySelector('.navbar');
-
-menuToggle.addEventListener('click', () => {
-  navbarMenu.classList.toggle('show');
-  navbar.classList.toggle('show');
-});
-

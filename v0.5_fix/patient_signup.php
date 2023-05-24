@@ -50,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $result = $stmt->get_result();
 
             if ($result->num_rows > 0 ) {
-				$error_message = "Email already exists";
+				echo "email already exists";
 			}else{
 			$password_hashed = password_hash($password, PASSWORD_DEFAULT);
 			$stmt = $conn->prepare("insert into patient (patient_name, patient_email, patient_password, patient_phone,  patient_bday,  patient_gender) values(?, ?, ?, ?, ?, ?)");
@@ -73,36 +73,33 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <div class="std_container">
 	<div class="auth">
 		<form id="auth_form" action="" method="POST">
-		<?php if (!empty($error_message)): ?>
-				<div class="errormessage"><?php echo $error_message; ?></div>
-			<?php endif; ?>
 			<div class="auth_form_field">
 				<label>Nom complet</label>
-				<input type="text" name="name" required="">
+				<input type="text" name="name">
 			</div>
 			<div class="auth_form_field">
 				<label>Email</label>
-				<input type="text" name="email" required="">
+				<input type="text" name="email">
 			</div>
 			<div class="auth_form_field">
 				<label>Mot passe</label>
-				<input type="password" name="password" required="">
+				<input type="password" name="password">
 			</div>
 			<div class="auth_form_field">
 				<label>Numero telephone</label>
-				<input type="text" name="phone" required="">
+				<input type="text" name="phone">
 			</div>
 			<div class="auth_form_field">
 				<label>Date de naissance</label>
-				<input class="in_text" type="date" name="bday" required="">
+				<input class="in_text" type="date" name="bday" >
 			</div>
 			<div class="in_radio">
 					<div>
-						<input type="radio" id="r_male" name="gender" value="M" required="">
+						<input type="radio" id="r_male" name="gender" value="M">
 						<label for="r_male">Male</label>
 					</div>
 					<div>
-						<input type="radio" id="r_female" name="gender" value="F" required="">
+						<input type="radio" id="r_female" name="gender" value="F">
 						<label for="r_female">Female</label>
 					</div>
 				</div>

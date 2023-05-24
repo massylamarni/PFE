@@ -17,7 +17,7 @@ $conn = mysqli_connect('localhost', 'root', '', 'Client');
 include("components/navbar.php");
 ?>
 
-<div class="std_containerI">
+<div class="std_container">
 	<div class="main">
 		<div class="list">
 			<div class="list_title"><h3>Resultats de recherche</h3></div>

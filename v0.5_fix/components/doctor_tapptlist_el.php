@@ -36,7 +36,7 @@ $DAYS = array("Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam");
 			<div class="pfp_text_id"><?php echo $tpatient_id ?></div>
 		</div>
 	</div>
-	<div class="list_el_brief mobelm">
+	<div class="list_el_brief">
 		<div class="brief_datetime"><div class="brief_date"><?php echo $DAYS[$tpatient_appt_date_obj->format('w')] ?>, <?php echo $tpatient_appt_date_obj->format('d') ?> <?php echo $MONTHS[$tpatient_appt_date_obj->format('n')] ?></div><div class="brief_time">a <?php echo $tpatient_appt_date_obj->format('H:i') ?></div></div>
 		<div class="brief_datetime"><div class="brief_date">Il reste <?php echo $days_rem ?>j, </div><div class="brief_time"><?php echo $hours_rem ?>h et <?php echo $minutes_rem ?>min</div></div>
 		<div class="brief_motif"><p>Motif de consultation</p></div>
@@ -44,7 +44,7 @@ $DAYS = array("Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam");
 		<form class="brief_action" name="pass_<?php echo $tpatient_id?>" method="post" action="doctor_index.php">
 			<input type="hidden" name="tpatient_id" value="<?php echo $tpatient_id?>">
 			<input type="hidden" name="tpatient_id_state" value="Passé">
-			<button type="submit" class="btnprimary">Faire passer</button>
+			<input type="submit" value="Faire Passer">
 		</form>
 	</div>
 </div>

@@ -64,8 +64,7 @@ CREATE TABLE `doctor` (
   `doctor_apptlist` varchar(500) DEFAULT NULL,
   `doctor_appthistory` varchar(500) DEFAULT NULL,
   `doctor_tapptlist` varchar(500) DEFAULT NULL,
-  `doctor_tappthistory` varchar(500) DEFAULT NULL,
-  `doctor_coord` varchar(100) DEFAULT NULL
+  `doctor_tappthistory` varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
