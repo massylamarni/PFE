@@ -112,7 +112,7 @@ if ($result->num_rows == 1) {
 }
 } else {
         // User is not found in either table
-         $error_message = "Invalid email or password";
+        $error_message = "Invalid email or password";
 	
     }
 }
@@ -124,24 +124,23 @@ $conn->close();
 ?>
 
 
-<div class="std_container">
+<div class="simple_container">
 	<div class="auth">
 		<form id="auth_form" action="" method="POST">
-			<p id="remplirchaux" class="hidden">Veuillez remplir tous les champs</p>
+			<a href="patient_index.php" class="auth_logo"><img src="assets/logo.svg"></a>
 			<?php if (!empty($error_message)): ?>
-				<div class="errormessage"><?php echo $error_message; ?></div>
+				<div class="auth_error_message"><?php echo $error_message; ?></div>
 			<?php endif; ?>
 			<div class="auth_form_field">
 				<label>Email</label>
-				<input type="email" name="email" required="" id="email"/>
+				<input type="email" name="email" required=""/>
 			</div>
 			<div class="auth_form_field">
 				<label>Mot passe</label>
-				<input type="password" name="password" required="" id="motsdepasse"/>
+				<input type="password" name="password" required=""/>
 			</div>
 			<div class="auth_form_captcha"></div>
-			<input class="auth_form_submit" type="submit" value="Se connecter" onclick="chauxvide(event)">
-			
+			<input class="auth_form_submit" type="submit" value="Se connecter">
 		</form>
 		<div class="auth_ask">Vous n'avez pas de compte ? <a href="patient_signup.php">S'inscrire</a></div>
 	</div>

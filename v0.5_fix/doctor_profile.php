@@ -20,87 +20,74 @@ if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='doctor') {
 
 $pf_img = "assets/pfp2.png";  ?>
 
-<div class="std_container">
+<div class="simple_container">
 	<div class="ep_container">
 
 	<h3>Mon profile</h3>
 
 <form class="ep_form" >
 <div class="pf" >
-	<div class="flex flexstart spacebetween">
-		<div class="pf_header mbl">
-			<img src="<?php echo $pf_img ?>">
-			<div class="pf_header_text">
-			<div class="pf_header_text_name"><label><?php echo $_SESSION["name"] ?></label></div>
-				<div class="pf_header_text_speciality">
-					<label><?php echo $_SESSION["speciality"] ?></label>
-				</div>
+	<div class="pf_header">
+		<img src="<?php echo $pf_img ?>">
+		<div class="pf_header_text">
+		<div class="pf_header_text_name"><label><?php echo $_SESSION["name"] ?></label></div>
+			<div class="pf_header_text_speciality">
+				<label><?php echo $_SESSION["speciality"] ?></label>
 			</div>
 		</div>
-		<a href="doctor_editprofile.php" class="btnprimary" >Modifier</a>
 	</div>
 	<div class="pf_body">
 		<div class="pf_body_field"><h3>Description</h3>
-			<pre><label><?php echo !empty($_SESSION["description"]) ? $_SESSION["description"] : "- -"; ?></label></pre>
+			<pre><label><?php if(isset($_SESSION["description"])){ echo $_SESSION["description"]; }?></label></pre>
 		</div>
-		<div class="pf_body_field"><h3>Numero telephone</h3><label><?php echo !empty($_SESSION["phone"]) ? $_SESSION["phone"] : "- -"; ?></label></div>
-		<div class="pf_body_field"><h3>Adresse</h3><label><?php echo !empty($_SESSION["location"]) ? $_SESSION["location"] : "- -"; ?></label></div>
-		<div class="pf_body_field"><h3>Date Naissance</h3><label><?php echo !empty($_SESSION["bday"]) ? $_SESSION["bday"] : "- -"; ?></label> </div>
+		<div class="pf_body_field"><h3>Numero telephone</h3><label><?php echo $_SESSION["phone"] ?></label></div>
+		<div class="pf_body_field"><h3>Adresse</h3><label><?php if (isset($_SESSION["location"])){ echo $_SESSION["location"]; } ?></label></div>
+		<div class="pf_body_field"><h3>Date Naissance</h3><label><?php echo $_SESSION["bday"] ?></label> </div>
 		<div class="pf_body_field"><h3>Horaires de travail</h3>
 		<?php if (isset($_SESSION["worktime"])) { 
 			if (is_string($_SESSION["worktime"])) {
 				$worktimes =json_decode($_SESSION["worktime"]) ;
 			} else {$worktimes = $_SESSION["worktime"]; }?>
-			<ul class="flex flexcol teng">
-				<li>Dim: <label><?php echo $worktimes[0][0] ?></label> - <label><?php echo $worktimes[0][1] ?></label></li>
-				<li>Lun: <label><?php echo $worktimes[1][0] ?></label> - <label><?php echo $worktimes[1][1] ?></label></li>
-				<li>Mar: <label><?php echo $worktimes[2][0] ?></label> - <label><?php echo $worktimes[2][1] ?></label></li>
-				<li>Mer: <label><?php echo $worktimes[3][0] ?></label> - <label><?php echo $worktimes[3][1] ?></label></li>
-				<li>Jeu: <label><?php echo $worktimes[4][0] ?></label> - <label><?php echo $worktimes[4][1] ?></label></li>
-				<li>Ven: <label><?php echo $worktimes[5][0] ?></label> - <label><?php echo $worktimes[5][1] ?></label></li>
-				<li>Sam: <label><?php echo $worktimes[6][0] ?></label> - <label><?php echo $worktimes[6][1] ?></label></li>
+			<pre>
+				Dim:<label><?php echo $worktimes[0][0] ?></label> - <label><?php echo $worktimes[0][1] ?></label>
+				Lun:<label><?php echo $worktimes[1][0] ?></label> - <label><?php echo $worktimes[1][1] ?></label>
+				Mar:<label><?php echo $worktimes[2][0] ?></label> - <label><?php echo $worktimes[2][1] ?></label>
+				Mer:<label><?php echo $worktimes[3][0] ?></label> - <label><?php echo $worktimes[3][1] ?></label>
+				Jeu:<label><?php echo $worktimes[4][0] ?></label> - <label><?php echo $worktimes[4][1] ?></label>
+				Ven:<label><?php echo $worktimes[5][0] ?></label> - <label><?php echo $worktimes[5][1] ?></label>
+				Sam:<label><?php echo $worktimes[6][0] ?></label> - <label><?php echo $worktimes[6][1] ?></label>
 			<?php  }  ?>
-			</ul>
+			</pre>
 		</div>
 		
 		<div class="pf_body_field"><h3>Tarifs</h3>
-		<?php if (empty($_SESSION["pricing"])){ echo "- -";}; ?>
-		
-		<ul>
+		<pre>
 		<?php if (isset($_SESSION["pricing"])) { 
 			if (is_string($_SESSION["pricing"])) {$_SESSION["pricing"]=json_decode($_SESSION["pricing"]);}
 			foreach ($_SESSION["pricing"] as $pricing) {  ?>
-				<li class=" fiveg" style="margin-bottom: 10px">
-					<label> <?php echo $pricing[0] ?></label> : <label><?php echo $pricing[1] ?></label>
-				</li>
-		<?php } } ?>
-		</ul>
+<label> <?php echo $pricing[0] ?></label> : <label><?php echo $pricing[1] ?></label>
+        <?php } } ?>
+        </pre>			
 		</div>
 
 		<div class="pf_body_field"><h3>Diplomes & Qualifications</h3>
-		<?php if (empty($_SESSION["dq"])){ echo "- -";}; ?>
-		
-		<ul>
+		<pre>
 		<?php if (isset($_SESSION["dq"])){
 		if (is_string($_SESSION["dq"])) {$_SESSION["dq"]=json_decode($_SESSION["dq"]);}
 		 foreach ($_SESSION["dq"] as $dq) {  ?>
-				<li class=" fiveg" style="margin-bottom: 10px">
-					<label> <?php echo $dq[0] ?></label> : <label><?php echo $dq[1] ?></label>
-				</li>
-		<?php } } ?>
-		</ul>
-			
+<label> <?php echo $dq[0] ?></label> : <label><?php echo $dq[1] ?></label>
+        <?php  } } ?>
+		</pre>	
 		</div>
 
 		<div class="pf_body_field"><h3>Langues parlées</h3>
-		<?php if (empty($_SESSION["language"])){ echo "- -";}; ?>
-		<ul id="prelangue" >
-			<?php if (isset($_SESSION["language"])) {
-			if (is_string($_SESSION["language"])) {$_SESSION["language"]=json_decode($_SESSION["language"]);}
-			 foreach ($_SESSION["language"] as $language) {  ?>
-			<li> <?php echo $language ?></li> 
-			<?php  } } ?>
-		</im>
+		<pre>
+		<?php if (isset($_SESSION["language"])) {
+		if (is_string($_SESSION["language"])) {$_SESSION["language"]=json_decode($_SESSION["language"]);}
+		 foreach ($_SESSION["language"] as $language) {  ?>
+<label> <?php echo $language ?></label> 
+        <?php  } } ?>
+		</pre>
 		</div>
 
 
@@ -110,7 +97,7 @@ $pf_img = "assets/pfp2.png";  ?>
 	<div class="pf_body_field"><h3>Email</h3><label><?php echo $_SESSION["email"] ?></label></div>
 	</div>
 </div>
-
+<a href="doctor_editprofile.php"><button type="button">Modifier</button></a>
 </form>
 	</div>
 </div>

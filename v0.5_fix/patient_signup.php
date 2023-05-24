@@ -70,11 +70,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 }
 ?>
 
-<div class="std_container">
+<div class="simple_container">
 	<div class="auth">
 		<form id="auth_form" action="" method="POST">
-		<?php if (!empty($error_message)): ?>
-				<div class="errormessage"><?php echo $error_message; ?></div>
+			<a href="patient_index.php" class="auth_logo"><img src="assets/logo.svg"></a>
+			<?php if (!empty($error_message)): ?>
+				<div class="auth_error_message"><?php echo $error_message; ?></div>
 			<?php endif; ?>
 			<div class="auth_form_field">
 				<label>Nom complet</label>
@@ -82,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 			</div>
 			<div class="auth_form_field">
 				<label>Email</label>
-				<input type="text" name="email" required="">
+				<input type="email" name="email" required="">
 			</div>
 			<div class="auth_form_field">
 				<label>Mot passe</label>
@@ -90,7 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 			</div>
 			<div class="auth_form_field">
 				<label>Numero telephone</label>
-				<input type="text" name="phone" required="">
+				<input type="tel" pattern="([0-9]{9})|([0-9]{10})" name="phone" required="">
 			</div>
 			<div class="auth_form_field">
 				<label>Date de naissance</label>

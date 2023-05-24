@@ -22,10 +22,10 @@ $conn = mysqli_connect('localhost', 'root', '', 'Client');
 include("components/navbar.php");
 ?>
 
-<div class="std_containerI">
-	<div class="main" >
-		<div class="list cardlist">
-			<div class="list_title cardheader"><h3>Rendez-vous en cours</h3></div>
+<div class="std_container">
+	<div class="main">
+		<div class="list">
+			<div class="list_title"><h3>Rendez-vous en cours</h3></div>
 
 				<?php
 				$patient_id = $_SESSION["id"];
@@ -138,8 +138,8 @@ include("components/navbar.php");
 
 			<div class="apptlist_null"><?php if ($null_patient_apptlist) echo "Pas de rendez-vous en cours !"; ?></div>
 		</div>
-		<div class="list cardlist">
-			<div class="list_title cardheader"><h3>Historique des Rendez-vous</h3></div>
+		<div class="list">
+			<div class="list_title"><h3>Historique des Rendez-vous</h3></div>
 
 				<?php
 				//get patient_appthistory
