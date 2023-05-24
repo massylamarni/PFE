@@ -4,10 +4,10 @@ IDIR:
 -Faire fonctionner la fonction "Motif de consultation" pour les composants "aptlist.php" (lecture), "apthistory.php" (lecture), "bookform.php" (saisie), "doctor_aptlist_blank.php" (saisie).
 -Creer un menu profile contenant: Gerer Compte, Logout.
 -Permettre au patient de reserver que sur les dates permise (inclue dans l'horaire du medecin && disponible ).
+-verifier le type d'informations entré dans les champs de saisie (prevenir les erreurs & XSS)
 
 YASSIN:
 -Completer la partie Google Map.
-
 
 RESTE:
 -CSS + responsivité.
