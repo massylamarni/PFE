@@ -5,7 +5,6 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="index.css">
-	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 	<title>Visuals</title>
 </head>
 <body>
@@ -26,20 +25,20 @@ if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='doctor'){
 	  header("Location: patient_index.php");
 	  exit();
 	}  
-	
+
+$conn = mysqli_connect('localhost','root','','Client');
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 	$email=$_POST['email'];
 	$password=$_POST['password'];
 
-	//verification recaptcha
-	include("components/recaptcha.php");
-
   if ($email && $password ){
 
-	$conn = mysqli_connect('localhost','root','','Client');
 	if($conn->connect_error){
 		echo "$conn->connect_error";
-		die("Connection Failed : " .$conn->connect_error);  } 
+		die("Connection Failed : " .$conn->connect_error);
+
+	} else {
 
 // Check if user exists in the patient table
 $stmt = $conn->prepare("SELECT * FROM patient WHERE patient_email = ?");
@@ -70,8 +69,6 @@ if ($result->num_rows == 1) {
     $stmt->close();
     $conn->close();
     exit();
-}else{
-	echo 'password incorrect'; //ajouter un message indiquant 'Password incorrect'
 }
 } else {
 
@@ -112,40 +109,39 @@ if ($result->num_rows == 1) {
 	$stmt->close();
     $conn->close();
 	exit();
-}else{
-	echo 'password incorrect'; //ajouter un message indiquant 'Password incorrect'
 }
 } else {
         // User is not found in either table
-        echo "Invalid email or password"; //ajouter un message indiquant 'Invalid email or password'
+         $error_message = "Invalid email or password";
 	
     }
 }
 $stmt->close();
 $conn->close();
-
 }
 }
-
+}
 ?>
 
 
 <div class="std_container">
 	<div class="auth">
 		<form id="auth_form" action="" method="POST">
+			<p id="remplirchaux" class="hidden">Veuillez remplir tous les champs</p>
+			<?php if (!empty($error_message)): ?>
+				<div class="errormessage"><?php echo $error_message; ?></div>
+			<?php endif; ?>
 			<div class="auth_form_field">
 				<label>Email</label>
-				<input type="email" name="email" id="email"/><p id="veremail">votre email est incorecte !!!</p>
+				<input type="email" name="email" required="" id="email"/>
 			</div>
 			<div class="auth_form_field">
 				<label>Mot passe</label>
-				<input type="password" name="password" id="motsdepasse"/><p id="vermotsdepasse">mots de passe incorecte !!!</p>
+				<input type="password" name="password" required="" id="motsdepasse"/>
 			</div>
-			<div class="auth_form_captcha">
-			<div class="g-recaptcha" data-sitekey="6Leb4AwmAAAAAGtDIsFtXS_3acjas4bivZ2TSxky"></div>
-			</div>
+			<div class="auth_form_captcha"></div>
 			<input class="auth_form_submit" type="submit" value="Se connecter" onclick="chauxvide(event)">
-			<p id="remplirchaux" class="hidden">viuellez remplir tout les chaux </p>
+			
 		</form>
 		<div class="auth_ask">Vous n'avez pas de compte ? <a href="patient_signup.php">S'inscrire</a></div>
 	</div>

@@ -9,23 +9,26 @@
 </head>
 <body>
 <?php 
-if(!isset($_SESSION)){session_start();}
+ini_set('display_errors', 1);
+if (!isset($_SESSION)){session_start();}
 
-if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='doctor'){
+if (isset($_SESSION["usertype"]) && ($_SESSION["usertype"]=='doctor'))
+{
 
 	header("Location: doctor_index.php");
 	exit();
 	
-	}elseif(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='patient'){
+}
+elseif ((isset($_SESSION["usertype"])) && ($_SESSION["usertype"]=='patient'))
+{
 	
-	  header("Location: patient_index.php");
-	  exit();
-	}  
-
+	header("Location: patient_index.php");
+	exit();
+}
 include("components/navbar.php"); ?>
 
 <div class="std_containerI">
-    <h1>BLANK</h1>
+	<h1>BLANK</h1>
 </div>
 <script src="index.js"></script>
 </body>

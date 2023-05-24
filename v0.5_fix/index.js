@@ -11,6 +11,7 @@ var last_pfp_id = 0;			//showprofile
 var formnum = 0;				//bookform
 
 /* APTLIST & RESULTLIST */
+/*
 function showprofile()
 {
 	let list_el = document.getElementsByClassName("list_el");
@@ -43,6 +44,7 @@ function showprofile()
 		});
 	}
 }
+*/
 
 /* BOOKFORM */
 function bookform(op, doctor_id)
@@ -164,7 +166,7 @@ function addto_apptlist(op, el)
 function add_pricing()
 {	
 	let pretarif = document.getElementById('pretarif');
-	adjhtml = '<div class="tarif_el"><textarea class="txtarea tarif_el_service"></textarea><textarea class="txtarea tarif_el_price"></textarea></div>';
+	adjhtml = '<div class="tarif_el flex fiveg"> <input placeholder="Sevice" class="txtarea tarif_el_service"></input> <input placeholder="Prix" class="txtarea tarif_el_price"></input></div>';
 	pretarif.insertAdjacentHTML('beforeend', adjhtml);
 }
 
@@ -172,7 +174,7 @@ function add_pricing()
 function add_dq()
 {
 	let prediplome = document.getElementById('prediplome');
-	adjhtml = '<div class="dq_el"><textarea class="txtarea dq_el_date"></textarea><textarea class="txtarea dq_el_event"></textarea></div>';
+	adjhtml = '<div class="dq_el flex flex fiveg"><input class="txtarea dq_el_date"></input><input class="txtarea dq_el_event"></input></div>';
 	prediplome.insertAdjacentHTML('beforeend', adjhtml);
 }
 
@@ -180,7 +182,7 @@ function add_dq()
 function add_language()
 {
 	let prelangue = document.getElementById('prelangue');
-	adjhtml = '<textarea class="txtarea language_el"></textarea>';
+	adjhtml = '<input class="txtarea language_el"></input>';
 	prelangue.insertAdjacentHTML('beforeend', adjhtml);
 }
 
@@ -243,12 +245,6 @@ function getinput_doctor_editprofile()
 	console.log(save_language);
 	document.getElementById('languages_input').value = save_language;
 
-	//google map coord 
-	previousClickedLocation = JSON.stringify( previousClickedLocation);
-	console.log(previousClickedLocation);
-	document.getElementById('map_coord').value =  previousClickedLocation;
-
-
 	document.getElementById('editprofile').submit();
 }
 
@@ -274,10 +270,8 @@ function profile(){
   divprofile.classList.toggle('hidden');
   divprofile.classList.toggle('profile');
 }
-function inscription(){
-	let divinscription=document.getElementById('divinscription');
-	divinscription.classList.toggle('hidden');
-	divinscription.classList.toggle('inscription');
+function toggle_signup(){
+	document.getElementById("toggle_signup").classList.toggle('hidden');
 }
 
 //photo de profile
@@ -298,4 +292,13 @@ function chauxvide(event){
 }
 
 
+// JavaScript to handle menu toggle
+const menuToggle = document.getElementById('menuToggle');
+const navbarMenu = document.querySelector('.navbar_menu');
+const navbar = document.querySelector('.navbar');
+
+menuToggle.addEventListener('click', () => {
+  navbarMenu.classList.toggle('show');
+  navbar.classList.toggle('show');
+});
 

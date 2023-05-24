@@ -168,15 +168,9 @@ $pf_img = "assets/pfp2.png";
 		$_SESSION["dq"] = json_decode($db_dq);
 		$_SESSION["pricing"] = json_decode($db_pricing);
 		$_SESSION["worktime"]=$worktimes;
-
-		
-		$db_coord=$_POST["coord"];
-
-		$stmt = $conn->prepare("UPDATE doctor SET doctor_coord = ? WHERE doctor_id = ?");
-		$stmt->bind_param("si",  $db_coord, $_SESSION["id"]);
-		$stmt->execute();
-	
-
+			
+			
+	    	
 
 		header("Location: doctor_profile.php");
 		exit();              
@@ -191,76 +185,139 @@ $pf_img = "assets/pfp2.png";
 
 <form class="ep_form" action="" method="POST" onsubmit="event.preventDefault(); getinput_doctor_editprofile()" id="editprofile">
 <div class="pf" >
+	<div class="flex flexstart spacebetween hdr">
 	<div class="pf_header">
-		<img src="<?php echo $pf_img ?>">
+	
+		<div class="flex jsend flexcol">
+			
+			<div class="file-input abpos">
+			  <input type="file" id="photodeprofile" class="file-input__input" />
+			  <label for="photodeprofile" class="file-input__label">
+				<?xml version="1.0" encoding="utf-8"?> <!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  --> <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 261 222" enable-background="new 0 0 261 222" xml:space="preserve"> <g id="XMLID_2_"> <path id="XMLID_9_" fill="#010101" d="M254.2,54.7c0-8.2-5.3-13.4-13.4-13.4c-17.8,0-35.6,0-53.5,0c-1.3,0-1.9-0.3-2.4-1.6 c-3.7-9.4-7.5-18.8-11.2-28.2c-0.4-1-0.8-1.4-2-1.4c-28.2,0-56.3,0-84.5,0c-1.1,0-1.6,0.4-2,1.4c-3.7,9.5-7.5,18.9-11.3,28.4 c-0.4,1.1-1,1.5-2.2,1.5c-18,0-36,0-54.1,0c-2.1,0-4.2,0.4-6.1,1.4c-4.7,2.6-6.9,6.6-6.9,12c0,49.3,0,98.7,0,148c0,0.5,0,1,0,1.5 c0.1,2.6,1,4.9,2.6,7c2.8,3.5,6.4,4.8,10.8,4.8c37.1,0,74.2,0,111.2,0c37,0,73.9,0,110.9,0c1.4,0,2.8,0,4.1-0.3 c6.1-1.4,9.8-6.3,9.8-13C254.2,153.3,254.2,104,254.2,54.7z M191.5,130.3c-0.8,34-29.3,61.4-63.6,60.8c-34.3-0.6-61.6-29.1-61-63.7 c0.6-34.4,29-61.7,63.6-61.1C164.8,67,192.3,95.7,191.5,130.3z"/> <path id="XMLID_10_" fill="#010101" d="M129.9,97.5c-17.4,0-31.4,13.9-31.4,31.2c0,17.1,14,31.1,31.1,31.2 c17.2,0,31.3-13.9,31.3-31.1C161,111.6,147,97.5,129.9,97.5z"/> </g> <g id="XMLID_58_"> </g> <g id="XMLID_59_"> </g> <g id="XMLID_60_"> </g> <g id="XMLID_61_"> </g> <g id="XMLID_62_"> </g> <g id="XMLID_63_"> </g> </svg>
+				Modifier
+			  </label>
+			</div>
+			<img src="<?php echo $pf_img ?>">
+		</div>
+			
+			
 		<div class="pf_header_text">
-		<div class="pf_header_text_name"><input class="txtarea" type="text" value="<?php echo $_SESSION["name"] ?>" name="name" autocomplete="off"/></div>
+		<div class="pf_header_text_name flex flexcol fiveg">
+			<Label for="name" class="lbl">Nom complet</label>
+			<input type="text" class="inpt" value="<?php echo $_SESSION["name"] ?>" name="name" autocomplete="off"/>
+		</div>
 		<div>
-			<p>modifie la photo de profile</p>
-			<input type="file" id="photodeprofile">
+
+			
+
 
 	    </div>
-			<div class="pf_header_text_speciality">
-				<input class="txtarea" type="text" value="<?php echo $_SESSION["speciality"] ?>" name="speciality" autocomplete="off"/>
+			<div class="pf_header_text_speciality flex flexcol fiveg">
+				<Label for="name" class="lbl">Spécialité</label>
+				<input class="inpt" type="text" value="<?php echo $_SESSION["speciality"] ?>" name="speciality" autocomplete="off"/>
 			</div>
 		</div>
 	</div>
+	
+	
+	
+		
+		<button type="submit" class="btnprimary" >Enregistrer</button>
+	</div>
+	
+	
 	<div class="pf_body">
-		<div class="pf_body_field"><h3>Description</h3>
-			<pre><textarea class="txtarea" name="description"><?php if(isset($_SESSION["description"])) { echo $old_description;  } ?></textarea></pre>
+		<div class="pf_body_field">
+			<h3>Description</h3>
+			<textarea class="txtar" name="description"><?php if(isset($_SESSION["description"])) { echo $old_description;  } ?></textarea>
 		</div>
 		<div class="pf_body_field"><h3>Numero telephone</h3><input class="txtarea" type="text" value="<?php echo $_SESSION["phone"] ?>" name="phone"  autocomplete="off"/></div>
-		<div class="pf_body_field"><h3>Adresse</h3><textarea class="txtarea" name="location"><?php if (isset($_SESSION["location"])){ echo $old_location; } ?></textarea></div>
-		
-		
-		<div class="list_map"><?php include("components/gps.php") ?> </div>
-		<input type="hidden" id="map_coord" name="coord" value="">
-		
+		<div class="pf_body_field"><h3>Adresse</h3><textarea class="txtar" name="location"><?php if (isset($_SESSION["location"])){ echo $old_location; } ?></textarea></div>
 		<div class="pf_body_field"><h3>Date Naissance</h3><input type="date" name="bday"></div>
-		<div class="pf_body_field"><h3>Horaires de travail</h3>
-			<pre>
-				Dim:<textarea class="txtarea" name="Dimmatin"><?php  echo $worktimes[0][0]?></textarea> - <textarea class="txtarea" name="Dimsoir"><?php  echo $worktimes[0][1]?></textarea>	
-				Lun:<textarea class="txtarea" name="Lunmatin"><?php  echo $worktimes[1][0] ?></textarea> - <textarea class="txtarea" name="Lunsoir"><?php echo $worktimes[1][1] ?></textarea>
-				Mar:<textarea class="txtarea" name="Marmatin"><?php  echo $worktimes[2][0] ?></textarea> - <textarea class="txtarea" name="Marsoir"><?php echo $worktimes[2][1] ?></textarea>
-				Mer:<textarea class="txtarea" name="Mermatin"><?php  echo $worktimes[3][0] ?></textarea> - <textarea class="txtarea" name="Mersoir"><?php echo $worktimes[3][1]?></textarea>
-				Jeu:<textarea class="txtarea" name="Jeumatin"><?php  echo $worktimes[4][0] ?></textarea> - <textarea class="txtarea" name="Jeusoir"><?php echo $worktimes[4][1] ?></textarea>
-				Ven:<textarea class="txtarea" name="Venmatin"><?php  echo $worktimes[5][0] ?></textarea> - <textarea class="txtarea" name="Vensoir"><?php echo $worktimes[5][1] ?></textarea>
-				Sam:<textarea class="txtarea" name="Sammatin"><?php  echo $worktimes[6][0] ?></textarea> - <textarea class="txtarea" name="Samsoir"><?php echo $worktimes[6][1] ?></textarea>
+		<div class="pf_body_field flex flexcol twentg">
+			<div class="flex flexcol teng">
+				<h3>Horaires de travail</h3>
+				<div class="flex flexcenter teng horr">Dim:<input type="text" value="<?php  echo $worktimes[0][0]?>" name="Dimmatin"></input> - <input type="text" name="Dimsoir" value="<?php  echo $worktimes[0][1]?>"></input></div>
+				<div class="flex flexcenter teng horr">Lun:<input type="text" name="Lunmatin" value="<?php  echo $worktimes[1][0] ?>"></input> - <input type="text" name="Lunsoir" value="<?php echo $worktimes[1][1] ?>"></input></div>
+				<div class="flex flexcenter teng horr">Mar:<input type="text" name="Marmatin" value="<?php  echo $worktimes[2][0] ?>"></input> - <input type="text" name="Marsoir" value="<?php echo $worktimes[2][1] ?>"></input></div>
+				<div class="flex flexcenter teng horr">Mer:<input type="text" name="Mermatin" value="<?php  echo $worktimes[3][0] ?>"></input> - <input type="text" name="Mersoir" value="<?php echo $worktimes[3][1]?>"></input></div>
+				<div class="flex flexcenter teng horr">Jeu:<input type="text" name="Jeumatin" value="<?php  echo $worktimes[4][0] ?>"></input> - <input type="text" name="Jeusoir" value="<?php echo $worktimes[4][1] ?>"></input></div>
+				<div class="flex flexcenter teng horr">Ven:<input type="text" name="Venmatin" value="<?php  echo $worktimes[5][0] ?>"></input> - <input type="text" name="Vensoir" value="<?php echo $worktimes[5][1] ?>"></input></div>
+				<div class="flex flexcenter teng horr">Sam:<input type="text" name="Sammatin" value="<?php  echo $worktimes[6][0] ?>"></input> - <input type="text" name="Samsoir" value="<?php echo $worktimes[6][1] ?>"></input></div>
 			</pre>
 		</div>
-		<div class="pf_body_field"><h3>Tarifs</h3>
+		<div class="pf_body_field">
+		<div class="flex teng">
+			<h3>Tarifs</h3> 
+			<a class="rdvbutton" onclick="add_pricing()">
+				<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve" fill="#005ebf" width="14"> <g id="XMLID_1_"> <path id="XMLID_3_" fill="#005ebf" d="M18,11.7h-6.8v6.8H8.4v-6.8H1.5V8.9h6.9V2h2.8v6.9H18V11.7z"></path> </g> <g id="XMLID_2_"> </g> <g id="XMLID_5_"> </g> <g id="XMLID_6_"> </g> <g id="XMLID_7_"> </g> <g id="XMLID_8_"> </g> <g id="XMLID_9_"> </g> </svg> 
+				Ajouter
+			</a>
+		</div>
 		<input type="hidden" id="pricing_input" name="pricing" value="">
-			<pre id="pretarif" ><?php if (!empty($pricings)) { foreach ($pricings as $pricing) {  ?>
-<textarea class="tarif_el_service txtarea" rows="1" cols="50"><?php echo $pricing[0] ?> </textarea><textarea class="tarif_el_price txtarea" rows="1" cols="10"><?php echo $pricing[1] ?></textarea>
-			</pre>
+			<div id="pretarif" >
+			<?php if (!empty($pricings)) { foreach ($pricings as $pricing) {  ?>
+				<div class="tarif_el flex fiveg">
+					<input placeholder="Sevice" class="tarif_el_service" value="<?php echo $pricing[0] ?>"> </input>
+					<input placeholder="Prix" class="tarif_el_price" value="<?php echo $pricing[1] ?>"></input>
+				</div>
 			<?php  } } ?>
-			<buton type="button" onclick="add_pricing()">Ajouter</button>
+			</div>
+			
+			
 		</div>
-		<div class="pf_body_field"><h3>Diplomes & Qualifications</h3>
+		<div class="pf_body_field">
+		<div class="flex teng">
+			<h3>Diplomes & Qualifications</h3> 
+			<a class="rdvbutton" onclick="add_dq()">
+				<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve" fill="#005ebf" width="14"> <g id="XMLID_1_"> <path id="XMLID_3_" fill="#005ebf" d="M18,11.7h-6.8v6.8H8.4v-6.8H1.5V8.9h6.9V2h2.8v6.9H18V11.7z"></path> </g> <g id="XMLID_2_"> </g> <g id="XMLID_5_"> </g> <g id="XMLID_6_"> </g> <g id="XMLID_7_"> </g> <g id="XMLID_8_"> </g> <g id="XMLID_9_"> </g> </svg> 
+				Ajouter
+			</a>
+		</div>
 		<input type="hidden" id="dq_input" name="dq" value="">
-			<pre id="prediplome" > <?php if (!empty($dqs)) { foreach ($dqs as $dq) {  ?>
-</textarea><textarea class="dq_el_date txtarea" rows="1" cols="10"><?php echo $dq[0] ?></textarea><textarea class="dq_el_event txtarea" rows="1" cols="50"><?php echo $dq[1] ?> </textarea>
-			</pre>
+		<div id="prediplome" class="flex teng flexcol" > 
+			<?php if (!empty($dqs)) { foreach ($dqs as $dq) {  ?>
+				<div class="dq_el flex flex fiveg">
+					<input class="dq_el_date txtarea" value="<?php echo $dq[0] ?>"></input>
+					<input class="dq_el_event txtarea" value="<?php echo $dq[1] ?>"></input>
+				</div>
 			<?php  } } ?>
-			<button type="button" onclick="add_dq()">Ajouter</button>
+			</div>
 		</div>
-		<div class="pf_body_field"><h3>Langues parlées</h3>
+		<div class="pf_body_field">
+		<div class="flex teng">
+			<h3>Langues parlées</h3> 
+			<a class="rdvbutton" onclick="add_language(0)">
+				<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve" fill="#005ebf" width="14"> <g id="XMLID_1_"> <path id="XMLID_3_" fill="#005ebf" d="M18,11.7h-6.8v6.8H8.4v-6.8H1.5V8.9h6.9V2h2.8v6.9H18V11.7z"></path> </g> <g id="XMLID_2_"> </g> <g id="XMLID_5_"> </g> <g id="XMLID_6_"> </g> <g id="XMLID_7_"> </g> <g id="XMLID_8_"> </g> <g id="XMLID_9_"> </g> </svg> 
+				Ajouter
+			</a>
+		</div>
 		<input type="hidden" id="languages_input" name="languages" value="">
-		<pre id="prelangue" ><?php if (!empty($languages)) { foreach ($languages as $language) {  ?>
-             <textarea class="language_el txtarea"><?php echo $language; ?></textarea>,
-		</pre>
-		<?php   } } ?>
-		<button type="button" onclick="add_language()">Ajouter</button>
+		
+		<div class="flex bsline teng rvsrow flxend">
+		
+			<div id="prelangue" >
+			<?php if (!empty($languages)) { foreach ($languages as $language) {  ?>
+				 <input class="language_el txtarea" value="<?php echo $language; ?>"></input>
+			<?php   } } ?>
+			</div>
+			
+		</div>
+		
 		</div>
 		<div class="pf_body_images"><h3>∮ Images</h3></div>
 	</div>
 	<div>
 	<div class="pf_body_field"><h3>Email</h3><input class="in_text" type="text"value="<?php echo $_SESSION["email"] ?>" name="email" autocomplete="off"/></div>
-	<div class="pf_body_field"><h3>Password</h3><input class="in_text" type="password" placeholder="enter old password" name="old_password" autocomplete="off">
-    <input class="in_text" type="password" placeholder="enter new password" name="new_password" autocomplete="off" ></div>
+	<div class="pf_body_field"><h3>Password</h3>
+		<div class="flex flexcol teng pf_body_field ">
+			<input class="in_text" type="password" placeholder="enter old password" name="old_password" autocomplete="off">
+			<input class="in_text" type="password" placeholder="enter new password" name="new_password" autocomplete="off" >
+		</div>
+	</div>
 	</div>
 </div>
-<input type="submit" value="modifier" id="modifie" >
+
 </form>
 	</div>
 </div>

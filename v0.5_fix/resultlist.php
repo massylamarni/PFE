@@ -21,7 +21,7 @@ include("components/navbar.php");
 	<div class="main">
 		<div class="list">
 			<div class="list_title"><h3>Resultats de recherche</h3></div>
-			<div class="list_map"><?php include("components/gps.php") ?> </div>
+			<div class="list_map"></div>
 
 <?php
 //resultsearch function

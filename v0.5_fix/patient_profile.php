@@ -38,12 +38,19 @@ if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='patient') {
 <h3>Mon profile</h3>
 <form class="ep_form" method="POST">
 <div class="pf" id="<?php echo $_SESSION["id"] ?>">
-	<div class="pf_header">
-		<img src="<?php echo $old_pf_img ?>"/>
-		<div class="pf_header_text">
-    <div class="pf_body_field"><h3>Nom</h3><label><?php echo $_SESSION["name"] ?></label> </div>
+	
+	<div class="flex flexstart spacebetween">
+		<div class="pf_header mbl">
+			<img src="<?php echo $old_pf_img ?>">
+			<div class="pf_header_text">
+			<div class="pf_body_field"><h3>Nom</h3><label><?php echo $_SESSION["name"] ?></label></div>
+			</div>
 		</div>
+		<a href="patient_editprofile.php" class="btnprimary" >Modifier</a>
 	</div>
+	
+	
+	
 	<div class="pf_body">
   <div class="pf_body_field"><h3>Email</h3><label><?php echo $_SESSION["email"] ?></label></div>
 		<div class="pf_body_field"><h3>Date Naissance</h3><label><?php echo $_SESSION["bday"] ?></label></label></div>
@@ -53,7 +60,7 @@ if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='patient') {
   <div class="pf_body_field"><h3>Location</h3><label><?php if (isset($_SESSION["location"])){ echo $old_location; } ?></label></div>
 		
 </div>
-<a href="patient_editprofile.php"><button type="button">Modifier</button></a>
+
 </form>
 </div>
 </div>

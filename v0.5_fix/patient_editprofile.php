@@ -110,12 +110,33 @@ if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='patient') {
 <h3>Gerer Compte</h3>
 <form class="ep_form" method="POST">
 <div class="pf" id="<?php echo $_SESSION["id"] ?>">
+	
+	
+<div class="flex flexstart spacebetween hdr">
 	<div class="pf_header">
-		<img src="<?php echo $old_pf_img ?>"/>
+	
+		<div class="flex jsend flexcol">
+			<img src="<?php echo $old_pf_img ?>">
+		</div>
+			
+			
 		<div class="pf_header_text">
-    <div class="pf_body_field"><h3>Nom</h3><input type="text" value="<?php echo $_SESSION["name"] ?>" name="name" autocomplete="off"/></div>
+		<div class="pf_header_text_name flex flexcol fiveg">
+			<Label for="name" class="lbl">Nom complet</label>
+			<input type="text" class="inpt" value="<?php echo $_SESSION["name"] ?>" name="name" autocomplete="off"/>
+		</div>
+
 		</div>
 	</div>
+	
+	
+	
+		
+		<button type="submit" class="btnprimary" >Enregistrer</button>
+	</div>
+	
+	
+	
 	<div class="pf_body">
   <div class="pf_body_field"><h3>Email</h3><input class="in_text" type="text"value="<?php echo $_SESSION["email"] ?>" name="email" autocomplete="off"/></div>
 		<div class="pf_body_field"><h3>Date Naissance</h3><input type="date" name="bday" value="<?php echo $_SESSION["bday"] ?>"></div>
@@ -123,11 +144,17 @@ if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='patient') {
 	<div>
   <div class="pf_body_field"><h3>Numero telephone</h3><input type="text" value="<?php echo $_SESSION["phone"] ?>" name="phone"  autocomplete="off"/></div>
   <div class="pf_body_field"><h3>Location</h3><input type="text" value="<?php if (isset($_SESSION["location"])){ echo $old_location; } ?>" name="location" autocomplete="off" /></div>
-		<div class="pf_body_field"><h3>Password</h3><input class="in_text" type="password" placeholder="enter old password" name="old_password" autocomplete="off">
-    <input class="in_text" type="password" placeholder="enter new password" name="new_password" autocomplete="off" ></div>
+		
+		
+		<div class="pf_body_field"><h3>Password</h3>
+		<div class="flex flexcol teng pf_body_field ">
+			<input class="in_text" type="password" placeholder="enter old password" name="old_password" autocomplete="off">
+			<input class="in_text" type="password" placeholder="enter new password" name="new_password" autocomplete="off" >
+		</div>
+	</div>
+		
 	</div>
 </div>
-<input type="submit" value="modifier">
 </form>
 </div>
 </div>

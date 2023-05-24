@@ -24,10 +24,16 @@ include("components/navbar.php");
 ?>
 
 <div class="std_containerI">
-	<div class="main">
-		<div class="list">
-			<div class="list_title"><h3>Rendez-vous en cours</h3></div>
-			<button type="button" onclick="addto_apptlist(0)">Ajouter un RDV</button>
+	<div class="main" >
+		<div class="list cardlist">
+			<div class="list_title cardheader">
+				<h3>Rendez-vous en cours</h3>
+				<a class="rdvbutton" onclick="addto_apptlist(0)">
+					<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve" fill="#005ebf" width="14"> <g id="XMLID_1_"> <path id="XMLID_3_" fill="#005ebf" d="M18,11.7h-6.8v6.8H8.4v-6.8H1.5V8.9h6.9V2h2.8v6.9H18V11.7z"></path> </g> <g id="XMLID_2_"> </g> <g id="XMLID_5_"> </g> <g id="XMLID_6_"> </g> <g id="XMLID_7_"> </g> <g id="XMLID_8_"> </g> <g id="XMLID_9_"> </g> </svg> 
+					Ajouter un RDV
+				</a>
+			</div>
+			
 
 				<?php				
 				$doctor_id = $_SESSION["id"];
@@ -283,8 +289,10 @@ include("components/navbar.php");
 
 			<div class="apptlist_null"><?php if ($null_doctor_apptlist && $null_doctor_tapptlist) echo "Pas de rendez-vous en cours !"; ?></div>
 		</div>
-		<div class="list">
-			<div class="list_title"><h3>Historique des Rendez-vous</h3></div>
+		<div class="list cardlist">
+			<div class="list_title cardheader">
+				<h3>Historique des Rendez-vous</h3>
+			</div>
 
 				<?php
 				//get doctor_appthistory

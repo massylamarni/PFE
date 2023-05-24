@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $result = $stmt->get_result();
 
             if ($result->num_rows > 0 ) {
-				echo "email already exists";
+				$error_message = "Email already exists";
 			}else{
 			$password_hashed = password_hash($password, PASSWORD_DEFAULT);
 			$stmt = $conn->prepare("insert into doctor (doctor_name, doctor_email, doctor_password, doctor_phone, doctor_bday, doctor_gender, speciality) values(?, ?, ?, ?, ?, ?, ?)");
@@ -73,44 +73,48 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 <div class="std_container">
 	<div class="auth">
+		
 		<form id="auth_form" action="" method="POST">
+			<?php if (!empty($error_message)): ?>
+				<div class="errormessage"><?php echo $error_message; ?></div>
+			<?php endif; ?>
 			<div class="auth_form_field">
 				<label>Nom complet</label>
-				<input type="text" name="name"/>
+				<input type="text" name="name" required=""/>
 			</div>
 			<div class="auth_form_field">
 				<label>Email</label>
-				<input type="text"name="email">
+				<input type="text"name="email" required="">
 			</div>
 			<div class="auth_form_field">
 				<label>Mot passe</label>
-				<input type="password"name="password">
+				<input type="password"name="password" required="">
 			</div>
 			<div class="auth_form_field">
 				<label>Numero telephone</label>
-				<input type="text"name="phone">
+				<input type="text"name="phone" required="">
 			</div>
 			<div class="auth_form_field">
 				<label>Specialité</label>
-				<input type="text"name="speciality">
+				<input type="text"name="speciality" required="">
 			</div>
 			<div class="auth_form_field">
 				<label>Date de naissance</label>
-				<input class="in_text" type="date" name="bday" >
+				<input class="in_text" type="date" name="bday" required="">
 			</div>
 			<div class="in_radio">
 					<div>
-						<input type="radio" id="r_male" name="gender" value="M">
+						<input type="radio" id="r_male" name="gender" value="M" required="">
 						<label for="r_male">Male</label>
 					</div>
 					<div>
-						<input type="radio" id="r_female" name="gender" value="F">
+						<input type="radio" id="r_female" name="gender" value="F" required="">
 						<label for="r_female">Female</label>
 					</div>
 				</div>
 
 			<div class="auth_form_captcha"></div>
-			<input class="auth_form_submit" type="submit" value="S'inscrire">
+			<button class="auth_form_submit" type="submit">S'inscrire</button>
 			<div class="auth_form_tos">By clicking “Sign up”, you agree to our <a href="#">terms of service</a>, <a href="#">privacy policy</a> and <a href="#">cookie policy</a></div>
 		</form>
 		<div class="auth_ask">Vous avez deja un compte ? <a href="login.php">Se connecter</a></div>
