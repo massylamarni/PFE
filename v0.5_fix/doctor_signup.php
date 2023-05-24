@@ -71,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 }
 ?>
 
-<div class="std_container">
+<div class="simple_container">
 	<div class="auth">
 		<form id="auth_form" action="" method="POST">
 			<div class="auth_form_field">

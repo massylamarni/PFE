@@ -178,7 +178,7 @@ $pf_img = "assets/pfp2.png";
 
 	?>
 
-<div class="std_container">
+<div class="simple_container">
 	<div class="ep_container">
 
 	<h3>Gerer Compte</h3>

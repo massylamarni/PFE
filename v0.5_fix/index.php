@@ -24,7 +24,7 @@ if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='doctor'){
 
 include("components/navbar.php"); ?>
 
-<div class="std_containerI">
+<div class="std_container">
     <h1>BLANK</h1>
 </div>
 <script src="index.js"></script>

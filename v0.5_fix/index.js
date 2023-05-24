@@ -285,14 +285,3 @@ function toggle_signup(){
 let urlimage=URL.createObjectURL(photodeprofile.files[0]);
 console.log(urlimage);*/
 
-function chauxvide(event){
-	//event.preventDefault();
-	let motsdepasse=document.getElementById('motsdepasse');
-	let email=document.getElementById('email');
-	let remplir=document.getElementById('remplirchaux');
-	if(motsdepasse.value.trim().length==0 || email.value.trim().length==0){
-		remplir.classList.remove('hidden')
-		remplir.classList.add('remplirtoutleschaux');
-
-	}
-}

@@ -20,7 +20,7 @@ if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='doctor') {
 
 $pf_img = "assets/pfp2.png";  ?>
 
-<div class="std_container">
+<div class="simple_container">
 	<div class="ep_container">
 
 	<h3>Mon profile</h3>
