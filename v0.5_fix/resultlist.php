@@ -21,7 +21,6 @@ include("components/navbar.php");
 	<div class="main">
 		<div class="list">
 			<div class="list_title"><h3>Resultats de recherche</h3></div>
-			<div class="list_map"><?php include("components/gps.php") ?></div>
 
 <?php
 //resultsearch function
@@ -73,7 +72,9 @@ if($location && $speciality){
 	
 	if ($appt_searchresult == null) $null_appt_searchresult = true; else $null_appt_searchresult = false;
 	if (!$null_appt_searchresult)
-	{
+	{ ?>
+		<div class="list_map"><?php include("components/gps.php") ?></div>
+<?php
 		for ($i = 0; $i < count($appt_searchresult); $i++)
 		{
 			$doctor_id=$appt_searchresult[$i];

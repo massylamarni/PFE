@@ -110,24 +110,58 @@ if (!isset($row["doctor_coord"])){ ?>
 <?php } elseif( $location =="resultlist.php") {   
 
 
-    $stmt = $conn->prepare("SELECT doctor_coord, doctor_name FROM doctor WHERE doctor_id = ?");
-    $stmt->bind_param("i", $_SESSION['id']);
+for ($i = 0; $i < count($appt_searchresult); $i++)
+{
+  $doctor_id=$appt_searchresult[$i];
+  
+    $stmt = $conn->prepare("SELECT doctor_coord, doctor_name, speciality FROM doctor WHERE doctor_id = ?");
+    $stmt->bind_param("i", $doctor_id);
     $stmt->execute();
     $result = $stmt->get_result();
 	  $row = $result->fetch_assoc(); 
-  
 
-    if (isset($row["doctor_coord"])){ ?>
+    if (isset($row["doctor_coord"])){ 
 
+   if (!isset($_SESSION)){ session_start();  }
+   if (isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='patient') { ?>
+
+ var doctorinfo =  '<div class="pf_header_text_name"><?php echo $row["doctor_name"]; ?></div>' +
+  '<div class="pf_header_text_speciality"><?php echo $row["speciality"]; ?></div>'+
+
+  '<a href="#" onclick="bookform(0, <?php echo $doctor_id; ?>)">'+'<div class="brief_book">'+
+  '<p>Prendre RDV</p>'+
+'</div>'+
+'</a>';
+
+<?php }else{ ?>
+
+  var doctorinfo =  '<div class="pf_header_text_name"><?php echo $row["doctor_name"]; ?></div>' +
+  '<div class="pf_header_text_speciality"><?php echo $row["speciality"]; ?></div>';
+
+<?php } ?>
+
+
+
+    var infowindow<?php echo $i;?> = new google.maps.InfoWindow({
+      content: doctorinfo
+  });
     var doctorlocation = JSON.parse('<?php echo $row["doctor_coord"]; ?>') ;
-  
-          var marker = new google.maps.Marker({
+          var marker<?php echo $i;?> = new google.maps.Marker({
             position: doctorlocation,
             map: map,
             title: "<?php echo $row["doctor_name"]; ?>"
           });  
+
+          marker<?php echo $i;?>.addListener("click", () => {
+          infowindow<?php echo $i;?>.open({
+          anchor: marker<?php echo $i;?>,
+          map,
+    });
+  });
+
 <?php  } 
-    }
+   }  
+}
 ?>
 
         });
