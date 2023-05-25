@@ -298,14 +298,8 @@ function verifyRecaptcha() {
 	}
   }
   
-function inputmotif(){
-let inputmotif=document.getElementById('inputmotif');
-let motifdeconsultation=document.getElementById('idmotif')
+  function inputmotif(){
+	let idmotif=document.getElementById('idmotif');
+	idmotif.insertAdjacentHTML('afterend','<div class="brief_motif_in"><div class="triangle-up"></div><div class="motif-ajouterrendezvous"><p>Donnez une breve description de votre motif de consultation:  </p><textarea ></textarea> <button>ok</button></div></div>');
 
-motifdeconsultation.onclick=function(){
-	inputmotif.classList.toggle('hidden');
-	motifdeconsultation.classList.toggle('idmotif2')
-	
-
-}
 }
