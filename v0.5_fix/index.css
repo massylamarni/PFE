@@ -484,6 +484,13 @@ html, body
 	margin: 15px 0px 25px 0px;
 	background-color: #f0f0f0;
 }
+#recaptcha_error_message{
+	
+	color: red; 
+	font-size:10px; 
+	font-family: Arial, sans-serif;
+
+}
 .auth_form_submit
 {
 	border: 1px solid black;

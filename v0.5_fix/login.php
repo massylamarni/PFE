@@ -143,7 +143,9 @@ $conn->close();
 				<input type="password" name="password" required=""/>
 			</div>
 			<div class="auth_form_captcha">
-			<div class="g-recaptcha" data-sitekey="6Leb4AwmAAAAAGtDIsFtXS_3acjas4bivZ2TSxky"></div>
+				<div class="g-recaptcha" data-sitekey="6Leb4AwmAAAAAGtDIsFtXS_3acjas4bivZ2TSxky"></div>
+				<div id="recaptcha_error_message"></div>
+
 			</div>
 			<input class="auth_form_submit" type="submit" value="Se connecter">
 		</form>
