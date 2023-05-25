@@ -667,6 +667,9 @@ p
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	position:absolute;
+	right: 40px;
+	padding: 30px 30px 30px 30px;
 }
 .bookform_title
 {
@@ -764,13 +767,55 @@ p
 	font-size: 13px;
 }
 
-#inputmotif{
-	position:absolute;
+.brief_motif_in{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	position: absolute;
+	top: 210px;
+	background-color: #F9F9F9;
+	padding: 30px 30px 30px 30px;
+	border-radius: 5px;
+	
+	margin: auto;
+	
+
+}
+.brief_motif_in p{
+	margin: 0px;
+
+}
+
+.brief_motif_in button{
+	
+	width: 115px;
+
+
+}
+
+.motif-ajouterrendezvous{
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
 	
 }
 
-.idmotif2{
-	position: relative;
-	bottom: 10px;
+.brief_motif_in textarea{
+	width: 100%;
+	margin:5px 0px 5px 0px;
+
 }
 
+.triangle-up{
+	width: 0;
+	height: 0;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-bottom: 17px solid white;
+	position: relative;
+	top:-45px;
+}

@@ -8,8 +8,10 @@
 	</div>
 	<div class="list_el_brief">
 		<div class="brief_datetime_in"><input type="datetime-local" name="appt_date"></div>
-		<div class="brief_motif"><p id="idmotif" onclick="inputmotif()">Motif de consultation</p></div>
-		<input id="inputmotif" class="hidden"type="text">
+		<div class="brief_motif">
+			<p onclick="inputmotif()" id="idmotif">Motif de consultation</p>
+			
+		</div>
 		<input type="hidden" name="appt_motif">
 		<div class="brief_action"><input type="submit" name="PS_apptlist_blank_submit" value="Ajouter"></div>
 		<div class="brief_close"><p onclick="addto_apptlist(1, this)">X</p></div>
