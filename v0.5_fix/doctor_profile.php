@@ -16,9 +16,7 @@ include("components/navbar.php");
 
 if(!isset($_SESSION)){session_start(); }
 
-if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='doctor') {
-
-$pf_img = "assets/pfp2.png";  ?>
+if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='doctor') { ?>
 
 <div class="simple_container">
 	<div class="ep_container">
@@ -28,7 +26,7 @@ $pf_img = "assets/pfp2.png";  ?>
 <form class="ep_form" >
 <div class="pf" >
 	<div class="pf_header">
-		<img src="<?php echo $pf_img ?>">
+		<img src="<?php echo $_SESSION["pf_img"] ?>">
 		<div class="pf_header_text">
 		<div class="pf_header_text_name"><label><?php echo $_SESSION["name"] ?></label></div>
 			<div class="pf_header_text_speciality">

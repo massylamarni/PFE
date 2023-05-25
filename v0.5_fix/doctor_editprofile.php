@@ -59,13 +59,6 @@ $conn = mysqli_connect('localhost', 'root', '', DB_NAME);
 
 //checking for session variables
 
-      if (isset($_SESSION["location"])){
-      $old_location=$_SESSION["location"];
-      }
-
-	if (isset($_SESSION["description"])) {
-		$old_description=$_SESSION["description"] ;
-	}
 	
 	if ($_SERVER["REQUEST_METHOD"] === "POST") {
         
@@ -142,26 +135,31 @@ $conn = mysqli_connect('localhost', 'root', '', DB_NAME);
 		  } 		
 		}
 
-		if(!empty($_FILES["picture"]["name"])){ 
-
-        $currentPicturePath = $_SESSION["pf_img"];
-
-   if (file_exists($currentPicturePath)) {
-           unlink($currentPicturePath);
-		}
-
-		 $doctor_pf_img = $_FILES["picture"]["name"];
-		 $uploadDirectory = "assets/";
-		 $targetFile = $uploadDirectory . basename($doctor_pf_img);
-		 if (move_uploaded_file($_FILES["picture"]["tmp_name"], $targetFile)) {
-
-			 	$newPicturePath = $uploadDirectory . $_FILES["picture"]["name"];
+		if (!empty($_FILES["picture"]["name"])) {
+			$currentPicturePath = $_SESSION["pf_img"];
+		
+			if ($currentPicturePath != "assets/pfp2.png") {
+				if (file_exists($currentPicturePath)) {
+					unlink($currentPicturePath);
+				}
+			}
+		
+			$uploadedFileName = $_FILES["picture"]["name"];
+			$fileExtension = pathinfo($uploadedFileName, PATHINFO_EXTENSION);
+			$newFileName = "pf_img_".$_SESSION["id"]."." . $fileExtension;
+		
+			$uploadDirectory = "assets/doctor_pf_img/";
+			$targetFile = $uploadDirectory . basename($newFileName);
+		
+			if (move_uploaded_file($_FILES["picture"]["tmp_name"], $targetFile)) {
+				$newPicturePath = $uploadDirectory . $newFileName;
 				$stmt = $conn->prepare("UPDATE doctor SET doctor_pf_img = ? WHERE doctor_id = ?");
 				$stmt->bind_param("si", $newPicturePath, $_SESSION["id"]);
 				$stmt->execute();
 				$_SESSION["pf_img"] = $newPicturePath;
-			   }
+			}
 		}
+		
 
 
 
@@ -220,10 +218,10 @@ $conn = mysqli_connect('localhost', 'root', '', DB_NAME);
 	</div>
 	<div class="pf_body">
 		<div class="pf_body_field"><h3>Description</h3>
-			<pre><textarea class="txtarea" name="description"><?php if(isset($_SESSION["description"])) { echo $old_description;  } ?></textarea></pre>
+			<pre><textarea class="txtarea" name="description"><?php if(isset($_SESSION["description"])) { echo $_SESSION["description"];  } ?></textarea></pre>
 		</div>
 		<div class="pf_body_field"><h3>Numero telephone</h3><input class="txtarea" type="text" value="<?php echo $_SESSION["phone"] ?>" name="phone"  autocomplete="off"/></div>
-		<div class="pf_body_field"><h3>Adresse</h3><textarea class="txtarea" name="location"><?php if (isset($_SESSION["location"])){ echo $old_location; } ?></textarea></div>
+		<div class="pf_body_field"><h3>Adresse</h3><textarea class="txtarea" name="location"><?php if (isset($_SESSION["location"])){ echo $_SESSION["location"]; } ?></textarea></div>
 		<div class="list_map"><?php include("components/gps.php") ?> </div>
 		<input type="hidden" id="map_coord" name="coord" value="">
 		<div class="pf_body_field"><h3>Date Naissance</h3><input type="date" name="bday"></div>

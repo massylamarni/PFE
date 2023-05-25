@@ -29,11 +29,6 @@ if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='patient') {
       if (isset($_SESSION["location"])){
       $old_location=$_SESSION["location"];
       }
-      /*if (isset($_SESSION["pf_img"])){
-      $old_pf_img = $_SESSION["pf_img"];
-      }*/
-		  $old_pf_img = "assets/pfp2.png";
-      
 
       if ($_SERVER["REQUEST_METHOD"] === "POST") {
         
@@ -92,9 +87,34 @@ if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='patient') {
                 $stmt->bind_param("si",$password_hashed , $_SESSION["id"]);
                 $stmt->execute();
                 $_SESSION["password"]=$password_hashed;
-        } 
-      
+        }   
       }
+
+      if (!empty($_FILES["picture"]["name"])) {
+        $currentPicturePath = $_SESSION["pf_img"];
+      
+        if ($currentPicturePath != "assets/pfp2.png") {
+          if (file_exists($currentPicturePath)) {
+            unlink($currentPicturePath);
+          }
+        }
+      
+        $uploadedFileName = $_FILES["picture"]["name"];
+        $fileExtension = pathinfo($uploadedFileName, PATHINFO_EXTENSION);
+        $newFileName = "pf_img_".$_SESSION["id"]."." . $fileExtension;
+      
+        $uploadDirectory = "assets/patient_pf_img/";
+        $targetFile = $uploadDirectory . basename($newFileName);
+      
+        if (move_uploaded_file($_FILES["picture"]["tmp_name"], $targetFile)) {
+          $newPicturePath = $uploadDirectory . $newFileName;
+          $stmt = $conn->prepare("UPDATE patient SET patient_pf_img = ? WHERE patient_id = ?");
+          $stmt->bind_param("si", $newPicturePath, $_SESSION["id"]);
+          $stmt->execute();
+          $_SESSION["pf_img"] = $newPicturePath;
+        }
+      }
+
          header("Location: patient_profile.php");
          exit();              
 }
@@ -108,13 +128,18 @@ if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='patient') {
 <div class="simple_container">
 	<div class="ep_container">		
 <h3>Gerer Compte</h3>
-<form class="ep_form" method="POST">
+<form class="ep_form" method="POST" enctype="multipart/form-data">
 <div class="pf" id="<?php echo $_SESSION["id"] ?>">
 	<div class="pf_header">
-		<img src="<?php echo $old_pf_img ?>"/>
+		<img src="<?php echo $_SESSION["pf_img"] ?>"/>
 		<div class="pf_header_text">
     <div class="pf_body_field"><h3>Nom</h3><input type="text" value="<?php echo $_SESSION["name"] ?>" name="name" autocomplete="off"/></div>
-		</div>
+		<div>
+			<p>modifie la photo de profile</p>
+			<input type="file" id="profile_picture" name="picture">
+
+	  </div>
+  </div>
 	</div>
 	<div class="pf_body">
   <div class="pf_body_field"><h3>Email</h3><input class="in_text" type="text"value="<?php echo $_SESSION["email"] ?>" name="email" autocomplete="off"/></div>
