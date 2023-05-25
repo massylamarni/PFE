@@ -37,10 +37,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 	$bday=$_POST["bday"];
 	@$gender=$_POST["gender"];
     $speciality=$_POST["speciality"];
+	$pf_img = "assets/pfp2.png";
+	$descrition = "Pas de descritption...";
+	$adresse = "Adresse Inconnue...";
 
 	include("components/recaptcha.php");
 
-	if ($name && $password && $email && $bday && $phone && $gender && $speciality ){
+	if ($name && $password && $email && $bday && $phone && $gender && $speciality && $pf_img){
 
 		$conn = mysqli_connect('localhost', 'root', '', 'Client');
 
@@ -57,8 +60,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 				$error_message = "Email already exists";
 			}else{
 			$password_hashed = password_hash($password, PASSWORD_DEFAULT);
-			$stmt = $conn->prepare("insert into doctor (doctor_name, doctor_email, doctor_password, doctor_phone, doctor_bday, doctor_gender, speciality) values(?, ?, ?, ?, ?, ?, ?)");
-			$stmt->bind_param("sssssss", $name, $email, $password_hashed, $phone, $bday, $gender, $speciality);
+			$stmt = $conn->prepare("insert into doctor (doctor_name, doctor_email, doctor_password, doctor_phone, doctor_bday, doctor_gender, speciality, doctor_pf_img) values(?, ?, ?, ?, ?, ?, ?, ?)");
+			$stmt->bind_param("ssssssss", $name, $email, $password_hashed, $phone, $bday, $gender, $speciality, $pf_img);
 			$stmt->execute();
 		
 			$stmt->close();
