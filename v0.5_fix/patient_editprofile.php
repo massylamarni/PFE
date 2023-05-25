@@ -26,10 +26,7 @@ if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='patient') {
      die("Connection Failed : ". $conn->connect_error);
 	 } 
 
-      if (isset($_SESSION["location"])){
-      $old_location=$_SESSION["location"];
-      }
-
+      
       if ($_SERVER["REQUEST_METHOD"] === "POST") {
         
         $new_name=$_POST["name"];
@@ -131,12 +128,12 @@ if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='patient') {
 <form class="ep_form" method="POST" enctype="multipart/form-data">
 <div class="pf" id="<?php echo $_SESSION["id"] ?>">
 	<div class="pf_header">
-		<img src="<?php echo $_SESSION["pf_img"] ?>"/>
+		<img id="preview" src="<?php echo $_SESSION["pf_img"] ?>"/>
 		<div class="pf_header_text">
     <div class="pf_body_field"><h3>Nom</h3><input type="text" value="<?php echo $_SESSION["name"] ?>" name="name" autocomplete="off"/></div>
 		<div>
 			<p>modifie la photo de profile</p>
-			<input type="file" id="profile_picture" name="picture">
+			<input type="file" id="profile_picture" name="picture" onchange="previewImage(event)" accept="image/*">
 
 	  </div>
   </div>
@@ -147,7 +144,7 @@ if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='patient') {
 	</div>
 	<div>
   <div class="pf_body_field"><h3>Numero telephone</h3><input type="text" value="<?php echo $_SESSION["phone"] ?>" name="phone"  autocomplete="off"/></div>
-  <div class="pf_body_field"><h3>Location</h3><input type="text" value="<?php if (isset($_SESSION["location"])){ echo $old_location; } ?>" name="location" autocomplete="off" /></div>
+  <div class="pf_body_field"><h3>Location</h3><input type="text" value="<?php if (isset($_SESSION["location"])){ echo $_SESSION["location"]; } ?>" name="location" autocomplete="off" /></div>
 		<div class="pf_body_field"><h3>Password</h3><input class="in_text" type="password" placeholder="enter old password" name="old_password" autocomplete="off">
     <input class="in_text" type="password" placeholder="enter new password" name="new_password" autocomplete="off" ></div>
 	</div>

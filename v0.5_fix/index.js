@@ -310,3 +310,17 @@ function verifyRecaptcha() {
 	idmotif.insertAdjacentHTML('afterend','<div class="brief_motif_in"><div class="triangle-up"></div><div class="motif-ajouterrendezvous"><p>Donnez une breve description de votre motif de consultation:  </p><textarea ></textarea> <button>ok</button></div></div>');
 
 }
+
+
+function previewImage(event) {
+	var input = event.target;
+	if (input.files && input.files[0]) {
+	  var reader = new FileReader();
+	  reader.onload = function (e) {
+		var previewElement = document.getElementById("preview");
+		previewElement.src = e.target.result;
+	  }
+	  reader.readAsDataURL(input.files[0]);
+	}
+  }
+  
