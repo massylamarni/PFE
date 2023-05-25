@@ -157,7 +157,7 @@ if($location && $speciality){
 	}
 	}
 ?>
-
+			<div id="toggle_bookform"></div>
 		</div>
 	</div>
 	<div class="secondary">

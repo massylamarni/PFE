@@ -167,7 +167,7 @@ include("components/navbar.php");
 		</div>
 	</div>
 	<div class="secondary">
-		<?php include("components/doctor_profile.php"); ?>
+		<div id="doctor_profile"></div>
 	</div>
 </div>
 

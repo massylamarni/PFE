@@ -13,5 +13,4 @@ RESTE:
 -Page admin + moderateur.
 
 -fixer showprofile().
--donner des valuers par default aux element resultlist, apptlist & appthistory.
 -Date de prise de RDV disponible la plus proche

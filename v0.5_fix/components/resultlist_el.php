@@ -26,16 +26,17 @@ if (!$worktime) $worktime = '[["Non definis...","Non definis..."],["Non definis.
 	<div class="pfp">
 		<img src="<?php echo $doctor_pf_img ?>">
 		<div class="pfp_text">
-			<div class="pfp_text_name"><?php echo $doctor_name ?></div>
-			<div class="pfp_text_id"><?php echo $doctor_id ?></div>
-			<div class="pfp_text_speciality"><?php echo $speciality ?></div>
+			<div class="pfp_text_name"><p><?php echo $doctor_name ?></p></div>
+			<div class="pfp_text_id"><p><?php echo $doctor_id ?></p></div>
+			<div class="pfp_text_speciality"><a href="#"><?php echo $speciality ?></a></div>
 		</div>
 	</div>
 	<div class="list_el_brief">
-		<div class="brief_adress"><?php echo $doctor_location ?></div>
-		<div class="brief_datetime">/</div><!-- Date de prise de RDV disponible la plus proche -->
-		<div class="brief_phone"><?php echo $doctor_phone ?></div>
-		<?php if (isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='patient') {?> <div class="brief_book" onclick="bookform(0, <?php echo $doctor_id?>)"><p>Prendre RDV</p></div>
-	<?php include("components/bookform.php"); } ?>
+		<div class="brief_adress"><p><?php echo $doctor_location ?></p></div>
+		<div class="brief_datetime"><p>/</p></div><!-- Date de prise de RDV disponible la plus proche -->
+		<div class="brief_phone"><p><?php echo $doctor_phone ?></p></div>
+		<?php if (isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='patient') {?> 
+		<div class="brief_book"><p onclick="bookform(0, <?php echo $doctor_id?>)">Prendre RDV</p></div>
+		<?php } ?>
 	</div>
 </div>

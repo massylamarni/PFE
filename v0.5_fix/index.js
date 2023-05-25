@@ -11,14 +11,14 @@ var last_pfp_id = 0;			//showprofile
 var formnum = 0;				//bookform
 
 /* APTLIST & RESULTLIST */
-/*
+
 function showprofile()
 {
 	let list_el = document.getElementsByClassName("list_el");
 	for (let i = 0; i < list_el.length; i++)
 	{
 		list_el[i].addEventListener("click", function(event){
-			if ((event.target.tagName != 'P') && (event.target.tagName != 'A'))
+			if ((event.target.tagName == 'DIV') || (event.target.tagName == 'IMG'))
 			{
 				if ((list_el[i].id == last_pfp_id) && (document.getElementsByClassName("secondary")[0].style.display == "flex"))
 				{
@@ -36,57 +36,64 @@ function showprofile()
 					
 					document.getElementsByClassName("secondary")[0].style.display = "flex";
 				}
-			}
+			}/*
 			else if ((event.target.tagName == 'P'))
 			{
 				console.log("motif: " + list_el[i].getElementsByClassName("motif")[0].innerHTML);
-			}
+			}*/
 		});
 	}
 }
-*/
+
 
 /* BOOKFORM */
 function bookform(op, doctor_id)
 {
-	var bfcs = document.getElementsByClassName("bookform_container");
-	for (let i = 0; i < bfcs.length; i++)
-	{
-		if (bfcs[i].id == doctor_id)
-		{
-			var bfc = bfcs[i];
-			var bf = bfc.children;
-		}
-	}
+	let bfc = document.getElementsByClassName("bookform_container")[0];
 	if (op == 0)	//display
 	{
-		bookform(3, doctor_id);
-		bfc.classList.remove("hidden");
+		if (bfc != null)
+		{
+			bookform(3, doctor_id);
+			bfc.remove();
+		}
+		fetch(`components/bookform.php?doctor_id=${doctor_id}`)
+		.then(response => response.text())
+		.then(data => {
+			document.getElementById('toggle_bookform').insertAdjacentHTML('beforeend', data);
+			bfc = document.getElementsByClassName("bookform_container")[0];
+			bfc.classList.remove("hidden");
+		});
 	}
 	else if (op == 1)	//boookform next
 	{
+		let bf = bfc.children;
 		bf[formnum].classList.add("hidden");
 		bf[++formnum].classList.remove("hidden");
+		bookform(4, doctor_id);
 	}
 	else if (op == 3)	//reset
 	{
+		let bf = bfc.children;
 		bf[formnum].classList.add("hidden");
 		formnum = 0;
 		bf[formnum].classList.remove("hidden");
 	}
-	//save_state
-	var appt_date_in_obj = new Date(bfc.getElementsByClassName("appt_date")[0].value);
-	if (bfc.getElementsByClassName("appt_motif")[0].value != "") motif_in = bfc.getElementsByClassName("appt_motif")[0].value; else motif_in = "Motif inconnus.";
+	else if (op == 4)	//save_state
+	{
+		let appt_date_in_obj = new Date(bfc.getElementsByClassName("appt_date")[0].value);
+		if (bfc.getElementsByClassName("appt_motif")[0].value != "") motif_in = bfc.getElementsByClassName("appt_motif")[0].value; else motif_in = "Motif inconnus.";
+		
+		const MONTHS = ["Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre"];
+		const DAYS = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
+		date_display.month = MONTHS[appt_date_in_obj.getMonth()];
+		date_display.day = DAYS[appt_date_in_obj.getDay()];
+		date_display.date = appt_date_in_obj.getDate();
+		date_display.time = appt_date_in_obj.getHours() + ':' + appt_date_in_obj.getMinutes();
 	
-	const MONTHS = ["Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre"];
-	const DAYS = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
-	date_display.month = MONTHS[appt_date_in_obj.getMonth()];
-	date_display.day = DAYS[appt_date_in_obj.getDay()];
-	date_display.date = appt_date_in_obj.getDate();
-	date_display.time = appt_date_in_obj.getHours() + ':' + appt_date_in_obj.getMinutes();
-
-	bfc.getElementsByClassName("bookform_result")[0].innerHTML = "RDV pour le " + date_display.day + " " 
-	+ date_display.date + " " + date_display.month + " a " + date_display.time + "\nMotif: " + motif_in;
+		bfc.getElementsByClassName("bookform_result")[0].innerHTML = "RDV pour le " + date_display.day + " " 
+		+ date_display.date + " " + date_display.month + " a " + date_display.time + "\nMotif: " + motif_in;
+	}
 }
 
 /* sanitise input */

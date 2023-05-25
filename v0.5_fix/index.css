@@ -9,6 +9,11 @@ html, body
 	height: 100%;
 	width: 100%;
 }
+p
+{
+	margin: 0;
+}
+
 .std_container
 {
 	height: calc(100% - 50px);
