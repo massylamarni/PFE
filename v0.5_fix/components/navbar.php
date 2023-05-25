@@ -3,18 +3,17 @@
 	<div class="navbar_el_container">
 
 <?php 
-if (!isset($_SESSION)){ session_start();   }
-if (isset($_SESSION["usertype"])) {
-
-	
-
-	$pf_img = "assets/pfp6.png";
+if (!isset($_SESSION)){ session_start();}
+if (isset($_SESSION["usertype"]))
+{
+	$pf_img = $_SESSION['pf_img'];
+	$name = $_SESSION["name"];
 	$logo_url = ($_SESSION["usertype"] == 'doctor') ? 'doctor_index.php' : 'patient_index.php';
 	$profile_url = ($_SESSION["usertype"] == 'doctor') ? 'doctor_profile.php' : 'patient_profile.php';	
 		
 ?>
         
-		<a href=<?php echo $logo_url  ?> class="navbar_logo"><img src="assets/logo.svg" ></a>
+		<a href=<?php echo $logo_url ?> class="navbar_logo"><img src="assets/logo.svg" ></a>
 		<form id="navbar_search_form" action="resultlist.php" method="POST">
 			<input type="text" class="navbar_search_location" placeholder="Emplacement..."name="location">
 			<input type="text" class="navbar_search_speciality" placeholder="Specialité..."name="speciality">
@@ -22,7 +21,7 @@ if (isset($_SESSION["usertype"])) {
 		</form>	
 		<div class="navbar_auth">
 			
-	        <button id="profile" class="navbar_loggedin" onclick="profile()"><img src="<?php echo $pf_img ?>"/><span  ><?php echo $_SESSION["name"] ?></span></button>
+	        <button id="profile" class="navbar_loggedin" onclick="profile()"><img src="<?php echo $pf_img ?>"/><span><?php echo $name ?></span></button>
 			<div class="hidden" id="divprofile">
 			 <a class="logout" href=<?php echo $profile_url  ?>> profil </a>
 			 <a  href="components/logout.php"><span class="logout">Logout</span></a>

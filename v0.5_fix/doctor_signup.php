@@ -38,8 +38,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 	@$gender=$_POST["gender"];
     $speciality=$_POST["speciality"];
 	$pf_img = "assets/pfp2.png";
-	$descrition = "Pas de descritption...";
-	$adresse = "Adresse Inconnue...";
 
 	include("components/recaptcha.php");
 

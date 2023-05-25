@@ -18,6 +18,8 @@ $speciality = $row['speciality'];
 $doctor_location = $row['doctor_location'];
 $doctor_phone = $row['doctor_phone'];
 $worktime = $row['worktime'];
+if (!$doctor_location) $doctor_location = "Non definis...";
+if (!$worktime) $worktime = '[["Non definis...","Non definis..."],["Non definis...","Non definis..."],["Non definis...","Non definis..."],["Non definis...","Non definis..."],["Non definis...","Non definis..."],["Non definis...","Non definis..."],["Non definis...","Non definis..."]]';
 ?>
 
 <div class="list_el" id="<?php echo $doctor_id?>">
