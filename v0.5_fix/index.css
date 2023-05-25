@@ -36,7 +36,7 @@ html, body
 {
 	height: 2px;
 	width: 100%;
-	background-color: lightblue;
+	background-color: #e9e9e9;
 }
 .navbar
 {
@@ -477,6 +477,10 @@ html, body
 }
 .auth_form_captcha
 {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
 	border: 1px solid #e0e0e0;
 	border-radius: 3px;
 	height: 90px;
@@ -490,6 +494,10 @@ html, body
 	font-size:10px; 
 	font-family: Arial, sans-serif;
 
+.g-recaptcha
+{
+	display: block;
+	transform:scale(0.8);
 }
 .auth_form_submit
 {
@@ -717,7 +725,6 @@ html, body
 	width: 120px;
 	position: absolute;
 	top: 51px;
-	left: -3px;
 	background-color:white;
 	box-shadow:  0 0 15px 2px #999A99;
 	height: 64px;
