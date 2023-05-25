@@ -58,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 			}else{
 			$password_hashed = password_hash($password, PASSWORD_DEFAULT);
 			$stmt = $conn->prepare("insert into patient (patient_name, patient_email, patient_password, patient_phone,  patient_bday,  patient_gender, patient_pf_img) values(?, ?, ?, ?, ?, ?, ?)");
-			$stmt->bind_param("sssssss", $name, $email, $password_hashed, $phone, $bday, $gender);
+			$stmt->bind_param("sssssss", $name, $email, $password_hashed, $phone, $bday, $gender, $pf_img);
 			$stmt->execute();
 		
 			$stmt->close();
