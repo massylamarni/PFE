@@ -287,8 +287,11 @@ console.log(urlimage);*/
 
 function verifyRecaptcha() {
 	var response = grecaptcha.getResponse();
-  
+	var errorMessage = document.getElementById('recaptcha_error_message');
 	if (response.length === 0) {
+     
+		errorMessage.textContent = 'Please complete the reCAPTCHA.';
+
 	  return false;
 	} else {
 	  return true;
