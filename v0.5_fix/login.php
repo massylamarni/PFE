@@ -5,6 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="index.css">
+	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 	<title>Visuals</title>
 </head>
 <body>
@@ -31,6 +32,8 @@ $conn = mysqli_connect('localhost','root','','Client');
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 	$email=$_POST['email'];
 	$password=$_POST['password'];
+
+	include("components/recaptcha.php");
 
   if ($email && $password ){
 
@@ -126,7 +129,7 @@ $conn->close();
 
 <div class="simple_container">
 	<div class="auth">
-		<form id="auth_form" action="" method="POST">
+		<form id="auth_form" onsubmit="return verifyRecaptcha();" action="" method="POST">
 			<a href="patient_index.php" class="auth_logo"><img src="assets/logo.svg"></a>
 			<?php if (!empty($error_message)): ?>
 				<div class="auth_error_message"><?php echo $error_message; ?></div>
@@ -139,7 +142,9 @@ $conn->close();
 				<label>Mot passe</label>
 				<input type="password" name="password" required=""/>
 			</div>
-			<div class="auth_form_captcha"></div>
+			<div class="auth_form_captcha">
+			<div class="g-recaptcha" data-sitekey="6Leb4AwmAAAAAGtDIsFtXS_3acjas4bivZ2TSxky"></div>
+			</div>
 			<input class="auth_form_submit" type="submit" value="Se connecter">
 		</form>
 		<div class="auth_ask">Vous n'avez pas de compte ? <a href="patient_signup.php">S'inscrire</a></div>

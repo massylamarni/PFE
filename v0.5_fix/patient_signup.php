@@ -5,6 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="index.css">
+	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 	<title>Visuals</title>
 </head>
 <body>
@@ -35,6 +36,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 	$phone=$_POST["phone"];
 	$bday=$_POST["bday"];
 	@$gender=$_POST["gender"];
+
+	include("components/recaptcha.php");
 
 	if ($name && $password && $email && $bday && $phone && $gender ){
         
@@ -72,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 <div class="simple_container">
 	<div class="auth">
-		<form id="auth_form" action="" method="POST">
+		<form id="auth_form" onsubmit="return verifyRecaptcha();" action="" method="POST">
 			<a href="patient_index.php" class="auth_logo"><img src="assets/logo.svg"></a>
 			<?php if (!empty($error_message)): ?>
 				<div class="auth_error_message"><?php echo $error_message; ?></div>
@@ -107,7 +110,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 						<label for="r_female">Female</label>
 					</div>
 				</div>
-			<div class="auth_form_captcha"></div>
+			<div class="auth_form_captcha">
+			<div class="g-recaptcha" data-sitekey="6Leb4AwmAAAAAGtDIsFtXS_3acjas4bivZ2TSxky"></div>
+			</div>
 			<input class="auth_form_submit" type="submit" value="S'inscrire">
 			<div class="auth_form_tos">By clicking “Sign up”, you agree to our <a href="#">terms of service</a>, <a href="#">privacy policy</a> and <a href="#">cookie policy</a></div>
 		</form>
@@ -117,4 +122,5 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </div>
 
 </body>
+<script src="index.js"></script>
 </html>
