@@ -18,7 +18,7 @@ function showprofile()
 	for (let i = 0; i < list_el.length; i++)
 	{
 		list_el[i].addEventListener("click", function(event){
-			if ((event.target.tagName == 'DIV') || (event.target.tagName == 'IMG'))
+			if (event.target.tagName == 'IMG')
 			{
 				if ((list_el[i].id == last_pfp_id) && (document.getElementsByClassName("secondary")[0].style.display == "flex"))
 				{
