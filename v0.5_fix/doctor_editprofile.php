@@ -53,19 +53,16 @@ $conn = mysqli_connect('localhost', 'root', '', DB_NAME);
 			);
 		}
 
-$pf_img = "assets/pfp2.png";
 
 
-			
+	
 
 //checking for session variables
 
       if (isset($_SESSION["location"])){
       $old_location=$_SESSION["location"];
       }
-	/*if (isset($_SESSION["pf_img"])) {
-		$old_pf_img=$_SESSION["pf_img"] ;
-	}*/
+
 	if (isset($_SESSION["description"])) {
 		$old_description=$_SESSION["description"] ;
 	}
@@ -142,10 +139,33 @@ $pf_img = "assets/pfp2.png";
 				  $stmt->bind_param("si",$password_hashed , $_SESSION["id"]);
 				  $stmt->execute();
 				  $_SESSION["password"]=$password_hashed;
-		  } 
-		
+		  } 		
 		}
 
+		if(!empty($_FILES["picture"]["name"])){ 
+
+        $currentPicturePath = $_SESSION["doctor_pf_img"];
+
+   if (file_exists($currentPicturePath)) {
+           unlink($currentPicturePath);
+		}
+
+		 $doctor_pf_img = $_FILES["picture"]["name"];
+		 $uploadDirectory = "assets/";
+		 $targetFile = $uploadDirectory . basename($doctor_pf_img);
+		 if (move_uploaded_file($_FILES["picture"]["tmp_name"], $targetFile)) {
+
+			 	$newPicturePath = $uploadDirectory . $_FILES["picture"]["name"];
+				$stmt = $conn->prepare("UPDATE doctor SET doctor_pf_img = ? WHERE doctor_id = ?");
+				$stmt->bind_param("si", $newPicturePath, $_SESSION["id"]);
+				$stmt->execute();
+				$_SESSION["doctor_pf_img"] = $newPicturePath;
+			   }
+		}
+
+
+
+		$db_coord=$_POST["coord"];
 		$db_languages = $_POST["languages"];
 		$db_dq = $_POST["dq"];
 		$db_pricing = $_POST["pricing"];
@@ -159,9 +179,10 @@ $pf_img = "assets/pfp2.png";
 			array($_POST['Sammatin'], $_POST['Samsoir'])
 		);
 		$db_worktimes=json_encode($worktimes);
+		
 
-		$stmt = $conn->prepare("UPDATE doctor SET language = ?, dq = ?, pricing = ?,worktime = ? WHERE doctor_id = ?");
-		$stmt->bind_param("ssssi", $db_languages, $db_dq, $db_pricing,$db_worktimes, $_SESSION["id"]);
+		$stmt = $conn->prepare("UPDATE doctor SET language = ?, dq = ?, pricing = ?,worktime = ?,doctor_coord = ? WHERE doctor_id = ?");
+		$stmt->bind_param("sssssi", $db_languages, $db_dq, $db_pricing,$db_worktimes,$db_coord, $_SESSION["id"]);
 		$stmt->execute();
 		
 		$_SESSION["language"] = json_decode($db_languages);
@@ -169,12 +190,6 @@ $pf_img = "assets/pfp2.png";
 		$_SESSION["pricing"] = json_decode($db_pricing);
 		$_SESSION["worktime"]=$worktimes;
 			
-		$db_coord=$_POST["coord"];
-
-		$stmt = $conn->prepare("UPDATE doctor SET doctor_coord = ? WHERE doctor_id = ?");
-		$stmt->bind_param("si",  $db_coord, $_SESSION["id"]);
-		$stmt->execute();
-	    	
 
 		header("Location: doctor_profile.php");
 		exit();              
@@ -187,15 +202,15 @@ $pf_img = "assets/pfp2.png";
 
 	<h3>Gerer Compte</h3>
 
-<form class="ep_form" action="" method="POST" onsubmit="event.preventDefault(); getinput_doctor_editprofile()" id="editprofile">
+<form class="ep_form" action="" method="POST" onsubmit="event.preventDefault(); getinput_doctor_editprofile()" id="editprofile" enctype="multipart/form-data">
 <div class="pf" >
 	<div class="pf_header">
-		<img src="<?php echo $pf_img ?>">
+		<img src="<?php echo $_SESSION["doctor_pf_img"] ?>">
 		<div class="pf_header_text">
 		<div class="pf_header_text_name"><input class="txtarea" type="text" value="<?php echo $_SESSION["name"] ?>" name="name" autocomplete="off"/></div>
 		<div>
 			<p>modifie la photo de profile</p>
-			<input type="file" id="photodeprofile">
+			<input type="file" id="profile_picture" name="picture">
 
 	    </div>
 			<div class="pf_header_text_speciality">
