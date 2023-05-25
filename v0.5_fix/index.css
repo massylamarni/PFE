@@ -743,3 +743,13 @@ html, body
 	font-size: 13px;
 }
 
+#inputmotif{
+	position:absolute;
+	
+}
+
+.idmotif2{
+	position: relative;
+	bottom: 10px;
+}
+

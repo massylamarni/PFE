@@ -343,7 +343,7 @@ $conn->close();
 <script src="index.js"></script>
 <script type="text/javascript">
 	setTimeout(() => {
-		showprofile();
+		//showprofile();
 	}, 1000);
 </script>
 </body>

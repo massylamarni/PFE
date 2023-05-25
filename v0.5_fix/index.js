@@ -284,4 +284,14 @@ function toggle_signup(){
 /*let photodeprofile=document.getElementById('photodeprofile');
 let urlimage=URL.createObjectURL(photodeprofile.files[0]);
 console.log(urlimage);*/
+function inputmotif(){
+let inputmotif=document.getElementById('inputmotif');
+let motifdeconsultation=document.getElementById('idmotif')
 
+motifdeconsultation.onclick=function(){
+	inputmotif.classList.toggle('hidden');
+	motifdeconsultation.classList.toggle('idmotif2')
+	
+
+}
+}

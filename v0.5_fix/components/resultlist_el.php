@@ -1,7 +1,8 @@
 <?php
+ini_set('display_errors', 1);
 if (!isset($_SESSION)){ session_start();   }
 
-//ini_set('display_errors', 1);
+
 
 //doctor
 
