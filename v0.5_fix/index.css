@@ -477,12 +477,21 @@ html, body
 }
 .auth_form_captcha
 {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
 	border: 1px solid #e0e0e0;
 	border-radius: 3px;
 	height: 90px;
 	width: 100%;
 	margin: 15px 0px 25px 0px;
 	background-color: #f0f0f0;
+}
+.g-recaptcha
+{
+	display: block;
+	transform:scale(0.8);
 }
 .auth_form_submit
 {
@@ -710,7 +719,6 @@ html, body
 	width: 120px;
 	position: absolute;
 	top: 51px;
-	left: -3px;
 	background-color:white;
 	box-shadow:  0 0 15px 2px #999A99;
 	height: 64px;

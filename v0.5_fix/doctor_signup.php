@@ -117,7 +117,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 				</div>
 
 			<div class="auth_form_captcha">
-			<div class="g-recaptcha" data-sitekey="6Leb4AwmAAAAAGtDIsFtXS_3acjas4bivZ2TSxky"></div>
+				<div class="g-recaptcha" data-sitekey="6Leb4AwmAAAAAGtDIsFtXS_3acjas4bivZ2TSxky"></div>
 			</div>
 			<input class="auth_form_submit" type="submit" value="S'inscrire">
 			<div class="auth_form_tos">By clicking “Sign up”, you agree to our <a href="#">terms of service</a>, <a href="#">privacy policy</a> and <a href="#">cookie policy</a></div>
