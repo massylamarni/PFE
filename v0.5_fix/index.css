@@ -477,7 +477,7 @@ html, body
 .auth_form_captcha
 {
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	border: 1px solid #e0e0e0;
