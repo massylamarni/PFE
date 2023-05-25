@@ -144,7 +144,7 @@ $conn = mysqli_connect('localhost', 'root', '', DB_NAME);
 
 		if(!empty($_FILES["picture"]["name"])){ 
 
-        $currentPicturePath = $_SESSION["doctor_pf_img"];
+        $currentPicturePath = $_SESSION["pf_img"];
 
    if (file_exists($currentPicturePath)) {
            unlink($currentPicturePath);
@@ -159,7 +159,7 @@ $conn = mysqli_connect('localhost', 'root', '', DB_NAME);
 				$stmt = $conn->prepare("UPDATE doctor SET doctor_pf_img = ? WHERE doctor_id = ?");
 				$stmt->bind_param("si", $newPicturePath, $_SESSION["id"]);
 				$stmt->execute();
-				$_SESSION["doctor_pf_img"] = $newPicturePath;
+				$_SESSION["pf_img"] = $newPicturePath;
 			   }
 		}
 
@@ -205,7 +205,7 @@ $conn = mysqli_connect('localhost', 'root', '', DB_NAME);
 <form class="ep_form" action="" method="POST" onsubmit="event.preventDefault(); getinput_doctor_editprofile()" id="editprofile" enctype="multipart/form-data">
 <div class="pf" >
 	<div class="pf_header">
-		<img src="<?php echo $_SESSION["doctor_pf_img"] ?>">
+		<img src="<?php echo $_SESSION["pf_img"] ?>">
 		<div class="pf_header_text">
 		<div class="pf_header_text_name"><input class="txtarea" type="text" value="<?php echo $_SESSION["name"] ?>" name="name" autocomplete="off"/></div>
 		<div>
