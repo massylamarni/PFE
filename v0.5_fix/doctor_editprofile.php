@@ -203,14 +203,14 @@ $conn = mysqli_connect('localhost', 'root', '', DB_NAME);
 <form class="ep_form" action="" method="POST" onsubmit="event.preventDefault(); getinput_doctor_editprofile()" id="editprofile" enctype="multipart/form-data">
 <div class="pf" >
 	<div class="pf_header">
-		<img src="<?php echo $_SESSION["pf_img"] ?>">
+		<img id="preview" src="<?php echo $_SESSION["pf_img"] ?>">
 		<div class="pf_header_text">
 		<div class="pf_header_text_name"><input class="txtarea" type="text" value="<?php echo $_SESSION["name"] ?>" name="name" autocomplete="off"/></div>
 		<div>
-			<p>modifie la photo de profile</p>
-			<input type="file" id="profile_picture" name="picture">
+		<p>modifie la photo de profile</p>
+ 			 <input type="file" id="profile_picture" name="picture" onchange="previewImage(event)" accept="image/*">
+		</div>
 
-	    </div>
 			<div class="pf_header_text_speciality">
 				<input class="txtarea" type="text" value="<?php echo $_SESSION["speciality"] ?>" name="speciality" autocomplete="off"/>
 			</div>
