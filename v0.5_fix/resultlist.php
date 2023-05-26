@@ -70,7 +70,7 @@ if($location && $speciality){
 	
 	 //display searchresults
 	
-	if ($appt_searchresult == null) $null_appt_searchresult = true; else $null_appt_searchresult = false;
+	if (!isset($appt_searchresult)) $null_appt_searchresult = true; else $null_appt_searchresult = false;
 	if (!$null_appt_searchresult)
 	{ ?>
 		<div class="list_map"><?php include("components/gps.php") ?></div>
