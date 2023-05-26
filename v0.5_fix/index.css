@@ -459,6 +459,19 @@ h3
 	{
 		margin: 2px 0px 2px 0px;
 	}
+	.navbar_switch_style
+	{
+		width: 30%;
+		min-width: 240px;
+	}
+	.navbar_toggler_switch_style
+	{
+		right: 5%;
+	}
+	.navbar_el_container_switch_style
+	{
+		display: flex;
+	}
 }
 @media only screen and (max-width: 950px)	/* list */
 {
