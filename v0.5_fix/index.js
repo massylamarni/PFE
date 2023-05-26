@@ -346,3 +346,22 @@ function previewImage(event) {
 	}
   }
   
+function toggle_navbar(el)
+{
+	let navbar = document.getElementsByClassName("navbar")[0];
+	let navbar_el_container = document.getElementsByClassName("navbar_el_container")[0];
+	if (window.getComputedStyle(navbar).getPropertyValue('width') == '50px')
+	{
+		navbar.style.width = '30%';
+		navbar.style.minWidth = '240px';
+		navbar_el_container.style.display = 'flex';
+		el.style.right = '10%';
+	}
+	else
+	{
+		navbar.style.width = '50px';
+		navbar.style.minWidth = '0';
+		navbar_el_container.style.display = 'none';
+		el.style.right = 'auto';
+	}
+}

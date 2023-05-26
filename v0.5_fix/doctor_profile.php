@@ -18,7 +18,7 @@ if(!isset($_SESSION)){session_start(); }
 
 if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='doctor') { ?>
 
-<div class="simple_container">
+<div class="std_containerI">
 	<div class="ep_container">
 
 	<h3>Mon profile</h3>

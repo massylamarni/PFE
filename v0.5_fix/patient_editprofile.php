@@ -122,7 +122,7 @@ if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='patient') {
 
 
 
-<div class="simple_container">
+<div class="std_containerI">
 	<div class="ep_container">		
 <h3>Gerer Compte</h3>
 <form class="ep_form" method="POST" enctype="multipart/form-data">

@@ -23,7 +23,7 @@ $conn = mysqli_connect('localhost', 'root', '', 'Client');
 include("components/navbar.php");
 ?>
 
-<div class="std_container">
+<div class="std_containerI">
 	<div class="main">
 		<div class="list">
 			<div class="list_title"><h3>Rendez-vous en cours</h3></div>

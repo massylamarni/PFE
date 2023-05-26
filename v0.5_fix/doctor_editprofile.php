@@ -195,7 +195,7 @@ $conn = mysqli_connect('localhost', 'root', '', DB_NAME);
 
 	?>
 
-<div class="simple_container">
+<div class="std_containerII">
 	<div class="ep_container">
 
 	<h3>Gerer Compte</h3>
