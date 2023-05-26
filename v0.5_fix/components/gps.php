@@ -22,7 +22,14 @@ var previousClickedLocation;
 
           var lat = 36.716667;
           var lng = 4.05;
-
+/*
+          function centerMapOnWord(word) {
+               var geocoder = new google.maps.Geocoder();
+               var mapOptions = {
+               zoom: 15,
+               mapTypeId: google.maps.MapTypeId.ROADMAP
+             };
+*/
           
           var map = new google.maps.Map(document.getElementById('map'), {
             zoom: 15,
@@ -63,6 +70,24 @@ var previousClickedLocation;
               }
             ]
           });
+
+        /*  geocoder.geocode({ address: word }, function(results, status) {
+    if (status === google.maps.GeocoderStatus.OK) {
+      // Get the first result
+      var location = results[0].geometry.location;
+
+      // Center the map on the location
+      map.setCenter(location);
+    } else {
+      // Geocoding failed, handle the error
+      alert('Geocode was not successful for the following reason: ' + status);
+    }
+  });
+}
+
+// Call the function with your desired word
+centerMapOnWord('New York');
+*/
           
 <?php $location = basename($_SERVER['PHP_SELF']);
  
@@ -125,8 +150,8 @@ for ($i = 0; $i < count($appt_searchresult); $i++)
    if (!isset($_SESSION)){ session_start();  }
    if (isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='patient'&& $_SESSION["status"]==0 )  { ?>
 
- var doctorinfo =  '<div class="pf_header_text_name"><?php echo $row["doctor_name"]; ?></div>' +
-  '<div class="pf_header_text_speciality"><?php echo $row["speciality"]; ?></div>'+
+ var doctorinfo =  '<h3><?php echo $row["doctor_name"]; ?></h3>' +
+  '<h5><?php echo $row["speciality"]; ?></h5>'+
 
   '<a href="#" onclick="bookform(0, <?php echo $doctor_id; ?>)">'+'<div class="brief_book">'+
   '<p>Prendre RDV</p>'+
@@ -135,9 +160,8 @@ for ($i = 0; $i < count($appt_searchresult); $i++)
 
 <?php }else{ ?>
 
-  var doctorinfo =  '<div class="pf_header_text_name"><?php echo $row["doctor_name"]; ?></div>' +
-  '<div class="pf_header_text_speciality"><?php echo $row["speciality"]; ?></div>';
-
+  var doctorinfo =  '<h3><?php echo $row["doctor_name"]; ?></h3>' +
+  '<h5><?php echo $row["speciality"]; ?></h5>';
 <?php } ?>
 
 
