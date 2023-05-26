@@ -24,11 +24,11 @@ $ms_rem = abs($tpatient_appt_date_obj->format('U') * 1000 + $tpatient_appt_date_
 $days_rem = floor($ms_rem / (1000 * 60 * 60 * 24));
 $hours_rem = floor(($ms_rem % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 $minutes_rem = floor(($ms_rem % (1000 * 60 * 60)) / (1000 * 60));
-$MONTHS = array("Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre");
-$DAYS = array("Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam");
+$MONTHS = array("?", "Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre");
+$DAYS = array("?", "Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam");
 ?>
 
-<div class="list_el" id="<?php echo $tpatient_id ?>">
+<div class="list_el prevent_list_el" id="<?php echo $tpatient_id ?>">
 	<div class="pfp">
 		<img src="<?php echo $tpatient_pf_img ?>">
 		<div class="pfp_text">
@@ -39,7 +39,7 @@ $DAYS = array("Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam");
 	<div class="list_el_brief">
 		<div class="brief_datetime"><div class="brief_date"><?php echo $DAYS[$tpatient_appt_date_obj->format('w')] ?>, <?php echo $tpatient_appt_date_obj->format('d') ?> <?php echo $MONTHS[$tpatient_appt_date_obj->format('n')] ?></div><div class="brief_time">a <?php echo $tpatient_appt_date_obj->format('H:i') ?></div></div>
 		<div class="brief_datetime"><div class="brief_date">Il reste <?php echo $days_rem ?>j, </div><div class="brief_time"><?php echo $hours_rem ?>h et <?php echo $minutes_rem ?>min</div></div>
-		<div class="brief_motif"><p>Motif de consultation</p></div>
+		<div class="brief_motif"><p onclick="toggle_motif(1, this)">Motif de consultation</p></div>
 		<div class="motif hidden"><?php echo $tpatient_appt_motif ?></div>
 		<form class="brief_action" name="pass_<?php echo $tpatient_id?>" method="post" action="doctor_index.php">
 			<input type="hidden" name="tpatient_id" value="<?php echo $tpatient_id?>">

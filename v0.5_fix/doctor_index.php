@@ -29,7 +29,7 @@ include("components/navbar.php");
 			<div class="list_title"><h3>Rendez-vous en cours</h3></div>
 			<button type="button" onclick="addto_apptlist(0)">Ajouter un RDV</button>
 
-				<?php				
+				<?php
 				$doctor_id = $_SESSION["id"];
 
 				//set & save doctor_appthistory then set & save doctor_apptlist
@@ -39,10 +39,10 @@ include("components/navbar.php");
 
 					//get doctor_appthistory
 					$stmt = $conn->prepare( "SELECT doctor_appthistory FROM doctor WHERE doctor_id = ?");
-		        	$stmt->bind_param("i",$doctor_id);
-		        	$stmt->execute();
+					$stmt->bind_param("i",$doctor_id);
+					$stmt->execute();
 					$result = $stmt->get_result();
-		        	$row = $result->fetch_assoc() ;
+					$row = $result->fetch_assoc() ;
 					$doctor_appthistory = $row['doctor_appthistory'];
 
 					//set new doctor_appthistory
@@ -65,10 +65,10 @@ include("components/navbar.php");
 
 					//get doctor_apptlist
 					$stmt = $conn->prepare( "SELECT doctor_apptlist FROM doctor WHERE doctor_id = ?");
-		        	$stmt->bind_param("i", $doctor_id);
-		        	$stmt->execute();
+					$stmt->bind_param("i", $doctor_id);
+					$stmt->execute();
 					$result = $stmt->get_result();
-		        	$row = $result->fetch_assoc() ;
+					$row = $result->fetch_assoc() ;
 					$doctor_apptlist = json_decode($row['doctor_apptlist']);
 
 					//set new doctor_apptlist (remove appt_id from doctor_apptlist)
@@ -122,10 +122,10 @@ include("components/navbar.php");
 
 					//get patient_apptlist
 					$stmt = $conn->prepare( "SELECT patient_apptlist FROM patient WHERE patient_id = ?");
-		        	$stmt->bind_param("i", $appt_patient_id);
-		        	$stmt->execute();
+					$stmt->bind_param("i", $appt_patient_id);
+					$stmt->execute();
 					$result = $stmt->get_result();
-		        	$row = $result->fetch_assoc() ;
+					$row = $result->fetch_assoc() ;
 					$patient_apptlist = json_decode($row['patient_apptlist']);
 
 					//set new patient_apptlist (remove appt_id from patient_apptlist)
@@ -146,10 +146,10 @@ include("components/navbar.php");
 				
 				//get doctor_apptlist
 				$stmt = $conn->prepare("SELECT doctor_apptlist FROM doctor WHERE doctor_id = ?");
-		        $stmt->bind_param("i", $doctor_id);
-		        $stmt->execute();
+				$stmt->bind_param("i", $doctor_id);
+				$stmt->execute();
 				$result = $stmt->get_result();
-		        $row = $result->fetch_assoc() ;
+				$row = $result->fetch_assoc() ;
 				$doctor_apptlist = json_decode($row['doctor_apptlist']);
 
 				//display doctor_apptlist
@@ -168,13 +168,14 @@ include("components/navbar.php");
 					$tpatient_name = $_POST['tpatient_name'];
 					$tpatient_pf_img = $_POST['tpatient_pf_img'];
 					$tpatient_appt_date = $_POST['appt_date'];
+					$tpatient_appt_motif = $_POST['appt_motif'];
 					$tpatient_appt_keep_date = (new DateTime())->format('r');
 					$tpatient_doctor_id = $_SESSION['id'];
 					if (!$tpatient_pf_img) $tpatient_pf_img = "assets/pfp2.png";
 
 					//save tpatient					
-					$stmt = $conn->prepare("insert into tpatient (tpatient_name, tpatient_pf_img, tpatient_appt_date, tpatient_appt_keep_date, tpatient_doctor_id) values (?, ?, ?, ?, ?)");
-					$stmt->bind_param("ssssi", $tpatient_name, $tpatient_pf_img, $tpatient_appt_date, $tpatient_appt_keep_date, $tpatient_doctor_id);
+					$stmt = $conn->prepare("insert into tpatient (tpatient_name, tpatient_pf_img, tpatient_appt_date, tpatient_appt_keep_date, tpatient_doctor_id, tpatient_appt_motif) values (?, ?, ?, ?, ?, ?)");
+					$stmt->bind_param("ssssis", $tpatient_name, $tpatient_pf_img, $tpatient_appt_date, $tpatient_appt_keep_date, $tpatient_doctor_id, $tpatient_appt_motif);
 					$stmt->execute();
 
 					$tpatient_id = mysqli_insert_id($conn);
@@ -207,16 +208,17 @@ include("components/navbar.php");
 				}
 
 				//set & save doctor_tappthistory then set & save doctor_tapptlist
-				if (isset($_POST['tpatient_id']) && isset($_POST['tpatient_id_state'])) {
+				if (isset($_POST['tpatient_id']) && isset($_POST['tpatient_id_state']))
+				{
 					$tpatient_id = $_POST['tpatient_id'];
 					$tpatient_id_state = $_POST['tpatient_id_state'];
 
 					//get doctor_tappthistory
 					$stmt = $conn->prepare( "SELECT doctor_tappthistory FROM doctor WHERE doctor_id = ?");
-		        	$stmt->bind_param("i", $doctor_id);
-		        	$stmt->execute();
+					$stmt->bind_param("i", $doctor_id);
+					$stmt->execute();
 					$result = $stmt->get_result();
-		        	$row = $result->fetch_assoc() ;
+					$row = $result->fetch_assoc() ;
 					$doctor_tappthistory = $row['doctor_tappthistory'];
 
 					//set new doctor_tappthistory
@@ -239,10 +241,10 @@ include("components/navbar.php");
 
 					//get doctor_tapptlist
 					$stmt = $conn->prepare( "SELECT doctor_tapptlist FROM doctor WHERE doctor_id = ?");
-		        	$stmt->bind_param("i", $doctor_id);
-		        	$stmt->execute();
+					$stmt->bind_param("i", $doctor_id);
+					$stmt->execute();
 					$result = $stmt->get_result();
-		        	$row = $result->fetch_assoc() ;
+					$row = $result->fetch_assoc() ;
 					$doctor_tapptlist = json_decode($row['doctor_tapptlist']);
 
 					//set new doctor_tapptlist (remove appt_id from doctor_tapptlist)
@@ -263,19 +265,19 @@ include("components/navbar.php");
 
 				//get doctor_tapptlist
 				$stmt = $conn->prepare("SELECT doctor_tapptlist FROM doctor WHERE doctor_id = ?");
-		        $stmt->bind_param("i", $doctor_id);
-		        $stmt->execute();
+				$stmt->bind_param("i", $doctor_id);
+				$stmt->execute();
 				$result = $stmt->get_result();
-		        $row = $result->fetch_assoc() ;
+				$row = $result->fetch_assoc() ;
 				$doctor_tapptlist = json_decode($row['doctor_tapptlist']);
-
+				
 				//display doctor_tapptlist
 				if ($doctor_tapptlist == null) $null_doctor_tapptlist = true; else $null_doctor_tapptlist = false;
 				if (!$null_doctor_tapptlist)
 				{
 					for ($i = 0; $i < count($doctor_tapptlist); $i++)
 					{
-						$tpatient_id_id=$doctor_tapptlist[$i];
+						$tpatient_id=$doctor_tapptlist[$i];
 						include("components/doctor_tapptlist_el.php");
 					}
 				}
@@ -289,10 +291,10 @@ include("components/navbar.php");
 				<?php
 				//get doctor_appthistory
 				$stmt = $conn->prepare( "SELECT doctor_appthistory FROM doctor WHERE doctor_id = ?");
-		        $stmt->bind_param("i",$doctor_id);
-		        $stmt->execute();
+				$stmt->bind_param("i",$doctor_id);
+				$stmt->execute();
 				$result = $stmt->get_result();
-		        $row = $result->fetch_assoc() ;
+				$row = $result->fetch_assoc() ;
 				$doctor_appthistory = json_decode($row['doctor_appthistory']);
 
 				//display doctor_appthisotry
@@ -309,10 +311,10 @@ include("components/navbar.php");
 
 				//get doctor_tappthistory
 				$stmt = $conn->prepare( "SELECT doctor_tappthistory FROM doctor WHERE doctor_id = ?");
-		        $stmt->bind_param("i",$doctor_id);
-		        $stmt->execute();
+				$stmt->bind_param("i",$doctor_id);
+				$stmt->execute();
 				$result = $stmt->get_result();
-		        $row = $result->fetch_assoc() ;
+				$row = $result->fetch_assoc() ;
 				$doctor_tappthistory = json_decode($row['doctor_tappthistory']);
 
 				//display doctor_appthisotry

@@ -35,11 +35,11 @@ $date_rem = $appt_date_obj->diff($date_obj);
 $days_rem = $date_rem->d;
 $hours_rem = $date_rem->h;
 $minutes_rem = $date_rem->i;
-$MONTHS = array("Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre");
-$DAYS = array("Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam");
+$MONTHS = array("?", "Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre");
+$DAYS = array("?", "Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam");
 ?>
 
-<div class="list_el" id="<?php echo $appt_id ?>">
+<div class="list_el prevent_list_el" id="<?php echo $appt_id ?>">
 	<div class="pfp">
 		<img src="<?php echo $patient_pf_img ?>">
 		<div class="pfp_text">

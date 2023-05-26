@@ -294,7 +294,7 @@ p
 	font-size: 12px;
 	color: darkslategrey;
 }
-.brief_motif p:hover
+.brief_motif > p:hover
 {
 	cursor: pointer;
 	text-decoration: underline;
@@ -767,7 +767,17 @@ p
 	font-size: 13px;
 }
 
-.brief_motif_in{
+/* COMPONENTS */
+.triangle_up{
+	width: 0;
+	height: 0;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-bottom: 17px solid white;
+	position: relative;
+	top:-45px;
+}
+.brief_motif_in_container{
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -777,45 +787,16 @@ p
 	background-color: #F9F9F9;
 	padding: 30px 30px 30px 30px;
 	border-radius: 5px;
-	
-	margin: auto;
-	
-
 }
-.brief_motif_in p{
-	margin: 0px;
-
+.brief_motif_in_container textarea{
+	width: 100%;
+	margin:5px 0px 5px 0px;
 }
-
-.brief_motif_in button{
-	
-	width: 115px;
-
-
-}
-
-.motif-ajouterrendezvous{
+.brief_motif_in{
 	width: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	height: 100%;
-	
-}
-
-.brief_motif_in textarea{
-	width: 100%;
-	margin:5px 0px 5px 0px;
-
-}
-
-.triangle-up{
-	width: 0;
-	height: 0;
-	border-left: 10px solid transparent;
-	border-right: 10px solid transparent;
-	border-bottom: 17px solid white;
-	position: relative;
-	top:-45px;
 }

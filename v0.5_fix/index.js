@@ -18,7 +18,7 @@ function showprofile()
 	for (let i = 0; i < list_el.length; i++)
 	{
 		list_el[i].addEventListener("click", function(event){
-			if (event.target.tagName == 'IMG')
+			if ((event.target.tagName == 'IMG') && (!event.target.classList.contains('prevent_list_el')))	//show doctor profile
 			{
 				if ((list_el[i].id == last_pfp_id) && (document.getElementsByClassName("secondary")[0].style.display == "flex"))
 				{
@@ -36,11 +36,7 @@ function showprofile()
 					
 					document.getElementsByClassName("secondary")[0].style.display = "flex";
 				}
-			}/*
-			else if ((event.target.tagName == 'P'))
-			{
-				console.log("motif: " + list_el[i].getElementsByClassName("motif")[0].innerHTML);
-			}*/
+			}
 		});
 	}
 }
@@ -173,7 +169,7 @@ function addto_apptlist(op, el)
 function add_pricing()
 {	
 	let pretarif = document.getElementById('pretarif');
-	adjhtml = '<div class="tarif_el flex fiveg"> <input placeholder="Sevice" class="txtarea tarif_el_service"></input> <input placeholder="Prix" class="txtarea tarif_el_price"></input></div>';
+	let adjhtml = '<div class="tarif_el flex fiveg"> <input placeholder="Sevice" class="txtarea tarif_el_service"></input> <input placeholder="Prix" class="txtarea tarif_el_price"></input></div>';
 	pretarif.insertAdjacentHTML('beforeend', adjhtml);
 }
 
@@ -181,7 +177,7 @@ function add_pricing()
 function add_dq()
 {
 	let prediplome = document.getElementById('prediplome');
-	adjhtml = '<div class="dq_el flex flex fiveg"><input class="txtarea dq_el_date"></input><input class="txtarea dq_el_event"></input></div>';
+	let adjhtml = '<div class="dq_el flex flex fiveg"><input class="txtarea dq_el_date"></input><input class="txtarea dq_el_event"></input></div>';
 	prediplome.insertAdjacentHTML('beforeend', adjhtml);
 }
 
@@ -189,7 +185,7 @@ function add_dq()
 function add_language()
 {
 	let prelangue = document.getElementById('prelangue');
-	adjhtml = '<input class="txtarea language_el"></input>';
+	let adjhtml = '<input class="txtarea language_el"></input>';
 	prelangue.insertAdjacentHTML('beforeend', adjhtml);
 }
 
@@ -305,8 +301,34 @@ function verifyRecaptcha() {
 	}
   }
   
-  function inputmotif(){
-	let idmotif=document.getElementById('idmotif');
-	idmotif.insertAdjacentHTML('afterend','<div class="brief_motif_in"><div class="triangle-up"></div><div class="motif-ajouterrendezvous"><p>Donnez une breve description de votre motif de consultation:  </p><textarea ></textarea> <button>ok</button></div></div>');
-
+function toggle_motif(op, el)
+{
+	let brief_motif_in_container = document.getElementsByClassName('brief_motif_in_container')[0];
+	if (op == 0)	//set motif
+	{
+		if (brief_motif_in_container != null)
+		{
+			if (brief_motif_in_container.style.display == 'flex') brief_motif_in_container.style.display = 'none';
+			else brief_motif_in_container.style.display = 'flex';
+		}
+		else
+		{
+			let adjhtml = '<div class="brief_motif_in_container"><div class="triangle_up"></div><div class="brief_motif_in"><p>Donnez une breve description de votre motif de consultation: </p><textarea name="appt_motif"></textarea><button type="button" onclick="toggle_motif(0, this)">ok</button></div></div>';
+			el.insertAdjacentHTML("afterend", adjhtml);
+		}	
+	}
+	else if (op == 1)	//get motif
+	{
+		if (brief_motif_in_container != null)
+		{
+			if (brief_motif_in_container.style.display == 'flex') brief_motif_in_container.style.display = 'none';
+			else brief_motif_in_container.style.display = 'flex';
+		}
+		else
+		{
+			let motif = el.parentElement.parentElement.getElementsByClassName('motif')[0];
+			let adjhtml = `<div class="brief_motif_in_container"><div class="triangle_up"></div><div class="brief_motif_in"><p>${motif.innerHTML}</p></div></div>`;
+			el.insertAdjacentHTML("afterend", adjhtml);
+		}
+	}
 }
