@@ -65,7 +65,9 @@ CREATE TABLE `doctor` (
   `doctor_appthistory` varchar(500) DEFAULT NULL,
   `doctor_tapptlist` varchar(500) DEFAULT NULL,
   `doctor_tappthistory` varchar(500) DEFAULT NULL,
-  `doctor_coord` varchar(100) DEFAULT NULL
+  `doctor_coord` varchar(100) DEFAULT NULL,
+  `doctor_verified` tinyint(1) NOT NULL DEFAULT 0,
+  `doctor_bookmark` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -94,7 +96,9 @@ CREATE TABLE `patient` (
   `patient_pf_img` varchar(50) DEFAULT NULL,
   `patient_location` varchar(50) DEFAULT NULL,
   `patient_apptlist` varchar(500) DEFAULT NULL,
-  `patient_appthistory` varchar(500) DEFAULT NULL
+  `patient_appthistory` varchar(500) DEFAULT NULL,
+  `patient_prevent` tinyint(1) NOT NULL DEFAULT 0,
+  `patient_bookmark` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
