@@ -20,6 +20,8 @@ $doctor_phone = $row['doctor_phone'];
 $worktime = $row['worktime'];
 if (!$doctor_location) $doctor_location = "Non definis...";
 if (!$worktime) $worktime = '[["Non definis...","Non definis..."],["Non definis...","Non definis..."],["Non definis...","Non definis..."],["Non definis...","Non definis..."],["Non definis...","Non definis..."],["Non definis...","Non definis..."],["Non definis...","Non definis..."]]';
+
+if ( $row['doctor_verified']==1){    
 ?>
 
 <div class="list_el" id="<?php echo $doctor_id?>">
@@ -35,8 +37,9 @@ if (!$worktime) $worktime = '[["Non definis...","Non definis..."],["Non definis.
 		<div class="brief_adress"><p><?php echo $doctor_location ?></p></div>
 		<div class="brief_datetime"><p>/</p></div><!-- Date de prise de RDV disponible la plus proche -->
 		<div class="brief_phone"><p><?php echo $doctor_phone ?></p></div>
-		<?php if (isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='patient') {?> 
+		<?php if (isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='patient' && $_SESSION["status"]==0 ) {?> 
 		<div class="brief_book"><p onclick="bookform(0, <?php echo $doctor_id?>)">Prendre RDV</p></div>
 		<?php } ?>
 	</div>
 </div>
+<?php } ?>

@@ -114,16 +114,16 @@ for ($i = 0; $i < count($appt_searchresult); $i++)
 {
   $doctor_id=$appt_searchresult[$i];
   
-    $stmt = $conn->prepare("SELECT doctor_coord, doctor_name, speciality FROM doctor WHERE doctor_id = ?");
+    $stmt = $conn->prepare("SELECT doctor_coord, doctor_name, speciality, doctor_verified FROM doctor WHERE doctor_id = ?");
     $stmt->bind_param("i", $doctor_id);
     $stmt->execute();
     $result = $stmt->get_result();
 	  $row = $result->fetch_assoc(); 
 
-    if (isset($row["doctor_coord"])){ 
+    if (isset($row["doctor_coord"]) && $row["doctor_verified"]==1 ){ 
 
    if (!isset($_SESSION)){ session_start();  }
-   if (isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='patient') { ?>
+   if (isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='patient'&& $_SESSION["status"]==0 )  { ?>
 
  var doctorinfo =  '<div class="pf_header_text_name"><?php echo $row["doctor_name"]; ?></div>' +
   '<div class="pf_header_text_speciality"><?php echo $row["speciality"]; ?></div>'+

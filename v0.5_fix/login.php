@@ -66,6 +66,7 @@ if ($result->num_rows == 1) {
 	$_SESSION["gender"]=$row["patient_gender"];
 	if (isset($row["patient_location"])) $_SESSION["location"] = $row["patient_location"];
 	if (isset($row["patient_pf_img"])) $_SESSION["pf_img"] = $row["patient_pf_img"];
+	$_SESSION["status"]=$row["patient_prevent"];
 	$_SESSION["usertype"]="patient";
 
 	header('Location: patient_index.php');
