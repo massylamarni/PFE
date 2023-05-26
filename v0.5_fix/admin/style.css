@@ -1,0 +1,29 @@
+.form-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f2f2f2;
+}
+
+.form-container form {
+    display: flex;
+    align-items: center;
+}
+
+.form-container input[type="text"],
+.form-container input[type="password"],
+.form-container button[type="submit"] {
+    margin-right: 0;
+}
+
+.form-container button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.form-container button[type="submit"]:hover {
+    background-color: #45a049;
+}
