@@ -156,7 +156,7 @@ include("components/navbar.php");
 				if ($doctor_apptlist == null) $null_doctor_apptlist = true; else $null_doctor_apptlist = false;
 				if (!$null_doctor_apptlist)
 				{
-					for ($i = 0; $i < count($doctor_apptlist); $i++)
+					for ($i = count($doctor_apptlist)-1; $i >= 0; $i--)
 					{
 						$appt_id=$doctor_apptlist[$i];
 						include("components/doctor_apptlist_el.php");
@@ -275,7 +275,7 @@ include("components/navbar.php");
 				if ($doctor_tapptlist == null) $null_doctor_tapptlist = true; else $null_doctor_tapptlist = false;
 				if (!$null_doctor_tapptlist)
 				{
-					for ($i = 0; $i < count($doctor_tapptlist); $i++)
+					for ($i = count($doctor_tapptlist)-1; $i >= 0; $i--)
 					{
 						$tpatient_id=$doctor_tapptlist[$i];
 						include("components/doctor_tapptlist_el.php");
@@ -301,7 +301,7 @@ include("components/navbar.php");
 				if ($doctor_appthistory == null) $null_doctor_appthistory = true; else $null_doctor_appthistory = false;
 				if (!$null_doctor_appthistory)
 				{
-					for ($i = 0; $i < count($doctor_appthistory); $i++)
+					for ($i = count($doctor_appthistory)-1; $i >= 0; $i--)
 					{
 						$appt_id=$doctor_appthistory[$i][0];
 						$state=$doctor_appthistory[$i][1];
@@ -317,11 +317,11 @@ include("components/navbar.php");
 				$row = $result->fetch_assoc() ;
 				$doctor_tappthistory = json_decode($row['doctor_tappthistory']);
 
-				//display doctor_appthisotry
+				//display doctor_tappthisotry
 				if ($doctor_tappthistory == null) $null_doctor_tappthistory = true; else $null_doctor_tappthistory = false;
 				if (!$null_doctor_tappthistory)
 				{
-					for ($i = 0; $i < count($doctor_tappthistory); $i++)
+					for ($i = count($doctor_tappthistory)-1; $i >= 0; $i--)
 					{
 						$tpatient_id=$doctor_tappthistory[$i][0];
 						$state=$doctor_tappthistory[$i][1];
