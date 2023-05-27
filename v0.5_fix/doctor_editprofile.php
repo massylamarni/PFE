@@ -201,19 +201,17 @@ $conn = mysqli_connect('localhost', 'root', '', DB_NAME);
 	<h3>Gerer Compte</h3>
 
 <form class="ep_form" action="" method="POST" onsubmit="event.preventDefault(); getinput_doctor_editprofile()" id="editprofile" enctype="multipart/form-data">
-<div class="pf" >
-	<div class="pf_header">
+<div class="pf">
+	<input type="submit" class="input_button" value="modifier" id="modifie" >
+	<div class="pf_header_fix">
 		<img id="preview" src="<?php echo $_SESSION["pf_img"] ?>">
 		<!-- image -->
  		<button type="button" class="edit_profile_picture" onclick="previewImage(event, 0)">Modifier</button>
 		<input type="file" id="profile_picture" name="picture" onchange="previewImage(event, 1)" accept="image/*">
 		
-		<div class="pf_header_text">
-		<div class="pf_header_text_name"><input class="txtarea" type="text" value="<?php echo $_SESSION["name"] ?>" name="name" autocomplete="off"/></div>
-
-			<div class="pf_header_text_speciality">
-				<input class="txtarea" type="text" value="<?php echo $_SESSION["speciality"] ?>" name="speciality" autocomplete="off"/>
-			</div>
+		<div class="pf_header_text_fix">
+			<div class="pf_header_text_name"><input class="txtarea" type="text" value="<?php echo $_SESSION["name"] ?>" name="name" autocomplete="off"/></div>
+			<div class="pf_header_text_speciality"><input class="txtarea" type="text" value="<?php echo $_SESSION["speciality"] ?>" name="speciality" autocomplete="off"/></div>
 		</div>
 	</div>
 	<div class="pf_body">
@@ -266,7 +264,6 @@ $conn = mysqli_connect('localhost', 'root', '', DB_NAME);
     	<input class="in_text" type="password" placeholder="enter new password" name="new_password" autocomplete="off" ></div>
 	</div>
 </div>
-<input type="submit" value="modifier" id="modifie" >
 </form>
 	</div>
 </div>
