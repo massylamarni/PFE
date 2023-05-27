@@ -63,14 +63,20 @@ function bookform(op, doctor_id)
 	}
 	else if (op == 1)	//boookform next
 	{
-		let bf = bfc.children;
+		let bf = bfc.getElementsByClassName("bookform");
 		bf[formnum].classList.add("hidden");
 		bf[++formnum].classList.remove("hidden");
 		bookform(4, doctor_id);
 	}
+	else if (op == 2)	//boookform close
+	{
+		let bf = bfc.getElementsByClassName("bookform");
+		bookform(3, doctor_id);
+		bfc.classList.add("hidden");
+	}
 	else if (op == 3)	//reset
 	{
-		let bf = bfc.children;
+		let bf = bfc.getElementsByClassName("bookform");
 		bf[formnum].classList.add("hidden");
 		formnum = 0;
 		bf[formnum].classList.remove("hidden");
@@ -301,6 +307,7 @@ function verifyRecaptcha() {
 	}
   }
   
+/*
 function toggle_motif(op, el)
 {
 	let brief_motif_in_container = document.getElementsByClassName('brief_motif_in_container')[0];
@@ -332,7 +339,7 @@ function toggle_motif(op, el)
 		}
 	}
 }
-
+*/
 
 function previewImage(event, op) {
 	if (op == 1)

@@ -2,6 +2,7 @@
 	$doctor_id = $_GET['doctor_id'];
 ?>
 <form name="book_<?php echo $doctor_id ?>" id="<?php echo $doctor_id ?>" method="post" action="resultlist.php" class="bookform_container hidden">
+	<div class="bookform_close" onclick="bookform(2, <?php echo $doctor_id ?>)"></div>
 	<div class="bookform">
 		<input type="hidden" name="doctor_id" value="<?php echo $doctor_id ?>">
 		<div class="bookform_title"><h3>Horaire</h3></div>

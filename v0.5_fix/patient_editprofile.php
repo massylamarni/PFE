@@ -127,7 +127,7 @@ if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='patient') {
 <h3>Gerer Compte</h3>
 <form class="ep_form" method="POST" enctype="multipart/form-data">
 <div class="pf" id="<?php echo $_SESSION["id"] ?>">
-	<input type="submit" class="input_button" value="modifier" id="modifie">
+	<div class="float_right_button_container"><input type="submit" class="input_button" value="modifier" id="modifie" ></div>
 	<div class="pf_header pf_header_fix">
 		<img id="preview" src="<?php echo $_SESSION["pf_img"] ?>"/>
 		<!-- image -->
@@ -135,7 +135,7 @@ if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='patient') {
 		<input type="file" id="profile_picture" name="picture" onchange="previewImage(event, 1)" accept="image/*">
 		
 		<div class="pf_header_text pf_header_text_fix">
-			<div class="pf_body_field"><h3>Nom</h3><input type="text" value="<?php echo $_SESSION["name"] ?>" name="name" autocomplete="off"/></div>
+			<div class="pf_header_text_name"><input type="text" class="txtarea" value="<?php echo $_SESSION["name"] ?>" name="name" autocomplete="off"/></div>
 		</div>
 	</div>
 	<div class="pf_body">

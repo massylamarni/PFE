@@ -156,9 +156,10 @@ if($location && $speciality){
 		$stmt->bind_param("si", $doctor_apptlist, $appt_doctor_id);
 		$stmt->execute();
 			header("Location: patient_index.php");
-			exit();
+
 		$stmt->close();
 		$conn->close();
+		exit();
 	}
 	}
 ?>

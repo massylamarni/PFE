@@ -29,8 +29,9 @@ $patient_pf_img = $row['patient_pf_img'];
 $patient_name = $row['patient_name'];
 
 //set appt_date remaining display
-$appt_date_obj = new DateTime($appt_date);
-$date_obj = new DateTime(null);
+$timezone = new DateTimeZone('Africa/Algiers');
+$appt_date_obj = new DateTime($appt_date, $timezone);
+$date_obj = new DateTime(null, $timezone);
 $date_rem = $appt_date_obj->diff($date_obj);
 $days_rem = $date_rem->d;
 $hours_rem = $date_rem->h;
@@ -55,7 +56,7 @@ $DAYS = array("Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam");
 		<form class="brief_action" name="pass_<?php echo $appt_id?>" method="post" action="doctor_index.php">
 			<input type="hidden" name="appt_id" value="<?php echo $appt_id?>">
 			<input type="hidden" name="appt_id_state" value="Passé">
-			<input type="submit" value="Faire Passer">
+			<input type="submit" class="input_button" value="Faire Passer">
 		</form>
 	</div>
 </div>

@@ -44,7 +44,7 @@ $DAYS = array("Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam");
 		<form class="brief_action" name="pass_<?php echo $tpatient_id?>" method="post" action="doctor_index.php">
 			<input type="hidden" name="tpatient_id" value="<?php echo $tpatient_id?>">
 			<input type="hidden" name="tpatient_id_state" value="Passé">
-			<input type="submit" value="Faire Passer">
+			<input type="submit" class="input_button" value="Faire Passer">
 		</form>
 	</div>
 </div>

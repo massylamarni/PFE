@@ -202,7 +202,7 @@ $conn = mysqli_connect('localhost', 'root', '', DB_NAME);
 
 <form class="ep_form" action="" method="POST" onsubmit="event.preventDefault(); getinput_doctor_editprofile()" id="editprofile" enctype="multipart/form-data">
 <div class="pf">
-	<input type="submit" class="input_button" value="modifier" id="modifie" >
+	<div class="float_right_button_container"><input type="submit" class="input_button" value="modifier" id="modifie" ></div>
 	<div class="pf_header pf_header_fix">
 		<img id="preview" src="<?php echo $_SESSION["pf_img"] ?>">
 		<!-- image -->
@@ -230,8 +230,9 @@ $conn = mysqli_connect('localhost', 'root', '', DB_NAME);
 			<p><?php echo $DAYS[$i] ?><input class="txtarea" name="<?php echo $DAYS[$i] ?>matin" value="<?php echo $worktimes[$i][0]?>"> - <input class="txtarea" name="<?php echo $DAYS[$i] ?>soir" value="<?php echo $worktimes[$i][1] ?>"></p>
 			<?php } ?>
 		</div>
-		<div class="pf_body_field"><h3>Tarifs</h3>
-			<button type="button" class="input_button" onclick="add_pricing()">Ajouter</button>
+		<div class="pf_body_field">
+			<div class="float_right_button_container"><button type="button" class="input_button" onclick="add_pricing()">Ajouter</button></div>
+			<h3 class="h3_fix">Tarifs</h3>
 			<input type="hidden" id="pricing_input" name="pricing" value="">
 			<p id="pretarif" >
 				<?php if (!empty($pricings)) { foreach ($pricings as $pricing) { ?>
@@ -239,17 +240,19 @@ $conn = mysqli_connect('localhost', 'root', '', DB_NAME);
 				<?php  } } ?>
 			</p>
 		</div>
-		<div class="pf_body_field"><h3>Diplomes & Qualifications</h3>
-			<button type="button" class="input_button" onclick="add_dq()">Ajouter</button>
+		<div class="pf_body_field">
+			<div class="float_right_button_container"><button type="button" class="input_button" onclick="add_dq()">Ajouter</button></div>
+			<h3 class="h3_fix">Diplomes & Qualifications</h3>
 			<input type="hidden" id="dq_input" name="dq" value="">
-			<p id="prediplome" >
+			<p id="prediplome">
 				<?php if (!empty($dqs)) { foreach ($dqs as $dq) {  ?>
 				<textarea class="dq_el_date txtarea" rows="1" cols="10"><?php echo $dq[0] ?></textarea><textarea class="dq_el_event txtarea" rows="1" cols="50"><?php echo $dq[1] ?> </textarea>
 				<?php  } } ?>
 			</p>
 		</div>
-		<div class="pf_body_field"><h3>Langues parlées</h3>
-			<button type="button" class="input_button" onclick="add_language()">Ajouter</button>
+		<div class="pf_body_field">
+			<div class="float_right_button_container"><button type="button" class="input_button" onclick="add_language()">Ajouter</button></div>
+			<h3 class="h3_fix">Langues parlées</h3>
 			<input type="hidden" id="languages_input" name="languages" value="">
 			<p id="prelangue">
 				<?php if (!empty($languages)) { foreach ($languages as $language) {  ?>

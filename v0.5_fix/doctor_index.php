@@ -26,8 +26,8 @@ include("components/navbar.php");
 <div class="std_containerI">
 	<div class="main">
 		<div class="list">
+			<div class="float_right_button_container"><button type="button" class="input_button" onclick="addto_apptlist(0)">Ajouter un RDV</button></div>
 			<div class="list_title"><h3>Rendez-vous en cours</h3></div>
-			<button type="button" onclick="addto_apptlist(0)">Ajouter un RDV</button>
 
 				<?php
 				$doctor_id = $_SESSION["id"];
@@ -168,14 +168,14 @@ include("components/navbar.php");
 					$tpatient_name = $_POST['tpatient_name'];
 					$tpatient_pf_img = $_POST['tpatient_pf_img'];
 					$tpatient_appt_date = $_POST['appt_date'];
-					$tpatient_appt_motif = $_POST['appt_motif'];
+					//$tpatient_appt_motif = $_POST['appt_motif'];
 					$tpatient_appt_keep_date = (new DateTime())->format('r');
 					$tpatient_doctor_id = $_SESSION['id'];
 					if (!$tpatient_pf_img) $tpatient_pf_img = "assets/pfp2.png";
 
 					//save tpatient					
-					$stmt = $conn->prepare("insert into tpatient (tpatient_name, tpatient_pf_img, tpatient_appt_date, tpatient_appt_keep_date, tpatient_doctor_id, tpatient_appt_motif) values (?, ?, ?, ?, ?, ?)");
-					$stmt->bind_param("ssssis", $tpatient_name, $tpatient_pf_img, $tpatient_appt_date, $tpatient_appt_keep_date, $tpatient_doctor_id, $tpatient_appt_motif);
+					$stmt = $conn->prepare("insert into tpatient (tpatient_name, tpatient_pf_img, tpatient_appt_date, tpatient_appt_keep_date, tpatient_doctor_id) values (?, ?, ?, ?, ?)");
+					$stmt->bind_param("ssssi", $tpatient_name, $tpatient_pf_img, $tpatient_appt_date, $tpatient_appt_keep_date, $tpatient_doctor_id);
 					$stmt->execute();
 
 					$tpatient_id = mysqli_insert_id($conn);

@@ -68,6 +68,14 @@ h3
 	border: 1px solid #e0e0e0;
 	box-shadow: rgba(0, 0, 0, 0.09) 0px 10px 24px 0px, rgba(0, 0, 0, 0.09) 0px 20px 48px 0px, rgba(0, 0, 0, 0.1) 0px 1px 4px 0px;
 }
+.float_right_button_container
+{
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	position: relative;
+	width: 100%;
+}
 
 /* NAVBAR STYLE */
 .prenav
@@ -678,9 +686,7 @@ h3
 }
 #modifie
 {
-	position: relative;
-	top: 15px;
-	left: 83%;
+	margin: 15px 15px 0px 0px
 }
 .ep_form input, .ep_form textarea
 {
@@ -690,9 +696,7 @@ h3
 }
 .pf_body_field button
 {
-	position: relative;
-	top: -20px;
-	left: 87%;
+	margin: 0px 2px 0px 0px;
 }
 /*
 .ep_form_field
@@ -749,21 +753,33 @@ h3
 	align-items: center;
 	justify-content: center;
 	position: absolute;
-	top: calc(50% - 158px);
-	height: 256px;
-	width: 512px;
-	background-color: #F9F9F9;
-	padding: 30px 30px 30px 30px;
+	height: auto;
+	width: auto;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: white;
+	border: 1px solid white;
 	border-radius: 5px;
+	box-shadow: rgba(0, 0, 0, 0.05) 0px 10px 24px 0px, rgba(0, 0, 0, 0.05) 0px 20px 48px 0px, rgba(0, 0, 0, 0.1) 0px 1px 4px 0px;
+	padding: 30px;
+}
+.bookform_close
+{
+	position: absolute;
+	height: 15px;
+	width: 15px;
+	background-image: url(assets/close.png);
+	background-size: 15px;
+	top: 5px;
+	right: 5px;
+	cursor: pointer;
 }
 .bookform
 {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	position:absolute;
-	right: 40px;
-	padding: 30px 30px 30px 30px;
 }
 .bookform_title
 {
@@ -894,20 +910,16 @@ h3
 /* FIXES */
 .pf_header_fix
 {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	height: 158px;
-	width: auto;
-	margin-left: 15px;
-	margin-top: -30px;
+	margin-top: -50px;
 }
 .pf_header_text_fix
 {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
 	margin-left: -115px;
+}
+.h3_fix
+{
+	margin-top: -32px;
+	margin-bottom: 15px;
 }
 
 /* RESPONSIVITY */
@@ -1002,6 +1014,12 @@ h3
 	{
 		display: none;
 	}
+
+	.ep_container
+	{
+		margin-left: 5px;
+		margin-right: 5px;
+	}
 }
 @media only screen and (max-width: 500px)	/* list */
 {
@@ -1012,5 +1030,36 @@ h3
 	.list_el_brief
 	{
 		display: none;
+	}
+
+	
+	.edit_profile_picture
+	{
+		height: 16px;
+		width: 64px;
+		left: -64px;
+		bottom: -24px;
+	}
+	.pf_header_text_fix
+	{
+		margin-left: -55px;
+	}
+	.ep_container
+	{
+		margin-left: 5px;
+		margin-right: 5px;
+	}
+	.pf_header
+	{
+		height: 98px;
+	}
+	.pf_header img
+	{
+		height: 64px;
+		width: 64px;
+	}
+	.pf_header_text .txtarea
+	{
+		width: 70%;
 	}
 }

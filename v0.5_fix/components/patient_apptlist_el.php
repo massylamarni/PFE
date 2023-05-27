@@ -30,8 +30,9 @@ $doctor_name = $row['doctor_name'];
 $speciality = $row['speciality'];
 
 //set appt_date remaining display
-$appt_date_obj = new DateTime($appt_date);
-$date_obj = new DateTime(null);
+$timezone = new DateTimeZone('Africa/Algiers');
+$appt_date_obj = new DateTime($appt_date, $timezone);
+$date_obj = new DateTime(null, $timezone);
 $date_rem = $appt_date_obj->diff($date_obj);
 $days_rem = $date_rem->d;
 $hours_rem = $date_rem->h;
