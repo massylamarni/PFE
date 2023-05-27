@@ -24,19 +24,23 @@ if (isset($_POST["account_search"])){
         if ($result->num_rows > 0 ) {   
             $row = $result->fetch_assoc();	
            ?>
-
+            
             <h3> Compte infromations </h3>
-            <h5> photo de profile </h5>   <img src="<?php echo  "../".$row["doctor_pf_img"] ?>" width="100" height="100"/> 
-            <h5> Nom </h5> <label><?php echo $row["doctor_name"] ?></label>
-            <h5> speciality </h5>  <label><?php echo $row["speciality"] ?></label>
-            <h5> date de naissance </h5>  <label><?php echo $row["doctor_bday"] ?></label>
-            <h5> telephone </h5>  <label><?php echo $row["doctor_phone"] ?></label>
-            <h5> description </h5>     <label><?php echo $row["description"] ?></label>
-            <h5> adresse </h5>     <label><?php echo $row["doctor_location"] ?></label>
+            <div class="compteinformation">
+            <img src="<?php echo  "../".$row["doctor_pf_img"] ?>" width="100" height="100"/>
+           
+            <h4> Nom </p> <label><?php echo $row["doctor_name"] ?></label>
+            <h4> speciality </h4>  <label><?php echo $row["speciality"] ?></label>
+            <h4> date de naissance </h4>  <label><?php echo $row["doctor_bday"] ?></label>
+            <h4> telephone </h4>  <label><?php echo $row["doctor_phone"] ?></label>
+            <h4> description </h4>     <label><?php echo $row["description"] ?></label>
+            <h4> adresse </h4>     <label><?php echo $row["doctor_location"] ?></label>
             <h4> Status de verification <h4> <?php if ($row["doctor_verified"]== 0){?>
-                    <h5> Compte non verifié </h5>                
+                    <h4> Compte non verifié </h4>                
                     <form  action="" method="POST">
                          <input type="hidden" name ="verification" value="<?php echo $email; ?>"/>
+           
+            </div>
                          <button type="submit" name="verify">Verifier</button> 
                     </form>                   
 <?php   }else{   ?> 
@@ -55,10 +59,11 @@ if (isset($_POST["account_search"])){
 
         if ($result->num_rows > 0 ) {   
             $row = $result->fetch_assoc();?>
-
             <h3> Compte infromations </h3>
-            <h5> photo de profile </h5>   <img src="<?php echo  "../".$row["patient_pf_img"] ?>" width="100" height="100"/> 
-            <h4> Nom </h5> <label><?php echo $row["patient_name"] ?></label>
+            <div class="compteinformation">
+            <img src="<?php echo  "../".$row["patient_pf_img"] ?>" width="100" height="100"/> 
+            
+            <h4> Nom </h4> <label><?php echo $row["patient_name"] ?></label>
             <h4> date de naissance </h4>  <label><?php echo $row["patient_bday"] ?></label>
             <h4> telephone </h4>  <label><?php echo $row["patient_phone"] ?></label>
             <h4> adresse </h4>     <label><?php echo $row["patient_location"] ?></label>
@@ -66,6 +71,8 @@ if (isset($_POST["account_search"])){
                     <h5> Compte non Banni </h5>                
                     <form  action="" method="POST">
                          <input type="hidden" name ="prevention" value="<?php echo $email; ?>"/>
+            
+            </div>
                          <button type="submit" name="prevent">Prevent</button> 
                     </form>                   
 <?php   }else{   ?> 

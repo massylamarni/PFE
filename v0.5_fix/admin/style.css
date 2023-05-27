@@ -1,29 +1,154 @@
-.form-container {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f2f2f2;
+body{
+    background-color: #F0F0F0;
+}
+.top-container{
+    background:linear-gradient( to left ,#F0F0F0,white,#F0F0F0);
+    border-radius: 8px;
+    margin-top: 30px;
+    max-width: 700px;
+    margin-left: 400px;
 }
 
-.form-container form {
-    display: flex;
-    align-items: center;
+input{
+    border-radius: 8px;
+    margin: 15px;
+    background:linear-gradient( to left,rgb(176, 179, 178) ,rgb(232, 231, 235)) ;
+    transition: font-size 1s;
+    
 }
 
-.form-container input[type="text"],
-.form-container input[type="password"],
-.form-container button[type="submit"] {
-    margin-right: 0;
+input:hover{
+    background:linear-gradient( to left,rgb(236, 239, 238) ,rgb(236, 239, 238));
+    font-size: 14px;
 }
 
-.form-container button[type="submit"] {
-    background-color: #4CAF50;
+input:active{
+    background-color: white;
+    font-size: 14px;
+}
+
+
+
+button{
+  
+    background-color: #5D8AA8;
+    border-radius: 8px;
+    color:white;
+    font-weight:bold ;
+    transition: font-size 1s;
+}
+
+button:hover{
+    font-size: 15px;
+    
+}
+
+
+.bottom-container{
+    background:linear-gradient( to left ,#F0F0F0,white,#F0F0F0);;
+    max-width: 1200px;
+   
+    border-radius: 8px;
+    margin-left: 150px;
+    margin-top: 50px;
+}
+.divnom{
+    margin-left: 30px;
+}
+.divnom label{
+    display: inline;
+    font-weight: bold;
+    
+}
+.divnom input{
+    display: inline;
+    
+}
+
+.date_et_male{
+    display: block;
+    margin-left: 340px;
+    margin-top: 20px;
+}
+
+
+.ajouter{
+    margin-left: 510px;
+    width: 150px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+h3{
+    margin-left: 500px;
+    margin-top: 20px;
+    font-size: 30px;
+    color:#5D8AA8;
+}
+
+#sp{
+    margin-left: 200px;
+    
+}
+
+.search-container{
+    background:linear-gradient( to left ,#F0F0F0,white,#F0F0F0);
+    border: 5px solid linear-gradient(red,green);
+    border-radius: 8px;
+    margin-top: 30px;
+    max-width: 700px;
+    margin-left: 400px;
+    margin-bottom: 20px;
+}
+
+.search-container h3{
+    margin-left: 235px;
+    display: inline-block;
+}
+
+.search-container input{
+    margin-left: 200px;
+    
+
+}
+
+.compteinformation{
+    margin-left: 235px;
+}
+
+.delete{
+    margin-left: 260px;
+    width: 150px;
+}
+
+.top-container p{
+    font-weight: bold;
+}
+
+.mod{
+    margin-left: 290px;
+}
+
+h1{
+    margin-left:450px;
+    font-size: 55px;
+    margin-top: -15px;
+}
+
+a{
+    margin-left: 1376px;
+   
+    text-decoration: none;
+    border: 5px solid #5D8AA8;
+    background-color:#5D8AA8 ;
+    border-radius: 8px;
     color: white;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-}
+   padding-right: 5px;
+   padding-left: 5px;
+   position: relative;
+   top:25px
 
-.form-container button[type="submit"]:hover {
-    background-color: #45a049;
+}
+a:hover{
+    font-size: 17px;
 }

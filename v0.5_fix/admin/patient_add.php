@@ -1,35 +1,32 @@
 <form action="" method="POST">
-<div >
+            <div class="divnom">
 				<label>Nom complet</label>
 				<input type="text" name="patient_name" required="">
-			</div>
-			<div >
+			
+			
 				<label>Email</label>
 				<input type="email" name="patient_email" required="">
-			</div>
-			<div>
+			
+			
 				<label>Mot passe</label>
 				<input type="password" name="patient_password" required="">
-			</div>
-			<div>
+			
+			
 				<label>Numero telephone</label>
 				<input type="tel" pattern="([0-9]{9})|([0-9]{10})" name="patient_phone" required="">
-			</div>
-			<div>
-				<label>Date de naissance</label>
-				<input class="in_text" type="date" name="patient_bday" required="">
-			</div>
-			<div>
-					<div>
-						<input type="radio" id="r_male" name="patient_gender" value="M" required="">
-						<label for="r_male">Male</label>
-					</div>
-					<div>
-						<input type="radio" id="r_female" name="patient_gender" value="F" required="">
-						<label for="r_female">Female</label>
-					</div>
+			    <div class="date_et_male">
+				   <label>Date de naissance</label>
+				   <input class="in_text" type="date" name="patient_bday" required="">
+			     
+					
+				    <input type="radio" id="r_male" name="patient_gender" value="M" required="">
+					<label for="r_male">Male</label>
+					
+					<input type="radio" id="r_female" name="patient_gender" value="F" required="">
+					<label for="r_female">Female</label>
+                   </div>	
 				</div>
-                <input  type="submit" name="patient_submit" value="Ajouter">
+                <button class="ajouter" type="submit" name="patient_submit">Ajouter</button>
 </form>
 
 

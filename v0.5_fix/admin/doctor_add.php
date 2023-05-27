@@ -1,39 +1,33 @@
 <form action="" method="POST">
-<div >
+<div class="divnom">
 				<label>Nom complet</label>
 				<input type="text" name="doctor_name" required="">
-			</div>
-			<div >
+			
 				<label>Email</label>
 				<input type="email" name="doctor_email" required="">
-			</div>
-			<div>
+			
 				<label>Mot passe</label>
 				<input type="password" name="doctor_password" required="">
-			</div>
-			<div>
+			
 				<label>Numero telephone</label>
 				<input type="tel" pattern="([0-9]{9})|([0-9]{10})" name="doctor_phone" required="">
-			</div>
-            <div>
-				<label>Specialité</label>
+				
+				<label id="sp">Specialité</label>
 				<input type="text" name="speciality" required=""/>
-			</div>
-			<div>
-				<label>Date de naissance</label>
-				<input class="in_text" type="date" name="doctor_bday" required="">
-			</div>
-			<div>
-					<div>
+			     
+				
+				  <label>Date de naissance</label>
+				  <input class="in_text" type="date" name="doctor_bday" required="">
+                
+					
 						<input type="radio" id="r_male" name="doctor_gender" value="M" required="">
 						<label for="r_male">Male</label>
-					</div>
-					<div>
+					
 						<input type="radio" id="r_female" name="doctor_gender" value="F" required="">
 						<label for="r_female">Female</label>
-					</div>
+					
 				</div>
-                <input  type="submit" name="doctor_submit" value="Ajouter">
+                <button class="ajouter"  type="submit" name="doctor_submit" >Ajouter</button>
 </form>
 
 

@@ -7,6 +7,7 @@
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
+	<a href="">Logout</a>
 <div class="form-container">
 <h3>Patient Ajout </h3>
 <?php include("patient_add.php");?>
