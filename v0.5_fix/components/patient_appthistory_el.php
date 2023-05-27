@@ -35,7 +35,7 @@ $speciality = $row['speciality'];
 $appt_date_obj = new DateTime($appt_date);
 $appt_keep_date_obj = new DateTime($appt_keep_date);
 $MONTHS = array("?", "Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre");
-$DAYS = array("?", "Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam");
+$DAYS = array("Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam");
 ?>
 
 <div class="list_el" id="<?php echo $doctor_id ?>">
