@@ -14,12 +14,13 @@
 		header("Location: ../index.php");
 		exit();
 	 } ?>
-	<a href="">Logout</a>
-<div class="form-container">
+	<a href="../components/logout.php">Logout</a>
+<div class="bottom-container">
 <h3>Patient Ajout </h3>
 <?php include("patient_add.php");?>
 <br><br><h3>Doctor Ajout </h3><br><br>
-<?php include("doctor_add.php");?>
+<?php include("doctor_add.php");?> </div>
+<div class="search-container">
 <br><br><h3>recherche de compte </h3><br><br>
 <?php include("search_account.php");?>
 </div>
