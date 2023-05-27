@@ -129,11 +129,13 @@ if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='patient') {
 <div class="pf" id="<?php echo $_SESSION["id"] ?>">
 	<div class="pf_header">
 		<img id="preview" src="<?php echo $_SESSION["pf_img"] ?>"/>
+		<!-- image -->
+ 		<button type="button" class="edit_profile_picture" onclick="previewImage(event, 0)">Modifier</button>
+		<input type="file" id="profile_picture" name="picture" onchange="previewImage(event, 1)" accept="image/*">
+    
 		<div class="pf_header_text">
     <div class="pf_body_field"><h3>Nom</h3><input type="text" value="<?php echo $_SESSION["name"] ?>" name="name" autocomplete="off"/></div>
 		<div>
-			<p>modifie la photo de profile</p>
-			<input type="file" id="profile_picture" name="picture" onchange="previewImage(event)" accept="image/*">
 
 	  </div>
   </div>

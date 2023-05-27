@@ -699,6 +699,24 @@ h3
 	width: 128px;
 	border-radius: 5px;
 }
+#profile_picture
+{
+	display: none;
+}
+.edit_profile_picture
+{
+	position: relative;
+	left: -128px;
+	bottom: -48px;
+	height: 32px;
+	width: 128px;
+	background-color: white;
+	border: 1px solid white;
+	border-radius: 0px 0px 5px 5px;
+	box-shadow: rgba(0, 0, 0, 0.05) 0px 10px 24px 0px, rgba(0, 0, 0, 0.05) 0px 20px 48px 0px, rgba(0, 0, 0, 0.1) 0px 1px 4px 0px;
+	opacity: 0.9;
+	cursor: pointer;
+}
 .pf_header_text
 {
 	display: flex;
