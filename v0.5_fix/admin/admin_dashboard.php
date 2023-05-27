@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-     <a href="">Logout</a>
+     <a href="../components/logout.php">Logout</a>
     <h1>Paneau Adminestration </h1> 
     
 <div class="top-container">

@@ -14,7 +14,7 @@
 		header("Location: ../index.php");
 		exit();
 	 } ?>
-	<a href="">Logout</a>
+	<a href="../components/logout.php">Logout</a>
 <div class="form-container">
 <h3>Patient Ajout </h3>
 <?php include("patient_add.php");?>
