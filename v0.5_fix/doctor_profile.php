@@ -31,22 +31,25 @@ if (isset($_SESSION["usertype"]) && $_SESSION["usertype"] == 'doctor') { ?>
 	$speciality = $_SESSION['speciality'];
 	$doctor_phone = $_SESSION['phone'];
 	$doctor_email = $_SESSION['email'];
-	$description = $_SESSION['description'];
-	$doctor_location = $_SESSION['location'];
-	$worktime= $_SESSION['worktime'];
-	$pricing = $_SESSION['pricing'];
-	$dq = $_SESSION['dq'];
-	$language = $_SESSION['language'];
+	(isset($_SESSION['location'])) ? $doctor_location= $_SESSION['location'] : $doctor_location=null;
+	(isset($_SESSION['description'])) ? $description= $_SESSION['description'] : $description=null;
+	(isset($_SESSION['worktime'])) ? $worktime= $_SESSION['worktime'] : $worktime=null;
+	(isset($_SESSION['pricing'])) ? $pricing = $_SESSION['pricing'] : $pricing=null;
+	(isset($_SESSION['language'])) ? $language= $_SESSION['language'] : $language=null;
+	(isset($_SESSION['dq'])) ? $dq= $_SESSION['dq'] : $dq=null;
+	  
+	if (is_string($worktime)){ $worktime= json_decode($worktime);}
+	if (is_string($pricing)){ $pricing= json_decode($pricing);}
+	if (is_string($dq)){ $dq= json_decode($dq);}
+	if (is_string($language)){ $language= json_decode($language);}
+
 	if ((empty($description)) || ($description == '[]')) $description = "Non definis...";
 	if ((empty($doctor_location)) || ($doctor_location == '[]')) $doctor_location = "Non definis...";
-	if ((empty($worktime)) || ($worktime == '[]')) $worktime = '[["Non definis...","Non definis..."],["Non definis...","Non definis..."],["Non definis...","Non definis..."],["Non definis...","Non definis..."],["Non definis...","Non definis..."],["Non definis...","Non definis..."],["Non definis...","Non definis..."]]';
-	if ((empty($pricing)) || ($pricing == '[]')) $pricing = '[["Non definis... ","Non definis..."]]';
-	if ((empty($dq)) || ($dq == '[]')) $dq = '[["Non definis...","Non definis..."]]';
-	if ((empty($language)) || ($language == '[]')) $language = '["Non definis..."]';
-	if (is_string($worktime)){ $worktime= json_decode($worktime);}
-	$pricing = json_decode($pricing);
-	$dq = json_decode($dq);
-	$language = json_decode(($language));
+	if ((empty($worktime)) || ($worktime == '[]')) $worktime = [["Non definis...","Non definis..."],["Non definis...","Non definis..."],["Non definis...","Non definis..."],["Non definis...","Non definis..."],["Non definis...","Non definis..."],["Non definis...","Non definis..."],["Non definis...","Non definis..."]];
+	if ((empty($pricing)) || ($pricing == '[]')) $pricing = [["Non definis... ","Non definis..."]];
+	if ((empty($dq)) || ($dq == '[]')) $dq = [["Non definis...","Non definis..."]];
+	if ((empty($language)) || ($language == '[]')) $language = ["Non definis..."];
+	
 ?>
 
 <div class="pf" id="pf_<?php echo $doctor_id ?>">
