@@ -357,3 +357,16 @@ function toggle_navbar(el)
 	navbar_el_container.classList.toggle("navbar_el_container_switch_style");
 	
 }
+
+function toggleRequired() {
+	var input1 = document.getElementById("location_search");
+	var input2 = document.getElementById("speciality_search");
+	
+	if (input1.value.trim() === "" && input2.value.trim() === "") {
+		input2.required = true;
+		input1.required = true;
+	} else {
+		input1.required = false;
+		input2.required = false;
+	}
+}

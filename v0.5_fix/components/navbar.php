@@ -16,9 +16,9 @@ if (isset($_SESSION["usertype"]))
 		
 		<a href=<?php echo $logo_url ?> class="navbar_logo"><img src="assets/logo.svg" ></a>
 		<form id="navbar_search_form" action="resultlist.php" method="POST">
-			<input type="text" class="navbar_search_location" placeholder="Emplacement..."name="location">
-			<input type="text" class="navbar_search_speciality" placeholder="Specialité..."name="speciality">
-			<input type="submit" class="input_button" value="Rechercher">
+			<input type="text" id="location_search" class="navbar_search_location" placeholder="Emplacement..."name="location">
+			<input type="text" id="speciality_search" class="navbar_search_speciality" placeholder="Specialité..."name="speciality">
+			<input type="submit" class="input_button" value="Rechercher" onclick="toggleRequired()">
 		</form>	
 		<div class="dummy_div"></div>
 	</div>
@@ -35,9 +35,9 @@ if (isset($_SESSION["usertype"]))
 ?>
 		<a href="index.php" class="navbar_logo"><img src="assets/logo.svg"></a>
 		<form id="navbar_search_form" action="resultlist.php" method="POST">
-			<input type="text" class="navbar_search_location" placeholder="Emplacement..." name="location">
-			<input type="text" class="navbar_search_speciality" placeholder="Specialité..." name="speciality">
-			<input type="submit" class="input_button" value="Rechercher">
+			<input type="text" id="location_search" class="navbar_search_location" placeholder="Emplacement..." name="location">
+			<input type="text" id="speciality_search" class="navbar_search_speciality" placeholder="Specialité..." name="speciality">
+			<input type="submit" class="input_button" value="Rechercher" onclick="toggleRequired()">
 		</form>
 		<div class="dummy_div"></div>
 	</div>
