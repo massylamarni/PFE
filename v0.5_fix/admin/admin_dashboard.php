@@ -27,7 +27,11 @@
 
 <?php 
 session_start();
-//if (isset($_SESSION["usertype"]) && $_SESSION["usertype"]=="admin" ){ 
+if (!isset($_SESSION["usertype"]) || $_SESSION["usertype"]!=="admin" ){
+
+    header("Location: ../index.php");
+    exit();
+ } 
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 	 isset($_POST["username"]) ? $username=$_POST["username"]: $username=null;
@@ -53,9 +57,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 			}else{
 
 			$password_hashed = password_hash($password, PASSWORD_DEFAULT);
-            for ($i = 0; $i < 9 ; $i++){ 
-                
-            $password_hashed = password_hash($password_hashed, PASSWORD_DEFAULT);  }
 
 			$stmt = $conn->prepare("insert into moderateur (mod_username, mod_password) values(?,?)");
 			$stmt->bind_param("ss", $username, $password_hashed);
@@ -76,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $row = $result->fetch_assoc();?>
         <div class="top-container">
             <div class="mod">
-        <p> mod ID :</p> <?php echo $row["mod_id"]; ?> <p> mod username :</p> <?php echo $row["mod_username"]; ?>
+        <p> Mod ID :</p> <?php echo $row["mod_id"]; ?> <p> Mod username :</p> <?php echo $row["mod_username"]; ?>
         <br><br> 
     <form  action="" method="POST">
         <input type="hidden" name ="deleted_mod" value="<?php echo $row["mod_id"]; ?>"/>
