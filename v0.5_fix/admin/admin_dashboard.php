@@ -7,10 +7,13 @@
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="form-container">
+     <a href="">Logout</a>
+    <h1>Paneau Adminestration </h1> 
+    
+<div class="top-container">
 <form action="" method="POST">
-  <input type="text" name="username" placeholder="Username" required="" autocomplete="off">
-  <input type="password" name="password" placeholder="Password"required=""autocomplete="off">
+ <input type="text" name="username" placeholder="Username" required="" autocomplete="off">
+ <input type="password" name="password" placeholder="Password"required=""autocomplete="off">
   <button type="submit">Ajouter Un Moderateur</button>
 </form>
 
@@ -72,12 +75,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if ($result && $result->num_rows > 0) {
 
         $row = $result->fetch_assoc();?>
-
-        <h3> Mod ID :</h3> <?php echo $row["mod_id"]; ?> <h3> Mod username :</h3> <?php echo $row["mod_username"]; ?>
+        <div class="top-container">
+            <div class="mod">
+        <p> Mod ID :</p> <?php echo $row["mod_id"]; ?> <p> Mod username :</p> <?php echo $row["mod_username"]; ?>
         <br><br> 
     <form  action="" method="POST">
         <input type="hidden" name ="deleted_mod" value="<?php echo $row["mod_id"]; ?>"/>
-        <button type="submit" name="delete">Delete</button> 
+        </div>
+        <button class="delete" type="submit" name="delete">Delete</button> 
+        
+        </div>
     </form>
         
 <?php 
@@ -92,12 +99,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $stmt->execute();      
 }?>
 
-<div class="form-container">
+<div class="bottom-container">
 <h3>Patient Ajout </h3>
-<?php include("patient_add.php");?>
-<br><br><h3>Doctor Ajout </h3><br><br>
-<?php include("doctor_add.php");?>
-<br><br><h3>recherche de compte </h3><br><br>
+<?php include("patient_add.php");?> </div>
+
+<br><br>
+<div class="bottom-container">
+<h3>Doctor Ajout </h3><br><br>
+<?php include("doctor_add.php");?></div>
+<br><br>
+<div class="search-container">
+<h3>recherche de compte </h3>
 <?php include("search_account.php");?>
 </div>
 

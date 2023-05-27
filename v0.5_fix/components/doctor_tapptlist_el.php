@@ -25,7 +25,7 @@ $days_rem = floor($ms_rem / (1000 * 60 * 60 * 24));
 $hours_rem = floor(($ms_rem % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 $minutes_rem = floor(($ms_rem % (1000 * 60 * 60)) / (1000 * 60));
 $MONTHS = array("?", "Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre");
-$DAYS = array("?", "Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam");
+$DAYS = array("Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam");
 ?>
 
 <div class="list_el prevent_list_el" id="<?php echo $tpatient_id ?>">

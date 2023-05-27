@@ -92,7 +92,7 @@ function bookform(op, doctor_id)
 	}
 }
 
-/* sanitise input */
+/* sanitise input *//*
 function txtarea_autosize(op)
 {
 	let minlen=[10, 5, 100, 10, 50, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 50, 50];
@@ -146,7 +146,7 @@ function txtarea_autosize(op)
 			}
 		}
 	}	
-}
+}*/
 
 //add appt (doctor side)
 function addto_apptlist(op, el)
