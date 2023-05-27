@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: May 24, 2023 at 10:34 PM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 8.1.6
+-- Hôte : localhost:3306
+-- Généré le : sam. 27 mai 2023 à 20:52
+-- Version du serveur : 10.4.28-MariaDB
+-- Version de PHP : 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,15 +18,92 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `Client`
+-- Base de données : `admin`
 --
-CREATE DATABASE IF NOT EXISTS `Client` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `Client`;
+CREATE DATABASE IF NOT EXISTS `admin` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `admin`;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `appt`
+-- Structure de la table `admin`
+--
+
+CREATE TABLE `admin` (
+  `admin_id` int(11) NOT NULL,
+  `admin_username` varchar(50) NOT NULL,
+  `admin_password` varchar(300) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `admin`
+--
+
+INSERT INTO `admin` (`admin_id`, `admin_username`, `admin_password`) VALUES
+(1, 'admin', '$2y$10$WHEpY8QqODDoSv/p6Bhs4eaDA7ck5as9CekHzJ19qZVnH1CdXl.LG');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `moderateur`
+--
+
+CREATE TABLE `moderateur` (
+  `mod_id` int(9) NOT NULL,
+  `mod_username` varchar(50) NOT NULL,
+  `mod_password` varchar(300) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `moderateur`
+--
+
+INSERT INTO `moderateur` (`mod_id`, `mod_username`, `mod_password`) VALUES
+(1, 'mod1', '$2y$10$g5gbKsPY/r.pTbuHgDJLI.vw3KqH7kNH.Fw9zfyYU7DH5OIQioGOK'),
+(2, 'mod2', '$2y$10$3K2SLN3x714hvPjVAXuFie/uEHj8WBZYSap7qLNjfXxdzO/jt3gnW'),
+(3, 'mod3', '$2y$10$GsLOEeKT6mMDw0WsieHOheeHVkWttlKNMBAY2op7nXPnzpnSprCRi');
+
+--
+-- Index pour les tables déchargées
+--
+
+--
+-- Index pour la table `admin`
+--
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`admin_id`);
+
+--
+-- Index pour la table `moderateur`
+--
+ALTER TABLE `moderateur`
+  ADD PRIMARY KEY (`mod_id`);
+
+--
+-- AUTO_INCREMENT pour les tables déchargées
+--
+
+--
+-- AUTO_INCREMENT pour la table `admin`
+--
+ALTER TABLE `admin`
+  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT pour la table `moderateur`
+--
+ALTER TABLE `moderateur`
+  MODIFY `mod_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- Base de données : `client`
+--
+CREATE DATABASE IF NOT EXISTS `client` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `client`;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `appt`
 --
 
 CREATE TABLE `appt` (
@@ -36,12 +113,12 @@ CREATE TABLE `appt` (
   `appt_date` varchar(100) DEFAULT NULL,
   `appt_keep_date` varchar(100) DEFAULT NULL,
   `appt_motif` varchar(500) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `doctor`
+-- Structure de la table `doctor`
 --
 
 CREATE TABLE `doctor` (
@@ -68,21 +145,21 @@ CREATE TABLE `doctor` (
   `doctor_coord` varchar(100) DEFAULT NULL,
   `doctor_verified` tinyint(1) NOT NULL DEFAULT 0,
   `doctor_bookmark` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `doctor`
+-- Déchargement des données de la table `doctor`
 --
 
-INSERT INTO `doctor` (`doctor_id`, `doctor_name`, `doctor_email`, `doctor_password`, `doctor_phone`, `doctor_bday`, `doctor_gender`, `doctor_pf_img`, `doctor_location`, `licence`, `speciality`, `description`, `worktime`, `pricing`, `dq`, `language`, `doctor_apptlist`, `doctor_appthistory`, `doctor_tapptlist`, `doctor_tappthistory`, `doctor_coord`) VALUES
-(10, 'Medecin 1', 'med1@med.com', '$2y$10$bzmyjSWQ.WbUqj1NXi9XDOpMkE/4IOQxLeLOoAc6STN2OqRF.6Q4C', '0794891034', '1985-05-09', 'M', NULL, NULL, NULL, 'Specialité', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(11, 'Medecin 2', 'med2@med.com', '$2y$10$4n/xU6pJiLHyUr/mKvg4.OVVjA3PeMXk7HhIKUjlJBkVPojTmlQG.', '0794891034', '1985-09-09', 'M', NULL, NULL, NULL, 'Specialité', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(12, 'Medecin 3', 'med3@med.com', '$2y$10$p.86Ar5sb8ZRy0LldQtore6yQ4X6oNvnxlJIvQ7ps6qbSCPJbRBXu', '0794891034', '1986-08-08', 'M', NULL, NULL, NULL, 'Specialité', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `doctor` (`doctor_id`, `doctor_name`, `doctor_email`, `doctor_password`, `doctor_phone`, `doctor_bday`, `doctor_gender`, `doctor_pf_img`, `doctor_location`, `licence`, `speciality`, `description`, `worktime`, `pricing`, `dq`, `language`, `doctor_apptlist`, `doctor_appthistory`, `doctor_tapptlist`, `doctor_tappthistory`, `doctor_coord`, `doctor_verified`, `doctor_bookmark`) VALUES
+(1, 'Medecin1', 'medecin1@gmail.com', '$2y$10$RPkSGiKuxR6iVRWt26IyruuHxnvHNhYAkbjdtPRJSCGfzvZPDxdYy', '0555264856', '1988-10-13', 'M', 'assets/pfp2.png', NULL, NULL, 'Dermatologue', 'Spécialisé dans la prise en charge des maladies relatives á la peau, j\'ai débuté ma carrière professionnelle au sein d\'un service hospitalier. Durant ces années de pratique, j\'ai eu affaire á des pathologies variées allant de la simple verrue á des affections plus complexes telles que la maladie de Lyme. ', '[[\"9:30\",\"16:00\"],[\"9:30\",\"16:00\"],[\"9:30\",\"16:00\"],[\"9:30\",\"16:00\"],[\"\",\"\"],[\"\",\"\"],[\"9:30\",\"16:00\"]]', '[[\"Consultation \",\"2000 Da\"]]', '[[\"2008 - 2012\",\"DES en dermatologie (Université de la Sorbonne, Paris) \"],[\"2001 - 2008\",\"Diplôme de Docteur en médecine (Faculté de Médecine, Paris) \"]]', '[\"Français\",\"Arab\"]', NULL, NULL, NULL, NULL, 'null', 1, NULL),
+(2, 'Medecin2', 'medecin2@gmail.com', '$2y$10$/09Hos1Hk7VLNhm8jMW9oe3odupyKRq/MRLyfX1amCLmUQjmVd6.G', '0788592810', '1995-03-15', 'M', 'assets/pfp2.png', 'tizi ouzou,bd krim Belkacem', NULL, 'Cardiologue', 'Medecin cardiologue récemment diplômé avec 4 ans d\'experience au service des ugrences, je suis passionné par la cardiologie et déterminé à fournir des soins de qualité aux patients souffrant de problèmes cardiaques.', '[[\"08:30\",\"15:30\"],[\"08:30\",\"15:30\"],[\"08:30\",\"15:30\"],[\"08:30\",\"08:30\"],[\"08:30\",\"15:30\"],[\"\",\"\"],[\"\",\"\"]]', '[[\"Consultation\",\"1500 Da\"]]', '[[\"2009-2016\",\"\\\"Diplôme de Docteur en médecine (Faculté de Médecine,tizi ouzou, hasnaoua)\\\"\"],[\"2016-2020\",\"\\\"\\\"DES en Cardiologie\\\"\"]]', '[\"Kabyle\",\"Anglais\",\"Francais\"]', NULL, NULL, NULL, NULL, 'null', 1, NULL),
+(3, 'Medecin3', 'medecin3@gmail.com', '$2y$10$TeQ1bkX5Hnf/RDHb5tj/XuCiPVcPfZ.v6JOFx/k9ftRXFWvJ439pC', '0618498279', '1967-01-25', 'F', 'assets/pfp2.png', 'tizi ouzou, Quartier C', NULL, 'Dermatologue', 'Médecin dermatologue spécialisé dans les traitements d\'épilation des cheveux, je suis dévoué à aider les patients à résoudre leurs problèmes capillaires de manière sûre et efficace. Je possède une solide formation médicale en dermatologie et une expertise particulière dans les techniques d\'épilation des cheveux.', '[[\"08:30\",\"15:00\"],[\"08:30\",\"15:00\"],[\"08:30\",\"12:30\"],[\"08:30\",\"15:00\"],[\"12:30\",\"15:30\"],[\"\",\"\"],[\"08:30\",\"15:00\"]]', '[[\"Consultation\",\"2000 Da\"]]', '[[\"1987-1994\",\"Diplome en medecine generale\"],[\"1996-2000\",\"DES en dermatologie\"]]', '[\"Kabyle\",\"Anglais\",\"Frainçais\"]', NULL, NULL, NULL, NULL, 'null', 1, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `patient`
+-- Structure de la table `patient`
 --
 
 CREATE TABLE `patient` (
@@ -99,21 +176,20 @@ CREATE TABLE `patient` (
   `patient_appthistory` varchar(500) DEFAULT NULL,
   `patient_prevent` tinyint(1) NOT NULL DEFAULT 0,
   `patient_bookmark` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `patient`
+-- Déchargement des données de la table `patient`
 --
 
-INSERT INTO `patient` (`patient_id`, `patient_name`, `patient_email`, `patient_password`, `patient_phone`, `patient_bday`, `patient_gender`, `patient_pf_img`, `patient_location`, `patient_apptlist`, `patient_appthistory`) VALUES
-(7, 'Patient 1', 'pat1@pat.com', '$2y$10$1YOiq.NvqEiTa.W3ycX7oOqAAZFF7MPh9IUlvqccN9FI36B.HDoLW', '0794891034', '1995-03-03', 'M', NULL, NULL, NULL, NULL),
-(8, 'Patient 2', 'pat2@pat.com', '$2y$10$P9JHkNFQIDhHhNcYjUID.e.sa7CNQL4EExCCHlfSz1AKPtPaHN3Fq', '0794891034', '1996-03-04', 'M', NULL, NULL, NULL, NULL),
-(9, 'Patient 3', 'pat3@pat.com', '$2y$10$F48LJ4XEEr1cvx0GnbILB.K9KV0k.UA7npfVNxhPfCy8zTwu/1vpS', '0794891034', '1994-05-05', 'M', NULL, NULL, NULL, NULL);
+INSERT INTO `patient` (`patient_id`, `patient_name`, `patient_email`, `patient_password`, `patient_phone`, `patient_bday`, `patient_gender`, `patient_pf_img`, `patient_location`, `patient_apptlist`, `patient_appthistory`, `patient_prevent`, `patient_bookmark`) VALUES
+(1, 'Patient1', 'patient1@gmail.com', '$2y$10$XI4v8ZDwpSQKF4wCQE1IfOOIwLFDVra99.5MSddfPUpbD4MQHl8Ea', '0525263880', '2000-05-12', 'M', 'assets/pfp2.png', NULL, NULL, NULL, 0, NULL),
+(2, 'Patient2', 'patient2@gmail.com', '$2y$10$/4wkmG3OMrU3j1yOsGHvPuwXPuow4ffDYmvg26QH7mSgRUeQ.xLjy', '0758492610', '1997-09-19', 'M', 'assets/pfp2.png', NULL, NULL, NULL, 0, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tpatient`
+-- Structure de la table `tpatient`
 --
 
 CREATE TABLE `tpatient` (
@@ -124,65 +200,65 @@ CREATE TABLE `tpatient` (
   `tpatient_appt_keep_date` varchar(50) DEFAULT NULL,
   `tpatient_doctor_id` int(9) DEFAULT NULL,
   `tpatient_appt_motif` varchar(500) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Indexes for dumped tables
+-- Index pour les tables déchargées
 --
 
 --
--- Indexes for table `appt`
+-- Index pour la table `appt`
 --
 ALTER TABLE `appt`
   ADD PRIMARY KEY (`appt_id`);
 
 --
--- Indexes for table `doctor`
+-- Index pour la table `doctor`
 --
 ALTER TABLE `doctor`
   ADD PRIMARY KEY (`doctor_id`);
 
 --
--- Indexes for table `patient`
+-- Index pour la table `patient`
 --
 ALTER TABLE `patient`
   ADD PRIMARY KEY (`patient_id`);
 
 --
--- Indexes for table `tpatient`
+-- Index pour la table `tpatient`
 --
 ALTER TABLE `tpatient`
   ADD PRIMARY KEY (`tpatient_id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT pour les tables déchargées
 --
 
 --
--- AUTO_INCREMENT for table `appt`
+-- AUTO_INCREMENT pour la table `appt`
 --
 ALTER TABLE `appt`
-  MODIFY `appt_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `appt_id` int(9) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `doctor`
+-- AUTO_INCREMENT pour la table `doctor`
 --
 ALTER TABLE `doctor`
-  MODIFY `doctor_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `doctor_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `patient`
+-- AUTO_INCREMENT pour la table `patient`
 --
 ALTER TABLE `patient`
-  MODIFY `patient_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `patient_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `tpatient`
+-- AUTO_INCREMENT pour la table `tpatient`
 --
 ALTER TABLE `tpatient`
-  MODIFY `tpatient_id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `tpatient_id` int(9) NOT NULL AUTO_INCREMENT;
 --
--- Database: `phpmyadmin`
+-- Base de données : `phpmyadmin`
 --
 CREATE DATABASE IF NOT EXISTS `phpmyadmin` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
 USE `phpmyadmin`;
@@ -190,36 +266,36 @@ USE `phpmyadmin`;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pma__bookmark`
+-- Structure de la table `pma__bookmark`
 --
 
 CREATE TABLE `pma__bookmark` (
-  `id` int(11) NOT NULL,
-  `dbase` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `user` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `label` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
-  `query` text COLLATE utf8_bin NOT NULL
+  `id` int(10) UNSIGNED NOT NULL,
+  `dbase` varchar(255) NOT NULL DEFAULT '',
+  `user` varchar(255) NOT NULL DEFAULT '',
+  `label` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `query` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Bookmarks';
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pma__central_columns`
+-- Structure de la table `pma__central_columns`
 --
 
 CREATE TABLE `pma__central_columns` (
-  `db_name` varchar(64) COLLATE utf8_bin NOT NULL,
-  `col_name` varchar(64) COLLATE utf8_bin NOT NULL,
-  `col_type` varchar(64) COLLATE utf8_bin NOT NULL,
-  `col_length` text COLLATE utf8_bin DEFAULT NULL,
-  `col_collation` varchar(64) COLLATE utf8_bin NOT NULL,
+  `db_name` varchar(64) NOT NULL,
+  `col_name` varchar(64) NOT NULL,
+  `col_type` varchar(64) NOT NULL,
+  `col_length` text DEFAULT NULL,
+  `col_collation` varchar(64) NOT NULL,
   `col_isNull` tinyint(1) NOT NULL,
-  `col_extra` varchar(255) COLLATE utf8_bin DEFAULT '',
-  `col_default` text COLLATE utf8_bin DEFAULT NULL
+  `col_extra` varchar(255) DEFAULT '',
+  `col_default` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Central list of columns';
 
 --
--- Dumping data for table `pma__central_columns`
+-- Déchargement des données de la table `pma__central_columns`
 --
 
 INSERT INTO `pma__central_columns` (`db_name`, `col_name`, `col_type`, `col_length`, `col_collation`, `col_isNull`, `col_extra`, `col_default`) VALUES
@@ -228,35 +304,35 @@ INSERT INTO `pma__central_columns` (`db_name`, `col_name`, `col_type`, `col_leng
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pma__column_info`
+-- Structure de la table `pma__column_info`
 --
 
 CREATE TABLE `pma__column_info` (
   `id` int(5) UNSIGNED NOT NULL,
-  `db_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `table_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `column_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `comment` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
-  `mimetype` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
-  `transformation` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `transformation_options` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `input_transformation` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `input_transformation_options` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT ''
+  `db_name` varchar(64) NOT NULL DEFAULT '',
+  `table_name` varchar(64) NOT NULL DEFAULT '',
+  `column_name` varchar(64) NOT NULL DEFAULT '',
+  `comment` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `mimetype` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `transformation` varchar(255) NOT NULL DEFAULT '',
+  `transformation_options` varchar(255) NOT NULL DEFAULT '',
+  `input_transformation` varchar(255) NOT NULL DEFAULT '',
+  `input_transformation_options` varchar(255) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Column information for phpMyAdmin';
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pma__designer_settings`
+-- Structure de la table `pma__designer_settings`
 --
 
 CREATE TABLE `pma__designer_settings` (
-  `username` varchar(64) COLLATE utf8_bin NOT NULL,
-  `settings_data` text COLLATE utf8_bin NOT NULL
+  `username` varchar(64) NOT NULL,
+  `settings_data` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Settings related to Designer';
 
 --
--- Dumping data for table `pma__designer_settings`
+-- Déchargement des données de la table `pma__designer_settings`
 --
 
 INSERT INTO `pma__designer_settings` (`username`, `settings_data`) VALUES
@@ -265,19 +341,19 @@ INSERT INTO `pma__designer_settings` (`username`, `settings_data`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pma__export_templates`
+-- Structure de la table `pma__export_templates`
 --
 
 CREATE TABLE `pma__export_templates` (
   `id` int(5) UNSIGNED NOT NULL,
-  `username` varchar(64) COLLATE utf8_bin NOT NULL,
-  `export_type` varchar(10) COLLATE utf8_bin NOT NULL,
-  `template_name` varchar(64) COLLATE utf8_bin NOT NULL,
-  `template_data` text COLLATE utf8_bin NOT NULL
+  `username` varchar(64) NOT NULL,
+  `export_type` varchar(10) NOT NULL,
+  `template_name` varchar(64) NOT NULL,
+  `template_data` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Saved export templates';
 
 --
--- Dumping data for table `pma__export_templates`
+-- Déchargement des données de la table `pma__export_templates`
 --
 
 INSERT INTO `pma__export_templates` (`id`, `username`, `export_type`, `template_name`, `template_data`) VALUES
@@ -286,111 +362,111 @@ INSERT INTO `pma__export_templates` (`id`, `username`, `export_type`, `template_
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pma__favorite`
+-- Structure de la table `pma__favorite`
 --
 
 CREATE TABLE `pma__favorite` (
-  `username` varchar(64) COLLATE utf8_bin NOT NULL,
-  `tables` text COLLATE utf8_bin NOT NULL
+  `username` varchar(64) NOT NULL,
+  `tables` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Favorite tables';
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pma__history`
+-- Structure de la table `pma__history`
 --
 
 CREATE TABLE `pma__history` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `username` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `db` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `table` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `username` varchar(64) NOT NULL DEFAULT '',
+  `db` varchar(64) NOT NULL DEFAULT '',
+  `table` varchar(64) NOT NULL DEFAULT '',
   `timevalue` timestamp NOT NULL DEFAULT current_timestamp(),
-  `sqlquery` text COLLATE utf8_bin NOT NULL
+  `sqlquery` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='SQL history for phpMyAdmin';
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pma__navigationhiding`
+-- Structure de la table `pma__navigationhiding`
 --
 
 CREATE TABLE `pma__navigationhiding` (
-  `username` varchar(64) COLLATE utf8_bin NOT NULL,
-  `item_name` varchar(64) COLLATE utf8_bin NOT NULL,
-  `item_type` varchar(64) COLLATE utf8_bin NOT NULL,
-  `db_name` varchar(64) COLLATE utf8_bin NOT NULL,
-  `table_name` varchar(64) COLLATE utf8_bin NOT NULL
+  `username` varchar(64) NOT NULL,
+  `item_name` varchar(64) NOT NULL,
+  `item_type` varchar(64) NOT NULL,
+  `db_name` varchar(64) NOT NULL,
+  `table_name` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Hidden items of navigation tree';
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pma__pdf_pages`
+-- Structure de la table `pma__pdf_pages`
 --
 
 CREATE TABLE `pma__pdf_pages` (
-  `db_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `db_name` varchar(64) NOT NULL DEFAULT '',
   `page_nr` int(10) UNSIGNED NOT NULL,
-  `page_descr` varchar(50) CHARACTER SET utf8 NOT NULL DEFAULT ''
+  `page_descr` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='PDF relation pages for phpMyAdmin';
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pma__recent`
+-- Structure de la table `pma__recent`
 --
 
 CREATE TABLE `pma__recent` (
-  `username` varchar(64) COLLATE utf8_bin NOT NULL,
-  `tables` text COLLATE utf8_bin NOT NULL
+  `username` varchar(64) NOT NULL,
+  `tables` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Recently accessed tables';
 
 --
--- Dumping data for table `pma__recent`
+-- Déchargement des données de la table `pma__recent`
 --
 
 INSERT INTO `pma__recent` (`username`, `tables`) VALUES
-('root', '[{\"db\":\"Client\",\"table\":\"doctor\"},{\"db\":\"Client\",\"table\":\"patient\"},{\"db\":\"Client\",\"table\":\"appt\"},{\"db\":\"Client\",\"table\":\"tpatient\"},{\"db\":\"Client\",\"table\":\"apt\"},{\"db\":\"test\",\"table\":\"user\"},{\"db\":\"phpmyadmin\",\"table\":\"pma__bookmark\"}]');
+('root', '[{\"db\":\"Client\",\"table\":\"doctor\"},{\"db\":\"Client\",\"table\":\"patient\"},{\"db\":\"Client\",\"table\":\"apt\"},{\"db\":\"test\",\"table\":\"user\"},{\"db\":\"phpmyadmin\",\"table\":\"pma__bookmark\"}]');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pma__relation`
+-- Structure de la table `pma__relation`
 --
 
 CREATE TABLE `pma__relation` (
-  `master_db` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `master_table` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `master_field` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `foreign_db` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `foreign_table` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `foreign_field` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT ''
+  `master_db` varchar(64) NOT NULL DEFAULT '',
+  `master_table` varchar(64) NOT NULL DEFAULT '',
+  `master_field` varchar(64) NOT NULL DEFAULT '',
+  `foreign_db` varchar(64) NOT NULL DEFAULT '',
+  `foreign_table` varchar(64) NOT NULL DEFAULT '',
+  `foreign_field` varchar(64) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Relation table';
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pma__savedsearches`
+-- Structure de la table `pma__savedsearches`
 --
 
 CREATE TABLE `pma__savedsearches` (
   `id` int(5) UNSIGNED NOT NULL,
-  `username` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `db_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `search_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `search_data` text COLLATE utf8_bin NOT NULL
+  `username` varchar(64) NOT NULL DEFAULT '',
+  `db_name` varchar(64) NOT NULL DEFAULT '',
+  `search_name` varchar(64) NOT NULL DEFAULT '',
+  `search_data` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Saved searches';
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pma__table_coords`
+-- Structure de la table `pma__table_coords`
 --
 
 CREATE TABLE `pma__table_coords` (
-  `db_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `table_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `db_name` varchar(64) NOT NULL DEFAULT '',
+  `table_name` varchar(64) NOT NULL DEFAULT '',
   `pdf_page_number` int(11) NOT NULL DEFAULT 0,
   `x` float UNSIGNED NOT NULL DEFAULT 0,
   `y` float UNSIGNED NOT NULL DEFAULT 0
@@ -399,253 +475,258 @@ CREATE TABLE `pma__table_coords` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pma__table_info`
+-- Structure de la table `pma__table_info`
 --
 
 CREATE TABLE `pma__table_info` (
-  `db_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `table_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
-  `display_field` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT ''
+  `db_name` varchar(64) NOT NULL DEFAULT '',
+  `table_name` varchar(64) NOT NULL DEFAULT '',
+  `display_field` varchar(64) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Table information for phpMyAdmin';
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pma__table_uiprefs`
+-- Structure de la table `pma__table_uiprefs`
 --
 
 CREATE TABLE `pma__table_uiprefs` (
-  `username` varchar(64) COLLATE utf8_bin NOT NULL,
-  `db_name` varchar(64) COLLATE utf8_bin NOT NULL,
-  `table_name` varchar(64) COLLATE utf8_bin NOT NULL,
-  `prefs` text COLLATE utf8_bin NOT NULL,
+  `username` varchar(64) NOT NULL,
+  `db_name` varchar(64) NOT NULL,
+  `table_name` varchar(64) NOT NULL,
+  `prefs` text NOT NULL,
   `last_update` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Tables'' UI preferences';
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pma__tracking`
+-- Structure de la table `pma__tracking`
 --
 
 CREATE TABLE `pma__tracking` (
-  `db_name` varchar(64) COLLATE utf8_bin NOT NULL,
-  `table_name` varchar(64) COLLATE utf8_bin NOT NULL,
+  `db_name` varchar(64) NOT NULL,
+  `table_name` varchar(64) NOT NULL,
   `version` int(10) UNSIGNED NOT NULL,
   `date_created` datetime NOT NULL,
   `date_updated` datetime NOT NULL,
-  `schema_snapshot` text COLLATE utf8_bin NOT NULL,
-  `schema_sql` text COLLATE utf8_bin DEFAULT NULL,
-  `data_sql` longtext COLLATE utf8_bin DEFAULT NULL,
-  `tracking` set('UPDATE','REPLACE','INSERT','DELETE','TRUNCATE','CREATE DATABASE','ALTER DATABASE','DROP DATABASE','CREATE TABLE','ALTER TABLE','RENAME TABLE','DROP TABLE','CREATE INDEX','DROP INDEX','CREATE VIEW','ALTER VIEW','DROP VIEW') COLLATE utf8_bin DEFAULT NULL,
+  `schema_snapshot` text NOT NULL,
+  `schema_sql` text DEFAULT NULL,
+  `data_sql` longtext DEFAULT NULL,
+  `tracking` set('UPDATE','REPLACE','INSERT','DELETE','TRUNCATE','CREATE DATABASE','ALTER DATABASE','DROP DATABASE','CREATE TABLE','ALTER TABLE','RENAME TABLE','DROP TABLE','CREATE INDEX','DROP INDEX','CREATE VIEW','ALTER VIEW','DROP VIEW') DEFAULT NULL,
   `tracking_active` int(1) UNSIGNED NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Database changes tracking for phpMyAdmin';
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pma__userconfig`
+-- Structure de la table `pma__userconfig`
 --
 
 CREATE TABLE `pma__userconfig` (
-  `username` varchar(64) COLLATE utf8_bin NOT NULL,
+  `username` varchar(64) NOT NULL,
   `timevalue` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `config_data` text COLLATE utf8_bin NOT NULL
+  `config_data` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='User preferences storage for phpMyAdmin';
 
 --
--- Dumping data for table `pma__userconfig`
+-- Déchargement des données de la table `pma__userconfig`
 --
 
 INSERT INTO `pma__userconfig` (`username`, `timevalue`, `config_data`) VALUES
-('root', '2023-05-24 20:17:54', '{\"Console\\/Mode\":\"collapse\",\"Console\\/Height\":477.00200000000000954969436861574649810791015625}');
+('root', '2019-10-21 13:37:09', '{\"Console\\/Mode\":\"collapse\"}');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pma__usergroups`
+-- Structure de la table `pma__usergroups`
 --
 
 CREATE TABLE `pma__usergroups` (
-  `usergroup` varchar(64) COLLATE utf8_bin NOT NULL,
-  `tab` varchar(64) COLLATE utf8_bin NOT NULL,
-  `allowed` enum('Y','N') COLLATE utf8_bin NOT NULL DEFAULT 'N'
+  `usergroup` varchar(64) NOT NULL,
+  `tab` varchar(64) NOT NULL,
+  `allowed` enum('Y','N') NOT NULL DEFAULT 'N'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='User groups with configured menu items';
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pma__users`
+-- Structure de la table `pma__users`
 --
 
 CREATE TABLE `pma__users` (
-  `username` varchar(64) COLLATE utf8_bin NOT NULL,
-  `usergroup` varchar(64) COLLATE utf8_bin NOT NULL
+  `username` varchar(64) NOT NULL,
+  `usergroup` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Users and their assignments to user groups';
 
 --
--- Indexes for dumped tables
+-- Index pour les tables déchargées
 --
 
 --
--- Indexes for table `pma__bookmark`
+-- Index pour la table `pma__bookmark`
 --
 ALTER TABLE `pma__bookmark`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `pma__central_columns`
+-- Index pour la table `pma__central_columns`
 --
 ALTER TABLE `pma__central_columns`
   ADD PRIMARY KEY (`db_name`,`col_name`);
 
 --
--- Indexes for table `pma__column_info`
+-- Index pour la table `pma__column_info`
 --
 ALTER TABLE `pma__column_info`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `db_name` (`db_name`,`table_name`,`column_name`);
 
 --
--- Indexes for table `pma__designer_settings`
+-- Index pour la table `pma__designer_settings`
 --
 ALTER TABLE `pma__designer_settings`
   ADD PRIMARY KEY (`username`);
 
 --
--- Indexes for table `pma__export_templates`
+-- Index pour la table `pma__export_templates`
 --
 ALTER TABLE `pma__export_templates`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `u_user_type_template` (`username`,`export_type`,`template_name`);
 
 --
--- Indexes for table `pma__favorite`
+-- Index pour la table `pma__favorite`
 --
 ALTER TABLE `pma__favorite`
   ADD PRIMARY KEY (`username`);
 
 --
--- Indexes for table `pma__history`
+-- Index pour la table `pma__history`
 --
 ALTER TABLE `pma__history`
   ADD PRIMARY KEY (`id`),
   ADD KEY `username` (`username`,`db`,`table`,`timevalue`);
 
 --
--- Indexes for table `pma__navigationhiding`
+-- Index pour la table `pma__navigationhiding`
 --
 ALTER TABLE `pma__navigationhiding`
   ADD PRIMARY KEY (`username`,`item_name`,`item_type`,`db_name`,`table_name`);
 
 --
--- Indexes for table `pma__pdf_pages`
+-- Index pour la table `pma__pdf_pages`
 --
 ALTER TABLE `pma__pdf_pages`
   ADD PRIMARY KEY (`page_nr`),
   ADD KEY `db_name` (`db_name`);
 
 --
--- Indexes for table `pma__recent`
+-- Index pour la table `pma__recent`
 --
 ALTER TABLE `pma__recent`
   ADD PRIMARY KEY (`username`);
 
 --
--- Indexes for table `pma__relation`
+-- Index pour la table `pma__relation`
 --
 ALTER TABLE `pma__relation`
   ADD PRIMARY KEY (`master_db`,`master_table`,`master_field`),
   ADD KEY `foreign_field` (`foreign_db`,`foreign_table`);
 
 --
--- Indexes for table `pma__savedsearches`
+-- Index pour la table `pma__savedsearches`
 --
 ALTER TABLE `pma__savedsearches`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `u_savedsearches_username_dbname` (`username`,`db_name`,`search_name`);
 
 --
--- Indexes for table `pma__table_coords`
+-- Index pour la table `pma__table_coords`
 --
 ALTER TABLE `pma__table_coords`
   ADD PRIMARY KEY (`db_name`,`table_name`,`pdf_page_number`);
 
 --
--- Indexes for table `pma__table_info`
+-- Index pour la table `pma__table_info`
 --
 ALTER TABLE `pma__table_info`
   ADD PRIMARY KEY (`db_name`,`table_name`);
 
 --
--- Indexes for table `pma__table_uiprefs`
+-- Index pour la table `pma__table_uiprefs`
 --
 ALTER TABLE `pma__table_uiprefs`
   ADD PRIMARY KEY (`username`,`db_name`,`table_name`);
 
 --
--- Indexes for table `pma__tracking`
+-- Index pour la table `pma__tracking`
 --
 ALTER TABLE `pma__tracking`
   ADD PRIMARY KEY (`db_name`,`table_name`,`version`);
 
 --
--- Indexes for table `pma__userconfig`
+-- Index pour la table `pma__userconfig`
 --
 ALTER TABLE `pma__userconfig`
   ADD PRIMARY KEY (`username`);
 
 --
--- Indexes for table `pma__usergroups`
+-- Index pour la table `pma__usergroups`
 --
 ALTER TABLE `pma__usergroups`
   ADD PRIMARY KEY (`usergroup`,`tab`,`allowed`);
 
 --
--- Indexes for table `pma__users`
+-- Index pour la table `pma__users`
 --
 ALTER TABLE `pma__users`
   ADD PRIMARY KEY (`username`,`usergroup`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT pour les tables déchargées
 --
 
 --
--- AUTO_INCREMENT for table `pma__bookmark`
+-- AUTO_INCREMENT pour la table `pma__bookmark`
 --
 ALTER TABLE `pma__bookmark`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `pma__column_info`
+-- AUTO_INCREMENT pour la table `pma__column_info`
 --
 ALTER TABLE `pma__column_info`
   MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `pma__export_templates`
+-- AUTO_INCREMENT pour la table `pma__export_templates`
 --
 ALTER TABLE `pma__export_templates`
   MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `pma__history`
+-- AUTO_INCREMENT pour la table `pma__history`
 --
 ALTER TABLE `pma__history`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `pma__pdf_pages`
+-- AUTO_INCREMENT pour la table `pma__pdf_pages`
 --
 ALTER TABLE `pma__pdf_pages`
   MODIFY `page_nr` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `pma__savedsearches`
+-- AUTO_INCREMENT pour la table `pma__savedsearches`
 --
 ALTER TABLE `pma__savedsearches`
   MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- Base de données : `test`
+--
+CREATE DATABASE IF NOT EXISTS `test` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `test`;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
