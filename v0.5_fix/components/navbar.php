@@ -18,7 +18,7 @@ if (isset($_SESSION["usertype"]))
 		<form id="navbar_search_form" action="resultlist.php" method="POST">
 			<input type="text" id="location_search" class="navbar_search_location" placeholder="Emplacement..."name="location">
 			<input type="text" id="speciality_search" class="navbar_search_speciality" placeholder="Specialité..."name="speciality">
-			<input type="submit" class="navbar_search_submit" value="Rechercher" onclick="toggleRequired()">
+			<input type="submit" class="input_button" value="Rechercher" onclick="toggleRequired()">
 		</form>	
 		<div class="dummy_div"></div>
 	</div>
@@ -37,14 +37,14 @@ if (isset($_SESSION["usertype"]))
 		<form id="navbar_search_form" action="resultlist.php" method="POST">
 			<input type="text" id="location_search" class="navbar_search_location" placeholder="Emplacement..." name="location">
 			<input type="text" id="speciality_search" class="navbar_search_speciality" placeholder="Specialité..." name="speciality">
-			<input type="submit" class="navbar_search_submit" value="Rechercher" onclick="toggleRequired()">
+			<input type="submit" class="input_button" value="Rechercher" onclick="toggleRequired()">
 		</form>
 		<div class="dummy_div"></div>
 	</div>
 </div>
 <div class="navbar_auth">
-	<a href="login.php" class="navbar_auth_login">Connexion</a>
-	<button class="navbar_auth_signup" onclick="toggle_signup()">Inscription</button>
+	<a href="login.php" class="input_button">Connexion</a>
+	<button class="input_button" onclick="toggle_signup()">Inscription</button>
 	<div class="hidden" id="toggle_signup">
 		<a href="doctor_signup.php" class="navbar_auth_signup_el">Inscription Medecin</a>
 		<a href="patient_signup.php" class="navbar_auth_signup_el">Inscription Patient</a>

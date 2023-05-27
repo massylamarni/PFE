@@ -26,12 +26,16 @@ if (isset($_GET['doctor_id']))
 	$pricing = $row['pricing'];
 	$dq = $row['dq'];
 	$language = $row['language'];
-	if (!$description) $description = "Non definis...";
-	if (!$doctor_location) $doctor_location = "Non definis...";
-	if (!$worktime) $worktime = '[["Non definis...","Non definis..."],["Non definis...","Non definis..."],["Non definis...","Non definis..."],["Non definis...","Non definis..."],["Non definis...","Non definis..."],["Non definis...","Non definis..."],["Non definis...","Non definis..."]]';
-	if (!$pricing) $pricing = '[["Non definis... ","Non definis..."]]';
-	if (!$dq) $dq = '[["Non definis...","Non definis..."]]';
-	if (!$language) $language = '["Non definis..."]';
+	if ((empty($description)) || ($description == '[]')) $description = "Non definis...";
+	if ((empty($doctor_location)) || ($doctor_location == '[]')) $doctor_location = "Non definis...";
+	if ((empty($worktime)) || ($worktime == '[]')) $worktime = '[["Non definis...","Non definis..."],["Non definis...","Non definis..."],["Non definis...","Non definis..."],["Non definis...","Non definis..."],["Non definis...","Non definis..."],["Non definis...","Non definis..."],["Non definis...","Non definis..."]]';
+	$worktime_decoded = json_decode($worktime);
+	if ((empty($pricing)) || ($pricing == '[]')) $pricing = '[["Non definis... ","Non definis..."]]';
+	$pricing_decoded = json_decode($pricing);
+	if ((empty($dq)) || ($dq == '[]')) $dq = '[["Non definis...","Non definis..."]]';
+	$dq_decoded = json_decode($dq);
+	if ((empty($language)) || ($language == '[]')) $language = '["Non definis..."]';
+	$language_decoded = json_decode($language); 
 }
 ?>
 
@@ -40,63 +44,35 @@ if (isset($_GET['doctor_id']))
 	<div class="pf_header">
 		<img src="<?php echo $doctor_pf_img ?>">
 		<div class="pf_header_text">
-			<div class="pf_header_text_name"><?php echo $doctor_name ?></div>
-			<div class="pf_header_text_speciality">
-				<?php echo $speciality ?>, 
-			</div>
+			<div class="pf_header_text_name"><p><?php echo $doctor_name ?></p></div>
+			<div class="pf_header_text_speciality"><p><?php echo $speciality ?></p></div>
 		</div>
 	</div>
 	<div class="pf_body">
-	   <?php if (isset($description)) {  ?>
-		<div class="pf_body_field"><h3>Description</h3>
-			<pre><?php  echo $description ?></pre>
-		</div>
-		<?php  } ?>
-		<div class="pf_body_field"><h3>Numero telephone</h3><?php echo $doctor_phone ?></div>
-		<div class="pf_body_field"><h3>Adresse</h3><?php if (isset($doctor_location)) echo $doctor_location ?></div>
-
+		<div class="pf_body_field"><h3>Description</h3><p><?php  echo $description ?></p></div>
+		<div class="pf_body_field"><h3>Numero telephone</h3><p><?php echo $doctor_phone ?></p></div>
+		<div class="pf_body_field"><h3>Adresse</h3><p><?php echo $doctor_location ?></p></div>
 		<div class="pf_body_field"><h3>Horaires de travail</h3>
-		<?php if (isset($worktime)){ $worktimes = json_decode($worktime); ?>
-		<pre>
-				Dim:<label><?php echo $worktimes[0][0] ?></label> - <label><?php echo $worktimes[0][1] ?></label>
-				Lun:<label><?php echo $worktimes[1][0] ?></label> - <label><?php echo $worktimes[1][1] ?></label>
-				Mar:<label><?php echo $worktimes[2][0] ?></label> - <label><?php echo $worktimes[2][1] ?></label>
-				Mer:<label><?php echo $worktimes[3][0] ?></label> - <label><?php echo $worktimes[3][1] ?></label>
-				Jeu:<label><?php echo $worktimes[4][0] ?></label> - <label><?php echo $worktimes[4][1] ?></label>
-				Ven:<label><?php echo $worktimes[5][0] ?></label> - <label><?php echo $worktimes[5][1] ?></label>
-				Sam:<label><?php echo $worktimes[6][0] ?></label> - <label><?php echo $worktimes[6][1] ?></label>
-		</pre>
-		</div>
-		<?php } ?>
-
-		<div class="pf_body_field"><h3>Tarifs</h3>
-		<pre>
-		<?php 
-		if (isset($pricing)) { $pricing=json_decode($pricing);  
-			 foreach ($pricing as $Pricing) { ?>
-                <label><?php echo $Pricing[0] ?></label> : <label><?php echo $Pricing[1] ?></label>
-		</pre>
-		</div>
-		<?php } } ?>
-		<div class="pf_body_field"><h3>Diplomes & Qualifications</h3>
-			<pre>
 			<?php
-		if (isset($dq)) { $dq=json_decode($dq); 
-			  foreach ($dq as $Dq) { ?>
-				<label> <?php echo $Dq[0] ?></label> : <label><?php echo $Dq[1] ?></label>
-			</pre>
+			$DAYS = array("Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam");
+			for ($i = 0; $i < 7; $i++) { ?>
+			<p><?php echo $DAYS[$i] ?> : <?php echo $worktime_decoded[$i][0] ?> - <?php echo $worktime_decoded[$i][1] ?></p>
+			<?php } ?>
 		</div>
-		<?php } } ?>
+		<div class="pf_body_field"><h3>Tarifs</h3>
+			<?php foreach ($pricing_decoded as $i) { ?>
+			<p><?php echo $i[0] ?> :&emsp;&emsp;&emsp; <?php echo $i[1] ?></p>
+			<?php } ?>
+		</div>
+		<div class="pf_body_field"><h3>Diplomes & Qualifications</h3>
+			<?php foreach ($dq_decoded as $i) { ?>
+			<p><?php echo $i[0] ?> :&emsp;&emsp;&emsp; <?php echo $i[1] ?></p>
+			<?php } ?>
+		</div>
 		<div class="pf_body_field"><h3>Langues parlées</h3>
-		<pre>
-		<?php
-		if (isset($language)) { $language=json_decode($language); 
-		  foreach ($language as $Language) { ?>
-			<label> <?php echo $Language ?></label> 
-			</pre>
+			<?php foreach ($language_decoded as $i) { ?>
+			<p><?php echo $i ?></p>
+			<?php } ?>
 		</div>
-		<?php } } ?>
-		
-		<div class="pf_body_images"><h3>∮ Images</h3></div>
 	</div>
 </div>

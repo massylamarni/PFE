@@ -37,7 +37,7 @@ $days_rem = $date_rem->d;
 $hours_rem = $date_rem->h;
 $minutes_rem = $date_rem->i;
 $MONTHS = array("?", "Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre");
-$DAYS = array("?", "Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam");
+$DAYS = array("Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam");
 ?>
 
 <div class="list_el" id="<?php echo $doctor_id ?>">
@@ -57,7 +57,7 @@ $DAYS = array("?", "Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam");
 		<form class="brief_action" name="cancel_<?php echo $appt_id?>" method="post" action="patient_index.php">
 			<input type="hidden" name="appt_id" value="<?php echo $appt_id?>">
 			<input type="hidden" name="appt_id_state" value="Annulé">
-			<input type="submit" value="Annuler RDV">
+			<input type="submit" class="input_button" value="Annuler RDV">
 		</form>
 	</div>
 </div>

@@ -21,7 +21,7 @@ $tpatient_pf_img = $row['tpatient_pf_img'];
 $tpatient_appt_date_obj = new DateTime($tpatient_appt_date);
 $tpatient_appt_keep_date_obj = new DateTime($tpatient_appt_keep_date);
 $MONTHS = array("?", "Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre");
-$DAYS = array("?", "Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam");
+$DAYS = array("Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam");
 ?>
 
 <div class="list_el prevent_list_el" id="<?php echo $tpatient_id ?>">

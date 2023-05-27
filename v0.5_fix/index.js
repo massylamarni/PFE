@@ -92,7 +92,7 @@ function bookform(op, doctor_id)
 	}
 }
 
-/* sanitise input */
+/* sanitise input *//*
 function txtarea_autosize(op)
 {
 	let minlen=[10, 5, 100, 10, 50, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 50, 50];
@@ -146,7 +146,7 @@ function txtarea_autosize(op)
 			}
 		}
 	}	
-}
+}*/
 
 //add appt (doctor side)
 function addto_apptlist(op, el)
@@ -334,15 +334,22 @@ function toggle_motif(op, el)
 }
 
 
-function previewImage(event) {
-	var input = event.target;
-	if (input.files && input.files[0]) {
-	  var reader = new FileReader();
-	  reader.onload = function (e) {
-		var previewElement = document.getElementById("preview");
-		previewElement.src = e.target.result;
-	  }
-	  reader.readAsDataURL(input.files[0]);
+function previewImage(event, op) {
+	if (op == 1)
+	{
+		let input = event.target;
+		if (input.files && input.files[0]) {
+		  let reader = new FileReader();
+		  reader.onload = function (e) {
+			let previewElement = document.getElementById("preview");
+			previewElement.src = e.target.result;
+		  }
+		  reader.readAsDataURL(input.files[0]);
+		}
+	}
+	else
+	{
+		document.getElementById("profile_picture").click();
 	}
   }
   
@@ -359,8 +366,8 @@ function toggle_navbar(el)
 }
 
 function toggleRequired() {
-	var input1 = document.getElementById("location_search");
-	var input2 = document.getElementById("speciality_search");
+	let input1 = document.getElementById("location_search");
+	let input2 = document.getElementById("speciality_search");
 	
 	if (input1.value.trim() === "" && input2.value.trim() === "") {
 		input2.required = true;

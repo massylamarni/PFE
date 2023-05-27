@@ -61,7 +61,10 @@ if($location && $speciality){
 		while($row = $result->fetch_assoc()){
 			
 			$appt_searchresult[] = $row["doctor_id"];
-		}	
+			$doctor_status[] = $row["doctor_verified"];
+		}   $result = in_array(1, $doctor_status);
+
+		if (!$result) { echo "0 results"; } 	
 
 	}else {
 		
@@ -69,7 +72,7 @@ if($location && $speciality){
 	}
 	
 	 //display searchresults
-	
+	 if ($result) { 
 	if (!isset($appt_searchresult)) $null_appt_searchresult = true; else $null_appt_searchresult = false;
 	if (!$null_appt_searchresult)
 	{ ?>
@@ -80,6 +83,7 @@ if($location && $speciality){
 			$doctor_id=$appt_searchresult[$i];
 			include("components/resultlist_el.php");
 		}
+	}
 	}
 }
 	//save appt process
@@ -151,7 +155,8 @@ if($location && $speciality){
 		$stmt = $conn->prepare("UPDATE doctor SET doctor_apptlist = ? WHERE doctor_id = ?");
 		$stmt->bind_param("si", $doctor_apptlist, $appt_doctor_id);
 		$stmt->execute();
-
+			header("Location: patient_index.php");
+			exit();
 		$stmt->close();
 		$conn->close();
 	}
