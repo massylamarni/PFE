@@ -99,6 +99,8 @@ if ($result->num_rows == 1) {
 	$_SESSION["phone"]=$row["doctor_phone"];
 	$_SESSION["gender"]=$row["doctor_gender"];
 	$_SESSION["speciality"]=$row["speciality"];
+	$_SESSION["description"]=$row["description"];
+	$_SESSION["location"]=$row["location"];
 	if (isset($row["doctor_location"])) $_SESSION["location"] = $row["doctor_location"];
 	if (isset($row["doctor_pf_img"])) $_SESSION["pf_img"] = $row["doctor_pf_img"];
 	if (isset($row["description"])) $_SESSION["description"] = $row["description"];

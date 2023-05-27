@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,112 +8,98 @@
 	<link rel="stylesheet" href="index.css">
 	<title>Visuals</title>
 </head>
-<body>
 
-<?php  
-//ini_set('display_errors', 1);
+<body>
+<?php
+ini_set('display_errors', 1);
 
 include("components/navbar.php");
+if (!isset($_SESSION)) {
+	session_start();
+}
 
-if(!isset($_SESSION)){session_start(); }
+if (isset($_SESSION["usertype"]) && $_SESSION["usertype"] == 'doctor') { ?>
 
-if(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='doctor') { ?>
+	<div class="std_containerI">
+		<div class="ep_container">
+			<h3>Mon Profil</h3>
+			<form class="ep_form">
+<?php
+	$doctor_id = $_SESSION['id'];
+	$doctor_pf_img = $_SESSION['pf_img'];
+	$doctor_name = $_SESSION['name'];
+	$speciality = $_SESSION['speciality'];
+	$doctor_phone = $_SESSION['phone'];
+	$doctor_email = $_SESSION['email'];
+	$description = $_SESSION['description'];
+	$doctor_location = $_SESSION['location'];
+	$worktime= $_SESSION['worktime'];
+	$pricing = $_SESSION['pricing'];
+	$dq = $_SESSION['dq'];
+	$language = $_SESSION['language'];
+	if ((empty($description)) || ($description == '[]')) $description = "Non definis...";
+	if ((empty($doctor_location)) || ($doctor_location == '[]')) $doctor_location = "Non definis...";
+	if ((empty($worktime)) || ($worktime == '[]')) $worktime = '[["Non definis...","Non definis..."],["Non definis...","Non definis..."],["Non definis...","Non definis..."],["Non definis...","Non definis..."],["Non definis...","Non definis..."],["Non definis...","Non definis..."],["Non definis...","Non definis..."]]';
+	if ((empty($pricing)) || ($pricing == '[]')) $pricing = '[["Non definis... ","Non definis..."]]';
+	if ((empty($dq)) || ($dq == '[]')) $dq = '[["Non definis...","Non definis..."]]';
+	if ((empty($language)) || ($language == '[]')) $language = '["Non definis..."]';
+	if (is_string($worktime)){ $worktime= json_decode($worktime);}
+	$pricing = json_decode($pricing);
+	$dq = json_decode($dq);
+	$language = json_decode(($language));
+?>
 
-<div class="std_containerI">
-	<div class="ep_container">
-
-	<h3>Mon profile</h3>
-
-<form class="ep_form" >
-<div class="pf" >
+<div class="pf" id="pf_<?php echo $doctor_id ?>">
 	<div class="pf_header">
-		<img src="<?php echo $_SESSION["pf_img"] ?>">
+		<img src="<?php echo $doctor_pf_img ?>">
 		<div class="pf_header_text">
-		<div class="pf_header_text_name"><label><?php echo $_SESSION["name"] ?></label></div>
-			<div class="pf_header_text_speciality">
-				<label><?php echo $_SESSION["speciality"] ?></label>
-			</div>
+			<div class="pf_header_text_name"><p><?php echo $doctor_name ?></p></div>
+			<div class="pf_header_text_speciality"><p><?php echo $speciality ?></p></div>
 		</div>
 	</div>
 	<div class="pf_body">
-		<div class="pf_body_field"><h3>Description</h3>
-			<pre><label><?php if(isset($_SESSION["description"])){ echo $_SESSION["description"]; }?></label></pre>
-		</div>
-		<div class="pf_body_field"><h3>Numero telephone</h3><label><?php echo $_SESSION["phone"] ?></label></div>
-		<div class="pf_body_field"><h3>Adresse</h3><label><?php if (isset($_SESSION["location"])){ echo $_SESSION["location"]; } ?></label></div>
-		<div class="pf_body_field"><h3>Date Naissance</h3><label><?php echo $_SESSION["bday"] ?></label> </div>
+		<div class="pf_body_field"><h3>Description</h3><p><?php  echo $description ?></p></div>
+		<div class="pf_body_field"><h3>Numero telephone</h3><p><?php echo $doctor_phone ?></p></div>
+		<div class="pf_body_field"><h3>Adresse</h3><p><?php echo $doctor_location ?></p></div>
 		<div class="pf_body_field"><h3>Horaires de travail</h3>
-		<?php if (isset($_SESSION["worktime"])) { 
-			if (is_string($_SESSION["worktime"])) {
-				$worktimes =json_decode($_SESSION["worktime"]) ;
-			} else {$worktimes = $_SESSION["worktime"]; }?>
-			<pre>
-				Dim:<label><?php echo $worktimes[0][0] ?></label> - <label><?php echo $worktimes[0][1] ?></label>
-				Lun:<label><?php echo $worktimes[1][0] ?></label> - <label><?php echo $worktimes[1][1] ?></label>
-				Mar:<label><?php echo $worktimes[2][0] ?></label> - <label><?php echo $worktimes[2][1] ?></label>
-				Mer:<label><?php echo $worktimes[3][0] ?></label> - <label><?php echo $worktimes[3][1] ?></label>
-				Jeu:<label><?php echo $worktimes[4][0] ?></label> - <label><?php echo $worktimes[4][1] ?></label>
-				Ven:<label><?php echo $worktimes[5][0] ?></label> - <label><?php echo $worktimes[5][1] ?></label>
-				Sam:<label><?php echo $worktimes[6][0] ?></label> - <label><?php echo $worktimes[6][1] ?></label>
-			<?php  }  ?>
-			</pre>
+			<?php
+			$DAYS = array("Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam");
+			for ($i = 0; $i < 7; $i++) { ?>
+			<p><?php echo $DAYS[$i] ?> : <?php echo $worktime[$i][0] ?> - <?php echo $worktime[$i][1] ?></p>
+			<?php } ?>
 		</div>
-		
 		<div class="pf_body_field"><h3>Tarifs</h3>
-		<pre>
-		<?php if (isset($_SESSION["pricing"])) { 
-			if (is_string($_SESSION["pricing"])) {$_SESSION["pricing"]=json_decode($_SESSION["pricing"]);}
-			foreach ($_SESSION["pricing"] as $pricing) {  ?>
-<label> <?php echo $pricing[0] ?></label> : <label><?php echo $pricing[1] ?></label>
-        <?php } } ?>
-        </pre>			
+			<?php foreach ($pricing as $i) { ?>
+			<p><?php echo $i[0] ?> :&emsp;&emsp;&emsp; <?php echo $i[1] ?></p>
+			<?php } ?>
 		</div>
-
 		<div class="pf_body_field"><h3>Diplomes & Qualifications</h3>
-		<pre>
-		<?php if (isset($_SESSION["dq"])){
-		if (is_string($_SESSION["dq"])) {$_SESSION["dq"]=json_decode($_SESSION["dq"]);}
-		 foreach ($_SESSION["dq"] as $dq) {  ?>
-<label> <?php echo $dq[0] ?></label> : <label><?php echo $dq[1] ?></label>
-        <?php  } } ?>
-		</pre>	
+			<?php foreach ($dq as $i) { ?>
+			<p><?php echo $i[0] ?> :&emsp;&emsp;&emsp; <?php echo $i[1] ?></p>
+			<?php } ?>
 		</div>
-
 		<div class="pf_body_field"><h3>Langues parlées</h3>
-		<pre>
-		<?php if (isset($_SESSION["language"])) {
-		if (is_string($_SESSION["language"])) {$_SESSION["language"]=json_decode($_SESSION["language"]);}
-		 foreach ($_SESSION["language"] as $language) {  ?>
-<label> <?php echo $language ?></label> 
-        <?php  } } ?>
-		</pre>
+			<?php foreach ($language as $i) { ?>
+			<p><?php echo $i ?></p>
+			<?php } ?>
+		</div>
+		<div class="pf_body_field"><h3>Email</h3><p><?php echo $doctor_email ?></p></div>
+	</div>
+</div>
+					<a href="doctor_editprofile.php"><button type="button">Modifier</button></a>
+				</form>
+			</div>
 		</div>
 
+		<script src="index.js"></script>
+	</body>
 
-		<div class="pf_body_images"><h3>∮ Images</h3></div>
-	</div>
-	<div>
-	<div class="pf_body_field"><h3>Email</h3><label><?php echo $_SESSION["email"] ?></label></div>
-	</div>
-</div>
-<a href="doctor_editprofile.php"><button type="button">Modifier</button></a>
-</form>
-	</div>
-</div>
+	</html>
 
-<script src="index.js"></script>
-</body>
-</html>
-
-<?php   }elseif(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='patient'){
-
-header("Location: patient_index.php");
-exit();
-
-}else{
-
-  header("Location: index.php");
-  exit();
-}  ?>
-
-
+<?php } elseif (isset($_SESSION["usertype"]) && $_SESSION["usertype"] == 'patient') {
+	header("Location: patient_index.php");
+	exit();
+} else {
+	header("Location: index.php");
+	exit();
+} ?>

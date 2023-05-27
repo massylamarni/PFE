@@ -28,7 +28,7 @@ if (!$worktime) $worktime = '[["Non definis...","Non definis..."],["Non definis.
 		<div class="pfp_text">
 			<div class="pfp_text_name"><p><?php echo $doctor_name ?></p></div>
 			<div class="pfp_text_id"><p><?php echo $doctor_id ?></p></div>
-			<div class="pfp_text_speciality"><a href="#"><?php echo $speciality ?></a></div>
+			<div class="pfp_text_speciality"><?php echo $speciality ?></div>
 		</div>
 	</div>
 	<div class="list_el_brief">

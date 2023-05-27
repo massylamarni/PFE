@@ -57,7 +57,7 @@ $DAYS = array("?", "Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam");
 		<form class="brief_action" name="cancel_<?php echo $appt_id?>" method="post" action="patient_index.php">
 			<input type="hidden" name="appt_id" value="<?php echo $appt_id?>">
 			<input type="hidden" name="appt_id_state" value="Annulé">
-			<input type="submit" value="Annuler RDV">
+			<input type="submit" class="input_button" value="Annuler RDV">
 		</form>
 	</div>
 </div>

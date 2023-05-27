@@ -204,12 +204,9 @@ $conn = mysqli_connect('localhost', 'root', '', DB_NAME);
 <div class="pf" >
 	<div class="pf_header">
 		<img id="preview" src="<?php echo $_SESSION["pf_img"] ?>">
+ 		<input type="file" id="profile_picture" name="picture" onchange="previewImage(event)" accept="image/*">
 		<div class="pf_header_text">
 		<div class="pf_header_text_name"><input class="txtarea" type="text" value="<?php echo $_SESSION["name"] ?>" name="name" autocomplete="off"/></div>
-		<div>
-		<p>modifie la photo de profile</p>
- 			 <input type="file" id="profile_picture" name="picture" onchange="previewImage(event)" accept="image/*">
-		</div>
 
 			<div class="pf_header_text_speciality">
 				<input class="txtarea" type="text" value="<?php echo $_SESSION["speciality"] ?>" name="speciality" autocomplete="off"/>
@@ -279,7 +276,8 @@ add_language();getinput_doctor_editprofile </script>
 </html>
 </body>
 </html>
-<?php     }elseif(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='patient'){
+<?php
+}elseif(isset($_SESSION["usertype"]) && $_SESSION["usertype"]=='patient'){
 
 header("Location: patient_index.php");
 exit();
