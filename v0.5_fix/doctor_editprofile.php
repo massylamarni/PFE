@@ -229,7 +229,7 @@ $conn = mysqli_connect('localhost', 'root', '', DB_NAME);
 			<?php
 			$DAYS = array("Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam");
 			for ($i = 0; $i < 7; $i++) { ?>
-			<p><?php echo $DAYS[$i] ?><input class="txtarea" name="<?php echo $DAYS[$i] ?>matin"><?php  echo $worktimes[$i][0]?></input> - <input class="txtarea" name="<?php echo $DAYS[$i] ?>soir"><?php  echo $worktimes[$i][1]?></input></p>
+			<p><?php echo $DAYS[$i] ?><input class="txtarea" name="<?php echo $DAYS[$i] ?>matin" value="<?php echo $worktimes[$i][0]?>"> - <input class="txtarea" name="<?php echo $DAYS[$i] ?>soir" value="<?php echo $worktimes[$i][1] ?>"></p>
 			<?php } ?>
 		</div>
 		<div class="pf_body_field"><h3>Tarifs</h3>
