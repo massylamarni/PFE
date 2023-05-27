@@ -134,7 +134,7 @@ $conn = mysqli_connect('localhost', 'root', '', DB_NAME);
 				  $_SESSION["password"]=$password_hashed;
 		  } 		
 		}
-
+		echo $_FILES["picture"]["name"];
 		if (!empty($_FILES["picture"]["name"])) {
 			$currentPicturePath = $_SESSION["pf_img"];
 		
