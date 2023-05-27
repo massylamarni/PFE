@@ -648,6 +648,10 @@ h3
 {
 	font-size: 15px;
 }
+.pf_body textarea
+{
+	width: 99%;
+}
 .pf_body .pf_body_field
 {
 	background-color: white;

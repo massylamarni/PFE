@@ -128,7 +128,7 @@ include("components/navbar.php");
 				if ($patient_apptlist == null) $null_patient_apptlist = true; else $null_patient_apptlist = false;
 				if (!$null_patient_apptlist)
 				{
-					for ($i = 0; $i < count($patient_apptlist); $i++)
+					for ($i = count($patient_apptlist)-1; $i >= 0; $i--)
 					{
 						$appt_id=$patient_apptlist[$i];
 						include("components/patient_apptlist_el.php");
@@ -154,7 +154,7 @@ include("components/navbar.php");
 				if ($patient_appthistory == null) $null_patient_appthistory = true; else $null_patient_appthistory = false;
 				if (!$null_patient_appthistory)
 				{
-					for ($i = 0; $i < count($patient_appthistory); $i++)
+					for ($i = count($patient_appthistory)-1; $i >= 0; $i--)
 					{
 						$appt_id=$patient_appthistory[$i][0];
 						$state=$patient_appthistory[$i][1];
