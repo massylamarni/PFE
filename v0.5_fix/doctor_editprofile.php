@@ -204,7 +204,10 @@ $conn = mysqli_connect('localhost', 'root', '', DB_NAME);
 <div class="pf" >
 	<div class="pf_header">
 		<img id="preview" src="<?php echo $_SESSION["pf_img"] ?>">
- 		<input type="file" id="profile_picture" name="picture" onchange="previewImage(event)" accept="image/*">
+		<!-- image -->
+ 		<button type="button" class="edit_profile_picture" onclick="previewImage(event, 0)">Modifier</button>
+		<input type="file" id="profile_picture" name="picture" onchange="previewImage(event, 1)" accept="image/*">
+		
 		<div class="pf_header_text">
 		<div class="pf_header_text_name"><input class="txtarea" type="text" value="<?php echo $_SESSION["name"] ?>" name="name" autocomplete="off"/></div>
 
@@ -215,54 +218,52 @@ $conn = mysqli_connect('localhost', 'root', '', DB_NAME);
 	</div>
 	<div class="pf_body">
 		<div class="pf_body_field"><h3>Description</h3>
-			<pre><textarea class="txtarea" name="description"><?php if(isset($_SESSION["description"])) { echo $_SESSION["description"];  } ?></textarea></pre>
+			<textarea class="txtarea" name="description"><?php if(isset($_SESSION["description"])) { echo $_SESSION["description"];  } ?></textarea>
 		</div>
 		<div class="pf_body_field"><h3>Numero telephone</h3><input class="txtarea" type="text" value="<?php echo $_SESSION["phone"] ?>" name="phone"  autocomplete="off"/></div>
 		<div class="pf_body_field"><h3>Adresse</h3><textarea class="txtarea" name="location"><?php if (isset($_SESSION["location"])){ echo $_SESSION["location"]; } ?></textarea></div>
-		<div class="list_map"><?php include("components/gps.php") ?> </div>
+		<div class="list_map"><?php include("components/gps.php") ?></div>
 		<input type="hidden" id="map_coord" name="coord" value="">
 		<div class="pf_body_field"><h3>Date Naissance</h3><input type="date" name="bday"></div>
 		<div class="pf_body_field"><h3>Horaires de travail</h3>
-			<pre>
-				Dim:<textarea class="txtarea" name="Dimmatin"><?php  echo $worktimes[0][0]?></textarea> - <textarea class="txtarea" name="Dimsoir"><?php  echo $worktimes[0][1]?></textarea>	
-				Lun:<textarea class="txtarea" name="Lunmatin"><?php  echo $worktimes[1][0] ?></textarea> - <textarea class="txtarea" name="Lunsoir"><?php echo $worktimes[1][1] ?></textarea>
-				Mar:<textarea class="txtarea" name="Marmatin"><?php  echo $worktimes[2][0] ?></textarea> - <textarea class="txtarea" name="Marsoir"><?php echo $worktimes[2][1] ?></textarea>
-				Mer:<textarea class="txtarea" name="Mermatin"><?php  echo $worktimes[3][0] ?></textarea> - <textarea class="txtarea" name="Mersoir"><?php echo $worktimes[3][1]?></textarea>
-				Jeu:<textarea class="txtarea" name="Jeumatin"><?php  echo $worktimes[4][0] ?></textarea> - <textarea class="txtarea" name="Jeusoir"><?php echo $worktimes[4][1] ?></textarea>
-				Ven:<textarea class="txtarea" name="Venmatin"><?php  echo $worktimes[5][0] ?></textarea> - <textarea class="txtarea" name="Vensoir"><?php echo $worktimes[5][1] ?></textarea>
-				Sam:<textarea class="txtarea" name="Sammatin"><?php  echo $worktimes[6][0] ?></textarea> - <textarea class="txtarea" name="Samsoir"><?php echo $worktimes[6][1] ?></textarea>
-			</pre>
+			<?php
+			$DAYS = array("Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam");
+			for ($i = 0; $i < 7; $i++) { ?>
+			<p><?php echo $DAYS[$i] ?><input class="txtarea" name="<?php echo $DAYS[$i] ?>matin"><?php  echo $worktimes[$i][0]?></input> - <input class="txtarea" name="<?php echo $DAYS[$i] ?>soir"><?php  echo $worktimes[$i][1]?></input></p>
+			<?php } ?>
 		</div>
 		<div class="pf_body_field"><h3>Tarifs</h3>
-		<input type="hidden" id="pricing_input" name="pricing" value="">
-			<pre id="pretarif" ><?php if (!empty($pricings)) { foreach ($pricings as $pricing) {  ?>
-<textarea class="tarif_el_service txtarea" rows="1" cols="50"><?php echo $pricing[0] ?> </textarea><textarea class="tarif_el_price txtarea" rows="1" cols="10"><?php echo $pricing[1] ?></textarea>
-			</pre>
-			<?php  } } ?>
-			<buton type="button" onclick="add_pricing()">Ajouter</button>
+			<input type="hidden" id="pricing_input" name="pricing" value="">
+			<p id="pretarif" >
+				<?php if (!empty($pricings)) { foreach ($pricings as $pricing) { ?>
+				<textarea class="tarif_el_service txtarea" rows="1" cols="50"><?php echo $pricing[0] ?> </textarea><textarea class="tarif_el_price txtarea" rows="1" cols="10"><?php echo $pricing[1] ?></textarea>	
+				<?php  } } ?>
+			</p>
+			<button type="button" onclick="add_pricing()">Ajouter</button>
 		</div>
 		<div class="pf_body_field"><h3>Diplomes & Qualifications</h3>
-		<input type="hidden" id="dq_input" name="dq" value="">
-			<pre id="prediplome" > <?php if (!empty($dqs)) { foreach ($dqs as $dq) {  ?>
-</textarea><textarea class="dq_el_date txtarea" rows="1" cols="10"><?php echo $dq[0] ?></textarea><textarea class="dq_el_event txtarea" rows="1" cols="50"><?php echo $dq[1] ?> </textarea>
-			</pre>
-			<?php  } } ?>
+			<input type="hidden" id="dq_input" name="dq" value="">
+			<p id="prediplome" >
+				<?php if (!empty($dqs)) { foreach ($dqs as $dq) {  ?>
+				<textarea class="dq_el_date txtarea" rows="1" cols="10"><?php echo $dq[0] ?></textarea><textarea class="dq_el_event txtarea" rows="1" cols="50"><?php echo $dq[1] ?> </textarea>
+				<?php  } } ?>
+			</p>
 			<button type="button" onclick="add_dq()">Ajouter</button>
 		</div>
 		<div class="pf_body_field"><h3>Langues parlées</h3>
-		<input type="hidden" id="languages_input" name="languages" value="">
-		<pre id="prelangue" ><?php if (!empty($languages)) { foreach ($languages as $language) {  ?>
-             <textarea class="language_el txtarea"><?php echo $language; ?></textarea>,
-		</pre>
-		<?php   } } ?>
-		<button type="button" onclick="add_language()">Ajouter</button>
+			<input type="hidden" id="languages_input" name="languages" value="">
+			<p id="prelangue">
+				<?php if (!empty($languages)) { foreach ($languages as $language) {  ?>
+            	<textarea class="language_el txtarea"><?php echo $language; ?></textarea>,
+				<?php } } ?>
+			</p>
+			<button type="button" onclick="add_language()">Ajouter</button>
 		</div>
-		<div class="pf_body_images"><h3>∮ Images</h3></div>
 	</div>
 	<div>
-	<div class="pf_body_field"><h3>Email</h3><input class="in_text" type="text"value="<?php echo $_SESSION["email"] ?>" name="email" autocomplete="off"/></div>
-	<div class="pf_body_field"><h3>Password</h3><input class="in_text" type="password" placeholder="enter old password" name="old_password" autocomplete="off">
-    <input class="in_text" type="password" placeholder="enter new password" name="new_password" autocomplete="off" ></div>
+		<div class="pf_body_field"><h3>Email</h3><input class="in_text" type="text"value="<?php echo $_SESSION["email"] ?>" name="email" autocomplete="off"/></div>
+		<div class="pf_body_field"><h3>Password</h3><input class="in_text" type="password" placeholder="enter old password" name="old_password" autocomplete="off">
+    	<input class="in_text" type="password" placeholder="enter new password" name="new_password" autocomplete="off" ></div>
 	</div>
 </div>
 <input type="submit" value="modifier" id="modifie" >
