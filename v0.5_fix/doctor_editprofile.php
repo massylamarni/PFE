@@ -203,13 +203,13 @@ $conn = mysqli_connect('localhost', 'root', '', DB_NAME);
 <form class="ep_form" action="" method="POST" onsubmit="event.preventDefault(); getinput_doctor_editprofile()" id="editprofile" enctype="multipart/form-data">
 <div class="pf">
 	<input type="submit" class="input_button" value="modifier" id="modifie" >
-	<div class="pf_header_fix">
+	<div class="pf_header pf_header_fix">
 		<img id="preview" src="<?php echo $_SESSION["pf_img"] ?>">
 		<!-- image -->
  		<button type="button" class="edit_profile_picture" onclick="previewImage(event, 0)">Modifier</button>
 		<input type="file" id="profile_picture" name="picture" onchange="previewImage(event, 1)" accept="image/*">
 		
-		<div class="pf_header_text_fix">
+		<div class="pf_header_text pf_header_text_fix">
 			<div class="pf_header_text_name"><input class="txtarea" type="text" value="<?php echo $_SESSION["name"] ?>" name="name" autocomplete="off"/></div>
 			<div class="pf_header_text_speciality"><input class="txtarea" type="text" value="<?php echo $_SESSION["speciality"] ?>" name="speciality" autocomplete="off"/></div>
 		</div>
@@ -231,31 +231,31 @@ $conn = mysqli_connect('localhost', 'root', '', DB_NAME);
 			<?php } ?>
 		</div>
 		<div class="pf_body_field"><h3>Tarifs</h3>
+			<button type="button" class="input_button" onclick="add_pricing()">Ajouter</button>
 			<input type="hidden" id="pricing_input" name="pricing" value="">
 			<p id="pretarif" >
 				<?php if (!empty($pricings)) { foreach ($pricings as $pricing) { ?>
 				<textarea class="tarif_el_service txtarea" rows="1" cols="50"><?php echo $pricing[0] ?> </textarea><textarea class="tarif_el_price txtarea" rows="1" cols="10"><?php echo $pricing[1] ?></textarea>	
 				<?php  } } ?>
 			</p>
-			<button type="button" onclick="add_pricing()">Ajouter</button>
 		</div>
 		<div class="pf_body_field"><h3>Diplomes & Qualifications</h3>
+			<button type="button" class="input_button" onclick="add_dq()">Ajouter</button>
 			<input type="hidden" id="dq_input" name="dq" value="">
 			<p id="prediplome" >
 				<?php if (!empty($dqs)) { foreach ($dqs as $dq) {  ?>
 				<textarea class="dq_el_date txtarea" rows="1" cols="10"><?php echo $dq[0] ?></textarea><textarea class="dq_el_event txtarea" rows="1" cols="50"><?php echo $dq[1] ?> </textarea>
 				<?php  } } ?>
 			</p>
-			<button type="button" onclick="add_dq()">Ajouter</button>
 		</div>
 		<div class="pf_body_field"><h3>Langues parlées</h3>
+			<button type="button" class="input_button" onclick="add_language()">Ajouter</button>
 			<input type="hidden" id="languages_input" name="languages" value="">
 			<p id="prelangue">
 				<?php if (!empty($languages)) { foreach ($languages as $language) {  ?>
             	<textarea class="language_el txtarea"><?php echo $language; ?></textarea>,
 				<?php } } ?>
 			</p>
-			<button type="button" onclick="add_language()">Ajouter</button>
 		</div>
 	</div>
 	<div>
