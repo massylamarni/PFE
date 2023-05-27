@@ -7,6 +7,14 @@
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
+	<?php
+	session_start();
+	 if (!isset($_SESSION["usertype"]) || $_SESSION["usertype"]!=="moderateur" ){
+
+		header("Location: ../index.php");
+		exit();
+	 } ?>
+	<a href="">Logout</a>
 <div class="form-container">
 <h3>Patient Ajout </h3>
 <?php include("patient_add.php");?>
