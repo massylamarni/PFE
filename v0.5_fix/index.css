@@ -332,7 +332,18 @@ h3
 	align-items: center;
 	height: 100%;
 	width: 128px;
-	font-size: 14px;
+	font-size: 12px;
+}
+.brief_adress p
+{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 70%;
+	width: 90%;
 }
 .brief_motif
 {
