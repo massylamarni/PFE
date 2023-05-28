@@ -19,7 +19,8 @@ var previousClickedLocation;
     function initMap() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
-
+          //var lat = position.coords.latitude;
+         // var lng = position.coords.longitude;
           var lat = 36.716667;
           var lng = 4.05;
 /*
