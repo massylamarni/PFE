@@ -21,9 +21,9 @@ var previousClickedLocation;
         navigator.geolocation.getCurrentPosition(function(position) {
           //var lat = position.coords.latitude;
          // var lng = position.coords.longitude;
-          var lat = 36.716667;
-          var lng = 4.05;
-/*
+          var lat = 36.69802368114742;
+          var lng = 4.055794237226893;
+/*        
           function centerMapOnWord(word) {
                var geocoder = new google.maps.Geocoder();
                var mapOptions = {
