@@ -17,7 +17,7 @@ if (!isset($_SESSION)) {
 	session_start();
 }
 if (isset($_SESSION["usertype"]) && $_SESSION["usertype"] == 'patient') { 
-if ((empty($_SESSION["location"])) || ($_SESSION["location"] == '[]')) $location = "Non definis...";
+((!isset($_SESSION["location"])) || (empty($_SESSION["location"]))) ? $location = "Non definis...": $location = $_SESSION["location"]
 	
 ?>
 
